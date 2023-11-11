@@ -94,24 +94,50 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-var profileLink = document.getElementById("profile-link");
-var profileDiv = document.getElementById("profile-div");
-var mainContent = document.getElementById("mainContent");
-var rightButtons = document.getElementById("rightButtons");
 
-profileLink.addEventListener("focus", openProfile);
-profileLink.addEventListener("blur", closeProfile);
 
-function openProfile() {
-  // If profile-link is focused, show profileDiv
-  profileDiv.style.display = "block";
-  mainContent.style.display = "none";
-  rightButtons.style.display = "none";
+const profileLink = document.getElementById("profile-link");
+const notificationsLink = document.getElementById("notifications-link");
+const rankingsLink = document.getElementById("rankings-link");
+const messagesLink = document.getElementById("messages-link");
+const createPostLink = document.getElementById("create-post-link");
+
+const divs = {
+    "profile-div": document.getElementById("profile-div"),
+    "notifications-div": document.getElementById("notifications-div"),
+    "rankings-div": document.getElementById("rankings-div"),
+    "messages-div": document.getElementById("messages-div"),
+    "create-post-div": document.getElementById("create-post-div")
+};
+
+profileLink.addEventListener("focus", toggleDivs);
+notificationsLink.addEventListener("focus", toggleDivs);
+rankingsLink.addEventListener("focus", toggleDivs);
+messagesLink.addEventListener("focus", toggleDivs);
+createPostLink.addEventListener("focus", toggleDivs);
+
+profileLink.addEventListener("blur", hideDiv);
+notificationsLink.addEventListener("blur", hideDiv);
+rankingsLink.addEventListener("blur", hideDiv);
+messagesLink.addEventListener("blur", hideDiv);
+createPostLink.addEventListener("blur", hideDiv);
+
+function toggleDivs(e) {
+    e.preventDefault();
+    
+    for (let key in divs) {
+        if (key === `${e.target.id.split('-')[0]}-div`) {
+            divs[key].style.display = "block";
+        } else {
+            divs[key].style.display = "none";
+        }
+    }
 }
 
-function closeProfile() {
-  // If profile-link loses focus, hide profileDiv
-  profileDiv.style.display = "none";
-  mainContent.style.display = "block";
-  rightButtons.style.display = "block";
+function hideDiv(e) {
+    for (let key in divs) {
+        if (key === `${e.target.id.split('-')[0]}-div`) {
+            divs[key].style.display = "none";
+        }
+    }
 }
