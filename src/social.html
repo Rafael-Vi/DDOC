@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/css/social.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>DDOC</title>
+</head>
+<body>
+  <div class="flex flex-row min-h-screen">
+    <div class="w-2/5 z-4 bg-zinc-950 lg:w-1/5" id="leftButtons">
+      <ul class="bg-zinc-950">
+        <li><a href="#" class="text-3xl block text-left py-2 px-4 text-white mb-8 ml-3 md:ml-8" style="margin-top: 60px;" id="brand-name">DDOC</a></li>
+        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8" id="profile-link">Profile</a></li>
+        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8">Notifications</a></li>
+        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8">Rankings</a></li>
+        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8">Messages</a></li>
+        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8" style="margin-bottom: 400px;">Create Post</a></li>
+        <li><a href="#" class="text-xl block text-center py-2 px-4 text-white hover:font-bold ml-3 md:text-left md:ml-8">More</a></li>
+      </ul>
+    </div>
+  
+    <div class="w-3/5 bg-zinc-900 max-h-screen lg:w-3/5 overflow-y-auto z" id="mainContent">
+
+    </div>
+  
+    <div class="w-1/5 lg:w-1/5 bg-zinc-950 hidden lg:block" id="rightButtons">
+      <ul class="space-y-2 bg-zinc-950">
+        <li><a href="#search" class="text-xl block text-left py-2 px-4 text-white hover:text-white hover:font-bold mb-8" style="margin-top: 60px;">Search</a></li>
+      </ul>
+    </div>
+
+    <!-- ... (unchanged HTML) ... -->
+
+      <div id="profile-div" class="bg-yellow-900 w-3/5 w-4/5 hidden"></div>
+
+
+
+    </div>
+  </div>
+  
+<script src="/dist/bundle.js"></script>
+</body>
+</html>

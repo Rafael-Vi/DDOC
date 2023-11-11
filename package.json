@@ -1,0 +1,23 @@
+{
+  "name": "ddoc",
+  "version": "1.0.0",
+  "description": "This a my Final HighSchool Project. It consists in a social media website with a tiny twist on it. Everyday a new prompt shows up to different categorys. Users have to post either pictures/music/poems/etc.. depending on the category and promt. After 24h of the prompt being displayed, users won't be able to post to that prompt. The more likes the more points you get. The app will have a ranking based on points.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "Rafael Pinto Vieira",
+  "license": "ISC",
+  "devDependencies": {
+    "favicons": "^7.1.4",
+    "favicons-webpack-plugin": "^6.0.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "firebase": "^10.5.0",
+    "firebase-cli": "^1.2.0",
+    "mysql": "^2.18.1"
+  }
+}

@@ -1,0 +1,8 @@
+body{
+    height: auto;
+    width: auto;
+}
+
+a:focus{
+    font-weight: bolder;
+}
