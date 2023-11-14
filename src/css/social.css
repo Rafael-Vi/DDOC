@@ -5,4 +5,5 @@ body{
 
 a:focus{
     font-weight: bolder;
+    color: orange;
 }
