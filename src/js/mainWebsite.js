@@ -81,7 +81,7 @@ registerButton.onclick = function() {
 
 // Redirect to the social.html page
 function EnterMAin() {
-  location.replace("/src/social.html");
+  location.replace("../src/social.php");
 }
 
 // Listen for changes in the authentication state
@@ -93,58 +93,60 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-
-
-const profileLink = document.getElementById("profile-link");
-const notificationsLink = document.getElementById("notifications-link");
-const rankingsLink = document.getElementById("rankings-link");
-const messagesLink = document.getElementById("messages-link");
-const createPostLink = document.getElementById("createPost-link");
-const moreLink = document.getElementById("more-link");
-
-
-const divs = {
-    "profile-div": document.getElementById("profile-div"),
-    "notifications-div": document.getElementById("notifications-div"),
-    "rankings-div": document.getElementById("rankings-div"),
-    "messages-div": document.getElementById("messages-div"),
-    "createPost-div": document.getElementById("createPost-div"),
-    "dropdown-div": document.getElementById("dropdown-div")
-};
-
-profileLink.addEventListener("focus", toggleDivs);
-notificationsLink.addEventListener("focus", toggleDivs);
-rankingsLink.addEventListener("focus", toggleDivs);
-messagesLink.addEventListener("focus", toggleDivs);
-createPostLink.addEventListener("focus", toggleDivs);
-moreLink.addEventListener("focus", toggleDivs);
-
-profileLink.addEventListener("blur", hideDiv);
-notificationsLink.addEventListener("blur", hideDiv);
-rankingsLink.addEventListener("blur", hideDiv);
-messagesLink.addEventListener("blur", hideDiv);
-createPostLink.addEventListener("blur", hideDiv);
-moreLink.addEventListener("focus", hideDiv);
-
-function toggleDivs(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', init, false);
+function init(){
+    const profileLink = document.getElementById("profile-link");
+    const notificationsLink = document.getElementById("notifications-link");
+    const rankingsLink = document.getElementById("rankings-link");
+    const messagesLink = document.getElementById("messages-link");
+    const createPostLink = document.getElementById("createPost-link");
+    const moreLink = document.getElementById("more-link");
     
-    for (let key in divs) {
-        if (key === `${e.target.id.split('-')[0]}-div`) {
-            divs[key].style.display = "block";
-
-        } else {
-            divs[key].style.display = "none";
+    
+    const divs = {
+        "profile-div": document.getElementById("profile-div"),
+        "notifications-div": document.getElementById("notifications-div"),
+        "rankings-div": document.getElementById("rankings-div"),
+        "messages-div": document.getElementById("messages-div"),
+        "createPost-div": document.getElementById("createPost-div"),
+        "dropdown-div": document.getElementById("dropdown-div")
+    };
+    
+    profileLink.addEventListener("focus", toggleDivs);
+    notificationsLink.addEventListener("focus", toggleDivs);
+    rankingsLink.addEventListener("focus", toggleDivs);
+    messagesLink.addEventListener("focus", toggleDivs);
+    createPostLink.addEventListener("focus", toggleDivs);
+    moreLink.addEventListener("focus", toggleDivs);
+    
+    profileLink.addEventListener("blur", hideDiv);
+    notificationsLink.addEventListener("blur", hideDiv);
+    rankingsLink.addEventListener("blur", hideDiv);
+    messagesLink.addEventListener("blur", hideDiv);
+    createPostLink.addEventListener("blur", hideDiv);
+    moreLink.addEventListener("focus", hideDiv);
+    
+    function toggleDivs(e) {
+        e.preventDefault();
+        
+        for (let key in divs) {
+            if (key === `${e.target.id.split('-')[0]}-div`) {
+                divs[key].style.display = "block";
+    
+            } else {
+                divs[key].style.display = "none";
+            }
         }
     }
-}
-
-function hideDiv(e) {
-    for (let key in divs) {
-        if (key === `${e.target.id.split('-')[0]}-div`) {
-            divs[key].style.display = "none";
+    
+    function hideDiv(e) {
+        for (let key in divs) {
+            if (key === `${e.target.id.split('-')[0]}-div`) {
+                divs[key].style.display = "none";
+            }
         }
     }
-}
-
+    
+    
+    };
 

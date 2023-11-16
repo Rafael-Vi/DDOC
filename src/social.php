@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/css/social.css">
+    <link rel="stylesheet" href="../src/css/social.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>DDOC</title>
 </head>
@@ -49,7 +49,7 @@
     <div class="w-1/5 lg:w-1/5 bg-slate-950 hidden lg:block rounded-l-lg z-4 border-solid border-2 border-neutral-50 " id="rightButtons">
       <form class="flex items-center ml-8 mt-4 mr-8">   
         <label for="simple-search" class="sr-only">Search</label>
-        <div class="relative w-4/5">
+        <div class="relative ">
             <input type="text" id="simple-search" class="bg-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full ps-10 p-2.5  dark:bg-gray-500 dark:border-gray-700 dark:placeholder-neutral-50 dark:text-white dark:focus:ring-gray-500 dark:focus:border-neutral-500" placeholder="Search" required>
         </div>
         <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-gray-700 rounded-lg border border-neutral-50 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-orange-700 dark:focus:ring-gray-800">
@@ -60,14 +60,14 @@
         </button>
       </form>
     </div>
-      <div id="profile-div" class="bg-slate-900 w-3/5 w-4/5 hidden"></div>
-      <div id="notifications-div" class="bg-slate-900 w-3/5 w-4/5 hidden"></div>
-      <div id="rankings-div" class="bg-slate-900 w-3/5 w-4/5 hidden"></div>
-      <div id="messages-div" class="bg-slate-900 w-3/5 w-4/5 hidden"></div>
-      <div id="createPost-div" class="bg-slate-900 w-3/5 w-4/5 hidden"></div>
+      <div id="profile-div" class="bg-slate-900 w-3/5 hidden"></div>
+      <div id="notifications-div" class="bg-slate-900 w-3/5 hidden"></div>
+      <div id="rankings-div" class="bg-slate-900 w-3/5 hidden"></div>
+      <div id="messages-div" class="bg-slate-900 w-3/5 hidden"></div>
+      <div id="createPost-div" class="bg-slate-900 w-3/5 hidden"></div>
     </div>
   </div>
 
-  <script src="/dist/bundle.js"></script>
+  <script src="../dist/bundle.js"></script>
 </body>
 </html>
