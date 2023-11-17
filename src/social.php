@@ -9,7 +9,7 @@
 </head>
 <body class="bg-slate-900">
   <div class="flex flex-row min-h-screen z-8">
-    <div class="w-2/5 lg:w-1/5 bg-slate-950 rounded-r-lg z-4 border-solid border-2 border-neutral-50 " id="leftButtons">
+    <div class="w-2/5 lg:w-1/5 bg-slate-950 rounded-r-lg z-4 border-solid border-2 border-neutral-50 " id="leftButtons-div">
       <ul class="bg-slate-950">
         <li><a href="#" class="text-3xl block text-left py-2 px-4 text-white mb-8 ml-3 md:ml-8" style="margin-top: 60px;" id="brand-name">DDOC</a></li>
         <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="profile-link">Profile</a></li>
@@ -42,11 +42,11 @@
 
     </div>
   
-    <div class="w-3/5 bg-slate-900 0 max-h-screen lg:w-3/5 overflow-y-auto z-auto" id="mainContent">
+    <div class="w-3/5 bg-slate-900 0 max-h-screen lg:w-3/5 overflow-y-auto z-auto" id="mainContent-div">
 
     </div>
   
-    <div class="w-1/5 lg:w-1/5 bg-slate-950 hidden lg:block rounded-l-lg z-4 border-solid border-2 border-neutral-50 " id="rightButtons">
+    <div class="w-1/5 lg:w-1/5 bg-slate-950 hidden lg:block rounded-l-lg z-4 border-solid border-2 border-neutral-50 " id="rightButtons-div">
       <form class="flex items-center ml-8 mt-4 mr-8">   
         <label for="simple-search" class="sr-only">Search</label>
         <div class="relative ">
@@ -60,14 +60,23 @@
         </button>
       </form>
     </div>
-      <div id="profile-div" class="bg-slate-900 w-3/5 hidden"></div>
-      <div id="notifications-div" class="bg-slate-900 w-3/5 hidden"></div>
-      <div id="rankings-div" class="bg-slate-900 w-3/5 hidden"></div>
-      <div id="messages-div" class="bg-slate-900 w-3/5 hidden"></div>
-      <div id="createPost-div" class="bg-slate-900 w-3/5 hidden"></div>
+      <div id="profile-div" class="bg-slate-500 w-3/5 hidden">
+
+        <a href="#" class="block">
+          <img 
+            alt="ProfilePic" 
+            src="https://i.stack.imgur.com/HgkK0.png" 
+            class="object-none w-36 h-36 rounded-full custom-position absolute top-20 right-16 lg:top-16 lg:right-40" />
+        </a>
+
+      </div>
+      <div id="notifications-div" class="bg-slate-500 w-3/5 hidden"></div>
+      <div id="rankings-div" class="bg-slate-500 w-3/5 hidden"></div>
+      <div id="messages-div" class="bg-slate-500 w-3/5 hidden"></div>
+      <div id="createPost-div" class="bg-slate-500 w-3/5 hidden"></div>
     </div>
   </div>
 
-  <script src="../dist/bundle.js"></script>
+  <script src="../src/js/social.js"></script>
 </body>
 </html>
