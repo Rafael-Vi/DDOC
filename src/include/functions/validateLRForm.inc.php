@@ -45,7 +45,6 @@ function validateLogin($email, $password) {
             // Check if a row is returned
             if (mysqli_num_rows($result) > 0) {
                 // Fetch the data
-                echo'lindo3';
                 $row = mysqli_fetch_assoc($result);
                 
                 // Access the user_email and password values
@@ -60,10 +59,30 @@ function validateLogin($email, $password) {
                     header("Location: social.php");
                     exit;
                 } else {
-                    echo '<script>alert("Login unsuccessful, password is not correct");</script>';
+                    echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+                    echo '  <div class="flex space-x-3">';
+                    echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
+                    echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+                    echo '    </svg>';
+                    echo '    <div class="leading-tight flex flex-col space-y-2">';
+                    echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+                    echo '      <div class="text-sm font-small text-red-800">Password Incorrect!</div>';
+                    echo '    </div>';
+                    echo '  </div>';
+                    echo '</div>';
                 }
             } else {
-                echo '<script>alert("Login unsuccessful, email has yet to register an account");</script>';
+                echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+                echo '  <div class="flex space-x-3">';
+                echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
+                echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+                echo '    </svg>';
+                echo '    <div class="leading-tight flex flex-col space-y-2">';
+                echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+                echo '      <div class="text-sm font-small text-red-800">Email has yet to create an account!</div>';
+                echo '    </div>';
+                echo '  </div>';
+                echo '</div>';
             }
         } else {
                 // Handle the query error
@@ -91,7 +110,17 @@ function validateRegister($username, $email, $password) {
         // Check if a row is returned
         if (mysqli_num_rows($emailResult) > 0) {
             // Email already exists, show alert
-            echo '<script>alert("Email already registered!");</script>';
+            echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+            echo '  <div class="flex space-x-3">';
+            echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
+            echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+            echo '    </svg>';
+            echo '    <div class="leading-tight flex flex-col space-y-2">';
+            echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+            echo '      <div class="text-sm font-small text-red-800">Email Already Registred!</div>';
+            echo '    </div>';
+            echo '  </div>';
+            echo '</div>';
             return;
         }
     } else {
@@ -109,7 +138,17 @@ function validateRegister($username, $email, $password) {
         // Check if a row is returned
         if (mysqli_num_rows($usernameResult) > 0) {
             // Username already exists, show alert
-            echo '<script>alert("Username already taken!");</script>';
+            echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+            echo '  <div class="flex space-x-3">';
+            echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
+            echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+            echo '    </svg>';
+            echo '    <div class="leading-tight flex flex-col space-y-2">';
+            echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+            echo '      <div class="text-sm font-small text-red-800">Username taken!</div>';
+            echo '    </div>';
+            echo '  </div>';
+            echo '</div>';
             return;
         }
     } else {
@@ -131,7 +170,7 @@ function validateRegister($username, $email, $password) {
     } else {
         // Handle the insert error
         $error = mysqli_error($dbConn);
-        echo '<div class="bg-red-100 p-5 w-full sm:w-1/2">';
+        echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
         echo '  <div class="flex space-x-3">';
         echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
         echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,21 +7,38 @@
     <link rel="stylesheet" href="../src/css/social.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>DDOC</title>
+    
 </head>
 <body class="bg-indigo-950">
-  <div class="flex flex-row min-h-screen z-8">
-    <div class="w-2/5 lg:w-1/5 bg-teal-800 rounded-r-lg z-4 border-solid border-2 border-orange-500 " id="leftButtons-div">
-      <ul class="bg-teal-800">
-        <li><a href="#" class="text-3xl block text-left py-2 px-4 text-white mb-8 ml-3 md:ml-8" style="margin-top: 60px;" id="brandName-Div"><img src="../src/assets/images/1.png" alt="" id="Brand-Logo"></a></li>
-        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="profile-link">Profile</a></li>
-        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="notifications-link">Notifications</a></li>
-        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="rankings-link">Rankings</a></li>
-        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="messages-link">Messages</a></li>
-        <li><a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="createPost-link" style="margin-bottom: 14vw;">Create Post</a></li>        
-        <li>
-          <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:text-left md:ml-8 hover:text-orange-500" id="more-link">More</a>
+  <div class="flex flex-column min-h-screen z-8 lg:flex-row">
+
+
+  <div class="absolute w-full lg:w-1/5 bg-teal-800 rounded-r-lg z-4 border-solid border-2 border-orange-500 {{ screen-lg:hidden }} {{ screen-lg:block:absolute bottom-0 lg:relative h-auto" id="leftButtons-div">
+    <ul class="bg-teal-800 flex flex-row flex-wrap lg:flex-col">
+        <li class="flex lg:block">
+            <a href="#" class="hidden lg:block text-3xl text-left py-2 px-4 text-white mb-8 ml-3 md:ml-8" style="margin-top: 60px;" id="brandName-Div">
+                <img src="../src/assets/images/1.png" alt="" id="Brand-Logo">
+            </a>
+            </li>
+        <li class="flex lg:block">
+            <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="profile-link">👤 Profile</a>
         </li>
-      </ul>
+        <li class="flex lg:block">
+            <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="notifications-link">🔔 Notifications</a>
+        </li>
+        <li class="flex lg:block">
+            <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="rankings-link">🏆 Rankings</a>
+        </li>
+        <li class="flex lg:block">
+            <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="messages-link">💬 Messages</a>
+        </li>
+        <li class="flex lg:block">
+            <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:ml-8 hover:text-orange-500" id="createPost-link" style="margin-bottom: 14vw;">➕ Create Post</a>
+        </li>
+        <li class="flex lg:block">
+            <a href="#" class="text-xl block text-left py-2 px-4 text-white hover:font-bold ml-3 md:text-left md:ml-8 hover:text-orange-500" id="more-link">❔ More</a>
+        </li>
+    </ul>
 
       <!-- Dropdown menu -->
       <div id="more-div" class="bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 hidden absolute ml-3">
@@ -40,12 +58,17 @@
       </ul>
     </div>
 
+
+    
     </div>
   
-    <div class="w-3/5 bg-indigo-950 0 max-h-screen lg:w-3/5 overflow-y-auto z-auto" id="mainContent-div">
+    <div class="w-full bg-indigo-950 0 max-h-screen lg:w-3/5 overflow-y-auto z-auto" id="mainContent-div">
 
     </div>
-  
+
+
+
+
     <div class="w-1/5 lg:w-1/5 bg-teal-800 hidden lg:block rounded-l-lg z-4 border-solid border-2 border-orange-500 " id="rightButtons-div">
       <form class="flex items-center ml-8 mt-4 mr-8">   
         <label for="simple-search" class="sr-only">Search</label>
