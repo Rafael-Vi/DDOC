@@ -1,4 +1,8 @@
+
+// Add event listener for when the DOM content is loaded, calling the init function
 document.addEventListener('DOMContentLoaded', init, false);
+
+// Function to initialize the page
 function init(){
     const profileLink = document.getElementById("profile-link");
     const notificationsLink = document.getElementById("notifications-link");
@@ -14,9 +18,9 @@ function init(){
         "rankings-div": document.getElementById("rankings-div"),
         "messages-div": document.getElementById("messages-div"),
         "createPost-div": document.getElementById("createPost-div"),
-        "dropdown-div": document.getElementById("dropdown-div"),
-       "mainContent-div": document.getElementById("mainContent-div"),
-       "rightButtons-div": document.getElementById("rightButtons-div"),
+        "more-div": document.getElementById("more-div"),
+        "mainContent-div": document.getElementById("mainContent-div"),
+        "rightButtons-div": document.getElementById("rightButtons-div"),
     };
     
     // Add event listeners for focus event on specific elements, calling the toggleDivs function
@@ -33,7 +37,7 @@ function init(){
     rankingsLink.addEventListener("blur", hideDiv);
     messagesLink.addEventListener("blur", hideDiv);
     createPostLink.addEventListener("blur", hideDiv);
-    moreLink.addEventListener("focus", hideDiv);
+    moreLink.addEventListener("blur", hideDiv);
     
     // Function to toggle the display of div elements based on the target element's ID  
     function toggleDivs(e) {
@@ -45,7 +49,7 @@ function init(){
             if (key === `${e.target.id.split('-')[0]}-div`) {
                 // Display the matching div element
                 divs[key].style.display = "block";
-                
+                console.log(divs[key])
             } else {
                 // Hide the non-matching div elements
                 divs[key].style.display = "none";
@@ -54,9 +58,10 @@ function init(){
 
         // Hide mainContent-div and rightButtons-div
         divs["mainContent-div"].style.display = "none";
-        divs["rightButtons-div"].style.visibility = "hidden";
+        divs["rightButtons-div"].style.display = "none";
 
     }
+
     // Function to hide the div element based on the target element's ID
     function hideDiv(e) {
         // Loop through each key in the divs object

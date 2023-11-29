@@ -7,3 +7,12 @@ a:focus{
     font-weight: bolder;
     color: orange;
 }
+
+#Brand-Logo{
+    height: 100px;
+}
+
+#profileHeader-div {
+    background-color: white;
+    height: 250px;
+}
