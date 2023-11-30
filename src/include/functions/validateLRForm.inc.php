@@ -1,5 +1,4 @@
 <?php
-require "dbConnect.inc.php";
 include "SQLfunctions.inc.php";
 
 // Handle the form submission
@@ -33,12 +32,14 @@ if (isset($_POST['submit'])) {
 function validateLogin($email, $password) {
         // Create the SQL query
         $sql = "SELECT user_email, user_password FROM users WHERE user_email = '$email'";
+        $sql2 = "SELECT user_id FROM users WHERE user_email = '$email'";
 
         // Open a connection using dbConnect()
         $dbConn = db_connect();
 
         // Execute the query
         $result = mysqli_query($dbConn, $sql);
+        $result2 = mysqli_query($dbConn, $sql2);
 
         // Handle the query result
         if ($result) {
@@ -55,7 +56,19 @@ function validateLogin($email, $password) {
                 if ($userPassword === $password) {
                     // Redirect to another page
                     // After successful login
-                    echo '<script>alert("Login successful!");</script>';
+                    echo '<div class="bg-green-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+                    echo '  <div class="flex space-x-3">';
+                    echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">';
+                    echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+                    echo '    </svg>';
+                    echo '    <div class="leading-tight flex flex-col space-y-2">';
+                    echo '      <div class="text-sm font-medium text-green-700">Successful</div>';
+                    echo '      <div class="text-sm font-small text-green-800">Login Successful!</div>';
+                    echo '    </div>';
+                    echo '  </div>';
+                    echo '</div>';
+                    $row2 = mysqli_fetch_assoc($result2);
+                    $_SESSION['uid'] = $row2['user_id'];
                     header("Location: social.php");
                     exit;
                 } else {
@@ -158,32 +171,6 @@ function validateRegister($username, $email, $password) {
         return;
     }
 
-    // Insert into the table
-    $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES ('$email', '$username', '$password')";
-    $insertResult = mysqli_query($dbConn, $insertSql);
-
-    if ($insertResult) {
-        // Registration successful, redirect to another page
-        echo '<script>alert("Registration successful!");</script>';
-        header("Location: social.php");
-        exit;
-    } else {
-        // Handle the insert error
-        $error = mysqli_error($dbConn);
-        echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
-        echo '  <div class="flex space-x-3">';
-        echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
-        echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
-        echo '    </svg>';
-        echo '    <div class="leading-tight flex flex-col space-y-2">';
-        echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
-        echo '      <div class="text-sm font-small text-red-800">'.$error.'</div>';
-        echo '    </div>';
-        echo '  </div>';
-        echo '</div>';
-    }
-
-    // Close the database connection
-    mysqli_close($dbConn);
+    newUser($dbConn, $email, $username, $password) ;
 }
 ?>
