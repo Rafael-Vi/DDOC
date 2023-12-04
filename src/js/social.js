@@ -104,7 +104,7 @@ function init(){
 
     window.addEventListener('beforeunload', function() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'src/include/functions/unset.inc.php', true);
+        xhr.open('GET', '../src/include/functions/unset.inc.php', true);
         xhr.send();
     });
 
