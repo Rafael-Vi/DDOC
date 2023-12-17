@@ -3,11 +3,6 @@ body{
     width: auto;
 }
 
-a:focus{
-    font-weight: bolder;
-    color: orange;
-}
-
 #Brand-Logo{
     height: 100px;
 }
@@ -15,4 +10,17 @@ a:focus{
 #profileHeader-div {
     background-color: white;
     height: 250px;
+}
+
+div{
+    color: aliceblue;
+}
+
+a:hover {
+    color: orange;
+    font-weight: bold;
+}
+
+li>a{
+    margin-left: 8px;
 }

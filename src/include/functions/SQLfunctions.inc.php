@@ -75,15 +75,24 @@
             $username = $userData['user_name'];
             $email = $userData['user_email'];
             $profilePic = $userData['user_profilePic'];
+            // Create the data URI
+            $dataUri = 'data:image;base64,' . base64_encode($profilePic);
             $realName = $userData['user_realName'];
             $biography = $userData['user_biography'];
-            
-            // Output the user data or perform any other operations
-            echo "Username: $username<br>";
-            echo "Email: $email<br>";
-            echo "Profile Pic: $profilePic<br>";
-            echo "Real Name: $realName<br>";
-            echo "Biography: $biography<br>";
+            $_SESSION['imageProfile'] = $dataUri;
+
+            echo '<div class="flex flex-col h-32 lg:h-64 mt-8 w-4/6 float-none lg:float-right mr-8">';
+            echo '<div class="h-full w-full mt-0 lg:mt-4 mb-4 float-right mr-8 text-right">';
+            echo '<span class="block font-bold text-3xl mt-12 text-orange-500 lg:float-right mb-4">@' . $username . '</span>';
+            echo '<div class="font-bold">' . $realName . '</div>';
+            echo '<div class="w-full h-full">' . $biography . '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="relative mt-8 mb-8 flex-grow-1">';
+            echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
+            echo '<img src="' . $dataUri . '" alt="Profile Picture" class="rounded-full w-32 h-32 lg:w-56 lg:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5">';
+            echo '</div>';
+
         } else {
             // Handle the query error
             $error = mysqli_error($dbConn);
