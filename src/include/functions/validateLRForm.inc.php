@@ -1,6 +1,4 @@
 <?php
-include "SQLfunctions.inc.php";
-
 // Handle the form submission
 if (isset($_POST['submit'])) {
     // Check if the login form was submitted
@@ -100,7 +98,7 @@ function validateLogin($email, $password) {
         } else {
                 // Handle the query error
                 $error = mysqli_error($dbConn);
-                echo '<script>alert("Query error: ' . $error . '");</script>';;
+                mySQLerror($error);
         }
 
         // Close the database connection
@@ -167,8 +165,7 @@ function validateRegister($username, $email, $password) {
     } else {
         // Handle the username query error
         $error = mysqli_error($dbConn);
-        echo '<script>alert("Username query error: ' . $error . '");</script>';
-        return;
+        mySQLerror($error);
     }
 
     newUser($dbConn, $email, $username, $password) ;
