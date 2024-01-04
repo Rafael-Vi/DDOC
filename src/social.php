@@ -68,7 +68,7 @@ include "include/functions/checkLogin.inc.php";
   </div>
 
   <div class="bg-gray-900 fixed w-full md:w-4/5 p-0 m-0 md:right-0 h-full flex flex-col justify-center items-center" id="home-div">
-    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
+    <h1 class="h-32 border border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
       Home
     </h1>
 
@@ -97,36 +97,8 @@ include "include/functions/checkLogin.inc.php";
     </div>
   </div>
 
-  
-  <!-- Dialog -->
-  <div id="dialog" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 hidden text-gray-800 font-medium">
-    <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" >
-      <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
-      <div class="flex flex-col mb-4">
-        <label class="text-lg mb-2 text-gray-800">Username:</label>
-        <input type="text" name="username" class="border border-gray-300 p-2 rounded text-gray-800" />
-      </div>
-      <div class="flex flex-col mb-4">
-          <label class="text-lg mb-2 text-gray-800">Real Name:</label>
-          <input type="text" name="realName" class="border border-gray-300 p-2 rounded text-gray-800" />
-      </div>
-      <div class="flex flex-col mb-4">
-          <label class="text-lg mb-2 text-gray-800">Biography:</label>
-          <input type="text" name="biography" class="border border-gray-300 p-2 rounded text-gray-800" />
-      </div>
-      <div class="flex flex-col mb-4">
-          <label class="text-lg mb-2 text-gray-800">Profile Pic:</label>
-          <input type="file" name="profilePic" accept="image/*" class="border border-gray-300 p-2 rounded text-gray-800" />
-      </div>
-      <div class="flex justify-center">
-      <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="closeDialog()">Close</button>
-        <button type="submit" name="confirm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">Update</button>
-      </div>
-    </form>
-  </div>
-
   <div id="messages-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
-    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
+    <h1 class="h-32 border border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
       Messages
     </h1>
 
@@ -137,8 +109,8 @@ include "include/functions/checkLogin.inc.php";
 
   <div id="notifications-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
     
-    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md  shadow-amber-600 bg-gray-800">
-      Notifications
+    <h1 class="h-32 border border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
+      Messages
     </h1>
 
     <div class="h-full border border-black w-full p-10">
@@ -147,7 +119,7 @@ include "include/functions/checkLogin.inc.php";
   </div>
 
   <div id="rankings-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
-    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
+    <h1 class="h-32 border border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
       Rankings
     </h1>
 
@@ -183,7 +155,7 @@ include "include/functions/checkLogin.inc.php";
   </div>
 
   <div id="settings-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
-    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
+    <h1 class="h-32 border border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
       Settings
     </h1>
 
@@ -195,11 +167,11 @@ include "include/functions/checkLogin.inc.php";
 
 <nav class="bg-white shadow-md flex items-center hidden justify-between absolute bottom-0 w-full">
   <ul class="flex w-full h-12 flex-row justify-between items-center">
-    <li><a href="#" id="home-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1">Home</a></li>
-    <li><a href="#" id="rankings-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2">Rankings</a></li>
-    <li><a href="#"  id="profile-link" class="w-1/5 text-md font-medium active text-gray-800 hover:text-gray-700 bg-yellow-500 rounded-full p-2 m-auto">Profile</a></li>
-    <li><a href="#" id="createPost-link" class="text-md font-medium text-gray-800 hover:text-gray-700 rounded-full p-2 mr-1">+ Post</a></li>
-    <li><a href="#" id ="settings-link" class="text-md font-medium text-gray-800 hover:text-gray-700 rounded-full p-2 mr-3">Settings</a></li>
+    <li><a href="#" id="home-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-3">Home</a></li>
+    <li><a href="#" id="rankings-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-3">Rankings</a></li>
+    <li><a href="#"  id="profile-link" class="w-1/5 text-md font-medium active text-gray-800 hover:text-gray-700 bg-yellow-500 rounded-full p-2">Profile</a></li>
+    <li><a href="#" class="text-md font-medium text-gray-800 hover:text-gray-700 rounded-full p-2 mr-3">Hist</a></li>
+    <li><a href="#" class="text-md font-medium text-gray-800 hover:text-gray-700 rounded-full p-2 mr-3">adas</a></li>
   </ul>
 </nav>
 
