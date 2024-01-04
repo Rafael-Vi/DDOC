@@ -17,7 +17,48 @@
         // Close the database connection
         mysqli_close($dbConn);
     }
-    function updateUser(){
+    function updateUser($uid, $username, $realName, $profilePic, $biography) {
+        $dbConn = db_connect();
+        
+        // Construct the update query based on the provided values
+        $updateSql = "UPDATE users SET";
+        $updateFields = array();
+    
+        if (!empty($username)) {
+            $updateFields[] = " user_name = '$username'";
+        }
+    
+        if (!empty($realName)) {
+            $updateFields[] = " user_realName = '$realName'";
+        }
+    
+        if (!empty($profilePic)) {
+            $updateFields[] = " user_profilePic = '$profilePic'";
+        }
+    
+        if (!empty($biography)) {
+            $updateFields[] = " user_biography = '$biography'";
+        }
+    
+        // Check if any fields need to be updated
+        if (!empty($updateFields)) {
+            $updateSql .= implode(",", $updateFields);
+            $updateSql .= " WHERE user_id = '$uid'";
+    
+            $updateResult = mysqli_query($dbConn, $updateSql);
+    
+            if ($updateResult) {
+                // Handle the update success
+                updateSuccess();    
+            } else {
+                // Handle the update error
+                $error = mysqli_error($dbConn);
+                mySQLerror($error);
+            }
+        }
+    
+        // Close the database connection
+        mysqli_close($dbConn);
     }
 
     //* SQL Commands For Posts
