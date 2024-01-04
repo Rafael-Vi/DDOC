@@ -85,7 +85,7 @@ include "include/functions/checkLogin.inc.php";
       
       <!-- Button to open the dialog -->
       <div class="flex justify-center items-center">
-        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg lg:flex items-center justify-center h-16 w-16" onclick="openDialog()">
+        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-16 w-16" onclick="openDialog()">
           Edit Profile
         </button>
       </div>
@@ -139,6 +139,7 @@ include "include/functions/checkLogin.inc.php";
         
         <label for="post-type" class="text-white font-bold">Type:</label>
         <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-gray-800 text-white mb-4">
+            <option value="video">Video</option>
             <option value="audio">Audio</option>
             <option value="image">Image</option>
         </select><br>
@@ -147,7 +148,7 @@ include "include/functions/checkLogin.inc.php";
           echoThumb('hm');
         ?>
 
-      <label for="file-upload" class="text-white font-bold mt-8">Upload File (Music/Image):</label>
+      <label for="file-upload" class="text-white font-bold mt-8">Upload File (Music/Video/Image):</label>
       <input type="file" id="file-upload" name="file-upload" class="rounded-lg bg-gray-800 text-white mb-4"><br>
         
       <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Create Post</button>
@@ -165,7 +166,7 @@ include "include/functions/checkLogin.inc.php";
   </div>
 
 
-<nav class="bg-white shadow-md flex items-center hidden justify-between absolute bottom-0 w-full">
+<nav class="bg-white shadow-md flex items-center justify-between md:hidden absolute bottom-0 w-full">
   <ul class="flex w-full h-12 flex-row justify-between items-center">
     <li><a href="#" id="home-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-3">Home</a></li>
     <li><a href="#" id="rankings-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-3">Rankings</a></li>
@@ -178,6 +179,5 @@ include "include/functions/checkLogin.inc.php";
 
 
   <script src="../src/js/social.js"></script>
-  
 </body>
 </html>
