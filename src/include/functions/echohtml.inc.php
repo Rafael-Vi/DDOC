@@ -1,6 +1,7 @@
 <?php
+
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography){
-        echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6  mr-8">';
+        echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6 md:mr-8">';
         echo '<div class="h-full w-full mt-0 lg:mt-4 mb-4 mr-8">';
         echo '<span class="block font-bold text-3xl mt-12 text-orange-500 mb-4">@' . $username . '</span>';
         echo '<div class="font-bold">' . $realName . '</div>';
@@ -15,9 +16,9 @@
 
 
     function echoUserPosts($post) {
-
-        echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative;">';
-        echo '<img src="" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="bg-black">';
+        global $arrConfig;
+        echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10">';
+        echo '<img src="'. $arrConfig['dir_site'].'upload/posts/'. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">';
         echo '</div>';  
     }
 

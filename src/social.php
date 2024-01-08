@@ -19,7 +19,7 @@ include "include/functions/checkLogin.inc.php";
 </head>
 <body class="h-full flex">
 
-  <div class="absolute md:flex md:flex-col md:top-0 md:left-0 md:w-1/5 md:bg-white md:h-full md:border-r hidden md:rounded-lg md:shadow-xl">
+  <div class="absolute md:flex md:flex-col md:top-0 md:left-0 md:w-1/5 md:bg-white md:h-full md:border-r hidden md:rounded-lg md:shadow-xl z-40">
     <div class="overflow-y-auto overflow-x-hidden flex-grow">
       <ul class="flex flex-col py-4 space-y-1">
         <li class="px-5">
@@ -44,7 +44,10 @@ include "include/functions/checkLogin.inc.php";
           <a href="#" id="home-link" style="color: black">Home</a>
         </li>
         <li class="px-4 py-2">
-          <a href="#" id="rankings-link" style="color: black">Rankings</a>
+          <a href="#" id="Accrankings-link" style="color: black">Account Rankings</a>
+        </li>
+        <li class="px-4 py-2">
+          <a href="#" id="Postrankings-link" style="color: black">Post Rankings</a>
         </li>
         <li class="px-4 py-2">
           <a href="#" id="createPost-link" style="color: black">Create Post</a>
@@ -78,14 +81,14 @@ include "include/functions/checkLogin.inc.php";
   </div>
 
   <div id="profile-div" class="hidden fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 bg-gray-900 md:right-0">
-    <div id="profileInfo-div" class="b-8 relative w-full flex flex-row shadow-md shadow-amber-600 bg-gray-800 h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4" >
+    <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row shadow-md shadow-amber-600 bg-gray-800 h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4" >
       <?php
         getUserInfo($_SESSION['uid']); 
       ?>
       
       <!-- Button to open the dialog -->
       <div class="flex justify-center items-center">
-        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg lg:flex items-center justify-center h-16 w-16" onclick="openDialog()">
+        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg hidden md:flex items-center justify-center h-16 w-16" onclick="openDialog()">
           Edit Profile
         </button>
       </div>
@@ -104,15 +107,20 @@ include "include/functions/checkLogin.inc.php";
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
       <div class="flex flex-col mb-4">
         <label class="text-lg mb-2 text-gray-800">Username:</label>
-        <input type="text" name="username" class="border border-gray-300 p-2 rounded text-gray-800" />
+        <input type="text" name="username" class="border border-gray-300 p-2 rounded text-gray-800" required minlength="4" maxlength="15" />
+        <span class="invalid-feedback text-red-800">Username must be between 4 and 15 characters long.</span>
       </div>
+
       <div class="flex flex-col mb-4">
-          <label class="text-lg mb-2 text-gray-800">Real Name:</label>
-          <input type="text" name="realName" class="border border-gray-300 p-2 rounded text-gray-800" />
+        <label class="text-lg mb-2 text-gray-800">Real Name:</label>
+        <input type="text" name="realName" class="border border-gray-300 p-2 rounded text-gray-800" required maxlength="30" />
+        <span class="invalid-feedback text-red-800">Real name cannot exceed 30 characters.</span>
       </div>
+
       <div class="flex flex-col mb-4">
-          <label class="text-lg mb-2 text-gray-800">Biography:</label>
-          <input type="text" name="biography" class="border border-gray-300 p-2 rounded text-gray-800" />
+        <label class="text-lg mb-2 text-gray-800">Biography:</label>
+        <textarea name="biography" class="border border-gray-300 p-2 rounded text-gray-800" rows="6" required maxlength="255"></textarea>
+        <span class="invalid-feedback text-red-800">Biography cannot exceed 255 characters.</span>
       </div>
       <div class="flex flex-col mb-4">
           <label class="text-lg mb-2 text-gray-800">Profile Pic:</label>
@@ -146,9 +154,18 @@ include "include/functions/checkLogin.inc.php";
     </div>
   </div>
 
-  <div id="rankings-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
+  <div id="Accrankings-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
     <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
-      Rankings
+      Account Rankings
+    </h1>
+
+    <div class="h-full border border-black w-full p-10">
+      
+    </div>
+  </div>
+  <div id="Postrankings-div" class="hidden bg-gray-900 fixed flex flex-col h-full w-full md:w-4/5 p-0 m-0 md:right-0">
+    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800">
+      Post Rankings
     </h1>
 
     <div class="h-full border border-black w-full p-10">
@@ -193,7 +210,7 @@ include "include/functions/checkLogin.inc.php";
   </div>
 
 
-<nav class="bg-white shadow-md flex items-center hidden justify-between absolute bottom-0 w-full">
+<nav class="bg-white shadow-md flex items-center md:hidden justify-between absolute bottom-0 w-full">
   <ul class="flex w-full h-12 flex-row justify-between items-center">
     <li><a href="#" id="home-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1">Home</a></li>
     <li><a href="#" id="rankings-link" class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2">Rankings</a></li>
@@ -205,7 +222,6 @@ include "include/functions/checkLogin.inc.php";
 
 
 
-  <script src="../src/js/social.js"></script>
-  
+<script src="../src/js/social.js"></script>
 </body>
 </html>
