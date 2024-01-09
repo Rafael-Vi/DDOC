@@ -8,11 +8,9 @@
         error_reporting(0);
     }
 
-    
     // acessos FrontOffice
     $arrConfig['url_site']='http://web.colgaia.local/12itm1XX/jobportal.pt';
     $arrConfig['dir_site']='http://localhost/DDOC/';
-
 
     // caminhos Docs e/ou fotografias
     $arrConfig['url_fotos']=$arrConfig['url_site'].'/upload';
@@ -28,11 +26,9 @@
     $arrConfig['num_reg_pagina'] = 25;
 
     require "functions/dbConnect.inc.php";
-    include "functions/alerts.inc.php";
-    include "functions/echohtml.inc.php";
-    include "functions/SQLfunctions.inc.php";
-    include "functions/validateLRForm.inc.php";
-    include "functions/validateUpdateUser.inc.php";
-
-
+    require "functions/alerts.inc.php";
+    require "functions/echohtml.inc.php";
+    require "functions/SQLfunctions.inc.php";
+    require "functions/validateLRForm.inc.php";
+    require "functions/validateUpdateUser.inc.php";
 ?>  

@@ -18,7 +18,7 @@
     function echoUserPosts($post) {
         global $arrConfig;
         echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10">';
-        echo '<img src="'. $arrConfig['dir_site'].'upload/posts/'. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">';
+        echo '<img src="'. $arrConfig['dir_site'].'upload/posts/'. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
         echo '</div>';  
     }
 

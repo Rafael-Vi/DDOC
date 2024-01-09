@@ -6,7 +6,6 @@ include "include/config.inc.php";
 include "include/functions/checkLogin.inc.php";
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +92,7 @@ include "include/functions/checkLogin.inc.php";
         </button>
       </div>
     </div>
-    <div id="profilePosts-div" class="relative p-auto h-full">
+    <div id="profilePosts-div" class="relative p-auto overflow-y-auto">
       <?php
         getPosts($_SESSION['uid']);
       ?>
