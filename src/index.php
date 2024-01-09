@@ -9,27 +9,23 @@
 </head>
 <body>
 
-    <header class="text-gray-600 body-font">
+    <header class="text-gray-600 body-font bg-gray-100 h-36">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <span class="ml-3 text-xl">DDOC</span>
+            <img src="./assets/images/1.png" alt="DDOC" id="DDOCSymbol" class="w-24">
           </a>
-          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <a class="mr-5 hover:text-gray-900">First Link</a>
-            <a class="mr-5 hover:text-gray-900">Second Link</a> 
-            <a class="mr-5 hover:text-gray-900">Third Link</a>
-            <a class="mr-5 hover:text-gray-900" href="../src/accountLC.php">LOGIN & REGISTER</a>
+          <nav class="inline-flex items-center md:ml-auto flex flex-wrap items-center text-base justify-center text-center">
+            <a class="inline-flex items-center mr-5 hover:text-gray-900" href="#functionalitiesDivider">The functionalities</a>
+            <a class="inline-flex items-center mr-5 hover:text-gray-900">Second Link</a> 
+            <a class="inline-flex items-center mr-5 hover:text-gray-900">Third Link</a>
+            <a class="inline-flex items-center mr-5 rounded-lg p-2 text-orange-600 hover:bg-gray-200 hover:font-bold" href="../src/accountLC.php">Login & Register</a>
           </nav>
-          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">CONTACT THE CREATOR
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+            Contact the Creator
           </button>
         </div>
-      </header>
+        
+    </header>
 
       <section class="text-gray-600 body-font">
         <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
@@ -43,6 +39,23 @@
           </div>
         </div>
       </section>
+
+      <span class="relative flex justify-center">
+        <div
+          class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"
+        ></div>
+        <span class="relative z-10 bg-white px-6 textl-xl" id="functionalitiesDivider">FUNCTIONALITIES</span>
+      </span>
+
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 m-8 ">
+        <div class="h-32 rounded-lg bg-gray-200 lg:col-span-2"></div>
+        <div class="h-32 rounded-lg bg-gray-200"></div>
+        <div class="h-32 rounded-lg bg-gray-200">
+          <div class="card">
+            <p class="heading">Popular this month</p>
+          </div>
+        </div>
+      </div>
 
 <script src="/dist/bundle.js"></script>
 </body>
