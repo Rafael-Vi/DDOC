@@ -90,7 +90,7 @@
         $dbConn = db_connect();
     
         // Prepare the SQL query with the user_id condition
-        $sql = "SELECT post_id, type, caption, image_path, video_path, audio_path, created_at, updated_at FROM posts WHERE user_id = '$uid';";
+        $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = '$uid';";
     
         // Execute the query
         $result = mysqli_query($dbConn, $sql);
@@ -110,7 +110,7 @@
             // Loop through each post and echo the variables
             echo '<div style="display: grid; grid-template-columns: repeat(3, 1fr);">';
                 foreach ($posts as $post) {
-                    echoUserPosts($posts);
+                    echoUserPosts($post);
                 }
             echo '</div>';
         }
