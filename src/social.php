@@ -3,8 +3,9 @@ include "include/config.inc.php";
 ?>
 
 <?php
-include "include/functions/checkLogin.inc.php";
+  include "include/functions/checkLogin.inc.php";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +103,7 @@ include "include/functions/checkLogin.inc.php";
   
   <!-- Dialog -->
   <div id="dialog" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 hidden text-gray-800 font-medium">
-    <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" >
+    <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data" >
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
       <div class="flex flex-col mb-4">
         <label class="text-lg mb-2 text-gray-800">Username:</label>
@@ -123,7 +124,7 @@ include "include/functions/checkLogin.inc.php";
       </div>
       <div class="flex flex-col mb-4">
           <label class="text-lg mb-2 text-gray-800">Profile Pic:</label>
-          <input type="file" name="profilePic" accept="image/*" class="border border-gray-300 p-2 rounded text-gray-800" />
+          <input type="file" name="profilePic" class="border border-gray-300 p-2 rounded text-gray-800" />
       </div>
       <div class="flex justify-center">
       <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="closeDialog()">Close</button>
@@ -177,7 +178,7 @@ include "include/functions/checkLogin.inc.php";
       Create Post
     </h1>
 
-    <form action="createPost()" class="flex flex-col items-center sm:items-start h-full ml-10">
+    <form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center sm:items-start h-full ml-10" method="Post" enctype="multipart/form-data">
         <label for="post-title" class="text-white font-bold text-2xl pt-8">Title:</label>
         <input type="text" id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-gray-800 text-white mb-4"><br>
         
@@ -185,6 +186,7 @@ include "include/functions/checkLogin.inc.php";
         <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-gray-800 text-white mb-4">
             <option value="audio">Audio</option>
             <option value="image">Image</option>
+            <option value="video">Video</option>
         </select><br>
 
         <?php
@@ -194,7 +196,7 @@ include "include/functions/checkLogin.inc.php";
       <label for="file-upload" class="text-white font-bold mt-8">Upload File (Music/Image):</label>
       <input type="file" id="file-upload" name="file-upload" class="rounded-lg bg-gray-800 text-white mb-4"><br>
         
-      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Create Post</button>
+      <button type="submit" name="CreatePost" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Create Post</button>
     </form>
   </div>
 

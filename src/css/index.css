@@ -78,3 +78,15 @@ html{
     transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
   }
   
+
+  @media (max-width: 768px) {
+    .card {
+      width: 90px;
+      height: 140px;
+    }
+
+    .card::before {
+      width: 100px;
+      height: 150px;
+    }
+  }

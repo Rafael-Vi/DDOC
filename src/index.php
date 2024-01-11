@@ -47,7 +47,7 @@
         ></div>
         <span class="relative z-10 bg-white px-6 textl-xl font-bold text-orange-500" id="functionalitiesDivider">FUNCTIONALITIES</span>
       </span>
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 mt-8 mb-8 justify-items-center">
+      <div class="grid grid-cols-4 gap-4 lg:gap-8 mt-8 mb-8 justify-items-center">
       <a class="card" id="card1" href="#OwnAccountSec">
         <p class="heading">Own Account</p>
       </a>

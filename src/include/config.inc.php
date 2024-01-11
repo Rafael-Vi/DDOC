@@ -9,12 +9,14 @@
     }
 
     // acessos FrontOffice
-    $arrConfig['url_site']='http://web.colgaia.local/12itm1XX/jobportal.pt';
-    $arrConfig['dir_site']='http://localhost/DDOC/';
+    $arrConfig['url_site']='http://localhost/DDOC';
+    $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
 
     // caminhos Docs e/ou fotografias
-    $arrConfig['url_fotos']=$arrConfig['url_site'].'/upload';
-    $arrConfig['dir_fotos']=$arrConfig['dir_site'].'/upload';
+    $arrConfig['dir_posts'] = $arrConfig['dir_site'].'/upload/posts/';
+    $arrConfig['url_posts'] = $arrConfig['url_site'].'/upload/posts/';
+    $arrConfig['dir_users'] = $arrConfig['dir_site'].'/upload/users/';
+    $arrConfig['url_users'] = $arrConfig['url_site'].'/upload/users/';
     $arrConfig['fotos_auth'] = array ('image/jpeg', 'image/jpg', 'image/png', 'image/gif');
     $arrConfig['fotos_maxUpload'] = 3000000;
 
@@ -30,5 +32,5 @@
     require "functions/echohtml.inc.php";
     require "functions/SQLfunctions.inc.php";
     require "functions/validateLRForm.inc.php";
-    require "functions/validateUpdateUser.inc.php";
+
 ?>  

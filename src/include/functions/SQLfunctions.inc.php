@@ -1,68 +1,86 @@
 <?php
-    
+
     //*SQL Commands for User Info
     function newUser($dbConn, $email, $username, $password){
-                // Insert into the table
-        $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES ('$email', '$username', '$password')";
-        $insertResult = mysqli_query($dbConn, $insertSql);
-
+        // Prepare the SQL query to insert into the table using prepared statements
+        $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($dbConn, $insertSql);
+        mysqli_stmt_bind_param($stmt, "sss", $email, $username, $password);
+        
+        // Execute the query
+        $insertResult = mysqli_stmt_execute($stmt);
+        
         if ($insertResult) {
             validRegisterAl();
         } else {
             // Handle the insert error
-            $error = mysqli_error($dbConn);
+            $error = mysqli_stmt_error($stmt);
             mySQLerror($error);
         }
-
+        
+        // Close the prepared statement
+        mysqli_stmt_close($stmt);
+        
         // Close the database connection
         mysqli_close($dbConn);
     }
+
     function updateUser($uid, $username, $realName, $profilePic, $biography) {
+        global $arrConfig;
         $dbConn = db_connect();
         
         // Construct the update query based on the provided values
         $updateSql = "UPDATE users SET";
         $updateFields = array();
-    
+        $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'] . ".jpg";
+        
         if (!empty($username)) {
-            $updateFields[] = " user_name = '$username'";
+            $updateFields[] = " user_name = ?";
         }
-    
+        
         if (!empty($realName)) {
-            $updateFields[] = " user_realName = '$realName'";
+            $updateFields[] = " user_realName = ?";
         }
-    
+        
         if (!empty($profilePic)) {
-            $updateFields[] = " user_profilePic = '$profilePic'";
+            var_dump($profilePic);
+            move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
+            $updateFields[] = " user_profilePic = ?";
         }
-    
+        
         if (!empty($biography)) {
-            $updateFields[] = " user_biography = '$biography'";
+            $updateFields[] = " user_biography = ?";
         }
-    
+        
         // Check if any fields need to be updated
         if (!empty($updateFields)) {
             $updateSql .= implode(",", $updateFields);
-            $updateSql .= " WHERE user_id = '$uid'";
-    
-            $updateResult = mysqli_query($dbConn, $updateSql);
-    
+            $updateSql .= " WHERE user_id = ?";
+        
+            $stmt = mysqli_prepare($dbConn, $updateSql);
+            mysqli_stmt_bind_param($stmt, "ssssi", $username, $realName, $profilePicName, $biography, $uid);
+        
+            $updateResult = mysqli_stmt_execute($stmt);
+        
             if ($updateResult) {
                 // Handle the update success
                 updateSuccess();    
             } else {
                 // Handle the update error
-                $error = mysqli_error($dbConn);
+                $error = mysqli_stmt_error($stmt);
                 mySQLerror($error);
             }
+        
+            mysqli_stmt_close($stmt);
         }
-    
+        
         // Close the database connection
         mysqli_close($dbConn);
     }
 
     //* SQL Commands For Posts
-    function createPost(){
+    function createPost($uid, $title, $type, $file){
+        $dbConn = db_connect();
     }
 
     function updatePost(){
@@ -71,68 +89,81 @@
     function deletePost($postID) {
         // Start the database connection
         $dbConn = db_connect();
-    
-        // Prepare the SQL query to delete the post based on post_id
-        $sql = "DELETE FROM posts WHERE post_id = '$postID';";
-    
+            
+        // Prepare the SQL query to delete the post based on post_id using prepared statements
+        $sql = "DELETE FROM posts WHERE post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $postID);
+
         // Execute the query
-        $result = mysqli_query($dbConn, $sql);
-    
+        $result = mysqli_stmt_execute($stmt);
+
         // Check if the deletion was successful
         if ($result) {
             echo "Post with ID $postID deleted successfully.";
         } else {
             echo "Failed to delete post with ID $postID.";
         }
+        // Close the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
     }
     function getPosts($uid) {
         // Start the database connection
         $dbConn = db_connect();
-    
-        // Prepare the SQL query with the user_id condition
-        $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = '$uid';";
-    
+        
+        // Prepare the SQL query with the user_id condition using prepared statements
+        $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $uid);
+        
         // Execute the query
-        $result = mysqli_query($dbConn, $sql);
-    
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
         // Check if there are no results
         if (mysqli_num_rows($result) == 0) {
             echoNoPosts();
         } else {
             // Create an array to hold the post variables
             $posts = array();
-    
+            
             // Fetch each row of the result set and store it in the $posts array
             while ($row = mysqli_fetch_assoc($result)) {
                 $posts[] = $row;
             }
-
+            
             // Loop through each post and echo the variables
             echo '<div style="display: grid; grid-template-columns: repeat(3, 1fr);">';
-                foreach ($posts as $post) {
-                    echoUserPosts($post);
-                }
+            foreach ($posts as $post) {
+                echoUserPosts($post);
+            }
             echo '</div>';
         }
         // Close the database connection
+        mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
 
     function getUserInfo($uid){
-
+        global $arrConfig;
+        
         // Start the database connection
         $dbConn = db_connect();
-
-        // Prepare the SQL query with the user_id condition
-        $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE user_id = '$uid';";
-
+    
+        // Prepare the SQL query with the user_id condition using prepared statements
+        $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE user_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $uid);
+        
         // Execute the query
-        $result = mysqli_query($dbConn, $sql);
-
+        $result = mysqli_stmt_execute($stmt);
+    
         // Check if the query was successful
         if ($result) {
             // Fetch the user data
-            $userData = mysqli_fetch_assoc($result);
+            $userData = mysqli_stmt_get_result($stmt);
+            $userData = mysqli_fetch_assoc($userData);
             
             // Access the user data
             $username = $userData['user_name'];
@@ -143,17 +174,21 @@
             if (!$profilePic) {
                 $profilePic = 'https://via.placeholder.com/320x320';
             }
+            else{
+                $profilePic = $arrConfig['url_users']. $profilePic ;
+            }
             $_SESSION['imageProfile'] = $profilePic;
             $_SESSION['username'] = "@$username";
             echoProfileInfo($username, $email, $profilePic, $realName, $biography);
-
+    
         } else {
             // Handle the query error
-            $error = mysqli_error($dbConn);
+            $error = mysqli_stmt_error($stmt);
             mySQLerror($error);
         }
-
+    
         // Close the database connection
+        mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
 ?>
