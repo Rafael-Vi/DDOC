@@ -46,6 +46,7 @@ for (const aElement of aElements) {
    
 }
 
+
 function openDialog() {
   document.getElementById('dialog').classList.remove('hidden');
 }

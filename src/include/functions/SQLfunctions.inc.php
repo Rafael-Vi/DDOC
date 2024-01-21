@@ -32,7 +32,9 @@
         // Construct the update query based on the provided values
         $updateSql = "UPDATE users SET";
         $updateFields = array();
-        $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'] . ".jpg";
+        $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
+        $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
+        $profilePicName .= "." . $fileExtension;
         
         if (!empty($username)) {
             $updateFields[] = " user_name = ?";
@@ -79,9 +81,38 @@
     }
 
     //* SQL Commands For Posts
-    function createPost($uid, $title, $type, $file){
+    function createPost($uid, $title, $type, $file) {
+        global $arrConfig;
         $dbConn = db_connect();
+        $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $fileName .= "." . $fileExtension;
+        
+        // Prepare the SQL query to insert into the table using prepared statements
+        $sql = "INSERT INTO posts (user_id, caption, post_type, post_url) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        mysqli_stmt_bind_param($stmt, "isss", $uid, $title, $type, $fileName);
+        move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName);
+
+        // Execute the query
+        $result = mysqli_stmt_execute($stmt);
+    
+        if ($result) {
+            // Handle the successful post creation
+            echo "Post created successfully.";
+        } else {
+            // Handle the post creation error
+            $error = mysqli_stmt_error($stmt);
+            mySQLerror($error);
+        }
+    
+        // Close the prepared statement
+        mysqli_stmt_close($stmt);
+    
+        // Close the database connection
+        mysqli_close($dbConn);
     }
+    
 
     function updatePost(){
     }
