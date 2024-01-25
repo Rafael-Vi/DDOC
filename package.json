@@ -18,7 +18,6 @@
   "dependencies": {
     "firebase": "^10.5.0",
     "firebase-cli": "^1.2.0",
-    "mysql": "^2.18.1",
-    "preline": "^2.0.3"
+    "mysql": "^2.18.1"
   }
 }

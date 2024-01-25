@@ -1,0 +1,70 @@
+.flip-container {
+	perspective: 1000;
+}
+.flipper {
+  padding: 30px;
+  width: 300px;
+  height:350px;
+  position: relative;
+    background: #f5f5f5;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+	
+	transition: 0.6s;
+	transform-style: preserve-3d;
+    box-shadow: 3px 3px 2px #2e2e2e75;
+}
+
+.front, .back {
+
+  position: absolute;
+    padding:10px 30px;
+  top: 0;
+  left: 0;
+  right: 0;
+	
+	backface-visibility: hidden;
+}
+
+.front{
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+.back{
+    transform: rotateY(180deg);
+}
+.flip{
+		transform: rotateY(180deg);
+}
+input{
+    height:40px;
+    box-sizing: border-box;
+    padding:10px;
+}
+
+.title{
+  text-align: center;
+}
+
+
+
+
+body, html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:   rgb(255, 127, 53);
+}
+
+
+
+h2{
+    border-bottom: 4px outset rgb(255, 153, 57) ;
+    padding: 9px;
+}

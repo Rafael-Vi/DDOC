@@ -51,10 +51,6 @@ function openDialog() {
   document.getElementById('dialog').classList.remove('hidden');
 }
 
-function openLogout() {
-  document.getElementById('logout-div').classList.remove('hidden');
-}
-
 function closeDialog() {
   const textInputs = document.querySelectorAll('#dialog input[type="text"], #dialog textarea');
   let hasUnsavedAlterations = false;
@@ -76,9 +72,5 @@ function closeDialog() {
     input.value = ''; // Clear the input values
   });
 
-  document.getElementById('dialog').classList.add('hidden');
-}
-
-function closeLogout() {
   document.getElementById('dialog').classList.add('hidden');
 }
