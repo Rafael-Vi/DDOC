@@ -11,6 +11,7 @@
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
         echo '<img src="'.$profilePic. '" alt="Profile Picture" class="rounded-full w-32 h-32 lg:w-56 lg:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75">';
+        echo '<button class="float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center h-10 md:h-16 w-32 md:w-16" onclick="openDialog()">Edit Profile</button>';
         echo '</div>';
     }
 
@@ -31,5 +32,14 @@
     function echoThumb($thumb){
         echo '<label for="profile-picture" class="text-white font-bold">What your post will look like:</label>';
         echo '<img src="https://via.placeholder.com/320x320" alt="Thumbnail" class="rounded-sm w-64 h-64 lg:w-56 lg:h-56 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5" id="profile-picture">';
+    }
+
+    function echoSearch(){
+ 
+        echo '
+        <div class="" >
+        
+        </div>
+        ';
     }
 ?>
