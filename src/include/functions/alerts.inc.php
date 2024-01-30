@@ -24,7 +24,7 @@ function mySQLerror($error){
     echo '    </svg>';
     echo '    <div class="leading-tight flex flex-col space-y-2">';
     echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
-    echo '      <div class="text-sm font-small text-red-800">'.$error.'</div>';
+    echo '      <div class="text-sm font-small text-red-800">'.print_r($error).'</div>';
     echo '    </div>';
     echo '  </div>';
     echo '</div>';

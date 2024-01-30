@@ -28,81 +28,90 @@ if (isset($_POST['submit'])) {
 
 // Function definitions
 function validateLogin($email, $password) {
-        // Create the SQL query
-        $sql = "SELECT user_email, user_password FROM users WHERE user_email = '$email'";
-        $sql2 = "SELECT user_id FROM users WHERE user_email = '$email'";
 
-        // Open a connection using dbConnect()
-        $dbConn = db_connect();
+    // Create the SQL query
+    $sql = "SELECT user_email, user_password FROM users WHERE CAST(user_email AS VARCHAR(MAX)) = ?";
+    $sql2 = "SELECT user_id FROM users WHERE CAST(user_email AS VARCHAR(MAX)) = ?";
 
-        // Execute the query
-        $result = sqlsrv_query($dbConn, $sql);
-        $result2 = sqlsrv_query($dbConn, $sql2);
+// Open a connection using dbConnect()
+$dbConn = db_connect();
 
-        // Handle the query result
-        if ($result) {
-            // Check if a row is returned
-            if (sqlsrv_num_rows($result) > 0) {
-                // Fetch the data
-                $row = sqlsrv_fetch_assoc($result);
-                
-                // Access the user_email and password values
-                $userEmail = $row['user_email'];
-                $userPassword = $row['user_password'];
-                
-                // Check if the password matches
-                if ($userPassword === $password) {
-                    // Redirect to another page
-                    // After successful login
-                    echo '<div class="bg-green-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
-                    echo '  <div class="flex space-x-3">';
-                    echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">';
-                    echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
-                    echo '    </svg>';
-                    echo '    <div class="leading-tight flex flex-col space-y-2">';
-                    echo '      <div class="text-sm font-medium text-green-700">Successful</div>';
-                    echo '      <div class="text-sm font-small text-green-800">Login Successful!</div>';
-                    echo '    </div>';
-                    echo '  </div>';
-                    echo '</div>';
-                    $row2 = sqlsrv_fetch_assoc($result2);
-                    $_SESSION['uid'] = $row2['user_id'];
-                    header("Location: social.php");
-                    exit;
-                } else {
-                    echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
-                    echo '  <div class="flex space-x-3">';
-                    echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
-                    echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
-                    echo '    </svg>';
-                    echo '    <div class="leading-tight flex flex-col space-y-2">';
-                    echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
-                    echo '      <div class="text-sm font-small text-red-800">Password Incorrect!</div>';
-                    echo '    </div>';
-                    echo '  </div>';
-                    echo '</div>';
-                }
-            } else {
-                echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
-                echo '  <div class="flex space-x-3">';
-                echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
-                echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
-                echo '    </svg>';
-                echo '    <div class="leading-tight flex flex-col space-y-2">';
-                echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
-                echo '      <div class="text-sm font-small text-red-800">Email has yet to create an account!</div>';
-                echo '    </div>';
-                echo '  </div>';
-                echo '</div>';
-            }
-        } else {
-                // Handle the query error
-                $error = sqlsrv_error($dbConn);
-                mySQLerror($error);
+// Prepare the SQL statement
+$params = array($email);
+$stmt = sqlsrv_prepare($dbConn, $sql, $params);
+$stmt2 = sqlsrv_prepare($dbConn, $sql2, $params);
+
+// Execute the query
+if (sqlsrv_execute($stmt) === false) {
+    // Handle the query error
+    $error = sqlsrv_errors();
+    mySQLerror($error);
+}
+
+// Handle the query result
+if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    // Access the user_email and password values
+    $userEmail = $row['user_email'];
+    $userPassword = $row['user_password'];
+    
+    // Check if the password matches
+    if ($userPassword === $password) {
+        // Redirect to another page
+        // After successful login
+        echo '<div class="bg-green-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+        echo '  <div class="flex space-x-3">';
+        echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">';
+        echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+        echo '    </svg>';
+        echo '    <div class="leading-tight flex flex-col space-y-2">';
+        echo '      <div class="text-sm font-medium text-green-700">Successful</div>';
+        echo '      <div class="text-sm font-small text-green-800">Login Successful!</div>';
+        echo '    </div>';
+        echo '  </div>';
+        echo '</div>';
+        // Execute the second query
+        if (sqlsrv_execute($stmt2) === false) {
+            // Handle the query error
+            $error = sqlsrv_errors();
+            mySQLerror($error);
         }
 
-        // Close the database connection
-        sqlsrv_close($dbConn);
+        // Fetch the result of the second query
+        if ($row2 = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
+            $_SESSION['uid'] = $row2['user_id'];
+            print_r($row2);
+            header("Location: social.php");
+            exit;
+        }
+    } else {
+        echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+        echo '  <div class="flex space-x-3">';
+        echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
+        echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+        echo '    </svg>';
+        echo '    <div class="leading-tight flex flex-col space-y-2">';
+        echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+        echo '      <div class="text-sm font-small text-red-800">Password Incorrect!</div>';
+        echo '    </div>';
+        echo '  </div>';
+        echo '</div>';
+    }
+} else {
+    echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
+    echo '  <div class="flex space-x-3">';
+    echo '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-red-500 h-4 w-4">';
+    echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
+    echo '    </svg>';
+    echo '    <div class="leading-tight flex flex-col space-y-2">';
+    echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+    echo '      <div class="text-sm font-small text-red-800">Email has yet to create an account!</div>';
+    echo '    </div>';
+    echo '  </div>';
+    echo '</div>';
+}
+
+// Close the database connection
+sqlsrv_close($dbConn);
 }
 
 function validateRegister($username, $email, $password) {
@@ -136,7 +145,7 @@ function validateRegister($username, $email, $password) {
         }
     } else {
         // Handle the email query error
-        $error = sqlsrv_error($dbConn);
+        $error = sqlsrv_errors();
         echo '<script>alert("Email query error: ' . $error . '");</script>';
         return;
     }
@@ -164,7 +173,7 @@ function validateRegister($username, $email, $password) {
         }
     } else {
         // Handle the username query error
-        $error = sqlsrv_error($dbConn);
+        $error = sqlsrv_errors();
         mySQLerror($error);
     }
 
