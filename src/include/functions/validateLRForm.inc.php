@@ -36,15 +36,15 @@ function validateLogin($email, $password) {
         $dbConn = db_connect();
 
         // Execute the query
-        $result = mysqli_query($dbConn, $sql);
-        $result2 = mysqli_query($dbConn, $sql2);
+        $result = sqlsrv_query($dbConn, $sql);
+        $result2 = sqlsrv_query($dbConn, $sql2);
 
         // Handle the query result
         if ($result) {
             // Check if a row is returned
-            if (mysqli_num_rows($result) > 0) {
+            if (sqlsrv_num_rows($result) > 0) {
                 // Fetch the data
-                $row = mysqli_fetch_assoc($result);
+                $row = sqlsrv_fetch_assoc($result);
                 
                 // Access the user_email and password values
                 $userEmail = $row['user_email'];
@@ -65,7 +65,7 @@ function validateLogin($email, $password) {
                     echo '    </div>';
                     echo '  </div>';
                     echo '</div>';
-                    $row2 = mysqli_fetch_assoc($result2);
+                    $row2 = sqlsrv_fetch_assoc($result2);
                     $_SESSION['uid'] = $row2['user_id'];
                     header("Location: social.php");
                     exit;
@@ -97,12 +97,12 @@ function validateLogin($email, $password) {
             }
         } else {
                 // Handle the query error
-                $error = mysqli_error($dbConn);
+                $error = sqlsrv_error($dbConn);
                 mySQLerror($error);
         }
 
         // Close the database connection
-        mysqli_close($dbConn);
+        sqlsrv_close($dbConn);
 }
 
 function validateRegister($username, $email, $password) {
@@ -114,12 +114,12 @@ function validateRegister($username, $email, $password) {
     $dbConn = db_connect();
 
     // Execute the email query
-    $emailResult = mysqli_query($dbConn, $emailSql);
+    $emailResult = sqlsrv_query($dbConn, $emailSql);
 
     // Handle the email query result
     if ($emailResult) {
         // Check if a row is returned
-        if (mysqli_num_rows($emailResult) > 0) {
+        if (sqlsrv_num_rows($emailResult) > 0) {
             // Email already exists, show alert
             echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
             echo '  <div class="flex space-x-3">';
@@ -136,18 +136,18 @@ function validateRegister($username, $email, $password) {
         }
     } else {
         // Handle the email query error
-        $error = mysqli_error($dbConn);
+        $error = sqlsrv_error($dbConn);
         echo '<script>alert("Email query error: ' . $error . '");</script>';
         return;
     }
 
     // Execute the username query
-    $usernameResult = mysqli_query($dbConn, $usernameSql);
+    $usernameResult = sqlsrv_query($dbConn, $usernameSql);
 
     // Handle the username query result
     if ($usernameResult) {
         // Check if a row is returned
-        if (mysqli_num_rows($usernameResult) > 0) {
+        if (sqlsrv_num_rows($usernameResult) > 0) {
             // Username already exists, show alert
             echo '<div class="bg-red-100 p-5 w-full sm:w-1/2 center top-10 absolute rounded-lg">';
             echo '  <div class="flex space-x-3">';
@@ -164,7 +164,7 @@ function validateRegister($username, $email, $password) {
         }
     } else {
         // Handle the username query error
-        $error = mysqli_error($dbConn);
+        $error = sqlsrv_error($dbConn);
         mySQLerror($error);
     }
 

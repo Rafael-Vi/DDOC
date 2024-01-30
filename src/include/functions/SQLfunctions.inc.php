@@ -4,25 +4,25 @@
     function newUser($dbConn, $email, $username, $password){
         // Prepare the SQL query to insert into the table using prepared statements
         $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($dbConn, $insertSql);
-        mysqli_stmt_bind_param($stmt, "sss", $email, $username, $password);
+        $stmt = sqlsrv_prepare($dbConn, $insertSql);
+        sqlsrv_stmt_bind_param($stmt, "sss", $email, $username, $password);
         
         // Execute the query
-        $insertResult = mysqli_stmt_execute($stmt);
+        $insertResult = sqlsrv_stmt_execute($stmt);
         
         if ($insertResult) {
             validRegisterAl();
         } else {
             // Handle the insert error
-            $error = mysqli_stmt_error($stmt);
+            $error = sqlsrv_stmt_error($stmt);
             mySQLerror($error);
         }
         
         // Close the prepared statement
-        mysqli_stmt_close($stmt);
+        sqlsrv_stmt_close($stmt);
         
         // Close the database connection
-        mysqli_close($dbConn);
+        sqlsrv_close($dbConn);
     }
 
     function updateUser($uid, $username, $realName, $profilePic, $biography) {
@@ -59,25 +59,25 @@
             $updateSql .= implode(",", $updateFields);
             $updateSql .= " WHERE user_id = ?";
         
-            $stmt = mysqli_prepare($dbConn, $updateSql);
-            mysqli_stmt_bind_param($stmt, "ssssi", $username, $realName, $profilePicName, $biography, $uid);
+            $stmt = sqlsrv_prepare($dbConn, $updateSql);
+            sqlsrv_stmt_bind_param($stmt, "ssssi", $username, $realName, $profilePicName, $biography, $uid);
         
-            $updateResult = mysqli_stmt_execute($stmt);
+            $updateResult = sqlsrv_stmt_execute($stmt);
         
             if ($updateResult) {
                 // Handle the update success
                 updateSuccess();    
             } else {
                 // Handle the update error
-                $error = mysqli_stmt_error($stmt);
+                $error = sqlsrv_stmt_error($stmt);
                 mySQLerror($error);
             }
         
-            mysqli_stmt_close($stmt);
+            sqlsrv_stmt_close($stmt);
         }
         
         // Close the database connection
-        mysqli_close($dbConn);
+        sqlsrv_close($dbConn);
     }
 
     //* SQL Commands For Posts
@@ -90,27 +90,27 @@
         
         // Prepare the SQL query to insert into the table using prepared statements
         $sql = "INSERT INTO posts (user_id, caption, post_type, post_url) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($dbConn, $sql);
-        mysqli_stmt_bind_param($stmt, "isss", $uid, $title, $type, $fileName);
+        $stmt = sqlsrv_prepare($dbConn, $sql);
+        sqlsrv_stmt_bind_param($stmt, "isss", $uid, $title, $type, $fileName);
         move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName);
 
         // Execute the query
-        $result = mysqli_stmt_execute($stmt);
+        $result = sqlsrv_stmt_execute($stmt);
     
         if ($result) {
             // Handle the successful post creation
             echo "Post created successfully.";
         } else {
             // Handle the post creation error
-            $error = mysqli_stmt_error($stmt);
+            $error = sqlsrv_stmt_error($stmt);
             mySQLerror($error);
         }
     
         // Close the prepared statement
-        mysqli_stmt_close($stmt);
+        sqlsrv_stmt_close($stmt);
     
         // Close the database connection
-        mysqli_close($dbConn);
+        sqlsrv_close($dbConn);
     }
     
 
@@ -123,11 +123,11 @@
             
         // Prepare the SQL query to delete the post based on post_id using prepared statements
         $sql = "DELETE FROM posts WHERE post_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $postID);
+        $stmt = sqlsrv_prepare($dbConn, $sql);
+        sqlsrv_stmt_bind_param($stmt, "i", $postID);
 
         // Execute the query
-        $result = mysqli_stmt_execute($stmt);
+        $result = sqlsrv_stmt_execute($stmt);
 
         // Check if the deletion was successful
         if ($result) {
@@ -136,8 +136,8 @@
             echo "Failed to delete post with ID $postID.";
         }
         // Close the database connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
+        sqlsrv_stmt_close($stmt);
+        sqlsrv_close($dbConn);
     }
     function getPosts($uid) {
         // Start the database connection
@@ -145,22 +145,22 @@
         
         // Prepare the SQL query with the user_id condition using prepared statements
         $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $uid);
+        $stmt = sqlsrv_prepare($dbConn, $sql);
+        sqlsrv_stmt_bind_param($stmt, "i", $uid);
         
         // Execute the query
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        sqlsrv_stmt_execute($stmt);
+        $result = sqlsrv_stmt_get_result($stmt);
         
         // Check if there are no results
-        if (mysqli_num_rows($result) == 0) {
+        if (sqlsrv_num_rows($result) == 0) {
             echoNoPosts();
         } else {
             // Create an array to hold the post variables
             $posts = array();
             
             // Fetch each row of the result set and store it in the $posts array
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = sqlsrv_fetch_assoc($result)) {
                 $posts[] = $row;
             }
             
@@ -172,8 +172,8 @@
             echo '</div>';
         }
         // Close the database connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
+        sqlsrv_stmt_close($stmt);
+        sqlsrv_close($dbConn);
     }
 
     function getUserInfo($uid){
@@ -184,17 +184,17 @@
     
         // Prepare the SQL query with the user_id condition using prepared statements
         $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE user_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $uid);
+        $stmt = sqlsrv_prepare($dbConn, $sql);
+        sqlsrv_stmt_bind_param($stmt, "i", $uid);
         
         // Execute the query
-        $result = mysqli_stmt_execute($stmt);
+        $result = sqlsrv_stmt_execute($stmt);
     
         // Check if the query was successful
         if ($result) {
             // Fetch the user data
-            $userData = mysqli_stmt_get_result($stmt);
-            $userData = mysqli_fetch_assoc($userData);
+            $userData = sqlsrv_stmt_get_result($stmt);
+            $userData = sqlsrv_fetch_assoc($userData);
             
             // Access the user data
             $username = $userData['user_name'];
@@ -214,12 +214,12 @@
     
         } else {
             // Handle the query error
-            $error = mysqli_stmt_error($stmt);
+            $error = sqlsrv_stmt_error($stmt);
             mySQLerror($error);
         }
     
         // Close the database connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
+        sqlsrv_stmt_close($stmt);
+        sqlsrv_close($dbConn);
     }
 ?>
