@@ -45,7 +45,7 @@
 
     function echoNav(){
         echo'
-        <div class="flex w-3/12 flex-column z-40 h-screen">
+        <div class="flex w-3/12 flex-column z-40 h-screen" id="topNavBar">
             <div class="relative md:flex md:flex-col md:top-0 md:left-0 md:w-full md:bg-white md:h-full md:border-r hidden md:rounded-lg md:shadow-xl">
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
@@ -54,7 +54,7 @@
                         <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                     </li>
                     <li class="px-4 py-2">
-                        <a href="#" id="search-link" style="color: black">Search</a>
+                        <a href="#" id="search-link" style="color: black" onclick="openSearch(event)">Search</a>
                     </li>
                     <li class="px-4 py-2">
                         <a href="./messages.php" id="messages-link" style="color: black">Messages</a>

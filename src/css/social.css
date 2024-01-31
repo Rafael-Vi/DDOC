@@ -24,3 +24,22 @@ a:hover {
 li>a{
     margin-left: 8px;
 }
+
+#search-div {
+    /* Other styles... */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  #search-div:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  
+#topNavBar{
+    /* Other styles... */
+    opacity: 1;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
