@@ -6,46 +6,7 @@ document.addEventListener('DOMContentLoaded', init, false);
 // Function to initialize the page
 function init(){
  
-// Métodos e Coisas para abrir as Divs--------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------
-    const liElements = document.querySelectorAll('li');
-
-    for (const liElement of liElements) {
-      const aElements = liElement.querySelectorAll('a'); // Get all a elements inside this li
-          
-      for (const aElement of aElements) {
-          const linkName = aElement.id; // Get the link's ID
-          console.log(linkName);
-          aElement.addEventListener('click', () => {
-          // Call the openDiv function with the link's ID
-          console.log(linkName)
-          openDiv(linkName);
-          });
-      }
-    }
-
-    function openDiv(linkName) {
-        const divs = document.querySelectorAll('div');
-      
-        for (const divElement of divs) {
-          if (divElement.id === linkName.replace('-link', '-div')) {
-            // Show the corresponding div
-            divElement.classList.remove('hidden'); // Remove hidden class
-            divElement.classList.add('block'); // Add block class
-      
-            // Hide all other divs
-            for (const otherDiv of divs) {
-              if (otherDiv.classList.contains('block') && otherDiv.id !== divElement.id) {
-                otherDiv.classList.remove('block');
-                otherDiv.classList.add('hidden');
-              }
-            }
-          } else {
-            divElement.classList.remove('active');
-          }
-        }
-     }
-
+  
 // Métodos e Coisas para fazer a edição de perfil--------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------
 

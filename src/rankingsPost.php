@@ -26,5 +26,6 @@ include "include/config.inc.php";
       
     </div>
   </div>
+  <script src="../src/js/social.js"></script>
 </body>
 </html>

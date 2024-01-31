@@ -20,24 +20,24 @@ include "include/config.inc.php";
     <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row shadow-md shadow-amber-600 bg-gray-800 h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4" >
       <?php
-        getUserInfo($_SESSION['uid']); 
+        //getUserInfo($_SESSION['uid']); 
       ?>
       
       <!-- Button to open the dialog -->
       <div class="flex justify-start md:justify-center items-end">
-
+        <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="openDialog()">Edit Profile</button>
       </div>
     </div>
     <div id="profilePosts-div" class="relative p-auto overflow-y-auto">
       <?php
-        getPosts($_SESSION['uid']);
+        //getPosts($_SESSION['uid']);
       ?>
     </div>
   </div>
 
   
   <!-- Dialog -->
-  <div id="dialog" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75  text-gray-800 font-medium">
+  <div id="dialog" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75  text-gray-800 font-medium">
     <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data" >
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
       <div class="flex flex-col mb-4">
@@ -68,5 +68,6 @@ include "include/config.inc.php";
     </form>
   </div>
   <?php echoBottomNav(); ?>
+  <script src="./js/social.js"></script>
 </body>
 </html>

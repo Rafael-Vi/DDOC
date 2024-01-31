@@ -27,5 +27,6 @@ include "include/config.inc.php";
         </div>
     </div>
     <?php echoBottomNav(); ?>
+    <script src="../src/js/social.js"></script>
 </body>
 </html>
