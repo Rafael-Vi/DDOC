@@ -17,7 +17,7 @@ include "include/config.inc.php";
 </head>
 <body class="h-full flex">
     <?php echoNav(); ?>
-    <div id="settings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto overflow-auto">
+    <div id="settings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
         <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
         Settings
         </h1>

@@ -1,17 +1,23 @@
 <?php
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography){
         global $arrConfig;
-        echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6 md:mr-8">';
-        echo '<div class="h-full w-full mt-0 lg:mt-4 mb-4 mr-8">';
-        echo '<span class="block font-bold text-3xl mt-12 text-orange-500 mb-4">@' . $username . '</span>';
+        echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6">';
+        echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
+        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: ' ."---" . '</div>';
+        echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
         echo '<div class="font-bold">' . $realName . '</div>';
-        echo '<div class="w-full h-full">' . $biography . '</div>';
+        echo '<div class="w-full">' . $biography . '</div>';
+        echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
+        echo '<div class="font-bold">Followers: ---</div>'; // replace '---' with actual value
+        echo '<div class="font-bold">Following: ---</div>'; // replace '---' with actual value
+        echo '</div>';
         echo '</div>';
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
-        echo '<img src="'.$profilePic. '" alt="Profile Picture" class="rounded-full w-32 h-32 lg:w-56 lg:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="rounded-full w-32 h-32 md:w-56 md:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
         echo '<button class="float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center h-10 md:h-16 w-32 md:w-16" onclick="openDialog()">Edit Profile</button>';
+        echo '</div>';
         echo '</div>';
     }
 
@@ -19,7 +25,7 @@
     function echoUserPosts($post) {
         global $arrConfig;
         echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10">';
-        echo '<img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+        echo '<a href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
         echo '</div>';  
     }
 
@@ -124,5 +130,66 @@
         </ul>
         </nav>
         ';
+    }
+
+    function echoShowPost($post){
+        global $arrConfig;
+        switch($post['post_type']) {
+            case 'image':
+                echo'
+                <!-- First row: Post image -->
+                <div class="flex grow-0">
+                    <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="w-full h-full object-cover">
+                </div>
+                ';
+                echo'
+                <!-- Second row: Caption, like button, like count, and ranking -->
+                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
+                    <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
+                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
+                    <span class="text-white text-2xl font-bold">Likes: 123</span>
+                    <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
+                </div>';
+                
+                break;
+            case 'audio':
+                echo'
+                <!-- First row: Post audio -->
+                <div class="flex grow-0">
+                    <audio controls class="w-full h-24">
+                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
+                </div>
+                ';
+                echo'
+                <!-- Second row: Caption, like button, like count, and ranking -->
+                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
+                    <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
+                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
+                    <span class="text-white text-2xl font-bold">Likes: 123</span>
+                    <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
+                </div>';
+                break;
+            case 'video':
+                echo'
+                <!-- First row: Post video -->
+                <div class="flex grow-0">
+                    <video controls class="w-full h-full">
+                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                ';
+                echo'
+                <!-- Second row: Caption, like button, like count, and ranking -->
+                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
+                    <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
+                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
+                    <span class="text-white text-2xl font-bold">Likes: 123</span>
+                    <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
+                </div>';
+                break;
+        }
     }
 ?>

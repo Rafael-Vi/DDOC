@@ -44,6 +44,7 @@ include "include/config.inc.php";
     </form>
   </div>
   <?php echoBottomNav(); ?>
-  <script src="../dist/bundle.js"></script>
+  <script src="../src/js/social.js"></script>
+  <script src="../src/js/createPost.js"></script>
 </body>
 </html>

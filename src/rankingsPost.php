@@ -30,15 +30,15 @@ include "include/config.inc.php";
           <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
             <div class="flex flex-col items-center mt-auto">
               <h1>----------</h1>
-              <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-24 relative flex items-center justify-center">Second Place</div>
+              <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-24 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
             </div>
             <div class="flex flex-col items-center mt-auto">
               <h1>----------</h1>
-              <div class="bg-gray-800 rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center">First Place</div>
+              <div class="bg-gray-800 rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
             </div>
             <div class="flex flex-col items-center mt-auto">
               <h1>---------</h1>
-              <div class="bg-gray-800 rounded-lg p-4 text-center h-16 w-24 relative flex items-center justify-center">Third Place</div>
+              <div class="bg-gray-800 rounded-lg p-4 text-center h-16 w-24 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
             </div>
           </div>
         </div>
