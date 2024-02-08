@@ -97,7 +97,7 @@
                         <a href="./settings.php" id="settings-link" style="color: black">Settings</a>
                     </li>
                     <li class="px-4 py-2">
-                        <a href="#" id="logout-link" style="color: black">Logout</a>
+                        <a href="#" id="logout-link" style="color: black" onclick="logout()">Logout</a>
                     </li>
                     </ul>
                 </div>
