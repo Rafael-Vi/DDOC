@@ -14,7 +14,7 @@ include "include/config.inc.php";
 </head>
 <body>
 
-
+<?php echoLoadScreen(); ?>
 <div class="flip-container">
     <div class="flipper" id="flipper">
         <div class="front">
@@ -47,5 +47,6 @@ include "include/config.inc.php";
 
 
 <script src="../dist/bundle.js"></script>
+<script src="../src/js/social.js"></script>
 </body>
 </html>

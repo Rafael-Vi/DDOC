@@ -40,15 +40,6 @@
         echo '<img src="https://via.placeholder.com/320x320" alt="Thumbnail" class="rounded-sm w-64 h-64 lg:w-56 lg:h-56 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5" id="profile-picture">';
     }
 
-    function echoSearch(){
- 
-        echo '
-        <div class="" >
-        
-        </div>
-        ';
-    }
-
     function echoNav(){
         echo'
         <div class="flex w-3/12 flex-column z-40 h-screen" id="topNavBar">
@@ -56,7 +47,7 @@
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
                     <li class="px-5">
-                        <div class="flex flex-row items-center h-32">
+                        <div class="flex flex-row items-center h-32 w-32">
                         <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                     </li>
                     <li class="px-4 py-2">
@@ -191,5 +182,15 @@
                 </div>';
                 break;
         }
+    }
+
+    function echoLoadScreen(){
+        echo'<div id="loadingScreen" class="fixed inset-0 z-50 bg-white flex items-center justify-center flex-row">
+        <p class=" text-4xl text-black">D</p>
+        <p class=" text-4xl mx-1 text-black">D</p>
+        <div class="loader border-t-4 rounded-full border-t-red-400 bg-orange-300 animate-spin
+        aspect-square w-10 flex justify-center items-center text-yellow-700"></div>
+        <p class="mx-1 text-4xl  text-black">C ...</p>
+    </div>';
     }
 ?>

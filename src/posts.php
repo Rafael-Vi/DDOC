@@ -16,6 +16,7 @@ include "include/config.inc.php";
     <title><?php echo $_GET['id'];?></title>
 </head>
 <body class="h-full flex">
+    <?php echoLoadScreen(); ?>
     <?php echoNav(); ?>
 
     <div id="ThisPost-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">

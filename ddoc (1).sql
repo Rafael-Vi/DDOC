@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 09-Jan-2024 às 22:57
+-- Tempo de geração: 14-Fev-2024 às 07:34
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -76,20 +76,36 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `post_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `post_url` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `post_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `caption` text,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `posts`
 --
 
 INSERT INTO `posts` (`post_id`, `user_id`, `post_type`, `post_url`, `caption`, `created_at`, `updated_at`) VALUES
-(5, 1, 'video', 'video-001-01', NULL, '2024-01-05 15:52:26', '2024-01-05 15:52:26');
+(33, 8, 'image', 'image-makeitmeme_oW5xf.jpeg-8.jpeg', 'Tren', '2024-02-07 17:44:08', '2024-02-07 18:18:34'),
+(34, 8, 'audio', 'audio-rodrigo-goes-recording-11-17-2023-14-56-41.mp3-8.mp3', 'Audio Rodrigo', '2024-02-07 18:27:26', '2024-02-07 18:28:45'),
+(35, 9, 'image', 'image-Fodasse.png-9.png', 'Insubetes', '2024-02-08 15:48:42', '2024-02-08 15:48:42');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `theme`
+--
+
+DROP TABLE IF EXISTS `theme`;
+CREATE TABLE IF NOT EXISTS `theme` (
+  `theme_id` int NOT NULL AUTO_INCREMENT,
+  `theme` text NOT NULL,
+  `is_finished` int DEFAULT NULL,
+  PRIMARY KEY (`theme_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -103,22 +119,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `user_email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `user_password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `user_profilePic` varchar(255) DEFAULT NULL,
+  `user_profilePic` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_realName` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `user_biography` longtext,
+  `is_verified` int DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_profilePic`, `user_realName`, `user_biography`) VALUES
-(1, 'ADMIN', 'rafa.pinto.vieira@gmail.com', 'Lindoso', '', 'RAFA', 'HEYYYYYYYYYYY'),
-(3, 'aaa', 'asasasa@s', 'aasas', NULL, NULL, NULL),
-(4, 'catarina', 'carla@gmail.com', '123', NULL, NULL, NULL),
-(5, 'Fixe', 'Jovem@gmail.com', '124', NULL, NULL, NULL),
-(6, 'Carla', 'carlita@gmail.com', '124', NULL, 'Carla top', 'Eu sou a carlinha e sou mais fixe que tu');
+INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_profilePic`, `user_realName`, `user_biography`, `is_verified`) VALUES
+(8, 'ADMIN', 'rafa.pinto.vieira@gmail.com', '$2y$10$YHqi2BhvQzXDhgYpwz/qLuzV18yzCylK4rY3.mRZ6wWkKTiGN.tWK', 'ProfilePic-makeitmeme_4GenC.jpeg-8.jpeg', 'FODA', 'Eu sou mega Feliz', NULL),
+(9, 'SuggarDaddy', 'sugarisoverratedanyways@gmail.com', '$2y$10$OqK1mG6lmN.NU56ilbuOee8614ZVgVCk4RzzD7hgZuAiUTIDQku4q', 'ProfilePic-makeitmeme_vHF2x.jpeg-9.jpeg', 'Matos Diabetes', 'Tenho diabetes não perguntei és gay', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

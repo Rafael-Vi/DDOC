@@ -19,6 +19,7 @@ include "include/config.inc.php";
 </head>
 <body class="h-full flex">
 
+  <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
 
   <div class="bg-gray-900 fixed w-full md:w-9/12 p-0 m-0 md:right-0 h-full flex flex-col justify-center items-center" id="home-div">
