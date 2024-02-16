@@ -1,24 +1,19 @@
 <?php
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography){
         global $arrConfig;
-        echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6">';
-        echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
         echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: ' ."---" . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
         echo '<div class="font-bold">' . $realName . '</div>';
         echo '<div class="w-full">' . $biography . '</div>';
         echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
-        echo '<div class="font-bold">Followers: ---</div>'; // replace '---' with actual value
-        echo '<div class="font-bold">Following: ---</div>'; // replace '---' with actual value
+        echo '<div class="font-bold">Followers: ---</div>';
+        echo '<div class="font-bold">Following: ---</div>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="rounded-full w-32 h-32 md:w-56 md:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
-        echo '<button class="float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center h-10 md:h-16 w-32 md:w-16" onclick="openDialog()">Edit Profile</button>';
-        echo '</div>';
-        echo '</div>';
     }
 
 
@@ -94,6 +89,7 @@
                 </div>
             </div>
             <div id="search-div" class="relative w-full bg-gray-200 hidden h-full m-auto">
+            
                 <div class="flex flex-col h-full">
                 <div class="mt-6 mb-2 mx-4 border-b-4 rounded border-b-orange-500">
                     <input type="text" placeholder="Search people" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-4 rounded-md text-black font-semibold" />
@@ -146,7 +142,7 @@
             case 'audio':
                 echo'
                 <!-- First row: Post audio -->
-                <div class="flex grow-0">
+                <div class="flex grow-0 my-auto">
                     <audio controls class="w-full h-24">
                         <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
                         Your browser does not support the audio tag.
@@ -155,7 +151,7 @@
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
+                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
                     <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
                     <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
                     <span class="text-white text-2xl font-bold">Likes: 123</span>
@@ -193,4 +189,13 @@
         <p class="mx-1 text-4xl  text-black">C ...</p>
     </div>';
     }
+    function echoSearchResults($userId, $username, $profilePic){
+        echo '<a href="OProfile.php?userid=' . $userId. '" class="text-orange-500 hover:text-orange-800 ">';
+        echo '<div class="flex justify-between items-center text-orange-500 hover:text-orange-800 bg-gray-800 border-orange-500 border-4 p-2 rounded-lg m-2">';
+        echo $username;
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full border-orange-500 border-2">';
+        echo '</div>';
+        echo '</a>';
+    }
+
 ?>

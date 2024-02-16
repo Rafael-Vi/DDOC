@@ -27,7 +27,6 @@
     // número de registo de página, para situações de paginação
     $arrConfig['num_reg_pagina'] = 25;
 
-    require "functions/dbConnect.inc.php";
     require "functions/alerts.inc.php";
     require "functions/echohtml.inc.php";
     require "functions/SQLfunctions.inc.php";

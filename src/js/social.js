@@ -21,3 +21,44 @@ window.onload = function() {
     document.getElementById('loadingScreen').style.display = 'none';
 }, 600);
 };
+
+function searchStuff() {
+  const value = document.getElementById('search-input').value;
+  if (value.length != 0) {
+    fetch('../src/include/functions/SQLfunctions.inc.php', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'function=getSearchStuff&value=' + encodeURIComponent(value),
+  })
+
+  .then(response => response.text())
+  .then(data => {
+      // Handle the data from the PHP file
+      const searchPeople = document.getElementById('search-people');
+      let searchDestroyable = document.getElementById('search-destroyable');
+      if (searchDestroyable) {
+          searchDestroyable.remove();
+      }
+      searchDestroyable = document.createElement('div');
+      searchDestroyable.id = 'search-destroyable';
+      searchDestroyable.innerHTML = data;
+      searchPeople.appendChild(searchDestroyable);
+  })
+  
+  .catch(error => {
+      // Handle the error
+      console.error('Error:', error);
+  });
+  }
+  else {
+    let searchDestroyable = document.getElementById('search-destroyable');
+    if (searchDestroyable) {
+        searchDestroyable.remove();
+    }
+  }
+
+}
+
+document.getElementById('search-input').addEventListener('input', searchStuff);

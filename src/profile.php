@@ -21,8 +21,13 @@ include "include/config.inc.php";
     <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
        
       <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between shadow-md shadow-amber-600 bg-gray-800 h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
-      <?php
+        <?php
+            echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6">';
+            echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
             getUserInfo($_SESSION['uid']); 
+            echo '<button class="float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center h-10 md:h-16 w-32 md:w-16" onclick="openDialog()">Edit Profile</button>';       
+        echo '</div>';
+        echo '</div>';
         ?>  
 
       <div id="profilePosts-div" class="relative p-auto overflow-auto">
