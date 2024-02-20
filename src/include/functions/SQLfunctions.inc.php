@@ -28,13 +28,32 @@
 
     // número de registo de página, para situações de paginação
     $arrConfig['num_reg_pagina'] = 25;
-    if (isset($_POST['function']) && $_POST['function'] === 'getSearchStuff') {
-        if (isset($_POST['value'])) {
-            $value = $_POST['value'];
-            $uid = "8"; //? assuming you have a session variable for the user id
-            getSearchStuff($value, $uid);
+
+    if (isset($_POST['function'])) {
+        switch ($_POST['function']) {
+            case 'getSearchStuff':
+                if (isset($_POST['value'])) {
+                    $value = $_POST['value'];
+                    $uid = "8"; // assuming you have a session variable for the user id
+                    getSearchStuff($value, $uid);
+                }
+                break;
+            case 'followCheck':
+                if (isset($_POST['userid'], $_POST['currentSessionUser'])) {
+                    $userid = $_POST['userid'];
+                    $currentSessionUser = $_POST['currentSessionUser'];
+                    echo followCheck($userid, $currentSessionUser);
+                }
+                break;
+            case 'getFollowCounts':
+                if (isset($_POST['currentSessionUser'])) {
+                    $userid = $_POST['currentSessionUser'];
+                    echo json_encode(getFollowCounts($userid));
+                }
+                break;
         }
     }
+
 
     //! NEED TO MAKE THE CONFIG WORK
     //!----------------------------------------------------------------------------------------
@@ -389,4 +408,129 @@
 
     }
 
+    function followCheck($userid, $currentSessionUser){
+        global $arrConfig;
+        // Start the database connection
+        $dbConn = db_connect();
+    
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Prepare the SQL query to check if the current user is already following the other user
+        $sql = "SELECT * FROM follow WHERE follower_id = ? AND followee_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $userid);
+    
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Store the result
+        mysqli_stmt_store_result($stmt);
+    
+        // Check if the current user is already following the other user
+        if(mysqli_stmt_num_rows($stmt) > 0) {
+            // The current user is already following the other user
+            // Prepare the SQL query to delete the follow record
+            $sql = "DELETE FROM follow WHERE follower_id = ? AND followee_id = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+    
+            // Bind parameters
+            mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $userid);
+    
+            // Execute the query
+            if(mysqli_stmt_execute($stmt) === false) {
+                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            }
+    
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+            return "follow";
+        } else {
+            // The current user is not following the other user, so insert a new row into the follows table
+            $sql = "INSERT INTO follow (follower_id, followee_id) VALUES (?, ?)";
+            $stmt = mysqli_prepare($dbConn, $sql);
+    
+            // Bind parameters
+            mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $userid);
+    
+            // Execute the query
+            if(mysqli_stmt_execute($stmt) === false) {
+                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            }
+    
+            // Close the database connection
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+            return "following";
+        }
+    }
+    function getFollowCounts($userid){
+      // Start the database connection
+$dbConn = db_connect();
+
+if ($dbConn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+// Prepare the SQL query to get the number of followers
+$sql = "SELECT COUNT(*) FROM follow WHERE followee_id = ?";
+$stmt = mysqli_prepare($dbConn, $sql);
+
+// Check if the statement was prepared successfully
+if ($stmt === false) {
+    die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+}
+
+// Bind parameters
+mysqli_stmt_bind_param($stmt, "i", $userid);
+
+// Execute the query
+if(mysqli_stmt_execute($stmt) === false) {
+    die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+}
+
+// Store the result
+mysqli_stmt_bind_result($stmt, $followersCount);
+
+// Fetch the result
+mysqli_stmt_fetch($stmt);
+
+// Close the statement
+mysqli_stmt_close($stmt);
+
+// Prepare the SQL query to get the number of following
+$sql = "SELECT COUNT(*) FROM follow WHERE follower_id = ?";
+$stmt = mysqli_prepare($dbConn, $sql);
+
+// Bind parameters
+mysqli_stmt_bind_param($stmt, "i", $userid);
+
+// Execute the query
+if(mysqli_stmt_execute($stmt) === false) {
+    die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+}
+
+// Store the result
+mysqli_stmt_bind_result($stmt, $followingCount);
+
+// Fetch the result
+mysqli_stmt_fetch($stmt);
+
+// Close the database connection
+mysqli_stmt_close($stmt);
+mysqli_close($dbConn);
+
+// Return the followers and following counts
+return array('followers' => $followersCount, 'following' => $followingCount);
+    }
 ?>

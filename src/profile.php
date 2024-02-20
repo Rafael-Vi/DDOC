@@ -25,9 +25,10 @@ include "include/config.inc.php";
             echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6">';
             echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
             getUserInfo($_SESSION['uid']); 
-            echo '<button class="float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center h-10 md:h-16 w-32 md:w-16" onclick="openDialog()">Edit Profile</button>';       
-        echo '</div>';
-        echo '</div>';
+
+            echo '<button class="w-full sm:float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-2 rounded-lg flex items-center justify-center h-10 sm:w-16" onclick="openDialog()">Edit Profile</button>';       
+            echo '</div>';
+            echo '</div>';
         ?>  
 
       <div id="profilePosts-div" class="relative p-auto overflow-auto">
@@ -71,7 +72,12 @@ include "include/config.inc.php";
   </div>
   <?php echoBottomNav(); ?>
   <script src="../src/js/social.js"></script>
+  <script>
+    var currentSessionUser = <?php echo json_encode($_SESSION['uid']); ?>;
+  </script>
+  <script src="../src/js/follow.js"></script>
   <script src="../src/js/EditProfile.js"></script>
   <script src="../src/js/openPosts.js"></script>
+  <script src="../src/js/editPost.js"></script>
 </body>
 </html>

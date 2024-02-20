@@ -62,3 +62,4 @@ function searchStuff() {
 }
 
 document.getElementById('search-input').addEventListener('input', searchStuff);
+

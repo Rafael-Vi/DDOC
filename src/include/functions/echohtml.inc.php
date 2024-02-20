@@ -6,8 +6,8 @@
         echo '<div class="font-bold">' . $realName . '</div>';
         echo '<div class="w-full">' . $biography . '</div>';
         echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
-        echo '<div class="font-bold">Followers: ---</div>';
-        echo '<div class="font-bold">Following: ---</div>';
+        echo '<div id="followers-count" class="font-bold">Followers: ---</div>';
+        echo '<div id="following-count" class="font-bold">Following: ---</div>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -20,7 +20,8 @@
     function echoUserPosts($post) {
         global $arrConfig;
         echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10">';
-        echo '<a href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
+        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
+        echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" style="visibility: hidden;">Edit</button>';
         echo '</div>';  
     }
 
