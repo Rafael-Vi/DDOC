@@ -34,7 +34,7 @@
             case 'getSearchStuff':
                 if (isset($_POST['value'])) {
                     $value = $_POST['value'];
-                    $uid = "8"; // assuming you have a session variable for the user id
+                    $uid = "9"; // assuming you have a session variable for the user id
                     getSearchStuff($value, $uid);
                 }
                 break;
@@ -44,11 +44,43 @@
                     $currentSessionUser = $_POST['currentSessionUser'];
                     echo followCheck($userid, $currentSessionUser);
                 }
+            case 'followCheckLoad':
+                if (isset($_POST['userid'], $_POST['currentSessionUser'])) {
+                    $userid = $_POST['userid'];
+                    $currentSessionUser = $_POST['currentSessionUser'];
+                    echo followCheckLoad($userid, $currentSessionUser);
+                }
                 break;
             case 'getFollowCounts':
-                if (isset($_POST['currentSessionUser'])) {
-                    $userid = $_POST['currentSessionUser'];
+                if (isset($_POST['userid'])) {
+                    $userid = $_POST['userid'];
                     echo json_encode(getFollowCounts($userid));
+                }
+                break;
+            case 'likeCheck':
+                if (isset($_POST['postid'], $_POST['currentSessionUser'])) {
+                    $postid = $_POST['postid'];
+                    $currentSessionUser = $_POST['currentSessionUser'];
+                    $response = likeCheck($postid, $currentSessionUser);
+                    error_log("likeCheck response: " . $response); // Add this line
+                    echo $response;
+                }
+                break;
+            case 'likeCheckLoad':
+                if (isset($_POST['postid'], $_POST['currentSessionUser'])) {
+                    $postid = $_POST['postid'];
+                    $currentSessionUser = $_POST['currentSessionUser'];
+                    $response = likeCheckLoad($postid, $currentSessionUser);
+                    error_log("likeCheck response: " . $response); // Add this line
+                    echo $response;
+                }
+                break;
+            case 'likeCount':
+                if (isset($_POST['postid'])) {
+                    $postid = $_POST['postid'];
+                    $response = likeCount($postid);
+                    error_log("likeCount response: " . $response); // Add this line
+                    echo $response;
                 }
                 break;
         }
@@ -67,20 +99,71 @@
         return $conn;
     }
     
-    //*SQL Commands for User Info
+
+//! Need to make
+//!-----------------------------------------------------------------------------------------
+    function updatePost(){
+    }
+    function deletePost($postID) {
+        // Start the database connection
+        $dbConn = db_connect();
+    
+        // Check connection
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Prepare the SQL query to delete the post based on post_id using prepared statements
+        $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
+        
+        // Bind parameters
+        $stmt->bind_param("i", $postID);
+    
+        // Execute the query
+        if ($stmt->execute()) {
+            echo "Post with ID $postID deleted successfully.";
+        } else {
+            echo "Failed to delete post with ID $postID.";
+        }
+    
+        // Close statement and connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    }
+    function getPointsPost(){
+
+    }
+    function getPointsAcc(){
+
+    }
+    function RankingPost(){
+
+    }
+    function RankingAcc(){
+
+    }
+    function getThemes(){
+    }
+
+//! Need to make
+//!-----------------------------------------------------------------------------------------
+
+//? Further Improve
+//?-----------------------------------------------------------------------------------------
+
     function newUser($dbConn, $email, $username, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    
+
         // Prepare the SQL query to insert into the table using prepared statements
         $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
         $stmt = $dbConn->prepare($insertSql);
-    
+
         // Bind parameters
         $stmt->bind_param("sss", $email, $username, $hashedPassword);
-    
+
         // Execute the query
         $insertResult = $stmt->execute();
-    
+
         if ($insertResult) {
             validRegisterAl();
         } else {
@@ -91,7 +174,6 @@
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
-
     function updateUser($uid, $username, $realName, $profilePic, $biography) {
         global $arrConfig;
         $dbConn = db_connect();
@@ -146,29 +228,27 @@
         // Close the database connection
         mysqli_close($dbConn);
     }
-
-    //* SQL Commands For Posts
     function createPost($uid, $title, $type, $file) {
         global $arrConfig;
         $dbConn = db_connect();
-    
+
         $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileName .= "." . $fileExtension;
-    
+
         // Prepare the SQL query to insert into the table using prepared statements
         $sql = "INSERT INTO posts (user_id, caption, post_type, post_url) VALUES (?, ?, ?, ?)";
         $stmt = $dbConn->prepare($sql);
-    
+
         $stmt->bind_param("isss", $uid, $title, $type, $fileName); // bind parameters
-    
+
         move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName);
-    
+
         // Execute the query
         if($stmt->execute() === false) {
             die("Error: " . $stmt->error);
         }
-    
+
         if ($stmt) {
             // Handle the successful post creation
             echo "Post created successfully.";
@@ -176,37 +256,7 @@
             // Handle the post creation error
             die("Error: " . $stmt->error);
         }
-    
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-    }
 
-    function updatePost(){
-    }
-
-    function deletePost($postID) {
-        // Start the database connection
-        $dbConn = db_connect();
-    
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-    
-        // Prepare the SQL query to delete the post based on post_id using prepared statements
-        $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
-        
-        // Bind parameters
-        $stmt->bind_param("i", $postID);
-    
-        // Execute the query
-        if ($stmt->execute()) {
-            echo "Post with ID $postID deleted successfully.";
-        } else {
-            echo "Failed to delete post with ID $postID.";
-        }
-    
-        // Close statement and connection
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
@@ -474,63 +524,253 @@
             return "following";
         }
     }
-    function getFollowCounts($userid){
-      // Start the database connection
-$dbConn = db_connect();
+    
+    function followCheckLoad($userid, $currentSessionUser){
+    global $arrConfig;
+    // Start the database connection
+    $dbConn = db_connect();
 
-if ($dbConn === false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-
-// Prepare the SQL query to get the number of followers
-$sql = "SELECT COUNT(*) FROM follow WHERE followee_id = ?";
-$stmt = mysqli_prepare($dbConn, $sql);
-
-// Check if the statement was prepared successfully
-if ($stmt === false) {
-    die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-}
-
-// Bind parameters
-mysqli_stmt_bind_param($stmt, "i", $userid);
-
-// Execute the query
-if(mysqli_stmt_execute($stmt) === false) {
-    die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-}
-
-// Store the result
-mysqli_stmt_bind_result($stmt, $followersCount);
-
-// Fetch the result
-mysqli_stmt_fetch($stmt);
-
-// Close the statement
-mysqli_stmt_close($stmt);
-
-// Prepare the SQL query to get the number of following
-$sql = "SELECT COUNT(*) FROM follow WHERE follower_id = ?";
-$stmt = mysqli_prepare($dbConn, $sql);
-
-// Bind parameters
-mysqli_stmt_bind_param($stmt, "i", $userid);
-
-// Execute the query
-if(mysqli_stmt_execute($stmt) === false) {
-    die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-}
-
-// Store the result
-mysqli_stmt_bind_result($stmt, $followingCount);
-
-// Fetch the result
-mysqli_stmt_fetch($stmt);
-
-// Close the database connection
-mysqli_stmt_close($stmt);
-mysqli_close($dbConn);
-
-// Return the followers and following counts
-return array('followers' => $followersCount, 'following' => $followingCount);
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
     }
+
+    // Prepare the SQL query to check if the current user is already following the other user
+    $sql = "SELECT * FROM follow WHERE follower_id = ? AND followee_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $userid);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Store the result
+    mysqli_stmt_store_result($stmt);
+
+    // Check if the current user is already following the other user
+    if(mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return "following";
+    } else {
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return "follow";
+    }
+}
+    function getFollowCounts($userid){
+        // Start the database connection
+        $dbConn = db_connect();
+    
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Prepare the SQL query to get the number of followers
+        $sql = "SELECT COUNT(*) FROM follow WHERE followee_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "i", $userid);
+    
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Store the result
+        mysqli_stmt_bind_result($stmt, $followersCount);
+    
+        // Fetch the result
+        mysqli_stmt_fetch($stmt);
+    
+        // Close the statement
+        mysqli_stmt_close($stmt);
+    
+        // Prepare the SQL query to get the number of following
+        $sql = "SELECT COUNT(*) FROM follow WHERE follower_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "i", $userid);
+    
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Store the result
+        mysqli_stmt_bind_result($stmt, $followingCount);
+    
+        // Fetch the result
+        mysqli_stmt_fetch($stmt);
+    
+        // Close the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    
+        // Return the followers and following counts
+        return array('followers' => $followersCount, 'following' => $followingCount);
+    }
+
+    function likeCheck($postid, $currentSessionUser){
+        // Start the database connection
+        $dbConn = db_connect();
+    
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Prepare the SQL query to check if the current user has liked the post with the given id
+        $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+    
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Store the result
+        mysqli_stmt_store_result($stmt);
+    
+        // If the post is not liked by the user, insert a like
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            $sql = "DELETE FROM likes WHERE user_id = ? AND post_id = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            if ($stmt === false) {
+                die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+            }
+        
+            mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+        
+            if(mysqli_stmt_execute($stmt) === false) {
+                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            }
+    
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+            return "like";
+        } else {
+            $sql = "INSERT INTO likes (user_id, post_id) VALUES (?, ?)";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            if ($stmt === false) {
+                die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+            }
+        
+            mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+        
+            if(mysqli_stmt_execute($stmt) === false) {
+                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            }
+    
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+            return "liked";
+        }
+    }
+    
+    function likeCheckLoad($postid, $currentSessionUser){
+        // Start the database connection
+        $dbConn = db_connect();
+    
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Prepare the SQL query to check if the current user has liked the post with the given id
+        $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+    
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Store the result
+        mysqli_stmt_store_result($stmt);
+    
+        // If the post is liked by the user, return "liked", else return "like"
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+            return "liked";
+        } else {
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+            return "like";
+        }
+    }
+    function likeCount($postid){
+        // Start the database connection
+        $dbConn = db_connect();
+    
+        if ($dbConn === false) {
+            error_log("ERROR: Could not connect. " . mysqli_connect_error());
+            return "ERROR: Could not connect. " . mysqli_connect_error();
+        }
+    
+        // Prepare the SQL query to get the number of likes for the post with the given id
+        $sql = "SELECT COUNT(*) FROM likes WHERE post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            error_log("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+            return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+        }
+    
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "i", $postid);
+    
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+        }
+    
+        // Store the result
+        mysqli_stmt_bind_result($stmt, $likeCount);
+    
+        // Fetch the result
+        mysqli_stmt_fetch($stmt);
+    
+        // Close the statement and the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    
+        // Return the likes count
+        return $likeCount;
+    }
+
+//? Further Improve
+//?-----------------------------------------------------------------------------------------
+
 ?>

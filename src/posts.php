@@ -35,8 +35,15 @@ include "include/config.inc.php";
     </div>
   
   <?php echoBottomNav(); ?>
+  <script>
+    var currentSessionUser = <?php echo json_encode($_SESSION['uid']); ?>;
+  </script>
+<script>
+    var currentPost = <?php echo json_encode($_GET['id']); ?>;
+</script>
   <script src="../src/js/social.js"></script>
   <script src="../src/js/EditProfile.js"></script>
   <script src="../src/js/openPosts.js"></script>
+  <script src="../src/js/like.js"></script>
 </body>
 </html>

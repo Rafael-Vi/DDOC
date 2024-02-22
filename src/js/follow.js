@@ -16,17 +16,40 @@ function followCheck() {
             } else if (this.responseText.trim() === 'following') {
                 followButton.textContent = 'Following';
             }
-            getFollowCounts();
+            checkPage();
         }
     };
     xhr.send('function=followCheck&userid=' + encodeURIComponent(userid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
 };
 
-function getFollowCounts() {
-    console.log('Getting follow counts');
+function followCheckLoad() {
+    console.log('Follow button clicked');
     var xhr = new XMLHttpRequest();
     var urlParams = new URLSearchParams(window.location.search);
     var userid = urlParams.get('userid'); // get the userid from the URL
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+        if (this.status == 200) {
+            console.log('Response from server:', this.responseText);
+            console.log('Trimmed response:', this.responseText.trim());
+            // Change the text of the follow button based on the response
+            var followButton = document.getElementById('follow-button');
+            if (this.responseText.trim() === 'follow') {
+                followButton.textContent = 'Follow';
+            } else if (this.responseText.trim() === 'following') {
+                followButton.textContent = 'Following';
+            }
+            checkPage();
+        }
+    };
+    xhr.send('function=followCheckLoad&userid=' + encodeURIComponent(userid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
+};
+
+function getFollowCounts(userid) {
+    console.log('Getting follow counts');
+    var xhr = new XMLHttpRequest();
+    var urlParams = new URLSearchParams(window.location.search);
     xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
@@ -40,10 +63,21 @@ function getFollowCounts() {
             document.getElementById('following-count').textContent = 'Following: ' + response.following;
         }
     };
-    xhr.send('function=getFollowCounts&userid=' + encodeURIComponent(userid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
+    xhr.send('function=getFollowCounts&userid=' + encodeURIComponent(userid));
 };
 
-window.addEventListener('load', function() {~
-    
-    getFollowCounts();
+function checkPage(){
+    var urlParams = new URLSearchParams(window.location.search);
+    var userid;
+    if (window.location.pathname.endsWith('OProfile.php')) {
+        userid = urlParams.get('userid'); // get the userid from the URL
+    } else if (window.location.pathname.endsWith('profile.php')) {
+        userid = currentSessionUser; // get the session user id
+    }
+    getFollowCounts(userid);
+}
+
+window.addEventListener('load', function() {
+    checkPage();
+    followCheckLoad();
 });

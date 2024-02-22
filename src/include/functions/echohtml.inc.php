@@ -13,14 +13,14 @@
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="rounded-full w-32 h-32 md:w-56 md:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32 h-32 md:w-56 md:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
     }
 
 
     function echoUserPosts($post) {
         global $arrConfig;
-        echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10">';
-        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
+        echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
+        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
         echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" style="visibility: hidden;">Edit</button>';
         echo '</div>';  
     }
@@ -127,15 +127,15 @@
                 echo'
                 <!-- First row: Post image -->
                 <div class="flex grow-0">
-                    <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="w-full h-full object-cover">
+                    <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="object-contain w-full h-full">
                 </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
                     <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
-                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
-                    <span class="text-white text-2xl font-bold">Likes: 123</span>
+                    <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
+                    <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
                 </div>';
                 
@@ -154,8 +154,8 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
                     <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
-                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
-                    <span class="text-white text-2xl font-bold">Likes: 123</span>
+                    <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
+                    <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
                 </div>';
                 break;
@@ -173,8 +173,8 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
                     <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
-                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Like</button>
-                    <span class="text-white text-2xl font-bold">Likes: 123</span>
+                    <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
+                    <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
                 </div>';
                 break;
@@ -190,9 +190,10 @@
         <p class="mx-1 text-4xl  text-black">C ...</p>
     </div>';
     }
+
     function echoSearchResults($userId, $username, $profilePic){
         echo '<a href="OProfile.php?userid=' . $userId. '" class="text-orange-500 hover:text-orange-800 ">';
-        echo '<div class="flex justify-between items-center text-orange-500 hover:text-orange-800 bg-gray-800 border-orange-500 border-4 p-2 rounded-lg m-2">';
+        echo '<div class="flex justify-between items-center text-white  hover:text-orange-800 bg-gray-800 border-orange-500 border-4 p-2 rounded-lg m-2">';
         echo $username;
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full border-orange-500 border-2">';
         echo '</div>';
