@@ -103,6 +103,7 @@
 //! Need to make
 //!-----------------------------------------------------------------------------------------
     function updatePost(){
+
     }
     function deletePost($postID) {
         // Start the database connection
@@ -130,7 +131,7 @@
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
-    function getPointsPost(){
+    function getPointsPost($postID){
 
     }
     function getPointsAcc(){
@@ -143,6 +144,11 @@
 
     }
     function getThemes(){
+    }
+    function getDef($userID){
+
+    }
+    function getConvo(){
     }
 
 //! Need to make
@@ -413,15 +419,10 @@
 
     function getSearchStuff($value,$uid){
         global $arrConfig;
-        // Start the database connection
-        $dbConn = db_connect();
-        
+        $dbConn = db_connect(); 
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-        
-        // Prepare the SQL query with the user_id and user_name conditions using prepared statements
-        // Use the LIKE operator to find users with a name close to the input value
         $sql = "SELECT user_id, user_name, user_profilePic FROM users WHERE user_id != ? AND user_name LIKE ?";
         $stmt = mysqli_prepare($dbConn, $sql);
         
@@ -728,49 +729,43 @@
             return "like";
         }
     }
-    function likeCount($postid){
-        // Start the database connection
-        $dbConn = db_connect();
-    
-        if ($dbConn === false) {
-            error_log("ERROR: Could not connect. " . mysqli_connect_error());
-            return "ERROR: Could not connect. " . mysqli_connect_error();
-        }
-    
-        // Prepare the SQL query to get the number of likes for the post with the given id
-        $sql = "SELECT COUNT(*) FROM likes WHERE post_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-    
-        // Check if the statement was prepared successfully
-        if ($stmt === false) {
-            error_log("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-            return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
-        }
-    
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "i", $postid);
-    
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-            return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
-        }
-    
-        // Store the result
-        mysqli_stmt_bind_result($stmt, $likeCount);
-    
-        // Fetch the result
-        mysqli_stmt_fetch($stmt);
-    
-        // Close the statement and the database connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-    
-        // Return the likes count
-        return $likeCount;
-    }
+
 
 //? Further Improve
 //?-----------------------------------------------------------------------------------------
 
+
+//*DONE
+
+function likeCount($postid){
+    $dbConn = db_connect();
+    if ($dbConn === false) {
+        error_log("ERROR: Could not connect. " . mysqli_connect_error());
+        return "ERROR: Could not connect. " . mysqli_connect_error();
+    }
+
+    $sql = "SELECT COUNT(*) FROM likes WHERE post_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    if ($stmt === false) {
+        error_log("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $postid);
+
+    if(mysqli_stmt_execute($stmt) === false) {
+        error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+    }
+    mysqli_stmt_bind_result($stmt, $likeCount);
+    mysqli_stmt_fetch($stmt);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+
+    return $likeCount;
+}
+
+//*-----------------------------------------------------------------------------------------
 ?>
