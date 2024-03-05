@@ -4,7 +4,12 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
+?> <?php
+      require "include/functions/checkThemeIsFinished.inc.php";
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,12 +20,14 @@ include "include/config.inc.php";
     <script src="https://cdn.tailwindcss.com"></script>
     <title>{Other Person's Name}</title>
 </head>
-<body class="h-full flex">~
+<body class="h-full flex">
     <?php if ($_SESSION['uid'] == $_GET['userid']) {
     header("Location: profile.php");
     exit;
     }?>
-    <?php echoLoadScreen(); ?>
+    <?php echoLoadScreen(); ?>    <?php
+        echoShowTheme();
+    ?>
     <?php echoNav(); ?>
     <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
        
@@ -53,10 +60,13 @@ include "include/config.inc.php";
        </div>
    </div>
   <?php echoBottomNav(); ?>
-  <script src="../src/js/social.js"></script>
   <script>
-    var currentSessionUser = <?php echo json_encode($_SESSION['uid']); ?>;
-  </script>
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
+</script>
+
+  <script src="../src/js/timer.js"></script>
+
+  <script src="../src/js/social.js"></script>
   <script src="../src/js/follow.js"></script>
 </body>
 </html>

@@ -4,7 +4,12 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
+?> <?php
+      require "include/functions/checkThemeIsFinished.inc.php";
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -19,7 +24,9 @@ include "include/config.inc.php";
 </head>
 <body class="h-full flex">
 
-  <?php echoLoadScreen(); ?>
+  <?php echoLoadScreen(); ?>    <?php
+        echoShowTheme();
+    ?>
   <?php echoNav(); ?>
 
   <div class="bg-gray-900 fixed w-full md:w-9/12 p-0 m-0 md:right-0 h-full flex flex-col justify-center items-center" id="home-div">
@@ -33,7 +40,10 @@ include "include/config.inc.php";
   </div>
 
   <?php echoBottomNav(); ?>
-
+  <script>
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes']['finish_date']); ?>;
+</script>
+  <script src="..src/js/timer.js"></script>
 <script src="../src/js/social.js"></script>
 </body>
 </html>

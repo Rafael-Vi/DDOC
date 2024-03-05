@@ -1,3 +1,5 @@
+//*DONE
+//*------------------------------------------------------------------
 function followCheck() {
     console.log('Follow button clicked');
     var xhr = new XMLHttpRequest();
@@ -19,7 +21,7 @@ function followCheck() {
             checkPage();
         }
     };
-    xhr.send('function=followCheck&userid=' + encodeURIComponent(userid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
+    xhr.send('function=followCheck&userid=' + encodeURIComponent(userid));
 };
 
 function followCheckLoad() {
@@ -43,7 +45,7 @@ function followCheckLoad() {
             checkPage();
         }
     };
-    xhr.send('function=followCheckLoad&userid=' + encodeURIComponent(userid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
+    xhr.send('function=followCheckLoad&userid=' + encodeURIComponent(userid));
 };
 
 function getFollowCounts(userid) {
@@ -68,12 +70,10 @@ function getFollowCounts(userid) {
 
 function checkPage(){
     var urlParams = new URLSearchParams(window.location.search);
-    var userid;
+    var userid = "";
     if (window.location.pathname.endsWith('OProfile.php')) {
         userid = urlParams.get('userid'); // get the userid from the URL
-    } else if (window.location.pathname.endsWith('profile.php')) {
-        userid = currentSessionUser; // get the session user id
-    }
+    } 
     getFollowCounts(userid);
 }
 
@@ -81,3 +81,6 @@ window.addEventListener('load', function() {
     checkPage();
     followCheckLoad();
 });
+
+//*------------------------------------------------------------------
+//*------------------------------------------------------------------

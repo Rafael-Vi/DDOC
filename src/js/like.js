@@ -19,9 +19,8 @@ function likeCheck() {
         }
         getLikeCounts(postid);
     };
-    xhr.send('function=likeCheck&postid=' + encodeURIComponent(postid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
+    xhr.send('function=likeCheck&postid=' + encodeURIComponent(postid));
 };
-
 function likeCheckOnLoad() {
     console.log('Page loaded');
     var xhr = new XMLHttpRequest();
@@ -42,9 +41,8 @@ function likeCheckOnLoad() {
             }
         }
     };
-    xhr.send('function=likeCheckLoad&postid=' + encodeURIComponent(postid) + '&currentSessionUser=' + encodeURIComponent(currentSessionUser));
+    xhr.send('function=likeCheckLoad&postid=' + encodeURIComponent(postid));
 };
-
 function getLikeCounts(postid) {
     console.log('Getting like counts');
     var xhr = new XMLHttpRequest();
@@ -67,8 +65,6 @@ function getLikeCounts(postid) {
     };
     xhr.send('function=likeCount&postid=' + encodeURIComponent(postid));
 };
-
-
 window.addEventListener('load', function() {
     likeCheckOnLoad();
     getLikeCounts(currentPost);

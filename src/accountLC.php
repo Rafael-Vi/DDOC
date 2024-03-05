@@ -12,7 +12,7 @@ include "include/config.inc.php";
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Login & Register</title>
 </head>
-<body>
+<body class="bg-gray-900">
 
 <?php echoLoadScreen(); ?>
 <div class="flip-container">

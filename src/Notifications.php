@@ -4,7 +4,12 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
+?> <?php
+      require "include/functions/checkThemeIsFinished.inc.php";
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +21,9 @@ include "include/config.inc.php";
     <title>Notifications</title>
 </head>
 <body class="h-full flex">
-    <?php echoLoadScreen(); ?>
+    <?php echoLoadScreen(); ?>    <?php
+        echoShowTheme();
+    ?>
     <?php echoNav(); ?>
     <div id="notifications-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         
@@ -25,10 +32,15 @@ include "include/config.inc.php";
         </h1>
 
         <div class="h-full border border-black w-full p-10">
-        
+        <?php echoNotif(); ?>
         </div>
     </div>
     <?php echoBottomNav(); ?>
-    <script src="../src/js/social.js"></script>
+    <script>
+    var themes = <?php echo json_encode($theme['finish_date']); ?>;
+  </script>
+  <script src="../src/js/timer.js"></script>
+
+  <script src="../src/js/social.js"></script>
 </body>
 </html>

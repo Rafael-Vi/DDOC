@@ -59,12 +59,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:   rgb(255, 127, 53);
+
 }
 
 
 
 h2{
-    border-bottom: 4px outset rgb(255, 153, 57) ;
+    border-bottom: 4px outset rgb(151, 41, 255) ;
     padding: 9px;
 }

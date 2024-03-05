@@ -4,7 +4,14 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
+?> 
+<?php
+      require "include/functions/checkThemeIsFinished.inc.php";
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +23,11 @@ include "include/config.inc.php";
     <title>Create Post</title>
 </head>
 <body class="h-full flex">
-    <?php echoLoadScreen(); ?>
+
+    <?php echoLoadScreen(); ?>  
+    <?php
+        echoShowTheme();
+    ?>
     <?php echoNav(); ?>
     <div id="createPost-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
     <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
@@ -40,12 +51,19 @@ include "include/config.inc.php";
 
       <label for="file-upload" class="text-white font-bold mt-8">Upload File (Music/Image):</label>
       <input type="file" id="file-upload" name="file-upload" class="rounded-lg bg-gray-800 text-white mb-4"><br>
-        
+      <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-gray-800 text-white">Theme: <?php echo $_SESSION['themes'][0]['theme']; ?><br>
       <button type="submit" name="CreatePost" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Create Post</button>
     </form>
   </div>
   <?php echoBottomNav(); ?>
+<script>
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes']['finish_date']); ?>;
+</script>
+
+  <script src="../src/js/timer.js"></script>
+
   <script src="../src/js/social.js"></script>
   <script src="../src/js/createPost.js"></script>
+  
 </body>
 </html>

@@ -31,5 +31,8 @@
     require "functions/echohtml.inc.php";
     require "functions/SQLfunctions.inc.php";
     require "functions/validateLRForm.inc.php";
+    getThemes();
+
+
 
 ?>  

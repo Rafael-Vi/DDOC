@@ -4,7 +4,12 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
+?> <?php
+      require "include/functions/checkThemeIsFinished.inc.php";
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +21,9 @@ include "include/config.inc.php";
     <title><?php echo $_GET['id'];?></title>
 </head>
 <body class="h-full flex">
-    <?php echoLoadScreen(); ?>
+    <?php echoLoadScreen(); ?>    <?php
+        echoShowTheme();
+    ?>
     <?php echoNav(); ?>
 
     <div id="ThisPost-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
@@ -35,12 +42,14 @@ include "include/config.inc.php";
     </div>
   
   <?php echoBottomNav(); ?>
-  <script>
-    var currentSessionUser = <?php echo json_encode($_SESSION['uid']); ?>;
-  </script>
 <script>
     var currentPost = <?php echo json_encode($_GET['id']); ?>;
+</script><script>
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes']['finish_date']); ?>;
 </script>
+
+  <script src="../src/js/timer.js"></script>
+
   <script src="../src/js/social.js"></script>
   <script src="../src/js/EditProfile.js"></script>
   <script src="../src/js/openPosts.js"></script>

@@ -9,19 +9,6 @@ function openSearch(event) {
     searchDiv.classList.add('hidden');
   }
 }
-
-function logout() {
-  if (confirm('Are you sure you want to log out?')) {
-      window.location.href = '../src/include/functions/logout.inc.php';
-  }
-}
-
-window.onload = function() {
-  setTimeout(function() {
-    document.getElementById('loadingScreen').style.display = 'none';
-}, 600);
-};
-
 function searchStuff() {
   const value = document.getElementById('search-input').value;
   if (value.length != 0) {
@@ -60,6 +47,15 @@ function searchStuff() {
   }
 
 }
-
+function logout() {
+  if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '../src/include/functions/logout.inc.php';
+  }
+}
+window.onload = function() {
+  setTimeout(function() {
+    document.getElementById('loadingScreen').style.display = 'none';
+}, 600);
+};
 document.getElementById('search-input').addEventListener('input', searchStuff);
 
