@@ -7,7 +7,7 @@
             // 'uid' value is empty
             session_unset();
             session_destroy();
-            header("Location: accountLC.php");
+            header("Location: index.php");
             exit;
         }
         else {
@@ -16,7 +16,7 @@
     } else {
         session_unset();
         session_destroy();
-        header("Location: accountLC.php");
+        header("Location: index.php");
         exit;
     }
 

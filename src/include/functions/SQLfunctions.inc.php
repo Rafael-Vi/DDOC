@@ -148,13 +148,42 @@ function db_connect() {
     function getPointsAcc(){
 
     }
-    function RankingPost(){
-
+    function getRankingPost(){
+        // Create a connection to the database
+        $dbConn = db_connect();
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Define the SQL query
+        $sql = "SELECT * FROM rankingposts";
+    
+        // Prepare the SQL statement
+        $stmt = mysqli_prepare($dbConn, $sql);
+    
+        // Execute the query
+        if (mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Get the result set
+        $result = mysqli_stmt_get_result($stmt);
+    
+        // Fetch all rows as an associative array
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+        // Close the statement and the connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    
+        // Echo the posts
+        foreach($rows as $row) {
+            echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
+        }
     }
     function RankingAcc(){
 
     }
-
     function getDef($userID){
 
     }
@@ -244,27 +273,27 @@ function db_connect() {
         // Close the database connection
         mysqli_close($dbConn);
     }
-    function createPost($uid, $title, $type, $file) {
+    function createPost($uid, $title, $type, $file, $theme) {
         global $arrConfig;
         $dbConn = db_connect();
-
+    
         $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileName .= "." . $fileExtension;
-
+    
         // Prepare the SQL query to insert into the table using prepared statements
-        $sql = "INSERT INTO posts (user_id, caption, post_type, post_url) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO posts (user_id, caption, post_type, post_url, theme_id) VALUES (?, ?, ?, ?, ?)";
         $stmt = $dbConn->prepare($sql);
-
-        $stmt->bind_param("isss", $uid, $title, $type, $fileName); // bind parameters
-
+    
+        $stmt->bind_param("isssi", $uid, $title, $type, $fileName, $theme); // bind parameters
+    
         move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName);
-
+    
         // Execute the query
         if($stmt->execute() === false) {
             die("Error: " . $stmt->error);
         }
-
+    
         if ($stmt) {
             // Handle the successful post creation
             echo "Post created successfully.";
@@ -272,7 +301,7 @@ function db_connect() {
             // Handle the post creation error
             die("Error: " . $stmt->error);
         }
-
+    
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }

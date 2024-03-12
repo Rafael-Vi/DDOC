@@ -17,12 +17,12 @@ include "include/config.inc.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/social.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <title>Rankings Posts</title>
 </head>
 <body class="h-full flex">
     <?php echoLoadScreen(); ?>    <?php
-        echoShowTheme();
+        //echoShowTheme();
     ?>
     <?php echoNav(); ?>
     <div id="Postrankings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
@@ -60,63 +60,18 @@ include "include/config.inc.php";
             <div class="ubuntu-bold w-1/6">Person who posted it</div> <!-- Person who posted it -->
           </div>
           <div class="h-full overflow-y-auto w-full">
-            <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-              <div class="text-white w-1/6">Rank</div> <!-- Rank of the post -->
-              <div class="flex items-center justify-center w-1/6"><img src="image.jpg" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
-              <div class="text-white w-1/6">Name of the Post</div> <!-- Name of the post -->
-              <div class="text-white w-1/6">Type</div> <!-- Type -->
-              <div class="text-white w-1/6">Likes</div> <!-- Likes -->
-              <div class="text-white w-1/6">Person who posted it</div> <!-- Person who posted it -->
-            </div>
-            <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-              <div class="text-white w-1/6">Rank</div> <!-- Rank of the post -->
-              <div class="flex items-center justify-center w-1/6"><img src="image.jpg" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
-              <div class="text-white w-1/6">Name of the Post</div> <!-- Name of the post -->
-              <div class="text-white w-1/6">Type</div> <!-- Type -->
-              <div class="text-white w-1/6">Likes</div> <!-- Likes -->
-              <div class="text-white w-1/6">Person who posted it</div> <!-- Person who posted it -->
-            </div>
-            <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-              <div class="text-white w-1/6">Rank</div> <!-- Rank of the post -->
-              <div class="flex items-center justify-center w-1/6"><img src="image.jpg" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
-              <div class="text-white w-1/6">Name of the Post</div> <!-- Name of the post -->
-              <div class="text-white w-1/6">Type</div> <!-- Type -->
-              <div class="text-white w-1/6">Likes</div> <!-- Likes -->
-              <div class="text-white w-1/6">Person who posted it</div> <!-- Person who posted it -->
-            </div>
-            <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-              <div class="text-white w-1/6">Rank</div> <!-- Rank of the post -->
-              <div class="flex items-center justify-center w-1/6"><img src="image.jpg" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
-              <div class="text-white w-1/6">Name of the Post</div> <!-- Name of the post -->
-              <div class="text-white w-1/6">Type</div> <!-- Type -->
-              <div class="text-white w-1/6">Likes</div> <!-- Likes -->
-              <div class="text-white w-1/6">Person who posted it</div> <!-- Person who posted it -->
-            </div>
-            <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-              <div class="text-white w-1/6">Rank</div> <!-- Rank of the post -->
-              <div class="flex items-center justify-center w-1/6"><img src="image.jpg" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
-              <div class="text-white w-1/6">Name of the Post</div> <!-- Name of the post -->
-              <div class="text-white w-1/6">Type</div> <!-- Type -->
-              <div class="text-white w-1/6">Likes</div> <!-- Likes -->
-              <div class="text-white w-1/6">Person who posted it</div> <!-- Person who posted it -->
-            </div>
-            <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-              <div class="text-white w-1/6">Rank</div> <!-- Rank of the post -->
-              <div class="flex items-center justify-center w-1/6"><img src="image.jpg" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
-              <div class="text-white w-1/6">Name of the Post</div> <!-- Name of the post -->
-              <div class="text-white w-1/6">Type</div> <!-- Type -->
-              <div class="text-white w-1/6">Likes</div> <!-- Likes -->
-              <div class="text-white w-1/6">Person who posted it</div> <!-- Person who posted it -->
-            </div>
+
+          <?php 
+            getRankingPost();
+          ?>
           </div>
           <!-- End of post div -->
-        </div>
+      </div>
 <script>
-  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes']['finish_date']); ?>;
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
-
   <script src="../src/js/timer.js"></script>
 
-  <script src="../src/js/social.js"></script>
+  <script   src="../src/js/social.js"></script>
 </body>
 </html>

@@ -26,7 +26,18 @@ if (isset($_SESSION['themes'])) {
                 die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
             }
 
+            // Update the posts table to set Enabled = 1 for posts with the same theme_id
+            $sqlPosts = "UPDATE posts SET Enabled = 1 WHERE theme_id = ?";
+            $stmtPosts = mysqli_prepare($dbConn, $sqlPosts);
+            mysqli_stmt_bind_param($stmtPosts, "i", $themeId);
+
+            // Execute the query
+            if (mysqli_stmt_execute($stmtPosts) === false) {
+                die("ERROR: Could not execute query: $sqlPosts. " . mysqli_error($dbConn));
+            }
+
             mysqli_stmt_close($stmt);
+            mysqli_stmt_close($stmtPosts);
             mysqli_close($dbConn);
         }
     }

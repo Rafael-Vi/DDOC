@@ -93,7 +93,7 @@ if (mysqli_stmt_fetch($stmt)) {
         echo '    </svg>';
         echo '    <div class="leading-tight flex flex-col space-y-2">';
         echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
-        echo '      <div class="text-sm font-small text-red-800">Password Incorrect!</div>';
+        echo '      <div class="text-sm font-small text-red-800">Auth Failed!!!</div>';
         echo '    </div>';
         echo '  </div>';
         echo '</div>';
@@ -106,7 +106,7 @@ if (mysqli_stmt_fetch($stmt)) {
     echo '    </svg>';
     echo '    <div class="leading-tight flex flex-col space-y-2">';
     echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
-    echo '      <div class="text-sm font-small text-red-800">Email has yet to create an account!</div>';
+    echo '      <div class="text-sm font-small text-red-800">Auth Failed!!!</div>';
     echo '    </div>';
     echo '  </div>';
     echo '</div>';

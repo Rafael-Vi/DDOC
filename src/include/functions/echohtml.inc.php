@@ -54,50 +54,83 @@
             <div class="relative md:flex md:flex-col md:top-0 md:left-0 md:w-full md:bg-white md:h-full md:border-r hidden md:rounded-lg md:shadow-xl">
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
-                    <li class="px-5">
-                        <div class="flex flex-row items-center h-32 w-32">
-                        <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="#" id="search-link" style="color: black" onclick="openSearch(event)">Search</a>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./messages.php" id="messages-link" style="color: black">Messages</a>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./Notifications.php" id="notifications-link" style="color: black">Notifications</a>
-                    </li>
-                    <li class="px-5 py-2">
-                        <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500 border-b-2 border-purple-500 w-full rounded-full"></div>
-                        </div>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./social.php" id="home-link" style="color: black">Home</a>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./rankings.php" id="Accrankings-link" style="color: black">Account Rankings</a>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./rankingsPost.php" id="Postrankings-link" style="color: black">Post Rankings</a>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./CreatePost.php" id="createPost-link" style="color: black">Create Post</a>
-                    </li>
-                    <li class="px-5 py-2">
-                        <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500 border-b-2 border-purple-500 w-full rounded-lg"></div>
-                        </div>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./profile.php" id="profile-link" style="color: black">Profile</a>
-                    </li>
-                    <li class="px-4 py-2">
-                        <a href="./settings.php" id="settings-link" style="color: black">Settings</a>
-                    </li>
-                    <li class="px-4 py-2">
+                        <li class="px-5">
+                            <div class="flex flex-row items-center h-32 w-32">
+                            <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="#" id="search-link" style="color: black" onclick="openSearch(event)">Search</a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./messages.php" id="messages-link" style="color: black">Messages</a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./Notifications.php" id="notifications-link" style="color: black">Notifications</a>
+                        </li>
+                        <li class="px-5 py-2">
+                            <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500 border-b-2 border-purple-500 w-full rounded-full"></div>
+                            </div>
+                        </li>
+                        <li class="px-4 py-2 text-black items-center justify-center">
+                           
+                            <div class="grid grid-flow-col gap-5 text-center auto-cols-max items-center justify-center">
+                            <div class="flex flex-col text-black items-center justify-center">
+                                <span class="countdown Ubuntu text-4xl">
+                                <span id="days" style="--value:0;"></span>
+                                </span>
+                                Days
+                            </div> 
+                            <div class="flex flex-col text-black items-center justify-center">
+                                <span class="countdown Ubuntu text-4xl">
+                                <span id="hours" style="--value:0;"></span>
+                                </span>
+                                Hours
+                            </div> 
+                            <div class="flex flex-col text-black items-center justify-center">
+                                <span class="countdown Ubuntu text-4xl">    
+                                <span id="minutes" style="--value:0;"></span>
+                                </span>
+                                Min
+                            </div> 
+                            <div class="flex flex-col text-black items-center justify-center">
+                                <span class="countdown Ubuntu text-4xl">
+                                <span id="seconds" style="--value:0;"></span>
+                                </span>
+                                Sec
+                            </div>
+                            </div>
+                            <a href="./rankingsPost.php?    theme='."{$_SESSION['themes'][0]['theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Theme: '."{$_SESSION['themes'][0]['theme']}".'</div>
+                            </a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./social.php" id="home-link" style="color: black">Home</a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./rankings.php" id="Accrankings-link" style="color: black">Account Rankings</a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./rankingsPost.php" id="Postrankings-link" style="color: black">Post Rankings</a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./CreatePost.php" id="createPost-link" style="color: black">Create Post</a>
+                        </li>
+                        <li class="px-5 py-2">
+                            <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500 border-b-2 border-purple-500 w-full rounded-lg"></div>
+                            </div>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./profile.php" id="profile-link" style="color: black">Profile</a>
+                        </li>
+                        <li class="px-4 py-2">
+                            <a href="./settings.php" id="settings-link" style="color: black">Settings</a>
+                        </li>
+                        <li class="px-4 py-2">
                         <a href="#" id="logout-link" style="color: black" onclick="logout()">Logout</a>
-                    </li>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -107,12 +140,6 @@
                 <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-14">
                   <input type="text" placeholder="Search" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-4 rounded-md text-black font-semibold" />
                 </div>
-                <label for="post-type" class="text-white font-bold mx-4">Type:</label>
-                <select id="post-type" name="post-type" required class="bg-gray-700 h-8 py-4 px-2 mx-4 rounded-md text-white font-semibold">
-                  <option value="audio" class="text-white">Audio</option>
-                  <option value="image" class="text-white">Image</option>
-                  <option value="video" class="text-white">Video</option>
-                </select>
                 <div class="flex-1">
                     <div class="mt-4 mx-4 h-5/6 bg-gray-300 relative p-2 rounded-md" id="search-people">
                     <?php echoSearch(); ?>
@@ -275,5 +302,29 @@
         </div>
         <div class="chat-bubble">I hate you!</div>
       </div>';
+    }
+
+    function echoRankPosts($rank, $image, $name, $type, $likes, $poster){
+        global $arrConfig;  
+        echo'
+        <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
+        <div class="text-white w-1/6">'.$rank.'</div> <!-- Rank of the post -->
+        <div class="flex items-center justify-center w-1/6"><img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
+        <div class="text-white w-1/6">'.$name.'</div> <!-- Name of the post -->
+        <div class="text-white w-1/6">'.$type.'</div> <!-- Type -->
+        <div class="text-white w-1/6">'.$likes.'</div> <!-- Likes -->
+        <div class="text-white w-1/6">@'.$poster.'</div> <!-- Person who posted it -->
+        </div>
+        ';
+    }
+
+    function echoRankAcc($rank, $likes, $poster){
+        echo '
+        <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
+        <div class="text-white w-1/3">'.$rank.'</div> <!-- Rank of the post -->
+        <div class="text-white w-1/3">'.$likes.'</div> <!-- Likes -->
+        <div class="text-white w-1/3">@'.$poster.'</div> <!-- Person who posted it -->
+        </div>
+        ';
     }
 ?>

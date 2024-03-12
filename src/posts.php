@@ -17,13 +17,11 @@ include "include/config.inc.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/social.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <title><?php echo $_GET['id'];?></title>
 </head>
 <body class="h-full flex">
-    <?php echoLoadScreen(); ?>    <?php
-        echoShowTheme();
-    ?>
+    <?php echoLoadScreen(); ?>   
     <?php echoNav(); ?>
 
     <div id="ThisPost-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
@@ -33,7 +31,7 @@ include "include/config.inc.php";
         </h1>
 
         <div class="h-full border border-black w-full p-10">
-            <div class="h-full border border-black w-full p-10 flex flex-col relative bottom-0">
+            <div class="h-full border border-black w-full p-10 flex flex-col relative bottom-0 overflow-auto">
                 <?php 
                     showPost($_GET['id']);
                 ?>
@@ -45,9 +43,8 @@ include "include/config.inc.php";
 <script>
     var currentPost = <?php echo json_encode($_GET['id']); ?>;
 </script><script>
-  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes']['finish_date']); ?>;
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
-
   <script src="../src/js/timer.js"></script>
 
   <script src="../src/js/social.js"></script>
