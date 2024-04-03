@@ -11,9 +11,9 @@
         }
         echo '</div>';
     }
-    function echoProfileInfo($username, $email, $profilePic, $realName, $biography){
+    function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
-        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: ' ."---" . '</div>';
+        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
         echo '<div class="font-bold">' . $realName . '</div>';
         echo '<div class="w-full">' . $biography . '</div>';
@@ -43,10 +43,6 @@
         echo '</div>';
     }
 
-    function echoThumb($thumb){
-        echo '<label for="profile-picture" class="text-white font-bold">What your post will look like:</label>';
-        echo '<img src="https://via.placeholder.com/320x320" alt="Thumbnail" class="rounded-sm w-64 h-64 lg:w-56 lg:h-56 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5" id="profile-picture">';
-    }
 
     function echoNav(){
         echo'
@@ -259,15 +255,17 @@
         echo '</a>';
     }
 
-    function echoNotif(){
+    function echoNotif($row){
+        $date = $row['date_sent'];
+        $message = $row['message'];
+    
         echo '<a href="#" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4">';
         echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<div class=" h-1 mr-4"></div>'; // Circle for the profile picture
         echo '<div>';
-        echo '<div class="font-bold text-xl">Date of notif</div>'; // N
-        echo '<div class="font-semibold text-md">Person that notificated you</div>'; // Name
-        echo '<div class="text-sm leading-relaxed">Notification message</div>'; // Last message
+        echo "<div class='font-bold text-xl'>$message</div>"; // Date of notif
+        echo "<div class='text-sm leading-relaxed'>$date</div>"; // Notification message
         echo '</div>';
         echo '</div>';
         echo '<div class="ml-auto">🔔</div>'; // Notification symbol
@@ -318,13 +316,16 @@
         ';
     }
 
-    function echoRankAcc($rank, $likes, $poster){
+    function echoRankAcc($rank, $likes, $poster, $url_image){
+        global $arrConfig;  
         echo '
         <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-        <div class="text-white w-1/3">'.$rank.'</div> <!-- Rank of the post -->
-        <div class="text-white w-1/3">'.$likes.'</div> <!-- Likes -->
-        <div class="text-white w-1/3">@'.$poster.'</div> <!-- Person who posted it -->
+        <div class="text-white w-1/3 text-center">#'.$rank.'</div> <!-- Rank of the post -->
+        <div class="text-white w-1/3 text-center">'.$likes.'</div> <!-- Likes -->
+            <div class="flex flex-row items-center justify-end pr-32 w-1/3">
+                <div class="text-white mr-4">@'.$poster.'</div>
+                <img class="rounded-full w-8 h-8" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+            </div>
         </div>
         ';
     }
-?>

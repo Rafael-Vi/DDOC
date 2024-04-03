@@ -17,6 +17,7 @@ include "include/config.inc.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/social.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="https://cdn.tailwindcss.com"></script>     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <title>Notifications</title>
 </head>
@@ -32,13 +33,16 @@ include "include/config.inc.php";
         </h1>
 
         <div class="h-full border border-black w-full p-10">
-        <?php echoNotif(); ?>
+        <?php getNotif(); ?>
         </div>
     </div>
     <?php echoBottomNav(); ?>
-    <script>
+  <script>
     var themes = <?php echo json_encode($theme['finish_date']); ?>;
   </script>
+  <script>
+  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
+</script>
   <script src="../src/js/timer.js"></script>
 
   <script src="../src/js/social.js"></script>

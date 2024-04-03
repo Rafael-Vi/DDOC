@@ -3,7 +3,7 @@
        require_once "../config.inc.php";
     $title = $_POST['post-title'];
     $type = $_POST['post-type'];
-    $file = $_FILES['file-upload'];
+    $file = $_FILES['file-input'];
     var_dump($_FILES);
     var_dump($_POST);
 
