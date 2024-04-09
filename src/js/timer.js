@@ -10,6 +10,17 @@ function calculateRemainingTime() {
   const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
+  if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+    fetch('../include/functions/checkThemeIsFinished.php')
+    .then(response => response.text())
+    .then(data => {
+      console.log(data);
+      // Reload the page
+      location.reload();
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
   return { days, hours, minutes, seconds };
 }
 

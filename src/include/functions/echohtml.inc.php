@@ -18,8 +18,8 @@
         echo '<div class="font-bold">' . $realName . '</div>';
         echo '<div class="w-full">' . $biography . '</div>';
         echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
-        echo '<div id="followers-count" class="font-bold">Followers: ---</div>';
-        echo '<div id="following-count" class="font-bold">Following: ---</div>';
+        echo '<div id="followers-count" class="font-bold">Seguidores: ---</div>';
+        echo '<div id="following-count" class="font-bold">A seguir: ---</div>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -27,8 +27,6 @@
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32 h-32 md:w-56 md:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
     }
-
-
     function echoUserPosts($post) {
         global $arrConfig;
         echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
@@ -39,11 +37,9 @@
 
     function echoNoPosts(){
         echo '<div class="flex justify-center items-center h-64 text-4xl">';
-        echo '<span class="w-full font-bold text-center">No Posts</span>';
+        echo '<span class="w-full font-bold text-center">Sem Posts</span>';
         echo '</div>';
     }
-
-
     function echoNav(){
         echo'
         <div class="flex w-3/12 flex-column z-40 h-screen" id="topNavBar">
@@ -55,13 +51,13 @@
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="#" id="search-link" style="color: black" onclick="openSearch(event)">Search</a>
+                            <a href="#" id="search-link" style="color: black" onclick="openSearch(event)">Pesquisa</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./messages.php" id="messages-link" style="color: black">Messages</a>
+                            <a href="./messages.php" id="messages-link" style="color: black">Mensagens</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./Notifications.php" id="notifications-link" style="color: black">Notifications</a>
+                            <a href="./Notifications.php" id="notifications-link" style="color: black">Notificações</a>
                         </li>
                         <li class="px-5 py-2">
                             <div class="flex flex-row items-center h-8">
@@ -75,42 +71,42 @@
                                 <span class="countdown Ubuntu text-4xl">
                                 <span id="days" style="--value:0;"></span>
                                 </span>
-                                Days
+                                Dias
                             </div> 
                             <div class="flex flex-col text-black items-center justify-center">
                                 <span class="countdown Ubuntu text-4xl">
                                 <span id="hours" style="--value:0;"></span>
                                 </span>
-                                Hours
+                                Horas
                             </div> 
                             <div class="flex flex-col text-black items-center justify-center">
                                 <span class="countdown Ubuntu text-4xl">    
                                 <span id="minutes" style="--value:0;"></span>
                                 </span>
-                                Min
+                                Minutos
                             </div> 
                             <div class="flex flex-col text-black items-center justify-center">
                                 <span class="countdown Ubuntu text-4xl">
                                 <span id="seconds" style="--value:0;"></span>
                                 </span>
-                                Sec
+                                Segundos
                             </div>
                             </div>
-                            <a href="./rankingsPost.php?    theme='."{$_SESSION['themes'][0]['theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
-                            <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Theme: '."{$_SESSION['themes'][0]['theme']}".'</div>
+                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Tema: '."{$_SESSION['themes'][0]['theme']}".'</div>
                             </a>
                         </li>
                         <li class="px-4 py-2">
                             <a href="./social.php" id="home-link" style="color: black">Home</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./rankings.php" id="Accrankings-link" style="color: black">Account Rankings</a>
+                            <a href="./rankings.php" id="Accrankings-link" style="color: black">Ranks de Contas</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./rankingsPost.php" id="Postrankings-link" style="color: black">Post Rankings</a>
+                            <a href="./rankingsPost.php" id="Postrankings-link" style="color: black">Ranks dos Posts</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./CreatePost.php" id="createPost-link" style="color: black">Create Post</a>
+                            <a href="./CreatePost.php" id="createPost-link" style="color: black">Publicar</a>
                         </li>
                         <li class="px-5 py-2">
                             <div class="flex flex-row items-center h-8">
@@ -118,13 +114,13 @@
                             </div>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./profile.php" id="profile-link" style="color: black">Profile</a>
+                            <a href="./profile.php" id="profile-link" style="color: black">Perfil</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./settings.php" id="settings-link" style="color: black">Settings</a>
+                            <a href="./settings.php" id="settings-link" style="color: black">Definições</a>
                         </li>
                         <li class="px-4 py-2">
-                        <a href="#" id="logout-link" style="color: black" onclick="logout()">Logout</a>
+                        <a href="#" id="logout-link" style="color: black" onclick="logout('.'DDOC'.')">Logout</a>
                         </li>
 
                     </ul>
@@ -146,7 +142,6 @@
             </div>
         ';
     }
-
     function echoBottomNav(){
         echo'
         <nav class="bg-white shadow-md flex items-center md:hidden justify-between absolute bottom-0 w-full">
@@ -167,14 +162,15 @@
             case 'image':
                 echo'
                 <!-- First row: Post image -->
-                <div class="flex grow-0">
-                    <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="object-contain w-full h-full">
+                <div class="flex justify-center">
+                    <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
                 </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
+                <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
+                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
                     <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
@@ -184,17 +180,17 @@
             case 'audio':
                 echo'
                 <!-- First row: Post audio -->
-                <div class="flex grow-0 my-auto">
-                    <audio controls class="w-full h-24">
+                <div class="flex justify-center">
+                    <audio controls class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
                         <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
-                        Your browser does not support the audio tag.
+                        O seu browser não suporta a tag de áudio.
                     </audio>
                 </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
-                    <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
+                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
                     <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
@@ -204,16 +200,16 @@
                 echo'
                 <!-- First row: Post video -->
                 <div class="flex grow-0">
-                    <video controls class="w-full h-full">
+                    <video controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
                         <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4">
-                        Your browser does not support the video tag.
+                        O seu browse não suporta a tag de vídeo.
                     </video>
                 </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <span class="text-white text-2xl font-bold ml-4">Caption: "'.$post['caption'].'"</span>
+                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
                     <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
@@ -258,8 +254,8 @@
     function echoNotif($row){
         $date = $row['date_sent'];
         $message = $row['message'];
-    
-        echo '<a href="#" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4">';
+        $notificationId = $row['id'];
+        echo '<a href="#" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4 notification-message group">';
         echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<div class=" h-1 mr-4"></div>'; // Circle for the profile picture
@@ -268,7 +264,7 @@
         echo "<div class='text-sm leading-relaxed'>$date</div>"; // Notification message
         echo '</div>';
         echo '</div>';
-        echo '<div class="ml-auto">🔔</div>'; // Notification symbol
+        echo '<button class="delete-button opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="deleteNotifications(' . $notificationId . ')">&#10005;</button>'; // Delete button
         echo '<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-b-lg"></div>'; // Gradient border
         echo '</div>';
         echo '</a>';
@@ -324,7 +320,12 @@
         <div class="text-white w-1/3 text-center">'.$likes.'</div> <!-- Likes -->
             <div class="flex flex-row items-center justify-end pr-32 w-1/3">
                 <div class="text-white mr-4">@'.$poster.'</div>
-                <img class="rounded-full w-8 h-8" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                ';
+                if($url_image != null){
+                    echo'
+                    <img class="rounded-full w-8 h-8" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">';
+                }
+        echo'
             </div>
         </div>
         ';

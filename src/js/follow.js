@@ -61,8 +61,8 @@ function getFollowCounts(userid) {
             // Parse the response
             var response = JSON.parse(this.responseText);
             // Update the followers and following counts on the page
-            document.getElementById('followers-count').textContent = 'Followers: ' + response.followers;
-            document.getElementById('following-count').textContent = 'Following: ' + response.following;
+            document.getElementById('followers-count').textContent = 'Seguidores: ' + response.followers;
+            document.getElementById('following-count').textContent = 'A seguir: ' + response.following;
         }
     };
     xhr.send('function=getFollowCounts&userid=' + encodeURIComponent(userid));

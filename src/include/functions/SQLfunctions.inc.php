@@ -1,37 +1,8 @@
 <?php
 //!----------------------------------------------------------------------------------------
-//!----------------------------------------------------------------------------------------
     @session_start();
     require_once "echohtml.inc.php";
-    global $arrConfig;
-
-    if($_SERVER['HTTP_HOST'] == 'localhost') {
-        error_reporting(E_ALL);
-    } else {
-        error_reporting(0);
-    }
-
-    // acessos FrontOffice
-    $arrConfig['url_site']='http://localhost/DDOC';
-    $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
-
-    // caminhos Docs e/ou fotografias
-    $arrConfig['dir_posts'] = $arrConfig['dir_site'].'/upload/posts/';
-    $arrConfig['url_posts'] = $arrConfig['url_site'].'/upload/posts/';
-    $arrConfig['dir_users'] = $arrConfig['dir_site'].'/upload/users/';
-    $arrConfig['url_users'] = $arrConfig['url_site'].'/upload/users/';
-    $arrConfig['fotos_auth'] = array ('image/jpeg', 'image/jpg', 'image/png', 'image/gif');
-    $arrConfig['fotos_maxUpload'] = 3000000;
-
-    // caminhos Ficheiros
-    $arrConfig['files_auth'] = array ('application/pdf');
-    $arrConfig['files_maxUpload'] = 10000000;
-
-    // número de registo de página, para situações de paginação
-    $arrConfig['num_reg_pagina'] = 25;
-//! NEED TO MAKE THE CONFIG WORK
-//!----------------------------------------------------------------------------------------
-//!----------------------------------------------------------------------------------------
+    require_once "paths.inc.php";
 
 //* AJAX HANDLING
 //*-----------------------------------------------------------------------------------------
@@ -96,6 +67,19 @@ if (isset($_POST['function'])) {
                 echo $response;
             }
             break;
+        case 'deleteNotifications':
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                deleteNotif($id);
+            }
+            break;
+        case 'loadNotifications':
+            if (isset($_SESSION['uid'])) {
+                $response = getNotif();
+                error_log("loadUserNotifications response: " . $response);
+                echo $response;
+            }
+            break;
     }
 }
 //*-----------------------------------------------------------------------------------------
@@ -109,8 +93,6 @@ function db_connect() {
     }
     return $conn;
 }
-
-
 //! Need to make
 //!-----------------------------------------------------------------------------------------
     function updatePost(){
@@ -142,55 +124,22 @@ function db_connect() {
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
+    
     function getDef($userID){
 
     }
+
     function getConvo(){
+    }
+    function sendMessage(){
     }
 
 //! Need to make
 //!-----------------------------------------------------------------------------------------
 
 //? Further Improve
-    //?-----------------------------------------------------------------------------------------
-    function getNotif(){
-        $receiverId = $_SESSION['uid'];
+//?-----------------------------------------------------------------------------------------
 
-        global $arrConfig;
-        $dbConn = db_connect(); 
-        if ($dbConn === false) {
-            return "ERROR: Could not connect. " . mysqli_connect_error();
-        }
-    
-        // Prepare the SQL query
-        $sql = "SELECT * FROM notifications WHERE receiver_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-        if ($stmt === false) {
-            return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
-        }
-    
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "i", $receiverId);
-    
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
-        }
-    
-        // Bind result variables
-        $result = mysqli_stmt_get_result($stmt);
-        // Fetch all notifications and echo them
-        if(mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echoNotif($row);
-            }
-        } else {
-            echo '<h1 class="ubuntu-bold">No notifications</h1>';
-        }
-    
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-    }
     function sendNotification($receiverId, $senderId, $type) {
         global $arrConfig;
         $dbConn = db_connect(); 
@@ -259,32 +208,43 @@ function db_connect() {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
     
-        // Define the SQL query
-        $sql = "SELECT * FROM rankingposts";
+        if (isset($_SESSION['themes'])) {
+            foreach ($_SESSION['themes'] as $theme) {
+                $theme_id = $theme['theme_id'];
+                // Now you can use $theme_id
     
-        // Prepare the SQL statement
-        $stmt = mysqli_prepare($dbConn, $sql);
+                // Define the SQL query
+                $sql = "SELECT * FROM rankingposts where theme_id = ?";
     
-        // Execute the query
-        if (mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+                // Prepare the SQL statement
+                $stmt = mysqli_prepare($dbConn, $sql);
+    
+                // Bind the theme_id parameter to the SQL statement
+                mysqli_stmt_bind_param($stmt, 'i', $theme_id);
+    
+                // Execute the query
+                if (mysqli_stmt_execute($stmt) === false) {
+                    die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+                }
+    
+                // Get the result set
+                $result = mysqli_stmt_get_result($stmt);
+    
+                // Fetch all rows as an associative array
+                $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+                // Echo the posts
+                foreach($rows as $row) {
+                    echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
+                }
+            }
         }
-    
-        // Get the result set
-        $result = mysqli_stmt_get_result($stmt);
-    
-        // Fetch all rows as an associative array
-        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
         // Close the statement and the connection
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
-    
-        // Echo the posts
-        foreach($rows as $row) {
-            echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
-        }
     }
+    
     function newUser($dbConn, $email, $username, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -449,83 +409,7 @@ function db_connect() {
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
-    function getUserInfo($uid){
-        global $arrConfig;
-        
-        // Start the database connection
-        $dbConn = db_connect();
-    
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-    
-        // Prepare the SQL query with the user_id condition using prepared statements
-        $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE user_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-    
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "i", $uid);
-    
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-        }
-    
-        // Bind result variables
-        mysqli_stmt_bind_result($stmt, $username, $email, $profilePic, $realName, $biography);
-    
-        // Fetch the user data
-        if(mysqli_stmt_fetch($stmt)) {
-            // Access the user data
-            if (!$profilePic) {
-                $profilePic = 'https://via.placeholder.com/320x320';
-            }
-            else{
-                $profilePic = $arrConfig['url_users']. $profilePic ;
-            }
-            $_SESSION['imageProfile'] = $profilePic;
-            $_SESSION['username'] = "@$username";
-            // Close the database connection
-            mysqli_stmt_close($stmt);
-            // Prepare the SQL query to get the rank from the accountrankings view
-            $sqlRank = "SELECT UserRank FROM `accountrankings` WHERE `UserName` = ?";
-            $stmtRank = mysqli_prepare($dbConn, $sqlRank);
-    
-            // Bind parameters
-            mysqli_stmt_bind_param($stmtRank, "s", $username);
-    
-            // Execute the query
-            if(mysqli_stmt_execute($stmtRank) === false) {
-                die("ERROR: Could not execute query: $sqlRank. " . mysqli_error($dbConn));
-            }
-    
-            // Bind result variables
-            mysqli_stmt_bind_result($stmtRank, $rank);
-    
-            // Fetch the rank
-            if(mysqli_stmt_fetch($stmtRank)) {
-                $_SESSION['rank'] = $rank;
-            } else {
-                echo "No rank found for this user.";
-            }
-            
-             mysqli_stmt_close($stmtRank);
-            echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank);
-    
 
-            // Close the statement
-
-    
-        } else {
-            // Handle the query error
-            echo "No user found with this ID.";
-        }
-    
-        mysqli_close($dbConn);
-
-        
-    }
     function showPost($postId, $show) {
         // Start the database connection
         $dbConn = db_connect();
@@ -536,7 +420,10 @@ function db_connect() {
         }
     
         // Prepare the SQL query with the post_id condition using prepared statements
-        $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at, user_id FROM posts WHERE post_id = ?";
+        $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme 
+                FROM posts p 
+                LEFT JOIN theme t ON p.theme_id = t.theme_id 
+                WHERE p.post_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
     
         // Bind parameters
@@ -548,7 +435,7 @@ function db_connect() {
         }
     
         // Bind result variables
-        mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id);
+        mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name);
     
         // Fetch the result
         if (mysqli_stmt_fetch($stmt)) {
@@ -559,7 +446,9 @@ function db_connect() {
                 'caption' => $caption,
                 'created_at' => $created_at,
                 'updated_at' => $updated_at,
-                'user_id' => $user_id
+                'user_id' => $user_id,
+                'theme_id' => $theme_id,
+                'theme_name' => $theme_name
             );
             // Display the post if $show is not 'no'
             if ($show !== 'no') {
@@ -567,7 +456,7 @@ function db_connect() {
             }
     
         } else {
-            echoNoPosts();
+            return false;
         }
     
         // Close the database connection
@@ -601,7 +490,7 @@ function db_connect() {
         while(mysqli_stmt_fetch($stmt)) {
             // Access the user data
             if (!$profilePic) {
-                $profilePic = 'https://via.placeholder.com/320x320';
+                $profilePic = 'https://th.bing.com/th/id/R.3e77a1db6bb25f0feb27c95e05a7bc57?rik=DswMYVRRQEHbjQ&riu=http%3a%2f%2fwww.coalitionrc.com%2fwp-content%2fuploads%2f2017%2f01%2fplaceholder.jpg&ehk=AbGRPPcgHhziWn1sygs8UIL6XIb1HLfHjgPyljdQrDY%3d&risl=&pid=ImgRaw&r=00';
             }
             else{
                 if ($arrConfig !== null && isset($arrConfig['url_users'])) {
@@ -616,130 +505,30 @@ function db_connect() {
         mysqli_close($dbConn);
 
     }
-    function likeCheck($postid, $currentSessionUser){
-        // Start the database connection
-        $dbConn = db_connect();
-    
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-    
-        // Prepare the SQL query to check if the current user has liked the post with the given id
-        $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-    
-        // Check if the statement was prepared successfully
-        if ($stmt === false) {
-            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-        }
-    
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
-    
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-        }
-    
-        // Store the result
-        mysqli_stmt_store_result($stmt);
-    
-        // If the post is not liked by the user, insert a like
-        if (mysqli_stmt_num_rows($stmt) > 0) {
-            $sql = "DELETE FROM likes WHERE user_id = ? AND post_id = ?";
-            $stmt = mysqli_prepare($dbConn, $sql);
-            if ($stmt === false) {
-                die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-            }
-        
-            mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
-        
-            if(mysqli_stmt_execute($stmt) === false) {
-                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-            }
-    
-            mysqli_stmt_close($stmt);
-            mysqli_close($dbConn);
-            return "like";
-        } else {
-            $sql = "INSERT INTO likes (user_id, post_id) VALUES (?, ?)";
-            $stmt = mysqli_prepare($dbConn, $sql);
-            if ($stmt === false) {
-                die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-            }
-        
-            mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
-        
-            if(mysqli_stmt_execute($stmt) === false) {
-                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-            }
-    
-            mysqli_stmt_close($stmt);
-            mysqli_close($dbConn);
-            $postData = showPost($postid, 'no');
-            $receiverId = $postData['user_id'];
-            return "liked" . sendNotification($receiverId, $currentSessionUser, "PostLiked");;
-        }
-    }
-    
-    function likeCheckLoad($postid, $currentSessionUser){
-        // Start the database connection
-        $dbConn = db_connect();
-    
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-    
-        // Prepare the SQL query to check if the current user has liked the post with the given id
-        $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-    
-        // Check if the statement was prepared successfully
-        if ($stmt === false) {
-            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-        }
-    
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
-    
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-        }
-    
-        // Store the result
-        mysqli_stmt_store_result($stmt);
-    
-        // If the post is liked by the user, return "liked", else return "like"
-        if (mysqli_stmt_num_rows($stmt) > 0) {
-            mysqli_stmt_close($stmt);
-            mysqli_close($dbConn);
-            return "liked";
-        } else {
-            mysqli_stmt_close($stmt);
-            mysqli_close($dbConn);
-            return "like";
-        }
-    }
-    function getThemes(){
+
+    function getThemes($all){
         global $arrConfig;
-
+    
         $dbConn = db_connect();
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
-        $sql = "SELECT * FROM theme WHERE is_finished = 0";
+    
+        if ($all) {
+            $sql = "SELECT * FROM theme";
+        } else {
+            $sql = "SELECT * FROM theme WHERE is_finished = 0";
+        }
         $stmt = mysqli_prepare($dbConn, $sql);
-
+    
         // Execute the query
         if(mysqli_stmt_execute($stmt) === false) {
             die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
         }
-
+    
         // Bind result variables
         mysqli_stmt_bind_result($stmt, $theme_id, $theme, $finish_date, $is_finished);
-
+    
         // Fetch the theme data
         $themes = array();
         while(mysqli_stmt_fetch($stmt)) {
@@ -750,18 +539,274 @@ function db_connect() {
                 'is_finished' => $is_finished
             );
         }
-
+    
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
+    
+        if (!$all) {
+            $_SESSION['themes'] = $themes;
+        }
+        else{
 
-        $_SESSION['themes'] = $themes;
+        foreach ($themes as $theme) {
+            echo '<option value="' . $theme['theme_id'] . '">' . $theme['theme'] . '</option>';
+        }
+        }
+
     }
-
 //? Further Improve
 //?-----------------------------------------------------------------------------------------
 
 
 //*DONE
+function deleteNotif($notifID) {
+    // Start the database connection
+    $dbConn = db_connect();
+
+    // Check connection
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to delete the notification based on notification_id using prepared statements
+    $stmt = $dbConn->prepare("DELETE FROM notifications WHERE id = ?");
+    
+    // Bind parameters
+    $stmt->bind_param("i", $notifID);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "Notification with ID $notifID deleted successfully.";
+    } else {
+        echo "Failed to delete notification with ID $notifID.";
+    }
+
+    // Close statement and connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+
+}
+function getNotif(){
+    $receiverId = $_SESSION['uid'];
+
+    global $arrConfig;
+    $dbConn = db_connect(); 
+    if ($dbConn === false) {
+        return "ERROR: Could not connect. " . mysqli_connect_error();
+    }
+
+    // Prepare the SQL query
+    $sql = "SELECT * FROM notifications WHERE receiver_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+    if ($stmt === false) {
+        return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "i", $receiverId);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+    }
+
+    // Bind result variables
+    $result = mysqli_stmt_get_result($stmt);
+    // Fetch all notifications and echo them
+    if(mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echoNotif($row);
+        }
+    } else {
+        echo '<h1 class="ubuntu-bold">No notifications</h1>';
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+}
+function getUserInfo($uid){
+    global $arrConfig;
+    
+    // Start the database connection
+    $dbConn = db_connect();
+
+    // Check connection
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query with the user_id condition using prepared statements
+    $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE user_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "i", $uid);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind result variables
+    mysqli_stmt_bind_result($stmt, $username, $email, $profilePic, $realName, $biography);
+
+    // Fetch the user data
+    if(mysqli_stmt_fetch($stmt)) {
+        // Access the user data
+        if (!$profilePic) {
+            $profilePic = 'https://th.bing.com/th/id/R.3e77a1db6bb25f0feb27c95e05a7bc57?rik=DswMYVRRQEHbjQ&riu=http%3a%2f%2fwww.coalitionrc.com%2fwp-content%2fuploads%2f2017%2f01%2fplaceholder.jpg&ehk=AbGRPPcgHhziWn1sygs8UIL6XIb1HLfHjgPyljdQrDY%3d&risl=&pid=ImgRaw&r=00';
+        }
+        else{
+            $profilePic = $arrConfig['url_users']. $profilePic ;
+        }
+        $_SESSION['imageProfile'] = $profilePic;
+        $_SESSION['username'] = "@$username";
+        // Close the database connection
+        mysqli_stmt_close($stmt);
+        // Prepare the SQL query to get the rank from the accountrankings view
+        $sqlRank = "SELECT UserRank FROM `accountrankings` WHERE `UserName` = ?";
+        $stmtRank = mysqli_prepare($dbConn, $sqlRank);
+
+        // Bind parameters
+        mysqli_stmt_bind_param($stmtRank, "s", $username);
+
+        // Execute the query
+        if(mysqli_stmt_execute($stmtRank) === false) {
+            die("ERROR: Could not execute query: $sqlRank. " . mysqli_error($dbConn));
+        }
+
+        // Bind result variables
+        mysqli_stmt_bind_result($stmtRank, $rank);
+
+        // Fetch the rank
+        if(mysqli_stmt_fetch($stmtRank)) {
+            $_SESSION['rank'] = $rank;
+        } else {
+            echo "No rank found for this user.";
+        }
+        
+         mysqli_stmt_close($stmtRank);
+        echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank);
+
+
+        // Close the statement
+
+
+    } else {
+        // Handle the query error
+        echo "No user found with this ID.";
+    }
+
+    mysqli_close($dbConn);
+
+    
+}
+function likeCheck($postid, $currentSessionUser){
+    // Start the database connection
+    $dbConn = db_connect();
+
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to check if the current user has liked the post with the given id
+    $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Store the result
+    mysqli_stmt_store_result($stmt);
+
+    // If the post is not liked by the user, insert a like
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        $sql = "DELETE FROM likes WHERE user_id = ? AND post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        if ($stmt === false) {
+            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+    
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return "like";
+    } else {
+        $sql = "INSERT INTO likes (user_id, post_id) VALUES (?, ?)";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        if ($stmt === false) {
+            die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+    
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        $postData = showPost($postid, 'no');
+        $receiverId = $postData['user_id'];
+        sendNotification($receiverId, $currentSessionUser, "PostLiked");
+        return "liked";
+    }
+}
+
+function likeCheckLoad($postid, $currentSessionUser){
+    // Start the database connection
+    $dbConn = db_connect();
+
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to check if the current user has liked the post with the given id
+    $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postid);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Store the result
+    mysqli_stmt_store_result($stmt);
+
+    // If the post is liked by the user, return "liked", else return "like"
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return "liked";
+    } else {
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return "like";
+    }
+}
 function RankingAcc(){
     // Create a connection to the database
     $dbConn = db_connect();
@@ -1024,6 +1069,4 @@ function getFollowCounts($userid){
     // Return the followers and following counts
     return array('followers' => $followersCount, 'following' => $followingCount);
 }
-
 //*-----------------------------------------------------------------------------------------
-?>

@@ -35,9 +35,9 @@ function likeCheckOnLoad() {
             // Change the text of the like button based on the response
             var likeButton = document.getElementById('like-button');
             if (this.responseText.trim() === 'like') {
-                likeButton.textContent = 'Like';
+                likeButton.textContent = 'Gosto';
             } else if (this.responseText.trim() === 'liked') {
-                likeButton.textContent = 'Liked';
+                likeButton.textContent = 'Gostado';
             }
         }
     };
@@ -56,7 +56,7 @@ function getLikeCounts(postid) {
                 // Parse the response
                 var response = this.responseText;
                 // Update the likes count on the page
-                document.getElementById('like-count').textContent = 'Likes: ' + response.trim();
+                document.getElementById('like-count').textContent = 'Gostos: ' + response.trim();
             }
         } catch (error) {
             console.error('Error parsing server response:', error);

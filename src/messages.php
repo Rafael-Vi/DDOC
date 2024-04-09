@@ -4,7 +4,8 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
-?> <?php
+?> 
+<?php
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
@@ -16,7 +17,7 @@ include "include/config.inc.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/css/social.css">
+    <link rel="stylesheet" href="../src/css/social.css">    <link rel="shortcut icon" href="./assets/images/2.png" >
     <script src="https://cdn.tailwindcss.com"></script>  
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />

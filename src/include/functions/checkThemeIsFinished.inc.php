@@ -4,7 +4,7 @@
 date_default_timezone_set('Europe/Lisbon');
 
 // Check if the session theme should be finished
-if (isset($_SESSION['themes'])) {
+if (isset($_SESSION['themes']) && !empty($_SESSION['themes']) ){
     $themes = $_SESSION['themes'];
     foreach ($themes as $theme) {
         $finishDate = strtotime($theme['finish_date']);
@@ -41,5 +41,8 @@ if (isset($_SESSION['themes'])) {
             mysqli_close($dbConn);
         }
     }
+}
+else {
+   header("Location: ./errorPages/NoThemeError.php");
 }
 ?>

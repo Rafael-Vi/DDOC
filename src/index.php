@@ -1,66 +1,433 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./assets/images/1.png" >
-    <link rel="stylesheet" href="../src/css/index.css">
-    <link rel="stylesheet" href="../src/css/output.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-.footer {
-    transition: height 0.5s; /* This will animate the height change */
-}
-</style>
 
+    <!--Page Title-->
     <title>DDOC</title>
+
+    <!--Meta Keywords and Description-->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="../src/assets/images/2.png" title="Favicon"/>
+
+    <!-- Main CSS Files -->
+    <link rel="stylesheet" href="../index/css/style.css">
+
+    <!-- Namari Color CSS -->
+    <link rel="stylesheet" href="../index/css/namari-color.css">
+
+    <!--Icon Fonts - Font Awesome Icons-->
+    <link rel="stylesheet" href="../index/css/font-awesome.min.css">
+
+    <!-- Animate CSS-->
+    <link href="../index/css/animate.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../src/css/index.css">
+
+    <!--Google Webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
-<body class="bg-gray-900">
+<body>
 
-<div class="welcome-screen bg-gray-900 flex items-center justify-center flex-col text-white">
-<h1 id="myH1" class="welcome-text ubuntu-bold mb-10 font-bold">Bem vindo ao DDOC <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></h1>
-  <header class="text-gray-600 body-font ubuntu-medium h-36 left-0 top-0 w-full">
-    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center">
-    <nav id="myNav" class="flex-wrap text-base justify-center text-center">
-    <h1><a class="w-32 h-10 mr-5 rounded-lg p-2 leading-relaxed ubuntu-bold text-orange-600 hover:text-purple-600 hover:font-se hover:scale-110 transition-transform hover:bg-gray-200 m-4" href="../src/accountLC.php">Login e Registo</a>/</h1>
-    <h1><a class="w-32 h-10 mr-5 rounded-lg p-2 leading-relaxed ubuntu-bold text-orange-600 hover:text-purple-600 hover:scale-110 transition-transform hover:bg-gray-200 m-4" href="#functionalitiesDivider">Funcionalidades</a> /</h1>
-    <h1><a class="w-32 h-10 mr-5 rounded-lg p-2 leading-relaxed ubuntu-bold text-orange-600 hover:text-purple-600 hover:scale-110 transition-transform hover:bg-gray-200 m-4" href="#">Relatório</a> /</h1>
-    <h1><a class="w-32 h-10 mr-5 rounded-lg p-2 leading-relaxed ubuntu-bold text-orange-600 hover:text-purple-600 hover:scale-110 transition-transform hover:bg-gray-200 m-4" href="#">O Backend</a> /</h1>
-
-    </nav>
-      <button class=" w-48 mx-5 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-        Contactar o Developer
-      </button> 
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status" class="la-ball-triangle-path">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-</header>
+</div>
+<!--End of Preloader-->
+
+<div class="page-border" data-wow-duration="0.7s" data-wow-delay="0.2s">
+    <div class="top-border wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"></div>
+    <div class="right-border wow fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;"></div>
+    <div class="bottom-border wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"></div>
+    <div class="left-border wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;"></div>
 </div>
 
+<div id="wrapper">
 
-<footer class="footer p-10 bg-base-200 text-base-content overflow-hidden ">
-  <aside>
-    <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path></svg>
-    <p>DDOC</p>
-  </aside> 
-  <nav>
-    <h6 class="footer-title">Services</h6> 
-    <a class="link link-hover">Branding</a>
-  </nav> 
-  <nav>
-    <h6 class="footer-title">Company</h6> 
-    <a class="link link-hover">About us</a>
+    <header id="banner" class="scrollto clearfix" data-enllax-ratio=".5">
+        <div id="header" class="nav-collapse">
+            <div class="row clearfix">
+                <div class="col-1">
 
-  </nav> 
-  <nav>
-    <h6 class="footer-title">Legal</h6> 
-    <a class="link link-hover">Terms of use</a>
+                    <!--Logo-->
+                    <div id="logo">
 
-  </nav>
-</footer>
+                        <!--Logo that is shown on the banner-->
+                        <img src="../src/assets/images/1.png" id="banner-logo" alt="Landing Page"/>
+                        <!--End of Banner Logo-->
 
-<script src="/dist/bundle.js"></script>
-</style>
+                        <!--The Logo that is shown on the sticky Navigation Bar-->
+                        <img src="../src/assets/images/1.png" id="navigation-logo" alt="Landing Page"/>
+                        <!--End of Navigation Logo-->
+
+                    </div>
+                    <!--Main Navigation-->
+                    <nav id="nav-main">
+                        <ul>
+                            <li>
+                                <a href="#banner">Home</a>
+                            </li>
+                            <li>
+                                <a href="#about">Funcionalidades</a>
+                            </li>
+                            <li>
+                                <a href="#gallery">Páginas e Layout</a>
+                            </li>
+                            <li>
+                                <a href="#services">Services</a>
+                            </li>
+                            <li>
+                                <a href="#testimonials">Testemunhos</a>
+                            </li>
+                            <li>
+                                <a href="#clients">Colaboradores</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--End of Main Navigation-->
+
+                    <div id="nav-trigger"><span></span></div>
+                    <nav id="nav-mobile"></nav>
+
+                </div>
+            </div>
+        </div><!--End of Header-->
+
+        <!--Banner Content-->
+        <div id="banner-content" class="row clearfix">
+
+            <div class="col-38">
+
+                <div class="section-heading">
+                    <h1>Bem vindo ao DDOC </h1>
+                    <h2>O DDOC é a nova rede social! Todos os dias publica um novo post á tua escolha... só não te esqueças de seguir o tema do dia</h2>
+                </div>
+
+                <!--Call to Action-->
+                <a href="accountLC.php" class="button">REGISTRA-TE HOJE</a>
+                <!--End Call to Action-->
+
+            </div>
+
+        </div><!--End of Row-->
+    </header>
+
+    <!--Main Content Area-->
+    <main id="content">
+
+        <!--Introduction-->
+        <section id="about" class="introduction scrollto">
+
+            <div class="row clearfix">
+
+                <div class="col-3">
+                    <div class="section-heading">
+                        <h3>SUCCESSO</h3>
+                        <h2 class="section-title">As funcionalidades que tornam DDOC inovador</h2>
+                        <p class="section-subtitle">Estes são os 3 aspetos que fazem que o DDOC se destaque em relação ás outras redes sociais</p>
+                    </div>
+
+                </div>
+
+                <div class="col-2-3">
+                    <!--Icon Block-->
+                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.1s">
+                        <!--Icon-->
+                        <div class="icon">
+                            <i class="fa fa-calendar fa-2x"></i>
+                        </div>
+                        <!--Icon Block Description-->
+                        <div class="icon-block-description">
+                            <h4>Temas Diários</h4>
+                            <p>Fica preparado, pois todos os dias os temas são diferentes. O tempo para participares em cada tema é limitado.</p>
+                        </div>
+                    </div>
+                    <!--End of Icon Block-->
+
+                    <!--Icon Block-->
+                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.3s">
+                        <!--Icon-->
+                        <div class="icon">
+                            <i class="fa fa-trophy fa-2x"></i>
+                        </div>
+                        <!--Icon Block Description-->
+                        <div class="icon-block-description">
+                            <h4>Ranking de Contas</h4>
+                            <p>Acumula likes e tenta chegar ao topo. Quantos mais likes, melhor ficas no rank do DDOC</p>
+                        </div>
+                    </div>
+                    <!--End of Icon Block-->
+
+                    <!--Icon Block-->
+                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.5s">
+                        <!--Icon-->
+                        <div class="icon">
+                            <i class="fa fa-history fa-2x"></i>
+                        </div>
+                        <!--Icon Block Description-->
+                        <div class="icon-block-description">
+                            <h4>Ranking dos Temas</h4>
+                            <p>Vê em que rank os posts da comunidade se classificam. Vê também temas prévios e o rank dos seus posts.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+        <!--End of Introduction-->
+
+
+        <!--Gallery-->
+        <aside id="gallery" class="row text-center scrollto clearfix" data-featherlight-gallery
+                 data-featherlight-filter="a">
+
+                <a href="../index/images/gallery-images/gallery-image-1.jpg" data-featherlight="image" class="col-3 wow fadeIn"
+                   data-wow-delay="0.1s"><img src="../index/images/gallery-images/gallery-image-1.jpg" alt="Landing Page"/></a>
+                <a href="../index/images/gallery-images/gallery-image-2.jpg" data-featherlight="image" class="col-3 wow fadeIn"
+                   data-wow-delay="0.3s"><img src="../index/images/gallery-images/gallery-image-2.jpg" alt="Landing Page"/></a>
+                <a href="../index/images/gallery-images/gallery-image-3.jpg" data-featherlight="image" class="col-3 wow fadeIn"
+                   data-wow-delay="0.5s"><img src="../index/images/gallery-images/gallery-image-3.jpg" alt="Landing Page"/></a>
+                <a href="../index/images/gallery-images/gallery-image-4.jpg" data-featherlight="image" class="col-3 wow fadeIn"
+                   data-wow-delay="1.1s"><img src="../index/images/gallery-images/gallery-image-4.jpg" alt="Landing Page"/></a>
+                <a href="../index/images/gallery-images/gallery-image-5.jpg" data-featherlight="image" class="col-3 wow fadeIn"
+                   data-wow-delay="0.9s"><img src="../index/images/gallery-images/gallery-image-5.jpg" alt="Landing Page"/></a>
+                <a href="../index/images/gallery-images/gallery-image-6.jpg" data-featherlight="image" class="col-3 wow fadeIn"
+                   data-wow-delay="0.7s"><img src="../index/images/gallery-images/gallery-image-6.jpg" alt="Landing Page"/></a>
+
+        </aside>
+        <!--End of Gallery-->
+
+
+        <!--Content Section-->
+        <div id="services" class="scrollto clearfix">
+
+            <div class="row no-padding-bottom clearfix">
+
+
+                <!--Content Left Side-->
+                <div class="col-3">
+                    <!--User Testimonial-->
+                    <blockquote class="testimonial text-right bigtest">
+                        <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore
+                            et dolore magna aliqua</q>
+                        <footer>— John Doe, Happy Customer</footer>
+                    </blockquote>
+                    <!-- End of Testimonial-->
+
+                </div>
+                <!--End Content Left Side-->
+
+                <!--Content of the Right Side-->
+                <div class="col-3">
+                    <div class="section-heading">
+                        <h3>BELIEVING</h3>
+                        <h2 class="section-title">Focusing On What Matters Most</h2>
+                        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam!</p>
+                    </div>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                        dicta sunt explicabo.
+                    </p>
+                    <p>
+                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet!
+                    </p>
+                    <!-- Just replace the Video ID "UYJ5IjBRlW8" with the ID of your video on YouTube (Found within the URL) -->
+                    <a href="#" data-videoid="UYJ5IjBRlW8" data-videosite="youtube" class="button video link-lightbox">
+                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <!--End Content Right Side-->
+
+                <div class="col-3">
+                    <img src="../index/images/dancer.jpg" alt="Dancer"/>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!--End of Content Section-->
+
+        <!--Testimonials-->
+        <aside id="testimonials" class="scrollto text-center" data-enllax-ratio=".2">
+
+            <div class="row clearfix">
+
+                <div class="section-heading">
+                    <h3>FEEDBACK</h3>
+                    <h2 class="section-title">What our customers are saying</h2>
+                </div>
+
+                <!--User Testimonial-->
+                <blockquote class="col-3 testimonial classic">
+                    <img src="../index/images/user-images/user-1.jpg" alt="User"/>
+                    <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua</q>
+                    <footer>John Doe - Happy Customer</footer>
+                </blockquote>
+                <!-- End of Testimonial-->
+
+                <!--User Testimonial-->
+                <blockquote class="col-3 testimonial classic">
+                    <img src="../index/images/user-images/user-2.jpg" alt="User"/>
+                    <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua</q>
+                    <footer>Roslyn Doe - Happy Customer</footer>
+                </blockquote>
+                <!-- End of Testimonial-->
+
+                <!--User Testimonial-->
+                <blockquote class="col-3 testimonial classic">
+                    <img src="../index/images/user-images/user-3.jpg" alt="User"/>
+                    <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua</q>
+                    <footer>Thomas Doe - Happy Customer</footer>
+                </blockquote>
+                <!-- End of Testimonial-->
+
+            </div>
+
+        </aside>
+        <!--End of Testimonials-->
+
+        <!--Clients-->
+        <section id="clients" class="scrollto clearfix">
+            <div class="row clearfix">
+
+                <div class="col-3">
+
+                    <div class="section-heading">
+                        <h3>TRUST</h3>
+                        <h2 class="section-title">Companies who use our services</h2>
+                        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam!</p>
+                    </div>
+
+                </div>
+
+                <div class="col-2-3">
+
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo1.png" alt="Company"/>
+                        <div class="client-overlay"><span>Tree</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo2.png" alt="Company"/>
+                        <div class="client-overlay"><span>Fingerprint</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo3.png" alt="Company"/>
+                        <div class="client-overlay"><span>The Man</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo4.png" alt="Company"/>
+                        <div class="client-overlay"><span>Mustache</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo5.png" alt="Company"/>
+                        <div class="client-overlay"><span>Goat</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo6.png" alt="Company"/>
+                        <div class="client-overlay"><span>Justice</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo7.png" alt="Company"/>
+                        <div class="client-overlay"><span>Ball</span></div>
+                    </a>
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo8.png" alt="Company"/>
+                        <div class="client-overlay"><span>Cold</span></div>
+                    </a>
+
+                    <a href="#" class="col-3">
+                        <img src="../index/images/company-images/company-logo9.png" alt="Company"/>
+                        <div class="client-overlay"><span>Cold</span></div>
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+        <!--End of Clients-->
+    </main>
+    <!--End Main Content Area-->
+
+
+    <!--Footer-->
+    <footer id="landing-footer" class="clearfix">
+        <div class="row clearfix">
+
+            <p id="copyright" class="col-2">Made with love by <a href="https://www.shapingrain.com">ShapingRain</a></p>
+
+            <!--Social Icons in Footer-->
+            <ul class="col-2 social-icons">
+                <li>
+                    <a target="_blank" title="Facebook" href="https://www.facebook.com/username">
+                        <i class="fa fa-facebook fa-1x"></i><span>Facebook</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" title="Google+" href="http://google.com/+username">
+                        <i class="fa fa-google-plus fa-1x"></i><span>Google+</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" title="Twitter" href="http://www.twitter.com/username">
+                        <i class="fa fa-twitter fa-1x"></i><span>Twitter</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" title="Instagram" href="http://www.instagram.com/username">
+                        <i class="fa fa-instagram fa-1x"></i><span>Instagram</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" title="behance" href="http://www.behance.net">
+                        <i class="fa fa-behance fa-1x"></i><span>Behance</span>
+                    </a>
+                </li>
+            </ul>
+            <!--End of Social Icons in Footer-->
+        </div>
+    </footer>
+    <!--End of Footer-->
+
+</div>
+
+<!-- Include JavaScript resources -->
+<script src="../index/js/jquery.1.8.3.min.js"></script>
+<script src="../index/js/wow.min.js"></script>
+<script src="../index/js/featherlight.min.js"></script>
+<script src="../index/js/featherlight.gallery.min.js"></script>
+<script src="../index/js/jquery.enllax.min.js"></script>
+<script src="../index/js/jquery.scrollUp.min.js"></script>
+<script src="../index/js/jquery.easing.min.js"></script>
+<script src="../index/js/jquery.stickyNavbar.min.js"></script>
+<script src="../index/js/jquery.waypoints.min.js"></script>
+<script src="../index/js/images-loaded.min.js"></script>
+<script src="../index/js/lightbox.min.js"></script>
+<script src="../index/js/site.js"></script>
+<script src="../dist/bundle.js"></script>
+
+
 </body>
 </html>
