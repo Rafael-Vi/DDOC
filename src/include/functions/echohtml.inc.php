@@ -25,7 +25,7 @@
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32 h-32 md:w-56 md:h-56 mt-4 ml-8 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32 h-32 md:w-56 md:h-56 ml-10 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
     }
     function echoUserPosts($post) {
         global $arrConfig;

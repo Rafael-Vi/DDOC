@@ -32,7 +32,7 @@ include "include/config.inc.php";
             echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
             getUserInfo($_SESSION['uid']); 
 
-            echo '<button class="w-full sm:float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-2 rounded-lg flex items-center justify-center h-10 sm:w-16" onclick="openDialog()">Edit Profile</button>';       
+            echo '<button class="w-full sm:float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-2 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
             echo '</div>';
             echo '</div>';
         ?>  

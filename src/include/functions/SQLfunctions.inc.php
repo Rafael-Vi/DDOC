@@ -201,45 +201,39 @@ function db_connect() {
 
         return true;
     }
-    function getRankingPost(){
+    function getRankingPost($theme_id){
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
     
-        if (isset($_SESSION['themes'])) {
-            foreach ($_SESSION['themes'] as $theme) {
-                $theme_id = $theme['theme_id'];
-                // Now you can use $theme_id
     
-                // Define the SQL query
-                $sql = "SELECT * FROM rankingposts where theme_id = ?";
-    
-                // Prepare the SQL statement
-                $stmt = mysqli_prepare($dbConn, $sql);
-    
-                // Bind the theme_id parameter to the SQL statement
-                mysqli_stmt_bind_param($stmt, 'i', $theme_id);
-    
-                // Execute the query
-                if (mysqli_stmt_execute($stmt) === false) {
-                    die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-                }
-    
-                // Get the result set
-                $result = mysqli_stmt_get_result($stmt);
-    
-                // Fetch all rows as an associative array
-                $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    
-                // Echo the posts
-                foreach($rows as $row) {
-                    echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
-                }
-            }
+        // Define the SQL query
+        $sql = "SELECT * FROM rankingposts where theme_id = ?";
+
+        // Prepare the SQL statement
+        $stmt = mysqli_prepare($dbConn, $sql);
+
+        // Bind the theme_id parameter to the SQL statement
+        mysqli_stmt_bind_param($stmt, 'i', $theme_id);
+
+        // Execute the query
+        if (mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
         }
-    
+
+        // Get the result set
+        $result = mysqli_stmt_get_result($stmt);
+
+        // Fetch all rows as an associative array
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        // Echo the posts
+        foreach($rows as $row) {
+            echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
+        }
+
         // Close the statement and the connection
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
@@ -549,7 +543,8 @@ function db_connect() {
         else{
 
         foreach ($themes as $theme) {
-            echo '<option value="' . $theme['theme_id'] . '">' . $theme['theme'] . '</option>';
+            $selected = ($theme['theme_id'] == $GLOBALS['theme_id']) ? 'selected' : '';
+            echo '<option value="' . $theme['theme_id'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
         }
         }
 
@@ -840,38 +835,56 @@ function RankingAcc(){
         echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage']);
     }
 }
-function getPodium($rank){
+function getPodium($rank, $table, $themeId = null){
     // Create a connection to the database
     $dbConn = db_connect();
     if ($dbConn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
     }
 
-    // Define the SQL query
-    $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
+    // Define the SQL query based on the table
+    if ($table == 'AccRank') {
+        $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
+    } else if ($table == 'PostRank') {
+        $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+    } else {
+        die("ERROR: Invalid table name.");
+    }
 
     // Prepare the SQL statement
     $stmt = mysqli_prepare($dbConn, $sql);
 
     // Bind parameters
-    mysqli_stmt_bind_param($stmt, "i", $rank);
+    if ($table == 'AccRank') {
+        mysqli_stmt_bind_param($stmt, "i", $rank);
+    } else if ($table == 'PostRank') {
+        mysqli_stmt_bind_param($stmt, "ii", $rank, $themeId);
+    }
 
     // Execute the query
     if (mysqli_stmt_execute($stmt) === false) {
         die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
     }
 
-    // Bind result variables
-    mysqli_stmt_bind_result($stmt, $userName, $userImage);
-
-    // Fetch the user data
-    if(mysqli_stmt_fetch($stmt)) {
-        // Return the user data
-        return array('username' => $userName, 'image' => $userImage);
-    } else {
-        return null;
+    // Bind result variables and fetch the data based on the table
+    if ($table == 'AccRank') {
+        mysqli_stmt_bind_result($stmt, $userName, $userImage);
+        if(mysqli_stmt_fetch($stmt)) {
+            // Return the user data
+            return array('username' => $userName, 'image' => $userImage);
+        }
+    } else if ($table == 'PostRank') {
+        mysqli_stmt_bind_result($stmt, $postName);
+        if(mysqli_stmt_fetch($stmt)) {
+            // Return the post name
+            return array('NameOfThePost' => $postName);
+        }
     }
+
+    return null;
 }
+
+
 function likeCount($postid){
     $dbConn = db_connect();
     if ($dbConn === false) {

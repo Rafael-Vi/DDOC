@@ -37,7 +37,7 @@ include "include/config.inc.php";
             <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
                 <?php
                 global $arrConfig;
-                 $podium = getPodium(2); ?>
+                 $podium = getPodium(2, "AccRank"); ?>
                 <div class="flex flex-col items-center mt-auto">
                     <?php if ($podium): ?>
                         <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
@@ -47,7 +47,7 @@ include "include/config.inc.php";
                         <h1 class="mb-2">No user found with this rank.</h1>
                     <?php endif; ?>
                 </div>
-                <?php $podium = getPodium(1); ?>
+                <?php $podium = getPodium(1, "AccRank"); ?>
                 <div class="flex flex-col items-center mt-auto">
                     <?php if ($podium): ?>
                         <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
@@ -57,7 +57,7 @@ include "include/config.inc.php";
                         <h1 class="mb-2">No user found with this rank.</h1>
                     <?php endif; ?>
                 </div>
-                <?php $podium = getPodium(3); ?>
+                <?php $podium = getPodium(3, "AccRank"); ?>
                 <div class="flex flex-col items-center mt-auto">
                     <?php if ($podium): ?>
                         <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">

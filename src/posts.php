@@ -1,14 +1,16 @@
 <?php
-include "include/config.inc.php";
+  require "include/config.inc.php";
 ?>
 
 <?php
-  include "include/functions/checkLogin.inc.php";
+  require "include/functions/checkLogin.inc.php";
 ?> 
 
 <?php
-      require "include/functions/checkThemeIsFinished.inc.php";
+  require "include/functions/checkThemeIsFinished.inc.php";
 ?>
+
+
 
 <?php 
     $post = showPost($_GET['id'], "no");
