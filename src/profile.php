@@ -76,6 +76,26 @@ include "include/config.inc.php";
       </div>
     </form>
   </div>
+
+  <dialog id="postEdit" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900">✕</button>
+        <h3 class="font-bold text-lg text-gray-900">Edit Post</h3>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Post Content</span>
+          </label>
+          <textarea id="postContent" class="textarea textarea-bordered w-full text-gray-900" placeholder="Type your post content here..."></textarea>
+        </div>
+        <div class="form-control mt-4 flex flex-row">
+          <button class="btn flex-initial" onclick="save()">Save</button>
+          <button class="btn btn-outline ml-2 flex-initial" onclick="cancel()">Cancel</button>
+          <button class="btn btn-error ml-2 flex-initial" onclick="deletePost()">Delete</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
   <?php echoBottomNav(); ?>
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
@@ -86,7 +106,6 @@ include "include/config.inc.php";
   <script src="../src/js/social.js"></script>
   <script src="../src/js/follow.js"></script>
   <script src="../src/js/EditProfile.js"></script>
-  <script src="../src/js/openPosts.js"></script>
   <script src="../src/js/editPost.js"></script>
 </body>
 </html>
