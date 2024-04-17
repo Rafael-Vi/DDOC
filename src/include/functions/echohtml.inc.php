@@ -92,7 +92,7 @@
                                 Segundos
                             </div>
                             </div>
-                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['theme_id']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
                             <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Tema: '."{$_SESSION['themes'][0]['theme']}".'</div>
                             </a>
                         </li>
@@ -194,7 +194,7 @@
                 echo'
                 <!-- First row: Post audio -->
                 <div class="flex justify-center">
-                    <audio controls class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
+                    <audio controls class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto z-40">
                         <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
                         O seu browser não suporta a tag de áudio.
                     </audio>
@@ -214,7 +214,7 @@
                 <!-- First row: Post video -->
                 <div class="flex grow-0">
                     <video controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
-                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4">
+                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4" class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
                         O seu browse não suporta a tag de vídeo.
                     </video>
                 </div>

@@ -8,7 +8,9 @@ include "include/config.inc.php";
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 
 <!DOCTYPE html>
@@ -32,7 +34,7 @@ include "include/config.inc.php";
         Notifications
         </h1>
 
-        <div name="notifications-container" id="notifications-container"" class="h-full border border-black w-full p-10">
+        <div name="notifications-container" id="notifications-container"" class="h-full border border-black w-full p-10 overflow-auto">
         <?php getNotif(); ?>
         </div>
     </div>

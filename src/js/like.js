@@ -12,9 +12,9 @@ function likeCheck() {
             // Change the text of the like button based on the response
             var likeButton = document.getElementById('like-button');
             if (this.responseText.trim() === 'like') {
-                likeButton.textContent = 'Like';
+                likeButton.textContent = 'Gosto';
             } else if (this.responseText.trim() === 'liked') {
-                likeButton.textContent = 'Liked';
+                likeButton.textContent = 'Gostado';
             }
         }
         getLikeCounts(postid);

@@ -29,6 +29,7 @@ include "../include/config.inc.php";
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
       <h1 class="ubuntu-bold text-4xl text-white p-2 rounded">That user doesn't exist!!!</h1>
+      <a href="<?php echo $_SESSION['last_page']  ?>" class="btn">Go Back</a>
     </div>
 </div>
 </body>

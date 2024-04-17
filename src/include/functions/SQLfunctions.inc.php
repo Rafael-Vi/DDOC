@@ -95,35 +95,7 @@ function db_connect() {
 }
 //! Need to make
 //!-----------------------------------------------------------------------------------------
-    function updatePost(){
 
-    }
-    function deletePost($postID) {
-        // Start the database connection
-        $dbConn = db_connect();
-    
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-    
-        // Prepare the SQL query to delete the post based on post_id using prepared statements
-        $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
-        
-        // Bind parameters
-        $stmt->bind_param("i", $postID);
-    
-        // Execute the query
-        if ($stmt->execute()) {
-            echo "Post with ID $postID deleted successfully.";
-        } else {
-            echo "Failed to delete post with ID $postID.";
-        }
-    
-        // Close statement and connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-    }
     
     function getDef($userID){
 
@@ -139,6 +111,36 @@ function db_connect() {
 
 //? Further Improve
 //?-----------------------------------------------------------------------------------------
+    function updatePost(){
+
+    }
+    function deletePost($postID) {
+        // Start the database connection
+        $dbConn = db_connect();
+
+        // Check connection
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        // Prepare the SQL query to delete the post based on post_id using prepared statements
+        $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
+        
+        // Bind parameters
+        $stmt->bind_param("i", $postID);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            echo "Post with ID $postID deleted successfully.";
+        } else {
+            echo "Failed to delete post with ID $postID.";
+        }
+
+        // Close statement and connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    }
+
 
     function sendNotification($receiverId, $senderId, $type) {
         global $arrConfig;
@@ -201,43 +203,60 @@ function db_connect() {
 
         return true;
     }
-    function getRankingPost($theme_id){
+    function getRankingPost($theme_id, $type){
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
     
-    
         // Define the SQL query
-        $sql = "SELECT * FROM rankingposts where theme_id = ?";
-
-        // Prepare the SQL statement
-        $stmt = mysqli_prepare($dbConn, $sql);
-
-        // Bind the theme_id parameter to the SQL statement
-        mysqli_stmt_bind_param($stmt, 'i', $theme_id);
-
+        if (($theme_id && $type) && $theme_id != 'none' && $type != 'none') {
+            $sql = "SELECT * FROM rankingpoststype WHERE theme_id = ? AND TYPE = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            mysqli_stmt_bind_param($stmt, 'is', $theme_id, $type);
+        } elseif ($theme_id && $theme_id != 'none') {
+            $sql = "SELECT * FROM rankingposts WHERE theme_id = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            mysqli_stmt_bind_param($stmt, 'i', $theme_id);
+        } elseif ($type && $type != 'none') {
+            $sql = "SELECT * FROM rankingpostsotype WHERE TYPE = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            mysqli_stmt_bind_param($stmt, 's', $type);
+        } else {
+            $sql = "SELECT * FROM rankingpostsall";
+            $stmt = mysqli_prepare($dbConn, $sql);
+        }
+    
         // Execute the query
         if (mysqli_stmt_execute($stmt) === false) {
             die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
         }
-
+    
         // Get the result set
         $result = mysqli_stmt_get_result($stmt);
-
+    
         // Fetch all rows as an associative array
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
         // Echo the posts
         foreach($rows as $row) {
             echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
         }
-
+    
         // Close the statement and the connection
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
+
+    function setSelectedType($selectedType) {
+        $types = ['none', 'video', 'image', 'audio'];
+
+        foreach ($types as $type) {
+            $selected = ($type == $selectedType) ? 'selected' : '';
+            echo "<option value='$type' $selected>" . ucfirst($type) . "</option>";
+        }
+    }
+
     
     function newUser($dbConn, $email, $username, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -317,12 +336,31 @@ function db_connect() {
         mysqli_close($dbConn);
     }
     function createPost($uid, $title, $type, $file, $theme) {
-        global $arrConfig;
-        $dbConn = db_connect();
-    
-        $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileName .= "." . $fileExtension;
+    global $arrConfig;
+    $dbConn = db_connect();
+
+    $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
+    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $fileName .= "." . $fileExtension;
+
+    // Get the MIME type of the file
+    $fileType = mime_content_type($file['tmp_name']);
+
+    // Define the expected MIME types for each extension
+    $expectedMimeTypes = [
+        'mp3' => 'audio/mpeg',
+        'jpeg' => 'image/jpeg',
+        'jpg' => 'image/jpeg',
+        'png' => 'image/png',
+        'gif' => 'image/gif',
+        'mp4' => 'video/mp4',
+        // Add more extensions and MIME types as needed
+    ];
+
+    // Check if the extension is known and the MIME type matches the expected MIME type
+    if (!isset($expectedMimeTypes[$fileExtension]) || $fileType !== $expectedMimeTypes[$fileExtension]) {
+        die('File type and extension do not match.');
+    }
     
         // Prepare the SQL query to insert into the table using prepared statements
         $sql = "INSERT INTO posts (user_id, caption, post_type, post_url, theme_id) VALUES (?, ?, ?, ?, ?)";
@@ -330,7 +368,10 @@ function db_connect() {
     
         $stmt->bind_param("isssi", $uid, $title, $type, $fileName, $theme); // bind parameters
     
-        move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName);
+        // Move the uploaded file
+        if (!move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName)) {
+            die('Error uploading file - check destination is writeable. '.$type.'');
+        }
     
         // Execute the query
         if($stmt->execute() === false) {
@@ -343,6 +384,10 @@ function db_connect() {
         } else {
             // Handle the post creation error
             die("Error: " . $stmt->error);
+        }
+    
+        if ($file['error'] > 0) {
+            die('File upload error: ' . $file['error']);
         }
     
         mysqli_stmt_close($stmt);
@@ -539,9 +584,10 @@ function db_connect() {
     
         if (!$all) {
             $_SESSION['themes'] = $themes;
+            $_SESSION['theme_id'] = $themes;
         }
         else{
-
+        echo '<option value="none"' . (empty($GLOBALS['theme_id']) ? ' selected' : '') . '>None</option>';
         foreach ($themes as $theme) {
             $selected = ($theme['theme_id'] == $GLOBALS['theme_id']) ? 'selected' : '';
             echo '<option value="' . $theme['theme_id'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
@@ -802,7 +848,7 @@ function likeCheckLoad($postid, $currentSessionUser){
         return "like";
     }
 }
-function RankingAcc(){
+function RankingAcc($type = null){
     // Create a connection to the database
     $dbConn = db_connect();
     if ($dbConn === false) {
@@ -835,7 +881,7 @@ function RankingAcc(){
         echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage']);
     }
 }
-function getPodium($rank, $table, $themeId = null){
+function getPodium($rank, $table, $themeId = null, $type = null){
     // Create a connection to the database
     $dbConn = db_connect();
     if ($dbConn === false) {
@@ -844,9 +890,13 @@ function getPodium($rank, $table, $themeId = null){
 
     // Define the SQL query based on the table
     if ($table == 'AccRank') {
-        $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
+        if ($type == 'none' || $type == null) {
+            $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
+        } else {
+            $sql = "SELECT UserName, UserImage FROM accountrankingstype WHERE UserRank = ? AND PostType = ? LIMIT 1";
+        }
     } else if ($table == 'PostRank') {
-        $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+        $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? AND TYPE = ? LIMIT 1";
     } else {
         die("ERROR: Invalid table name.");
     }
@@ -856,9 +906,13 @@ function getPodium($rank, $table, $themeId = null){
 
     // Bind parameters
     if ($table == 'AccRank') {
-        mysqli_stmt_bind_param($stmt, "i", $rank);
+        if ($type == 'none' || $type == null) {
+            mysqli_stmt_bind_param($stmt, "i", $rank);
+        } else {
+            mysqli_stmt_bind_param($stmt, "is", $rank, $type);
+        }
     } else if ($table == 'PostRank') {
-        mysqli_stmt_bind_param($stmt, "ii", $rank, $themeId);
+    mysqli_stmt_bind_param($stmt, "iis", $rank, $themeId, $type);
     }
 
     // Execute the query
@@ -883,8 +937,6 @@ function getPodium($rank, $table, $themeId = null){
 
     return null;
 }
-
-
 function likeCount($postid){
     $dbConn = db_connect();
     if ($dbConn === false) {

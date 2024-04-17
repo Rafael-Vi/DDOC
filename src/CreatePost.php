@@ -9,7 +9,9 @@ include "include/config.inc.php";
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 
 
@@ -61,15 +63,42 @@ include "include/config.inc.php";
   <script src="../src/js/timer.js"></script>
   <script>
   document.getElementById('file-input').addEventListener('change', function(e) {
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      reader.onloadend = function() {
-          document.getElementById('profile-picture').src = reader.result;
-      }
-      reader.readAsDataURL(file);
-  });
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+        // Get the existing profile picture
+        var profilePicture = document.getElementById('profile-picture');
 
-  </script>
+        // Create a new element based on the file type
+        var newElement;
+        switch (true) {
+            case file.type.startsWith('video/'):
+                newElement = document.createElement('video');
+                newElement.controls = true;
+                break;
+            case file.type.startsWith('image/'):
+                newElement = document.createElement('img');
+                break;
+            case file.type.startsWith('audio/'):
+                newElement = document.createElement('audio');
+                newElement.controls = true;
+                break;
+            default:
+                console.error('Unsupported file type: ' + file.type);
+                return;
+        }
+
+        // Set the source and classes of the new element
+        newElement.src = reader.result;
+        newElement.className = profilePicture.className;
+        newElement.id = profilePicture.id;
+
+        // Replace the existing profile picture with the new element
+        profilePicture.parentNode.replaceChild(newElement, profilePicture);
+    }
+    reader.readAsDataURL(file);
+  });
+</script>
   <script src="../src/js/social.js"></script>
   <script src="../src/js/createPost.js"></script>
   

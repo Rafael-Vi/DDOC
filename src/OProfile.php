@@ -8,7 +8,9 @@ include "include/config.inc.php";
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 
 <!DOCTYPE html>

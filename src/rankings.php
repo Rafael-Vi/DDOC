@@ -9,7 +9,27 @@ include "include/config.inc.php";
 ?>
 
 
+<?php
+require "include/functions/checkFilterVars.inc.php";
 
+// Start the session if it's not already started
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+// Call the checkTypeVarAdmin function
+$type = checkTypeVar();
+
+// If the return value is null, redirect and exit
+if ($type == null || $type == 0) {
+  $type = "none";
+}
+
+// Set the global type variable
+$GLOBALS['type'] = $type;
+?>
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,17 +57,18 @@ include "include/config.inc.php";
             <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
                 <?php
                 global $arrConfig;
-                 $podium = getPodium(2, "AccRank"); ?>
+                 $podium = getPodium(2, "AccRank",null, $GLOBALS['type']); ?>
                 <div class="flex flex-col items-center mt-auto">
                     <?php if ($podium): ?>
                         <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
                         <h1 class="mb-2">@<?php echo $podium['username']; ?></h1>
-                        <div class="bg-gray-800 rounded-lg text-center p-4 h-24 w-28 relative flex items-center justify-center m-4 sm:m-0">Second</div>
+                        <div class="bg-gray-800 rounded-lg text-center p-4 h-24 w-28 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
                     <?php else: ?>
                         <h1 class="mb-2">No user found with this rank.</h1>
+                        <div class="bg-gray-800 rounded-lg text-center p-4 h-24 w-28 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
                     <?php endif; ?>
                 </div>
-                <?php $podium = getPodium(1, "AccRank"); ?>
+                <?php $podium = getPodium(1, "AccRank",null, $GLOBALS['type']); ?>
                 <div class="flex flex-col items-center mt-auto">
                     <?php if ($podium): ?>
                         <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
@@ -55,20 +76,31 @@ include "include/config.inc.php";
                         <div class="bg-gray-800 rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
                     <?php else: ?>
                         <h1 class="mb-2">No user found with this rank.</h1>
+                        <div class="bg-gray-800 rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
                     <?php endif; ?>
                 </div>
-                <?php $podium = getPodium(3, "AccRank"); ?>
+                <?php $podium = getPodium(3, "AccRank", null, $GLOBALS['type']); ?>
                 <div class="flex flex-col items-center mt-auto">
                     <?php if ($podium): ?>
                         <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
                         <h1 class="mb-2">@<?php echo $podium['username']; ?></h1>
-                        <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-28 relative flex items-center justify-center m-4 sm:m-0">Third</div>
+                        <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-28 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
                     <?php else: ?>
                         <h1 class="mb-2">No user found with this rank.</h1>
+                        <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-28 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
+        <div class="flex flex-row gap-4">
+          <div>
+              <label for="typeSelect" class="mb-2">Tipo:</label>
+              <select class="select select-bordered w-full max-w-xs mb-8 text-black" id="typeSelect">
+                  <option disabled>Type - - -</option>
+                  <?php setSelectedType($GLOBALS['type'] ?? ''); ?>
+              </select>
+          </div>
+      </div>
         <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800">
             <div class="flex w-full text-center justify-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900 items-center">
                 <div class="ubuntu-bold w-2/6">Rank</div>
@@ -87,7 +119,7 @@ include "include/config.inc.php";
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
   <script src="../src/js/timer.js"></script>
-
+  <script src="../src/js/filterTheme.js"></script>
   <script src="../src/js/social.js"></script>
 </body>
 </html>

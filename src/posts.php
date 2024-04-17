@@ -19,7 +19,9 @@
         exit();
     }
 ?>
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
