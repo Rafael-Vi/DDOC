@@ -33,31 +33,57 @@ include "include/config.inc.php";
     <?php echoNav(); ?>
     <div id="messages-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
-            Messages
+        <?php
+         if (isset($_GET['convo_id'])){
+            echo "Conversa com utilizador";
+         }else{
+            echo "Mensagens";
+         }
+        ?>   
         </h1>
 
-        <div class="h-full border border-black w-full p-10">
+        <div class="h-full border border-black w-full p-10 overflow-auto hide-scrollbar ">
         <?php 
 
         
                 if (isset($_GET['convo_id'])) {
+                    // Define a random message ID, message, date, and sender
+                    $messageID = rand(1, 100);
+                    $message = 'This is a random message';
+                    $date = date('Y-m-d H:i:s');
+                    $sender = array(
+                        'username' => 'RandomUser',
+                        'profile_pic' => 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
+                    );
+
+                    // Call the function
+                    echoMessages($messageID, $message, $date, $sender);
+
+                    
                     echo'
-                <div class="divider divider-warning sticky top-0 ubuntu-Bold-italic text-warning"> This is your chat with {Other Person}</div>';
-                    echoMessages();
+                    <div class="fixed w-full md:w-9/12  bottom-16 md:bottom-0 right-0 p-4 md:p-6 bg-gray-800 text-white">
+                    <form class="flex justify-center h-10">
+                        <input type="text" class="rounded-l-lg w-full p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" placeholder="Mensagem">
+                        <button class="flex items-center justify-center px-8 rounded-r-lg bg-orange-500 hover:bg-gray-700 hover:text-orange-500 text-gray-800 font-bold p-4 uppercase border-t border-b border-r">Enviar</button>
+                    </form>
+                </div>
+                    ';
                 } else {
                     echoConvo();
                     echoConvo();
                     echoConvo();
                 }
         ?>
-            
+       
         </div>
     </div>
+
+    <?php echoBottomNav();?>
     </script><script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
     </script>
   <script src="../src/js/timer.js"></script>
-
+<script src="../src/js/sendMessages.js"></script>
   <script src="../src/js/social.js"></script>
 </body>
 </html>

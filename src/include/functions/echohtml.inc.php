@@ -250,7 +250,7 @@
         echo '</a>';
     }
     function echoConvo(){
-        echo '<a href="messages.php?convo_id=" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4">';
+        echo '<a href="messages.php?convo_id=PersonID" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4">';
         echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<div class="w-12 h-12 rounded-full bg-gray-500 mr-4"></div>'; // Circle for the profile picture
@@ -283,32 +283,35 @@
         echo '</a>';
     }
     
-    function echoMessages(){
+    function echoMessages($messageID, $message, $date, $sender){
         echo'<div class="chat chat-start">
         <div class="chat-image avatar">
           <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            <img alt="Tailwind CSS chat bubble component" src="'.$sender['profile_pic'].'" />
           </div>
         </div>
         <div class="chat-header">
-          Obi-Wan Kenobi
-          <time class="text-xs opacity-50">12:45</time>
+          '.$sender['username'].'
+          <time class="text-xs opacity-50">'.$date.'</time>
         </div>
-        <div class="chat-bubble">You were the Chosen One!</div>
+        <div class="chat-bubble">'.$message.'</div>
 
       </div>
-      <div class="chat chat-end">
-        <div class="chat-image avatar">
+      <div class="chat chat-end relative group">
+      <div class="chat-image avatar">
           <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img alt="Tailwind CSS chat bubble component" src="'.$_SESSION['imageProfile'].'" />
           </div>
-        </div>
-        <div class="chat-header">
-          Anakin
-          <time class="text-xs opacity-50">12:46</time>
-        </div>
-        <div class="chat-bubble">I hate you!</div>
-      </div>';
+      </div>
+      <div class="chat-header">
+          '.$_SESSION['username'].'
+          <time class="text-xs opacity-50">'.$date.'</time>
+      </div>
+      <div class="chat-bubble">'.$message.'</div>
+      <button class="delete-button w-24top-0 left-0 bg-red-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100" onclick="deleteMessage('.$messageID.')">
+          x
+      </button>
+  </div>';
     }
 
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster){
