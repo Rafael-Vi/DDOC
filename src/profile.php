@@ -9,9 +9,7 @@ include "include/config.inc.php";
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
-<?php
-    include "include/functions/saveLastPage.inc.php";
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +84,7 @@ include "include/config.inc.php";
         <h3 class="font-bold text-lg text-gray-900">Edit Post</h3>
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Post Content</span>
+            <span class="label-text">Caption</span>
           </label>
           <textarea id="postContent" class="textarea textarea-bordered w-full text-gray-900" placeholder="Type your post content here..."></textarea>
         </div>

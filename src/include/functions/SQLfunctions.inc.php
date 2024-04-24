@@ -106,40 +106,11 @@ function db_connect() {
     function sendMessage(){
     }
 
+    function getHome(){
+    }
+
 //! Need to make
 //!-----------------------------------------------------------------------------------------
-
-//? Further Improve
-//?-----------------------------------------------------------------------------------------
-    function updatePost(){
-
-    }
-    function deletePost($postID) {
-        // Start the database connection
-        $dbConn = db_connect();
-
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-
-        // Prepare the SQL query to delete the post based on post_id using prepared statements
-        $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
-        
-        // Bind parameters
-        $stmt->bind_param("i", $postID);
-
-        // Execute the query
-        if ($stmt->execute()) {
-            echo "Post with ID $postID deleted successfully.";
-        } else {
-            echo "Failed to delete post with ID $postID.";
-        }
-
-        // Close statement and connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-    }
 
 
     function sendNotification($receiverId, $senderId, $type) {
@@ -167,23 +138,29 @@ function db_connect() {
         switch ($type) {
             case 'PostCreated':
                 $message = 'A new post has been created by ' . $senderUsername;
+                // Get the followers of the user who created the post
+                $sql = "SELECT follower_id FROM follow WHERE followee_id = ?";
+                $stmt = mysqli_prepare($dbConn, $sql);
+                if ($stmt === false) {
+                    return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+                }
+                mysqli_stmt_bind_param($stmt, "i", $senderId);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                // Insert a notification for each follower
+                $sql = "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)";
+                $stmt = mysqli_prepare($dbConn, $sql);
+                if ($stmt === false) {
+                    return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+                }
+                while ($row = mysqli_fetch_assoc($result)) {
+                    mysqli_stmt_bind_param($stmt, "si", $message, $row['follower_id']);
+                    mysqli_stmt_execute($stmt);
+                }
                 break;
             case 'PostLiked':
                 $message = 'User ' . $senderUsername . ' liked your post';
-                break;
-            case 'UserFollowed':
-                $message = 'User ' . $senderUsername . ' started following you';
-                break;
-            case 'YourRank':
-                $rankData = getPodium($receiverId);
-                if ($rankData !== null) {
-                    $message = $rankData['username'] . ', your current rank is ' . $rankData['rank'];
-                }
-                break;
-            default:
-                return "ERROR: Invalid notification type.";
-        }
-        // Prepare the SQL query
+                 // Prepare the SQL query
         $sql = "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)";
         $stmt = mysqli_prepare($dbConn, $sql);
         if ($stmt === false) {
@@ -197,6 +174,48 @@ function db_connect() {
         if(mysqli_stmt_execute($stmt) === false) {
         return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
         }
+                break;
+            case 'UserFollowed':
+                $message = 'User ' . $senderUsername . ' started following you';
+                 // Prepare the SQL query
+        $sql = "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        if ($stmt === false) {
+        return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+        }
+
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "si", $message, $receiverId);
+
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+        return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+        }
+                break;
+            case 'YourRank':
+                $rankData = getPodium($receiverId);
+                if ($rankData !== null) {
+                    $message = $rankData['username'] . ', your current rank is ' . $rankData['rank'];
+                }
+                 // Prepare the SQL query
+        $sql = "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)";
+        $stmt = mysqli_prepare($dbConn, $sql);
+        if ($stmt === false) {
+        return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+        }
+
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "si", $message, $receiverId);
+
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+        return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+        }
+                break;
+            default:
+                return "ERROR: Invalid notification type.";
+        }
+       
 
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
@@ -256,8 +275,6 @@ function db_connect() {
             echo "<option value='$type' $selected>" . ucfirst($type) . "</option>";
         }
     }
-
-    
     function newUser($dbConn, $email, $username, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -335,6 +352,58 @@ function db_connect() {
         // Close the database connection
         mysqli_close($dbConn);
     }
+
+    function updateUserPostStatus($userId) {
+        $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
+        // Prepare the SQL query to update the table
+        $sql = "UPDATE users SET can_post = 1 WHERE user_id = ?";
+    
+        // Prepare the statement
+        $stmt = $dbConn->prepare($sql);
+    
+        // Bind the parameter
+        $stmt->bind_param("i", $userId);
+    
+        // Execute the query
+        if ($stmt->execute()) {
+            // Handle the successful update
+            echo "User can now post.";
+        } else {
+            // Handle the update error
+            echo "Error updating user: " . $stmt->error;
+        }
+    
+        // Close the statement and the database connection
+        $stmt->close();
+        mysqli_close($dbConn);
+    }
+
+    function getCanPostStatus($userId) {
+        $dbConn = db_connect(); 
+
+        // Prepare the SQL query to select the can_post value
+        $sql = "SELECT can_post FROM users WHERE user_id = ?";
+
+        // Prepare the statement
+        $stmt = $dbConn->prepare($sql);
+
+        // Bind the parameter
+        $stmt->bind_param("i", $userId);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Bind the result to a variable
+        $stmt->bind_result($canPost);
+
+        // Fetch the result
+        $stmt->fetch();
+
+        // Close the statement and the database connection
+        $stmt->close();
+        mysqli_close($dbConn);
+        $_SESSION['can_post'] = $canPost;
+    }
     function createPost($uid, $title, $type, $file, $theme) {
     global $arrConfig;
     $dbConn = db_connect();
@@ -381,6 +450,8 @@ function db_connect() {
         if ($stmt) {
             // Handle the successful post creation
             echo "Post created successfully.";
+            //updateUserPostStatus($_SESSION['uid']);
+            sendNotification(null, $_SESSION['uid'], "PostCreated");
         } else {
             // Handle the post creation error
             die("Error: " . $stmt->error);
@@ -389,65 +460,8 @@ function db_connect() {
         if ($file['error'] > 0) {
             die('File upload error: ' . $file['error']);
         }
-    
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
     }
-    function getPosts($uid) {
-       // Start the database connection
-        $dbConn = db_connect();
 
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-
-        // Prepare the SQL query with the user_id condition using prepared statements
-        $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "i", $uid);
-
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-        }
-
-        // Bind result variables
-        mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at);
-
-        // Create an array to hold the post variables
-        $posts = array();
-
-        // Fetch each row of the result set and store it in the $posts array
-        while (mysqli_stmt_fetch($stmt)) {
-            $posts[] = array(
-                'post_id' => $post_id,
-                'post_type' => $post_type,
-                'post_url' => $post_url,
-                'caption' => $caption,
-                'created_at' => $created_at,
-                'updated_at' => $updated_at
-            );
-        }
-
-        // Check if there are no results
-        if (empty($posts)) {
-            echoNoPosts();
-        } else {
-            // Loop through each post and echo the variables
-            echo '<div style="display: grid; grid-template-columns: repeat(3, 1fr);">';
-            foreach ($posts as $post) {
-                echoUserPosts($post);
-            }
-            echo '</div>';
-        }
-
-        // Close the database connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-    }
 
     function showPost($postId, $show) {
         // Start the database connection
@@ -595,9 +609,130 @@ function db_connect() {
         }
 
     }
-//? Further Improve
-//?-----------------------------------------------------------------------------------------
 
+    function getPosts($uid) {
+    // Start the database connection
+        $dbConn = db_connect();
+
+        // Check connection
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        // Prepare the SQL query with the user_id condition using prepared statements
+        $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "i", $uid);
+
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+
+        // Bind result variables
+        mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at);
+
+        // Create an array to hold the post variables
+        $posts = array();
+
+        // Fetch each row of the result set and store it in the $posts array
+        while (mysqli_stmt_fetch($stmt)) {
+            $posts[] = array(
+                'post_id' => $post_id,
+                'post_type' => $post_type,
+                'post_url' => $post_url,
+                'caption' => $caption,
+                'created_at' => $created_at,
+                'updated_at' => $updated_at
+            );
+        }
+
+        // Check if there are no results
+        if (empty($posts)) {
+            echoNoPosts();
+        } else {
+            // Loop through each post and echo the variables
+            echo '<div style="display: grid; grid-template-columns: repeat(3, 1fr);">';
+            foreach ($posts as $post) {
+                echoUserPosts($post);
+            }
+            echo '</div>';
+        }
+
+        // Close the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    }
+
+    function updatePost(){
+    }
+    function deletePost($postID) {
+    // Start the database connection
+    $dbConn = db_connect();
+
+    // Check connection
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to delete the post based on post_id using prepared statements
+    $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
+
+    // Bind parameters
+    $stmt->bind_param("i", $postID);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "Post with ID $postID deleted successfully.";
+    } else {
+        echo "Failed to delete post with ID $postID.";
+    }
+
+    // Close statement and connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+    }
+    function checkIfitsOwner($postID, $currentSessionUser){
+    // Start the database connection
+    $dbConn = db_connect();
+
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to check if the current user is the owner of the post with the given id
+    $sql = "SELECT * FROM posts WHERE user_id = ? AND post_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postID);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Store the result
+    mysqli_stmt_store_result($stmt);
+
+    // If the post is not owned by the user, return false
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return true;
+    } else {
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+        return false;
+    }
+    }
 
 //*DONE
 function deleteNotif($notifID) {
@@ -659,7 +794,11 @@ function getNotif(){
             echoNotif($row);
         }
     } else {
-        echo '<h1 class="ubuntu-bold">No notifications</h1>';
+        echo'<div class="flex flex-col  items-center justify-center h-full">
+        <h2 class="text-3xl font-bold bg-gray-800 rounded-lg p-8 text-white">
+        No notifications found.
+        </h2>
+        </div>';
     }
 
     mysqli_stmt_close($stmt);
@@ -966,6 +1105,7 @@ function likeCount($postid){
 
     return $likeCount;
 }
+
 function followCheck($userid, $currentSessionUser){
     global $arrConfig;
     // Start the database connection
@@ -1012,7 +1152,6 @@ function followCheck($userid, $currentSessionUser){
 
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
-        return "follow";
     } else {
         // The current user is not following the other user, so insert a new row into the follows table
         $sql = "INSERT INTO follow (follower_id, followee_id) VALUES (?, ?)";
@@ -1032,7 +1171,6 @@ function followCheck($userid, $currentSessionUser){
 
         sendNotification($userid, $currentSessionUser, "UserFollowed");
 
-        return "following";
     }
 }
 function followCheckLoad($userid, $currentSessionUser){

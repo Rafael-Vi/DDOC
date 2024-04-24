@@ -39,6 +39,7 @@ if (isset($_SESSION['themes']) && !empty($_SESSION['themes']) ){
             mysqli_stmt_close($stmt);
             mysqli_stmt_close($stmtPosts);
             mysqli_close($dbConn);
+            include "/saveLastPage.inc.php";
         }
     }
 }

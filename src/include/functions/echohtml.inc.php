@@ -31,7 +31,7 @@
         global $arrConfig;
         echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
         echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
-        echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showModal(\'' . addslashes($post['post_id']) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" style="visibility: hidden;">Edit</button>';
+        echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showModal(\'' . addslashes($post['post_id']) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" data-id="'.urlencode($post['post_id']).'" style="visibility: hidden;">Edit</button>';
         echo '</div>';  
     }
 

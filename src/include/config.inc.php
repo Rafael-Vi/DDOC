@@ -6,4 +6,5 @@
     require "functions/SQLfunctions.inc.php";
     require "functions/validateLRForm.inc.php";
     getThemes(false);
-?>  
+    getCanPostStatus($_SESSION['uid']);
+

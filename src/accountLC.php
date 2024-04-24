@@ -2,7 +2,9 @@
 <?php
 include "include/config.inc.php";
 ?>
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

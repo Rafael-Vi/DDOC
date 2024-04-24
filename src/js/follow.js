@@ -1,14 +1,16 @@
 //*DONE
 //*------------------------------------------------------------------
 function followCheck() {
-    console.log('Follow button clicked');
+    console.log('Follow button clasdasdicked');
     var xhr = new XMLHttpRequest();
     var urlParams = new URLSearchParams(window.location.search);
     var userid = urlParams.get('userid'); // get the userid from the URL
     xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
-        if (this.status == 200) {
+        if (this.status == 200) 
+        {
+            checkPage();
             console.log('Response from server:', this.responseText);
             console.log('Trimmed response:', this.responseText.trim());
             // Change the text of the follow button based on the response
@@ -18,7 +20,7 @@ function followCheck() {
             } else if (this.responseText.trim() === 'following') {
                 followButton.textContent = 'Following';
             }
-            checkPage();
+
         }
     };
     xhr.send('function=followCheck&userid=' + encodeURIComponent(userid));

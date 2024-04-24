@@ -32,7 +32,7 @@ function validateLogin($email, $password) {
 
     // Create the SQL query
     $sql = "SELECT user_email, user_password FROM users WHERE user_email = ?";
-    $sql2 = "SELECT user_id FROM users WHERE user_email = ?";
+    $sql2 = "SELECT user_id, can_post FROM users WHERE user_email = ?";
 
 /// Prepare the SQL statement
 $stmt = mysqli_prepare($dbConn, $sql);
@@ -77,11 +77,12 @@ if (mysqli_stmt_fetch($stmt)) {
         }
 
         // Bind result variables
-        mysqli_stmt_bind_result($stmt2, $userId);
+        mysqli_stmt_bind_result($stmt2, $userId, $canPost);
 
        // Fetch the result of the second query
        if (mysqli_stmt_fetch($stmt2)) {
         $_SESSION['uid'] = $userId;
+        $_SESSION['can_post'] = $canPost;
         header("Location: social.php");
         exit;
     }

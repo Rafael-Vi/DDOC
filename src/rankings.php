@@ -27,9 +27,6 @@ if ($type == null || $type == 0) {
 // Set the global type variable
 $GLOBALS['type'] = $type;
 ?>
-<?php
-    include "include/functions/saveLastPage.inc.php";
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,11 +100,11 @@ $GLOBALS['type'] = $type;
       </div>
         <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800">
             <div class="flex w-full text-center justify-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900 items-center">
-                <div class="ubuntu-bold w-2/6">Rank</div>
+                <div class="ubuntu-bold w-2/6"> <button id="invertButton" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded mr-1"> <i class="fi-sr-apps-sort fi"></i></button>Rank</div>
                 <div class="ubuntu-bold w-2/6">Likes</div> <!-- Likes -->
                 <div class="ubuntu-bold w-2/6">Account</div> <!-- Person who posted it -->
             </div>
-            <div class="h-full overflow-y-auto w-full">
+            <div class="h-full overflow-y-auto w-full flex flex-col m-auto" id=tableRanking>
                 <?php 
                     RankingAcc();
                 ?>
@@ -118,6 +115,11 @@ $GLOBALS['type'] = $type;
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
+    <script>
+    document.getElementById('invertButton').addEventListener('click', function() {
+        document.getElementById('tableRanking').classList.toggle('flex-col-reverse');
+    });
+    </script>
   <script src="../src/js/timer.js"></script>
   <script src="../src/js/filterTheme.js"></script>
   <script src="../src/js/social.js"></script>

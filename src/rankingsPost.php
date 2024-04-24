@@ -47,9 +47,7 @@ if ($type == null || $type == 0) {
 // Set the global type variable
 $GLOBALS['type'] = $type;
 ?>
-<?php
-    include "include/functions/saveLastPage.inc.php";
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -4,11 +4,9 @@ include "include/config.inc.php";
 
 <?php
   include "include/functions/checkLogin.inc.php";
-?> <?php
-      require "include/functions/checkThemeIsFinished.inc.php";
-?>
+?> 
 <?php
-    include "include/functions/saveLastPage.inc.php";
+      require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
 
