@@ -1,6 +1,4 @@
-# DDOC
-
-<h1> Hello there </h1>
+<h1> Welcome to DDOC </h1>
 
 This is my final Project for highschool. I hope you like it.
 
