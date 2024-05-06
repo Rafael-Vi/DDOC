@@ -12,6 +12,9 @@ include "include/config.inc.php";
 
 
 <?php
+    include "include/functions/saveLastPage.inc.php";
+?>
+<?php
 require "include/functions/checkFilterVars.inc.php";
 
 // Start the session if it's not already started
@@ -65,7 +68,7 @@ $GLOBALS['type'] = $type;
     ?>
     <?php echoNav(); ?>
     <div id="Postrankings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
-    <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg- gray-800 sticky top-0">
+    <h1 class=" h-32 text-white border text-white text-center sm:text-start bg-gray-800 border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg- gray-800 sticky top-0">
       Post Rankings
     </h1>
 
@@ -80,30 +83,30 @@ $GLOBALS['type'] = $type;
             $podium = getPodium(2, "PostRank", $GLOBALS['theme_id'], $GLOBALS['type']);?>
             <div class="flex flex-col items-center mt-auto">
                 <?php if ($podium): ?>
-                    <h1 class="mb-2"><?php echo $podium['NameOfThePost']; ?></h1>
+                    <h1 class="mb-2 text-white"><?php echo $podium['NameOfThePost']; ?></h1>
                     <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-24 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
                 <?php else: ?>
-                    <h1 class="mb-2">No post found with this rank.</h1>
+                    <h1 class="mb-2 text-white">No post found with this rank.</h1>
                     <div class="bg-gray-800 rounded-lg text-center p-4 h-20 w-24 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
                 <?php endif; ?>
             </div>
             <?php $podium = getPodium(1, "PostRank",  $GLOBALS['theme_id'], $GLOBALS['type']); ?>
             <div class="flex flex-col items-center mt-auto">
                 <?php if ($podium): ?>
-                    <h1 class="mb-2"><?php echo $podium['NameOfThePost']; ?></h1>
+                    <h1 class="mb-2 text-white"><?php echo $podium['NameOfThePost']; ?></h1>
                     <div class="bg-gray-800 rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
                 <?php else: ?>
-                    <h1 class="mb-2">No post found with this rank.</h1>
+                    <h1 class="mb-2 text-white">No post found with this rank.</h1>
                     <div class="bg-gray-800 rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
                 <?php endif; ?>
             </div>
             <?php $podium = getPodium(3, "PostRank",  $GLOBALS['theme_id'], $GLOBALS['type']); ?>
             <div class="flex flex-col items-center mt-auto">
                 <?php if ($podium): ?>
-                    <h1 class="mb-2"><?php echo $podium['NameOfThePost']; ?></h1>
+                    <h1 class="mb-2 text-white"><?php echo $podium['NameOfThePost']; ?></h1>
                     <div class="bg-gray-800 rounded-lg text-center p-4 h-16 w-24 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
                 <?php else: ?>
-                    <h1 class="mb-2">No post found with this rank.</h1>
+                    <h1 class="mb-2 text-white">No post found with this rank.</h1>
                     <div class="bg-gray-800 rounded-lg text-center p-4 h-16 w-24 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
                 <?php endif; ?>
             </div>
@@ -112,7 +115,7 @@ $GLOBALS['type'] = $type;
         </div>
         <div class="flex flex-row gap-4">
           <div>
-              <label for="themeSelect" class="mb-2">Temas:</label>
+              <label for="themeSelect" class="mb-2 text-white">Temas:</label>
               <select class="select select-bordered w-full max-w-xs mb-8 text-black" id="themeSelect">
                   <option disabled>Temas - - - </option>
                   <?php
@@ -122,7 +125,7 @@ $GLOBALS['type'] = $type;
           </div>
           <!-- Falta acabar este filtro e corrigir o display ds conteúdos-->
           <div>
-              <label for="typeSelect" class="mb-2">Tipo:</label>
+              <label for="typeSelect" class="mb-2 text-white">Tipo:</label>
               <select class="select select-bordered w-full max-w-xs mb-8 text-black" id="typeSelect">
                   <option disabled>Type - - -</option>
                   <?php setSelectedType($GLOBALS['type'] ?? ''); ?>

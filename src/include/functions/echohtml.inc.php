@@ -15,8 +15,8 @@
         global $arrConfig;
         echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
-        echo '<div class="font-bold">' . $realName . '</div>';
-        echo '<div class="w-full">' . $biography . '</div>';
+        echo '<div class="font-bold  text-white">' . $realName . '</div>';
+        echo '<div class="w-full text-white">' . $biography . '</div>';
         echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
         echo '<div id="followers-count" class="font-bold">Seguidores: ---</div>';
         echo '<div id="following-count" class="font-bold">A seguir: ---</div>';
@@ -25,13 +25,31 @@
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32 h-32 md:w-56 md:h-56 ml-10 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 hover:filter hover:brightness-50 hover:opacity-75 border-2 border-gray-600">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32  h-32 text-white md:w-56 md:h-56 ml-10 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 border-2 border-gray-600">';
     }
+
     function echoUserPosts($post) {
         global $arrConfig;
-        echo '<div class="post-container" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
-        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'"><img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75"></a>';
-        echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showModal(\'' . addslashes($post['post_id']) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" data-id="'.urlencode($post['post_id']).'" style="visibility: hidden;">Edit</button>';
+    
+        echo '<div class="post-container border-2 border-white" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
+        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'">';
+    
+        if ($post['post_type'] == 'video') {
+            echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
+            echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+            echo '<source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4">';
+            echo 'Your browser does not support the video tag.';
+            echo '</video>';
+            echo '</div>';
+        } else if ($post['post_type'] == 'audio') {
+            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">'; // Display audio.jpeg for audio type
+        } else {
+            echo '<img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="'.$post['caption'].'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+        }
+    
+        echo '</a>';
+        echo '<button disabled class="new-button absolute top-0 right-0 m-2 bg-slate-800 text-white font-bold py-2 px-4 mr-8 rounded" style="visibility: hidden; margin-right: 80px;">'.htmlspecialchars($post['caption']).'</button>'; // New disabled button with unique class
+        echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showModal(\'' . addslashes($post['post_id']) . '\', \'' . addslashes($post['caption']) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" data-id="'.urlencode($post['post_id']).'" style="visibility: hidden;">Edit</button>'; 
         echo '</div>';  
     }
 
@@ -47,7 +65,7 @@
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
                         <li class="px-5">
-                            <div class="flex flex-row items-center h-32 w-32">
+                            <div class="flex flex-row items-center  h-32 text-white w-32">
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
                         <li class="px-4 py-2">
@@ -120,7 +138,7 @@
                             <a href="./settings.php" id="settings-link" style="color: black">Definições</a>
                         </li>
                         <li class="px-4 py-2">
-                        <a href="#" id="logout-link" style="color: black" onclick="logout('.'DDOC'.')">Logout</a>
+                        <a href="#" id="logout-link" style="color: black" onclick="logout()">Logout</a>
                         </li>
 
                     </ul>
@@ -186,18 +204,21 @@
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
                     <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
+                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 
                 break;
             case 'audio':
                 echo'
                 <!-- First row: Post audio -->
-                <div class="flex justify-center">
-                    <audio controls class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto z-40">
-                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
-                        O seu browser não suporta a tag de áudio.
-                    </audio>
+                <div class="flex justify-center relative">
+                    <div class="flex flex-col justify-center items-center h-ful w-fulll">
+                        <img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
+                        <audio controls class="rounded-sm w-full h-16 mb-10 block mx-auto z-0 mt-4">
+                            <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
+                            O seu browser não suporta a tag de áudio.
+                        </audio>
+                    </div>
                 </div>
                 ';
                 echo'
@@ -206,7 +227,7 @@
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
                     <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
+                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
             case 'video':
@@ -225,7 +246,7 @@
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
                     <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: 1</span>
+                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
         }
@@ -242,7 +263,7 @@
     }
 
     function echoSearchResults($userId, $username, $profilePic){
-        echo '<a href="OProfile.php?userid=' . $userId. '" class="inline-block text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
+        echo '<a href="OProfile.php?userid=' . $userId. '" class="inline-block w-full text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
         echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 border-orange-500 border-4 p-2 rounded-lg m-2">';
         echo $username;
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full border-orange-500 border-2">';
@@ -317,9 +338,22 @@
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster){
         global $arrConfig;  
         echo'
-        <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
+        <div class="flex items-center w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
         <div class="text-white w-1/6">'.$rank.'</div> <!-- Rank of the post -->
-        <div class="flex items-center justify-center w-1/6"><img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-16 h-16"></div> <!-- Image of the post -->
+        <div class="flex items-center justify-center w-1/6">';
+        if ($type == 'video') {
+            echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
+            echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+            echo '<source src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" type="video/mp4">';
+            echo 'Your browser does not support the video tag.';
+            echo '</video>';
+            echo '</div>';
+        } else if ($type == 'audio') {
+            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32  h-32 text-white">'; // Display audio.jpeg for audio type
+        } else {
+            echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32  h-32 text-white">'; // Changed from w-16 h-16 to w-32  h-32 text-white
+        }
+        echo '</div> <!-- Image of the post -->
         <div class="text-white w-1/6">'.$name.'</div> <!-- Name of the post -->
         <div class="text-white w-1/6">'.$type.'</div> <!-- Type -->
         <div class="text-white w-1/6">'.$likes.'</div> <!-- Likes -->

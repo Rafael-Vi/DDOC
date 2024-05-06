@@ -9,7 +9,9 @@ include "include/config.inc.php";
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +31,7 @@ include "include/config.inc.php";
     ?>
     <?php echoNav(); ?>
     <div id="messages-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
-        <h1 class="h-32 border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
+        <h1 class=" h-32 text-white text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
         <?php
          if (isset($_GET['convo_id'])){
             echo "Conversa com utilizador";

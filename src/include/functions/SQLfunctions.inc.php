@@ -80,6 +80,26 @@ if (isset($_POST['function'])) {
                 echo $response;
             }
             break;
+        case 'checkIfitsOwner':
+            if (isset($_POST['postid'])) {
+                $postID = $_POST['postid'];
+                $currentSessionUser = $_SESSION['uid'];
+                echo CheckIfOwnerPost($postID, $currentSessionUser);
+            }
+            break;
+        case 'deletePost':
+            if (isset($_POST['postid'])) {
+                $postID = $_POST['postid'];
+                deletePost($postID);
+            }
+            break;
+        case 'savePost':
+            if (isset($_POST['postid']) & isset($_POST['postContent'])) {
+                $postid = $_POST['postid'];
+                $postContent = $_POST['postContent'];
+                savePost($postid, $postContent);
+            }
+            break;
     }
 }
 //*-----------------------------------------------------------------------------------------
@@ -97,6 +117,9 @@ function db_connect() {
 //!-----------------------------------------------------------------------------------------
 
     
+
+
+
     function getDef($userID){
 
     }
@@ -112,6 +135,82 @@ function db_connect() {
 //! Need to make
 //!-----------------------------------------------------------------------------------------
 
+    function savePost($postID, $postContent) {
+        // Start the database connection
+        $dbConn = db_connect();
+
+        // Check connection
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        // Prepare the SQL query with the post_id condition using prepared statements
+        $sql = "UPDATE posts SET caption = ? WHERE post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $sql);
+
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "si", $postContent, $postID);
+
+        // Execute the query
+        if(mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+
+        // Check if the post was updated
+        $wasUpdated = mysqli_stmt_affected_rows($stmt) > 0;
+
+        // Close the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+
+        // Return a JSON object
+        echo json_encode(array('success' => $wasUpdated, 'postID' => $postID));
+    }
+
+    function checkIfOwnerPost($postID, $currentSessionUser) {
+    // Start the database connection
+    $dbConn = db_connect();
+
+    // Check connection
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query with the post_id condition using prepared statements
+    $sql = "SELECT user_id FROM posts WHERE post_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "i", $postID);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind result variables
+    mysqli_stmt_bind_result($stmt, $userID);
+
+
+    // Fetch the result
+    if (mysqli_stmt_fetch($stmt)) {
+        // Check if the current session user is the owner of the post
+        $isOwner = $userID == $currentSessionUser;
+    } else {
+        $userID = null;
+        $isOwner = false;
+    }
+
+    // Close the database connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+
+    // Return a JSON object
+
+    echo json_encode(array('isOwner' => $isOwner, 'userID' => $userID, 'postID' => $postID));
+
+
+    }
 
     function sendNotification($receiverId, $senderId, $type) {
         global $arrConfig;
@@ -266,7 +365,6 @@ function db_connect() {
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
-
     function setSelectedType($selectedType) {
         $types = ['none', 'video', 'image', 'audio'];
 
@@ -352,7 +450,6 @@ function db_connect() {
         // Close the database connection
         mysqli_close($dbConn);
     }
-
     function updateUserPostStatus($userId) {
         $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
         // Prepare the SQL query to update the table
@@ -377,7 +474,6 @@ function db_connect() {
         $stmt->close();
         mysqli_close($dbConn);
     }
-
     function getCanPostStatus($userId) {
         $dbConn = db_connect(); 
 
@@ -461,8 +557,6 @@ function db_connect() {
             die('File upload error: ' . $file['error']);
         }
     }
-
-
     function showPost($postId, $show) {
         // Start the database connection
         $dbConn = db_connect();
@@ -473,10 +567,11 @@ function db_connect() {
         }
     
         // Prepare the SQL query with the post_id condition using prepared statements
-        $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme 
-                FROM posts p 
-                LEFT JOIN theme t ON p.theme_id = t.theme_id 
-                WHERE p.post_id = ?";
+        $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme, r.PostRank
+        FROM posts p 
+        LEFT JOIN theme t ON p.theme_id = t.theme_id 
+        LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.theme_id = r.theme_id
+        WHERE p.post_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
     
         // Bind parameters
@@ -488,7 +583,7 @@ function db_connect() {
         }
     
         // Bind result variables
-        mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name);
+        mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name, $rank);
     
         // Fetch the result
         if (mysqli_stmt_fetch($stmt)) {
@@ -501,7 +596,8 @@ function db_connect() {
                 'updated_at' => $updated_at,
                 'user_id' => $user_id,
                 'theme_id' => $theme_id,
-                'theme_name' => $theme_name
+                'theme_name' => $theme_name,
+                'rank' => $rank
             );
             // Display the post if $show is not 'no'
             if ($show !== 'no') {
@@ -558,7 +654,6 @@ function db_connect() {
         mysqli_close($dbConn);
 
     }
-
     function getThemes($all){
         global $arrConfig;
     
@@ -609,7 +704,6 @@ function db_connect() {
         }
 
     }
-
     function getPosts($uid) {
     // Start the database connection
         $dbConn = db_connect();
@@ -654,7 +748,7 @@ function db_connect() {
             echoNoPosts();
         } else {
             // Loop through each post and echo the variables
-            echo '<div style="display: grid; grid-template-columns: repeat(3, 1fr);">';
+            echo '<div id="post-destroyer" style="display: grid; grid-template-columns: repeat(3, 1fr);">';
             foreach ($posts as $post) {
                 echoUserPosts($post);
             }
@@ -665,7 +759,6 @@ function db_connect() {
         mysqli_stmt_close($stmt);
         mysqli_close($dbConn);
     }
-
     function updatePost(){
     }
     function deletePost($postID) {
@@ -694,46 +787,6 @@ function db_connect() {
     mysqli_stmt_close($stmt);
     mysqli_close($dbConn);
     }
-    function checkIfitsOwner($postID, $currentSessionUser){
-    // Start the database connection
-    $dbConn = db_connect();
-
-    if ($dbConn === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
-
-    // Prepare the SQL query to check if the current user is the owner of the post with the given id
-    $sql = "SELECT * FROM posts WHERE user_id = ? AND post_id = ?";
-    $stmt = mysqli_prepare($dbConn, $sql);
-
-    // Check if the statement was prepared successfully
-    if ($stmt === false) {
-        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
-    }
-
-    // Bind parameters
-    mysqli_stmt_bind_param($stmt, "ii", $currentSessionUser, $postID);
-
-    // Execute the query
-    if(mysqli_stmt_execute($stmt) === false) {
-        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-    }
-
-    // Store the result
-    mysqli_stmt_store_result($stmt);
-
-    // If the post is not owned by the user, return false
-    if (mysqli_stmt_num_rows($stmt) > 0) {
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-        return true;
-    } else {
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-        return false;
-    }
-    }
-
 //*DONE
 function deleteNotif($notifID) {
     // Start the database connection

@@ -12,8 +12,12 @@
     $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
 
     // caminhos Docs e/ou fotografias
+    $arrConfig['dir_css'] = $arrConfig['dir_site'].'/src/css/';
+    $arrConfig['url_css'] = $arrConfig['url_site'].'/src/css/';
     $arrConfig['dir_posts'] = $arrConfig['dir_site'].'/upload/posts/';
     $arrConfig['url_posts'] = $arrConfig['url_site'].'/upload/posts/';
+    $arrConfig['dir_assets'] = $arrConfig['dir_site'].'/src/assets/';
+    $arrConfig['url_assets'] = $arrConfig['url_site'].'/src/assets/';
     $arrConfig['dir_users'] = $arrConfig['dir_site'].'/upload/users/';
     $arrConfig['url_users'] = $arrConfig['url_site'].'/upload/users/';
     $arrConfig['fotos_auth'] = array ('image/jpeg', 'image/jpg', 'image/png', 'image/gif');

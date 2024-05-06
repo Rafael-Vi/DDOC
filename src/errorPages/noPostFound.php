@@ -15,12 +15,12 @@ include "../include/config.inc.php";
     <link rel="stylesheet" href="../css/errorPages.css">    
     <link rel="shortcut icon" href="../assets/images/2.png" >
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <script src="https://cdn.tailwindcss.com"></script>     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <title>Post Doesn't Exist!!!</title>
 </head>
-<body class="bg-gray-900">
+<body class="bg-gray-800">
 <div class="fixed inset-0 flex-row">
-    <div class="fixed inset-0 z-50 bg-gray-900 flex items-center justify-center flex-col">
+    <div class="fixed inset-0 z-50 bg-gray-800 flex items-center justify-center flex-col">
       <div class="flex items-center justify-center flex-row">
         <p class=" text-7xl text-white ubuntu-bold">D</p>
         <p class=" text-7xl mx-1 text-white ubuntu-bold">D</p>

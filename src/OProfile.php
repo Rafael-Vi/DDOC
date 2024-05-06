@@ -8,7 +8,9 @@ include "include/config.inc.php";
       require "include/functions/checkThemeIsFinished.inc.php";
 ?>
 
-
+<?php
+    include "include/functions/saveLastPage.inc.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +32,7 @@ include "include/config.inc.php";
     <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
        
        <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between shadow-md shadow-amber-600 bg-gray-800 h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
-          <div class="flex h-32 lg:h-64 mt-8 w-4/6">
+          <div class="flex  h-32 text-white lg:h-64 mt-8 w-4/6">
               <div class="h-full w-full mt-0 md:mt-8 mb-4">
                 <?php
                     getUserInfo($_GET['userid']); 

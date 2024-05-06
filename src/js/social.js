@@ -47,8 +47,8 @@ function searchStuff() {
   }
 
 }
-function logout(senderName) {
-  if (confirm(senderName + ' asks: Are you sure you want to log out?')) {
+function logout() {
+  if (confirm('DDOC asks: Are you sure you want to log out?')) {
       window.location.href = '../src/include/functions/logout.inc.php';
   }
 }

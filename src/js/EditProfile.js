@@ -1,30 +1,32 @@
-// Define the functions in the global scope
 function openDialog() {
-    document.getElementById('dialog').classList.remove('hidden');
+  var dialog = document.getElementById('profile-dialog');
+  if (dialog.showModal) {
+      dialog.showModal();
+  } else {
+      dialog.style.display = "block";
+  }
 }
+
 function closeDialog() {
-    const textInputs = document.querySelectorAll('#dialog input[type="text"], #dialog textarea');
-    let hasUnsavedAlterations = false;
-  
-    textInputs.forEach(input => {
+  const textInputs = document.querySelectorAll('#profile-dialog input[type="text"], #profile-dialog textarea');
+  let hasUnsavedAlterations = false;
+  textInputs.forEach(input => {
       if (input.value !== '') {
-        hasUnsavedAlterations = true;
+          hasUnsavedAlterations = true;
       }
-    });
-  
-    if (hasUnsavedAlterations) {
-      const confirmResult = confirm('There are unsaved alterations. Do you want to continue closing?');
+
+  });
+
+  if (hasUnsavedAlterations) {
+      const confirmResult = confirm('Existem alterações que não foram salvas. Deseja continuar?');
       if (!confirmResult) {
-        return;
+          return;
       }
       textInputs.forEach(input => {
-        input.value = ''; // Clear the input values
+          input.value = ''; // Clear the input values
       });
-    
-      document.getElementById('dialog').classList.add('hidden');
-    }
-    else
-    {
-      document.getElementById('dialog').classList.add('hidden');
-    }
+  }
+
+  var dialog = document.getElementById('profile-dialog');
+  dialog.close();
 }

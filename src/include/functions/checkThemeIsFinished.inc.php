@@ -15,30 +15,6 @@ if (isset($_SESSION['themes']) && !empty($_SESSION['themes']) ){
             if ($dbConn === false) {
                 die("ERROR: Could not connect. " . mysqli_connect_error());
             }
-
-            $themeId = $theme['theme_id'];
-            $sql = "UPDATE theme SET is_finished = 1 WHERE theme_id = ?";
-            $stmt = mysqli_prepare($dbConn, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $themeId);
-
-            // Execute the query
-            if (mysqli_stmt_execute($stmt) === false) {
-                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-            }
-
-            // Update the posts table to set Enabled = 1 for posts with the same theme_id
-            $sqlPosts = "UPDATE posts SET Enabled = 1 WHERE theme_id = ?";
-            $stmtPosts = mysqli_prepare($dbConn, $sqlPosts);
-            mysqli_stmt_bind_param($stmtPosts, "i", $themeId);
-
-            // Execute the query
-            if (mysqli_stmt_execute($stmtPosts) === false) {
-                die("ERROR: Could not execute query: $sqlPosts. " . mysqli_error($dbConn));
-            }
-
-            mysqli_stmt_close($stmt);
-            mysqli_stmt_close($stmtPosts);
-            mysqli_close($dbConn);
             include "/saveLastPage.inc.php";
         }
     }
@@ -46,4 +22,4 @@ if (isset($_SESSION['themes']) && !empty($_SESSION['themes']) ){
 else {
    header("Location: ./errorPages/NoThemeError.php");
 }
-?>
+

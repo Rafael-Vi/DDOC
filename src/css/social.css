@@ -1,5 +1,10 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body{
-    height: auto;
+    height: 100%;
     width: auto;
 }
 
@@ -12,9 +17,6 @@ body{
     height: 250px;
 }
 
-div{
-    color: aliceblue;
-}
 
 a:hover {
     color: orange;

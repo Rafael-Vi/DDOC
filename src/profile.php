@@ -28,7 +28,7 @@ include "include/config.inc.php";
        
       <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between shadow-md shadow-amber-600 bg-gray-800 h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
         <?php
-            echo '<div class="flex h-32 lg:h-64 mt-8 w-4/6">';
+            echo '<div class="flex  h-32 text-white lg:h-64 mt-8 w-4/6">';
             echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
             getUserInfo($_SESSION['uid']); 
 
@@ -38,6 +38,7 @@ include "include/config.inc.php";
         ?>  
 
       <div id="profilePosts-div" class="relative p-auto overflow-auto">
+
         <?php
           getPosts($_SESSION['uid']);
         ?>
@@ -45,8 +46,7 @@ include "include/config.inc.php";
   </div>
 
     
-  <!-- Dialog -->
-  <div id="dialog" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75  text-gray-800 font-medium">
+<dialog id="profile-dialog" class="modal ubuntu-medium">
     <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data" >
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
       <div class="flex flex-col mb-4">
@@ -75,27 +75,29 @@ include "include/config.inc.php";
         <button type="submit" name="confirm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">Update</button>
       </div>
     </form>
-  </div>
+</dialog>
 
-  <dialog id="postEdit" class="modal">
+<dialog id="postEdit" class="modal">
     <div class="modal-box">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900">✕</button>
+        <input type="hidden" id="postId" name="postId">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900"onclick="cancel()">✕</button>
         <h3 class="font-bold text-lg text-gray-900">Edit Post</h3>
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Caption</span>
+            <span id="caption"class="label-text">Caption</span>
           </label>
           <textarea id="postContent" class="textarea textarea-bordered w-full text-gray-900" placeholder="Type your post content here..."></textarea>
         </div>
         <div class="form-control mt-4 flex flex-row">
-          <button class="btn flex-initial" onclick="save()">Save</button>
+          <button class="btn flex-initial" onclick="save()">Save Alterations</button>
+          <button class="btn btn-error ml-2 flex-initial" onclick="deletePost()">Delete Post</button>
           <button class="btn btn-outline ml-2 flex-initial" onclick="cancel()">Cancel</button>
-          <button class="btn btn-error ml-2 flex-initial" onclick="deletePost()">Delete</button>
         </div>
       </form>
     </div>
   </dialog>
+  
   <?php echoBottomNav(); ?>
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
