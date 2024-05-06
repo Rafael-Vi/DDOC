@@ -3,13 +3,15 @@
 
     if($_SERVER['HTTP_HOST'] == 'localhost') {
         error_reporting(E_ALL);
-    } else {
+        $arrConfig['url_site']='http://localhost/DDOC';
+        $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
+    } else if($_SERVER['HTTP_HOST'] == 'web.colgaia.pt') {
+        $arrConfig['url_site']='http://webcolgaia.pt/12itm124/DDOC';
+        $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
         error_reporting(0);
     }
 
-    // acessos FrontOffice
-    $arrConfig['url_site']='http://localhost/DDOC';
-    $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
+
 
     // caminhos Docs e/ou fotografias
     $arrConfig['dir_css'] = $arrConfig['dir_site'].'/src/css/';

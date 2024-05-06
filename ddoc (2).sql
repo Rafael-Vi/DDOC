@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 17-Abr-2024 às 06:40
+-- Tempo de geração: 06-Maio-2024 às 21:48
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -20,8 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `ddoc`
 --
-CREATE DATABASE IF NOT EXISTS `ddoc` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `ddoc`;
+
+DELIMITER $$
+--
+-- Procedimentos
+--
+DROP PROCEDURE IF EXISTS `CheckThemeIsFinished`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CheckThemeIsFinished` ()   BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE _theme_id INT;
+    DECLARE _finish_date DATETIME;
+    DECLARE cur CURSOR FOR SELECT theme_id, finish_date FROM theme WHERE is_finished = 0;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+
+    read_loop: LOOP
+        FETCH cur INTO _theme_id, _finish_date;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        IF _finish_date < NOW() THEN
+            UPDATE theme SET is_finished = 1 WHERE theme_id = _theme_id;
+            UPDATE posts SET Enabled = 1 WHERE theme_id = _theme_id;
+        END IF;
+    END LOOP;
+
+    CLOSE cur;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -31,10 +60,10 @@ USE `ddoc`;
 --
 DROP VIEW IF EXISTS `accountrankings`;
 CREATE TABLE IF NOT EXISTS `accountrankings` (
-`TotalLikes` bigint
-,`UserImage` varchar(50)
+`UserRank` bigint unsigned
 ,`UserName` text
-,`UserRank` bigint unsigned
+,`TotalLikes` bigint
+,`UserImage` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -45,11 +74,11 @@ CREATE TABLE IF NOT EXISTS `accountrankings` (
 --
 DROP VIEW IF EXISTS `accountrankingstype`;
 CREATE TABLE IF NOT EXISTS `accountrankingstype` (
-`PostType` varchar(255)
+`UserRank` bigint unsigned
+,`UserName` text
 ,`TotalLikes` bigint
 ,`UserImage` varchar(50)
-,`UserName` text
-,`UserRank` bigint unsigned
+,`PostType` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -102,7 +131,8 @@ INSERT INTO `follow` (`follower_id`, `followee_id`) VALUES
 (10, 8),
 (8, 10),
 (8, 11),
-(8, 12);
+(8, 12),
+(12, 8);
 
 -- --------------------------------------------------------
 
@@ -118,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   PRIMARY KEY (`like_id`),
   KEY `user_id` (`user_id`),
   KEY `post_id` (`post_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `likes`
@@ -134,7 +164,7 @@ INSERT INTO `likes` (`like_id`, `user_id`, `post_id`) VALUES
 (18, 1, 43),
 (28, 8, 43),
 (53, 8, 46),
-(51, 8, 47);
+(55, 8, 47);
 
 -- --------------------------------------------------------
 
@@ -166,14 +196,21 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `date_sent` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `receiver_id` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `message`, `date_sent`, `receiver_id`) VALUES
-(27, 'User ADMIN liked your post', '2024-04-11 18:43:20', 8);
+(41, 'A new post has been created by ADMIN', '2024-05-02 19:38:12', 10),
+(42, 'A new post has been created by ADMIN', '2024-05-02 19:38:12', 12),
+(43, 'A new post has been created by ADMIN', '2024-05-02 19:40:27', 10),
+(44, 'A new post has been created by ADMIN', '2024-05-02 19:40:27', 12),
+(45, 'A new post has been created by ADMIN', '2024-05-02 19:41:42', 10),
+(46, 'A new post has been created by ADMIN', '2024-05-02 19:41:42', 12),
+(47, 'A new post has been created by ADMIN', '2024-05-02 19:43:58', 10),
+(48, 'A new post has been created by ADMIN', '2024-05-02 19:43:58', 12);
 
 -- --------------------------------------------------------
 
@@ -194,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `posts`
@@ -204,10 +241,8 @@ INSERT INTO `posts` (`post_id`, `user_id`, `post_type`, `post_url`, `caption`, `
 (43, 12, 'image', 'image-wired-outline-955-demand.gif-12.gif', 'Fixe Post', 5, 1, '2024-03-22 14:23:16', '2024-04-01 20:00:06'),
 (44, 12, 'image', 'image-makeitmeme_ycJ2r.jpeg-12.jpeg', 'asdas', 5, 1, '2024-03-22 14:25:34', '2024-03-22 14:26:04'),
 (46, 8, 'image', 'image-CM8.png-8.png', 'Fixolas', 6, 1, '2024-04-03 18:32:24', '2024-04-04 14:38:02'),
-(47, 8, 'image', 'image-makeitmeme_rdBMA.jpeg-8.jpeg', 'Corrida', 7, 1, '2024-04-04 16:28:11', '2024-04-11 18:51:01'),
-(48, 8, 'image', 'image-makeitmeme_nW2Yh.jpeg-8.jpeg', 'asdasdasdasdas', 7, 1, '2024-04-08 21:22:17', '2024-04-11 18:51:01'),
-(49, 8, 'image', 'image-Jorche.png-8.png', 'adsdasdasdasdas', 7, 1, '2024-04-09 20:44:35', '2024-04-11 18:51:01'),
-(50, 8, 'audio', 'audio-itense build up.mp3-8.mp3', 'Fixe Post Magnífico', 7, 1, '2024-04-11 17:31:30', '2024-04-11 18:51:01'),
+(47, 8, 'image', 'image-makeitmeme_rdBMA.jpeg-8.jpeg', 'Corridera', 7, 1, '2024-04-04 16:28:11', '2024-05-06 22:20:03'),
+(50, 8, 'audio', 'audio-itense build up.mp3-8.mp3', 'Fixolitas Magnificos', 7, 1, '2024-04-11 17:31:30', '2024-05-02 20:43:14'),
 (59, 8, 'video', 'video-Mt 125 wheelie.mp4-8.mp4', 'Fodaasdasasdas', 7, 1, '2024-04-11 18:33:02', '2024-04-11 18:51:01');
 
 -- --------------------------------------------------------
@@ -218,14 +253,15 @@ INSERT INTO `posts` (`post_id`, `user_id`, `post_type`, `post_url`, `caption`, `
 --
 DROP VIEW IF EXISTS `rankingposts`;
 CREATE TABLE IF NOT EXISTS `rankingposts` (
-`IsFinished` int
-,`Likes` bigint
-,`NameOfThePost` text
-,`PersonWhoPostedIt` text
-,`PostImage` varchar(255)
+`PostId` int
 ,`PostRank` bigint unsigned
-,`theme_id` int
+,`PostImage` varchar(255)
+,`NameOfThePost` text
 ,`TYPE` varchar(255)
+,`Likes` bigint
+,`PersonWhoPostedIt` text
+,`theme_id` int
+,`IsFinished` int
 );
 
 -- --------------------------------------------------------
@@ -236,14 +272,14 @@ CREATE TABLE IF NOT EXISTS `rankingposts` (
 --
 DROP VIEW IF EXISTS `rankingpostsall`;
 CREATE TABLE IF NOT EXISTS `rankingpostsall` (
-`IsFinished` int
-,`Likes` bigint
-,`NameOfThePost` text
-,`PersonWhoPostedIt` text
+`PostRank` bigint unsigned
 ,`PostImage` varchar(255)
-,`PostRank` bigint unsigned
-,`theme_id` int
+,`NameOfThePost` text
 ,`TYPE` varchar(255)
+,`Likes` bigint
+,`PersonWhoPostedIt` text
+,`theme_id` int
+,`IsFinished` int
 );
 
 -- --------------------------------------------------------
@@ -254,14 +290,14 @@ CREATE TABLE IF NOT EXISTS `rankingpostsall` (
 --
 DROP VIEW IF EXISTS `rankingpostsotype`;
 CREATE TABLE IF NOT EXISTS `rankingpostsotype` (
-`IsFinished` int
-,`Likes` bigint
-,`NameOfThePost` text
-,`PersonWhoPostedIt` text
+`PostRank` bigint unsigned
 ,`PostImage` varchar(255)
-,`PostRank` bigint unsigned
-,`theme_id` int
+,`NameOfThePost` text
 ,`TYPE` varchar(255)
+,`Likes` bigint
+,`PersonWhoPostedIt` text
+,`theme_id` int
+,`IsFinished` int
 );
 
 -- --------------------------------------------------------
@@ -272,14 +308,14 @@ CREATE TABLE IF NOT EXISTS `rankingpostsotype` (
 --
 DROP VIEW IF EXISTS `rankingpoststype`;
 CREATE TABLE IF NOT EXISTS `rankingpoststype` (
-`IsFinished` int
-,`Likes` bigint
-,`NameOfThePost` text
-,`PersonWhoPostedIt` text
+`PostRank` bigint unsigned
 ,`PostImage` varchar(255)
-,`PostRank` bigint unsigned
-,`theme_id` int
+,`NameOfThePost` text
 ,`TYPE` varchar(255)
+,`Likes` bigint
+,`PersonWhoPostedIt` text
+,`theme_id` int
+,`IsFinished` int
 );
 
 -- --------------------------------------------------------
@@ -295,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
   `finish_date` datetime NOT NULL,
   `is_finished` int DEFAULT '0',
   PRIMARY KEY (`theme_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `theme`
@@ -306,7 +342,8 @@ INSERT INTO `theme` (`theme_id`, `theme`, `finish_date`, `is_finished`) VALUES
 (4, 'Animais Fofinhos', '2024-03-19 22:51:00', 1),
 (6, 'Teste 3', '2024-04-03 20:25:07', 1),
 (7, 'Teste4', '2024-04-12 18:51:00', 1),
-(8, 'Teste 8', '2024-04-18 19:05:02', 0);
+(8, 'Teste 8', '2024-05-06 15:48:00', 1),
+(9, 'Anotha One', '2024-05-10 21:30:54', 0);
 
 -- --------------------------------------------------------
 
@@ -333,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_profilePic`, `user_realName`, `user_biography`, `is_verified`, `can_post`) VALUES
-(8, 'ADMIN', 'rafa.pinto.vieira@gmail.com', '$2y$10$YHqi2BhvQzXDhgYpwz/qLuzV18yzCylK4rY3.mRZ6wWkKTiGN.tWK', 'ProfilePic-makeitmeme_4GenC.jpeg-8.jpeg', 'FODA', 'Eu sou mega Feliz', NULL, 0),
+(8, 'ADMIN', 'rafa.pinto.vieira@gmail.com', '$2y$10$YHqi2BhvQzXDhgYpwz/qLuzV18yzCylK4rY3.mRZ6wWkKTiGN.tWK', 'ProfilePic-makeitmeme_ZzjUu.jpeg-8.jpeg', 'asdasdasdas', 'HELOOOOO THEREEE', NULL, 0),
 (9, 'SuggarDaddy', 'sugarisoverratedanyways@gmail.com', '$2y$10$OqK1mG6lmN.NU56ilbuOee8614ZVgVCk4RzzD7hgZuAiUTIDQku4q', 'ProfilePic-makeitmeme_vHF2x.jpeg-9.jpeg', 'Matos Diabetes', 'Tenho diabetes não perguntei és gay', NULL, 0),
 (10, 'Batman6969Ultra', 'FolhadoDesfolhado@gmail.com', '$2y$10$6XjlaKmE3L0OlM5.jzOhF.zI5iQE0FHtPYjdzenK7LkVUC3wuj5Dm', 'ProfilePic-makeitmeme_GSaLW.gif-10.gif', 'XPAMA', 'Eu sou o BarTman (Sou Autista Extresmo)', NULL, 0),
 (11, 'CatarinaVieira_', 'cv06@gmail.com', '$2y$10$LkDsFsrXCE1hw2xyCaiV4u9K2sGXUr2NgwGMSBN1jT0AiqdSJlmNW', NULL, NULL, NULL, NULL, 0),
@@ -367,7 +404,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `rankingposts`;
 
 DROP VIEW IF EXISTS `rankingposts`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingposts`  AS SELECT row_number() OVER (PARTITION BY `t`.`theme_id` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingposts`  AS SELECT `p`.`post_id` AS `PostId`, row_number() OVER (PARTITION BY `t`.`theme_id` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
 
 -- --------------------------------------------------------
 
@@ -398,6 +435,15 @@ DROP TABLE IF EXISTS `rankingpoststype`;
 
 DROP VIEW IF EXISTS `rankingpoststype`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpoststype`  AS SELECT row_number() OVER (PARTITION BY `t`.`theme_id`,`p`.`post_type` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
+
+DELIMITER $$
+--
+-- Eventos
+--
+DROP EVENT IF EXISTS `CheckThemeIsFinished`$$
+CREATE DEFINER=`root`@`localhost` EVENT `CheckThemeIsFinished` ON SCHEDULE EVERY 1 MINUTE STARTS '2024-05-02 15:44:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL CheckThemeIsFinished()$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
