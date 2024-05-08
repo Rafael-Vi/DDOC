@@ -106,7 +106,8 @@ if (isset($_POST['function'])) {
 //*-----------------------------------------------------------------------------------------
 
 function db_connect() {
-    $conn = mysqli_connect("localhost", "root", "", "ddoc");
+    global $arrConfig;
+    $conn = mysqli_connect($arrConfig['connect_DB']);
 
     if (!$conn) {
         die("Error connecting to MySQL Server: " . mysqli_connect_error());
