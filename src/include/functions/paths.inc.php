@@ -5,12 +5,13 @@
         error_reporting(E_ALL);
         $arrConfig['url_site']='http://localhost/DDOC';
         $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
-        $arrConfig['connect_DB'] = '"localhost", "root", "", "ddoc"';}
+        $arrConfig['connect_DB'] = array('localhost', 'root', '', 'ddoc');
+    }
     else if($_SERVER['HTTP_HOST'] == 'web.colgaia.local') {
         $arrConfig['url_site']='http://web.colgaia.local/12itm124/DDOC';
         $arrConfig['dir_site'] = "W:\\www\\DDOC";
         error_reporting(E_ALL); 
-        $arrConfig['connect_DB'] = '"web.colgaia.local", "12itm124", "12itm124654b57cf2e691", "12itm124_ddoc"'; 
+        $arrConfig['connect_DB'] = array("web.colgaia.local", "12itm124", "12itm124654b57cf2e691", "12itm124_ddoc"); 
     }
 
 
