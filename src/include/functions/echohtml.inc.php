@@ -145,16 +145,16 @@
                 </div>
             </div>
             <div id="search-div" class="relative w-full bg-gray-200 hidden h-full m-auto">
-            
-                <div class="flex flex-col h-full">
-                <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-14">
-                  <input type="text" placeholder="Search" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-4 rounded-md text-black font-semibold" />
-                </div>
-                <div class="flex-1">
-                    <div class="mt-4 mx-4 h-5/6 bg-gray-300 relative p-2 rounded-md" id="search-people">
-                    <?php echoSearch(); ?>
+            <div class="flex flex-col h-full">
+            <button onclick="openSearch(event)" class="w-8 h-8 ubuntu-bold rounded-full bg-black text-white">x</button>
+                    <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-14">
+                        <input type="text" placeholder="Search" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-8 rounded-md text-black font-semibold" />
                     </div>
-                </div>
+                    <div class="flex-1">
+                        <div class="mt-4 mx-4 h-5/6 relative p-2 rounded-md" id="search-people">
+                            <?php echoSearch(); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -264,9 +264,9 @@
 
     function echoSearchResults($userId, $username, $profilePic){
         echo '<a href="OProfile.php?userid=' . $userId. '" class="inline-block w-full text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
-        echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 border-orange-500 border-4 p-2 rounded-lg m-2">';
+        echo '<div class="flex justify-between ubuntu-medium items-center text-white bg-gray-800 hover:border-orange-500 hover: border-4 p-2 rounded-lg mb-3">';
         echo $username;
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full border-orange-500 border-2">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full">';
         echo '</div>';
         echo '</a>';
     }

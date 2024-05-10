@@ -384,21 +384,7 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `use
 DROP TABLE IF EXISTS `accountrankings`;
 
 DROP VIEW IF EXISTS `accountrankings`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `accountrankings` AS
-SELECT 
-    row_number() OVER (ORDER BY ifnull(count(`l`.`post_id`),0) DESC) AS `UserRank`,
-    `u`.`user_name` AS `UserName`,
-    ifnull(count(`l`.`post_id`),0) AS `TotalLikes`,
-    `u`.`user_profilePic` AS `UserImage`
-FROM 
-    `users` `u`
-LEFT JOIN 
-    `posts` `p` ON `u`.`user_id` = `p`.`user_id`
-LEFT JOIN 
-    `likes` `l` ON `p`.`post_id` = `l`.`post_id`
-GROUP BY 
-    `u`.`user_id`, `u`.`user_name`, `u`.`user_profilePic` ;
-
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `accountrankings`  AS SELECT row_number() OVER (ORDER BY ifnull(count(`l`.`post_id`),0) desc ) AS `UserRank`, `u`.`user_name` AS `UserName`, ifnull(count(`l`.`post_id`),0) AS `TotalLikes`, `u`.`user_profilePic` AS `UserImage` FROM ((`users` `u` left join `posts` `p` on((`u`.`user_id` = `p`.`user_id`))) left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) GROUP BY `u`.`user_id`, `u`.`user_name`, `u`.`user_profilePic`;
 -- --------------------------------------------------------
 
 --

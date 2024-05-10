@@ -11,7 +11,7 @@
         $arrConfig['url_site']='http://web.colgaia.local/12itm124/DDOC';
         $arrConfig['dir_site'] = "W:\\www\\DDOC";
         error_reporting(E_ALL); 
-        $arrConfig['connect_DB'] = array("web.colgaia.local", "12itm124", "12itm124654b57cf2e691", "12itm124_ddoc"); 
+        $arrConfig['connect_DB'] = array("localhost", "12itm124", "12itm124654b57cf2e691", "12itm124_ddoc"); 
     }
 
 

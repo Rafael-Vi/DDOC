@@ -107,6 +107,8 @@ if (isset($_POST['function'])) {
 
 function db_connect() {
     global $arrConfig;
+
+    
     $conn = mysqli_connect($arrConfig['connect_DB'][0], $arrConfig['connect_DB'][1], $arrConfig['connect_DB'][2], $arrConfig['connect_DB'][3]);
 
     if (!$conn) {
