@@ -43,13 +43,9 @@
           Theme: <?php echo $post['theme_name'] ?>
         </h1>
 
-        <div class="h-full border border-black w-full p-10">
-            <div class="h-full border border-black w-full p-10 flex flex-col relative bottom-0 overflow-auto">
               <?php 
                 showPost($_GET['id'], "yes");
               ?>
-            </div>
-        </div>
     </div>
   
   <?php echoBottomNav(); ?>
@@ -57,9 +53,6 @@
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
   <script src="../src/js/timer.js"></script>
-  <script>
-    var currentPost = <?php echo json_encode($_GET['id']); ?>;
-</script>
   <script src="../src/js/social.js"></script>
   <script src="../src/js/like.js"></script>
 </body>

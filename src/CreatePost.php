@@ -37,24 +37,26 @@ include "include/config.inc.php";
     <?php
     if ($_SESSION['can_post'] == 0) {
     ?>
-    <form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center sm:items-start h-full ml-10" method="Post" enctype="multipart/form-data">
+<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
 
-        <div class="flex flex-col items-center">
-            <img src="https://th.bing.com/th/id/R.3e77a1db6bb25f0feb27c95e05a7bc57?rik=DswMYVRRQEHbjQ&riu=http%3a%2f%2fwww.coalitionrc.com%2fwp-content%2fuploads%2f2017%2f01%2fplaceholder.jpg&ehk=AbGRPPcgHhziWn1sygs8UIL6XIb1HLfHjgPyljdQrDY%3d&risl=&pid=ImgRaw&r=00" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
-        </div>
-       <label for="post-title" class="text-white font-bold text-2xl pt-4">Título:</label>
-        <input type="text" id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-gray-800 text-white"><br>
-        <label for="post-type" class="text-white font-bold">Tipo:</label>
-        <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-gray-800 text-white mb-4">
-            <option value="audio">Audio</option>
-            <option value="image" selected>Imagem</option>
-            <option value="video">Vídeo</option>
-        </select><br>
-      <label for="file-upload" class="text-white font-bold">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-      <input type="file" id="file-input" name="file-input" class="rounded-lg bg-gray-800 text-white mb-4"><br>
-      <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-gray-800 text-white p-2" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-      <button type="submit" name="CreatePost" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
-    </form>
+<div class="flex flex-col items-center w-full sm:w-3/5">
+    <div class="flex flex-col items-center">
+        <img src="https://th.bing.com/th/id/R.3e77a1db6bb25f0feb27c95e05a7bc57?rik=DswMYVRRQEHbjQ&riu=http%3a%2f%2fwww.coalitionrc.com%2fwp-content%2fuploads%2f2017%2f01%2fplaceholder.jpg&ehk=AbGRPPcgHhziWn1sygs8UIL6XIb1HLfHjgPyljdQrDY%3d&risl=&pid=ImgRaw&r=00" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
+    </div>
+    <label for="post-title" class="text-white font-bold text-2xl pt-4 sm:text-left w-full">Título:</label>
+    <input type="text" id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-gray-800 text-white w-full"><br>
+    <label for="post-type" class="text-white font-bold sm:text-left">Tipo:</label>
+    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-gray-800 text-white mb-4 w-full">
+        <option value="audio">Audio</option>
+        <option value="image" selected>Imagem</option>
+        <option value="video">Vídeo</option>
+    </select><br>
+    <label for="file-upload" class="text-white font-bold w-full sm:text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
+    <input type="file" id="file-input" name="file-input" class="rounded-lg bg-gray-800 text-white mb-4 w-full"><br>
+    <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-gray-800 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
+    <button type="submit" name="CreatePost" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
+</div>
+</form>
     <?php
     } else {
       echo'<div class="flex flex-col  items-center justify-center h-full">

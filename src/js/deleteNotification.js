@@ -17,6 +17,8 @@ function deleteNotifications(notificationId) {
     .catch(error => console.error(error));
 }
 
+let lastData = null;
+
 function loadNotifications() {
     fetch('../src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
@@ -27,12 +29,16 @@ function loadNotifications() {
     })
     .then(response => response.text())
     .then(data => {
-        // Handle the data from the PHP file
-        const notificationsContainer = document.getElementById('notifications-container');
-        notificationsContainer.innerHTML = data;
+        // Only update if the data has changed
+        if (data !== lastData) {
+            const notificationsContainer = document.getElementById('notifications-container');
+            notificationsContainer.innerHTML = data;
+            lastData = data;
+        }
     })
     .catch(error => {
-        // Handle the error
         console.error('Error:', error);
     });
 }
+
+setInterval(loadNotifications, 500);

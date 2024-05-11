@@ -24,7 +24,6 @@
         echo '</div>';
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
-        echo '<div class="absolute top-0 border-l-8 border-orange-500 border-solid rounded-lg h-full lg:ml-auto"></div>';
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32  h-32 text-white md:w-56 md:h-56 ml-10 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 border-2 border-gray-600">';
     }
 
@@ -69,13 +68,21 @@
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="#" id="search-link" style="color: black" onclick="openSearch(event)">Pesquisa</a>
+                            <a href="#" id="search-link" style="color: black" onclick="openSearch(event)"><i
+                            class=
+                            "mr-2 fi fi-sr-search"
+                            ></i> Pesquisa</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./messages.php" id="messages-link" style="color: black">Mensagens</a>
+                            <a href="./messages.php" id="messages-link" style="color: black"><i class="mr-2 fi fi-sr-comment-alt"></i> Mensagens</a>
                         </li>
-                        <li class="px-4 py-2">
-                            <a href="./Notifications.php" id="notifications-link" style="color: black">Notificações</a>
+                        <li class="px-4 py-2 flex justify-between items-center">
+                            <a href="./Notifications.php" id="notifications-link" style="color: black">
+                                <i class="mr-2 fi fi-sr-megaphone"></i> Notificações
+                            </a>
+                            <span id="notif-number" class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
+                                99+
+                            </span>
                         </li>
                         <li class="px-5 py-2">
                             <div class="flex flex-row items-center h-8">
@@ -115,16 +122,16 @@
                             </a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./social.php" id="home-link" style="color: black">Home</a>
+                            <a href="./social.php" id="home-link" style="color: black"><i class="mr-2 fi fi-sr-home"></i> Home</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./rankings.php" id="Accrankings-link" style="color: black">Ranks de Contas</a>
+                            <a href="./rankings.php" id="Accrankings-link" style="color: black"><i class="mr-2 fi fi-sr-users-alt"></i> Ranks de Contas</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./rankingsPost.php" id="Postrankings-link" style="color: black">Ranks dos Posts</a>
+                            <a href="./rankingsPost.php" id="Postrankings-link" style="color: black"><i class="mr-2 fi fi-sr-stats"></i> Ranks dos Posts</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./CreatePost.php" id="createPost-link" style="color: black">Publicar</a>
+                            <a href="./CreatePost.php" id="createPost-link" style="color: black"><i class="mr-2 fi fi-sr-add"></i> Publicar</a>
                         </li>
                         <li class="px-5 py-2">
                             <div class="flex flex-row items-center h-8">
@@ -132,10 +139,10 @@
                             </div>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./profile.php" id="profile-link" style="color: black">Perfil</a>
+                            <a href="./profile.php" id="profile-link" style="color: black"><i class="mr-2 fi fi-sr-user"></i> Perfil</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./settings.php" id="settings-link" style="color: black">Definições</a>
+                            <a href="./settings.php" id="settings-link" style="color: black"><i class="mr-2 fi fi-sr-settings-sliders"></i> Definições</a>
                         </li>
                         <li class="px-4 py-2">
                         <a href="#" id="logout-link" style="color: black" onclick="logout()">Logout</a>
@@ -144,11 +151,12 @@
                     </ul>
                 </div>
             </div>
-            <div id="search-div" class="relative w-full bg-gray-200 hidden h-full m-auto">
+            <div id="search-div" class="relative w-90 sm:w-full bg-gray-200 hidden h-full m-auto">
             <div class="flex flex-col h-full">
-            <button onclick="openSearch(event)" class="w-8 h-8 ubuntu-bold rounded-full bg-black text-white">x</button>
-                    <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-14">
-                        <input type="text" placeholder="Search" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-8 rounded-md text-black font-semibold" />
+          
+                    <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-8 flex">
+                        <input type="text" placeholder="🔍  Pesquisar" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-8 rounded-md text-black font-semibold" />
+                        <button onclick="openSearch(event)" class="w-8 h-8 ml-2 ubuntu-bold rounded-full hover:bg-gray-800 text-black hover:text-white">x</button>
                     </div>
                     <div class="flex-1">
                         <div class="mt-4 mx-4 h-5/6 relative p-2 rounded-md" id="search-people">
@@ -160,35 +168,63 @@
             </div>
         ';
     }
+
+
     function echoBottomNav(){
         echo'
-        <div class="btm-nav md:hidden bg-white shadow-md flex items-center justify-between absolute bottom-0 w-full">
-        <button class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-          <span class="btm-nav-label">Home</span>
-        </button>
-        <button class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-          <span class="btm-nav-label">Search</span>
-        </button>
-        <button class="text-md font-medium text-gray-800 hover:text-gray-700 bg-yellow-500 rounded-full p-2 m-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span class="btm-nav-label">Profile</span>
-        </button>
-        <button class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-        <span class="btm-nav-label">Post</span>
-        </button>
-        <button class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-        <span class="btm-nav-label">Acc</span>
-        </button>
-      </div>
+        <div class="btm-nav md:hidden bg-white shadow-md flex items-center z-40 justify-between absolute bottom-0 w-full shadow-top">
+            <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
+                <a href="#" class="flex flex-col items-center justify-center">
+                    <i class="mr-2 fi fi-sr-home"></i>
+                    <span class="btm-nav-label">Home</span>
+                </a>
+            </div>
+            <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
+                <a href="#" class="flex flex-col items-center justify-center"  onclick="openSearch(event)">
+                    <i class="mr-2 fi fi-sr-search"></i>
+                    <span class="btm-nav-label">Pesquisa</span>
+                </a>
+            </div>
+            <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-yellow-500 rounded-full p-2 m-auto flex items-center justify-center">
+                <a href="#" class="flex flex-col items-center justify-center">
+                    <i class="mr-2 fi fi-sr-user"></i> 
+                    <span class="btm-nav-label">Perfil</span>
+                </a>
+            </div>
+            <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
+                <a href="#" class="flex flex-col items-center justify-center">
+                    <i class="mr-2 fi fi-sr-add"></i>
+                    <span class="btm-nav-label">Criar</span>
+                </a>
+            </div>
+            <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
+                <a href="#" class="flex flex-col items-center justify-center">
+                    <i class="fi fi-sr-menu-burger"></i>
+                    <span class="btm-nav-label">Mais</span>
+                </a>
+            </div>
+        </div>
+        <style>
+        .shadow-top::before {
+            content: "";
+            position: absolute;
+            top: -1px; /* Adjust this value to change the height of the shadow */
+            left: 0;
+            right: 0;
+            height: 5px; /* Adjust this value to change the height of the shadow */
+            box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1); /* Adjust the color, spread and blur radius as needed */
+            z-index: -1;
+        }
+        </style>
         ';
     }
 
+   
+
+
     function echoShowPost($post){
         global $arrConfig;
+        echo'<div id="post-'.$post['post_id'].'" class="h-full w-full p-10 flex flex-col relative bottom-0 overflow-auto">';
         switch($post['post_type']) {
             case 'image':
                 echo'
@@ -202,8 +238,8 @@
                 <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
-                    <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
-                    <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
+                    <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
+                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 
@@ -225,8 +261,8 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
-                    <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
-                    <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
+                    <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
+                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
@@ -244,12 +280,13 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
-                    <button id="like-button" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck()">Like</button>
-                    <span class="text-white text-2xl font-bold" id="like-count">Likes: 123</span>
+                    <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
+                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
         }
+        echo'</div>';
     }
 
     function echoLoadScreen(){
@@ -380,3 +417,4 @@
         </div>
         ';
     }
+

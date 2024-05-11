@@ -31,12 +31,24 @@ include "include/config.inc.php";
   <?php echoNav(); ?>
 
   <div class="bg-gray-900 fixed w-full md:w-9/12 p-0 m-0 md:right-0 h-full flex flex-col justify-center items-center" id="home-div">
-    <h1 class="h-32 text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
+    <h1 class="h-32 text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl z-10 shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
       Home
     </h1>
 
-    <div class="h-full border border-black w-full p-10">
-      
+    <div class="h-full  border-black w-full p-10 overflow-auto">
+  
+              <?php 
+                showPost(46, "yes");
+              ?>
+
+    
+              <?php 
+                showPost(47, "yes");
+              ?>
+
+              <?php 
+                showPost(50, "yes");
+              ?>
     </div>
   </div>
 
@@ -44,7 +56,7 @@ include "include/config.inc.php";
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>  <script src="../src/js/timer.js"></script>
-
 <script src="../src/js/social.js"></script>
+<script src="../src/js/like.js"></script>
 </body>
 </html>
