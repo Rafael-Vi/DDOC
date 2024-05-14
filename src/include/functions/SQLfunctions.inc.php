@@ -1328,4 +1328,105 @@ function getFollowCounts($userid){
     // Return the followers and following counts
     return array('followers' => $followersCount, 'following' => $followingCount);
 }
+
+function getFollowers($userid){
+    global $arrConfig;
+    // Start the database connection
+    $dbConn = db_connect();
+
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to get the followers
+    $sql = "SELECT users.* FROM follow JOIN users ON follow.follower_id = users.user_id WHERE follow.followee_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "i", $userid);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Get the result
+    $result = mysqli_stmt_get_result($stmt);
+
+    $followers = [];
+    // Fetch the result
+    while($row = mysqli_fetch_assoc($result)) {
+        $followers[] = $row;
+    }
+
+    // Close the database connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+
+    // Loop through the followers and echo their information
+    foreach ($followers as $follower) {
+        if ($follower['user_profilePic'] !== null) {
+            $follower['user_profilePic'] = $arrConfig['url_users'] . $follower['user_profilePic'];
+        }
+        echoSearchResults($follower['user_id'], $follower['user_name'], $follower['user_profilePic']);
+    }
+}
+
+function getFollowing($userid){
+    global $arrConfig;
+    // Start the database connection
+    $dbConn = db_connect();
+
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to get the following
+    $sql = "SELECT users.* FROM follow JOIN users ON follow.followee_id = users.user_id WHERE follow.follower_id = ?";
+    $stmt = mysqli_prepare($dbConn, $sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "i", $userid);
+
+    // Execute the query
+    if(mysqli_stmt_execute($stmt) === false) {
+        die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    }
+
+    // Get the result
+    $result = mysqli_stmt_get_result($stmt);
+
+    $following = [];
+    // Fetch the result
+    while($row = mysqli_fetch_assoc($result)) {
+        $following[] = $row;
+    }
+
+    // Close the database connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($dbConn);
+
+    // Return the following
+    // Loop through the following and echo their information
+    foreach ($following as $followee) {
+        if ($followee['user_profilePic'] !== null) {
+            $followee['user_profilePic'] = $arrConfig['url_users'] . $followee['user_profilePic'];
+        }
+        else{
+            $followee['user_profilePic'] = 'https://th.bing.com/th/id/R.3e77a1db6bb25f0feb27c95e05a7bc57?rik=DswMYVRRQEHbjQ&riu=http%3a%2f%2fwww.coalitionrc.com%2fwp-content%2fuploads%2f2017%2f01%2fplaceholder.jpg&ehk=AbGRPPcgHhziWn1sygs8UIL6XIb1HLfHjgPyljdQrDY%3d&risl=&pid=ImgRaw&r=00';
+        }
+        echoSearchResults($followee['user_id'], $followee['user_name'], $followee['user_profilePic']);
+    }
+}
+
 //*-----------------------------------------------------------------------------------------

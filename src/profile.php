@@ -97,14 +97,54 @@ include "include/config.inc.php";
       </form>
     </div>
   </dialog>
-  
+  <dialog id="postFollower" class="w-11/12 md:w-1/2 p-5  bg-white rounded-md">
+    <div class="flex flex-col w-full h-auto">
+        <!-- Header Section -->
+        <div class="flex w-full h-auto justify-between items-center">
+            <div class="flex w-10/12 h-auto justify-start items-center">
+                <h1 class="text-gray-700 font-bold text-lg">Seguidores</h1>
+            </div>
+            <div class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
+              <button onclick="closeFollow('follower')">X</button>
+            </div>
+        </div>
+        <!-- Body Section -->
+        <div class="flex-1">
+            <div class="flex flex-col items-center mt-4 mx-4 h-5/6 relative p-2 rounded-md overflow-auto" id="followers-people">
+                <?php
+                    getFollowers($_SESSION['uid']);
+                ?>
+            </div>
+        </div>
+    </div>
+  </dialog>
+  <dialog id="postFollowing" class="w-11/12 md:w-1/2 p-5  bg-white rounded-md">
+    <div class="flex flex-col w-full h-auto">
+        <!-- Header Section -->
+        <div class="flex w-full h-auto justify-between items-center">
+            <div class="flex w-10/12 h-auto justify-start items-center">
+                <h1 class="text-gray-700 font-bold text-lg">A seguir</h1>
+            </div>
+            <div class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
+                <button onclick="closeFollow('following')">X</button>
+            </div>
+        </div>
+        <!-- Body Section -->
+        <div class="flex-1">
+            <div class="flex flex-col items-center mt-4 mx-4 h-5/6 relative p-2 rounded-md overflow-auto" id="followers-people">
+                <?php
+                    getFollowing($_SESSION['uid']);
+                ?>
+            </div>
+        </div>
+    </div>
+  </dialog>
   <?php echoBottomNav(); ?>
-<script>
-  var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
-</script>
-
+  <script>
+    var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
+  </script>
+  <script src="../src/js/checkFollowList.js"></script>
   <script src="../src/js/timer.js"></script>
-
   <script src="../src/js/social.js"></script>
   <script src="../src/js/follow.js"></script>
   <script src="../src/js/EditProfile.js"></script>

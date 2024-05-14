@@ -18,8 +18,8 @@
         echo '<div class="font-bold  text-white">' . $realName . '</div>';
         echo '<div class="w-full text-white">' . $biography . '</div>';
         echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
-        echo '<div id="followers-count" class="font-bold">Seguidores: ---</div>';
-        echo '<div id="following-count" class="font-bold">A seguir: ---</div>';
+        echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold">Seguidores: ---</div></a>';
+        echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -151,16 +151,15 @@
                     </ul>
                 </div>
             </div>
-            <div id="search-div" class="relative w-90 sm:w-full bg-gray-200 hidden h-full m-auto">
+            <div id="search-div" class=" absolute top-0 left-0 sm:relative w-full bg-gray-200 hidden h-full m-auto">
             <div class="flex flex-col h-full">
           
                     <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-8 flex">
-                        <input type="text" placeholder="🔍  Pesquisar" id="search-input" class="bg-gray-100 h-8 py-4 px-2 mb-8 rounded-md text-black font-semibold" />
+                        <input type="text" placeholder="🔍  Pesquisar" id="search-input" class="bg-gray-100 h-8 py-4 px-2 w-full sm:w-auto mb-8 rounded-md text-black font-semibold" />
                         <button onclick="openSearch(event)" class="w-8 h-8 ml-2 ubuntu-bold rounded-full hover:bg-gray-800 text-black hover:text-white">x</button>
                     </div>
                     <div class="flex-1">
                         <div class="mt-4 mx-4 h-5/6 relative p-2 rounded-md" id="search-people">
-                            <?php echoSearch(); ?>
                         </div>
                     </div>
                 </div>
@@ -175,25 +174,25 @@
         <div class="btm-nav md:hidden bg-white shadow-md flex items-center z-40 justify-between absolute bottom-0 w-full shadow-top">
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
                 <a href="#" class="flex flex-col items-center justify-center">
-                    <i class="mr-2 fi fi-sr-home"></i>
+                    <i class="fi fi-sr-home"></i>
                     <span class="btm-nav-label">Home</span>
                 </a>
             </div>
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
                 <a href="#" class="flex flex-col items-center justify-center"  onclick="openSearch(event)">
-                    <i class="mr-2 fi fi-sr-search"></i>
+                    <i class="fi fi-sr-search"></i>
                     <span class="btm-nav-label">Pesquisa</span>
                 </a>
             </div>
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-yellow-500 rounded-full p-2 m-auto flex items-center justify-center">
                 <a href="#" class="flex flex-col items-center justify-center">
-                    <i class="mr-2 fi fi-sr-user"></i> 
+                    <i class="fi fi-sr-user"></i> 
                     <span class="btm-nav-label">Perfil</span>
                 </a>
             </div>
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
                 <a href="#" class="flex flex-col items-center justify-center">
-                    <i class="mr-2 fi fi-sr-add"></i>
+                    <i class="fi fi-sr-add"></i>
                     <span class="btm-nav-label">Criar</span>
                 </a>
             </div>
@@ -281,7 +280,7 @@
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
                     <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
                     <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
-                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'-'.$post['post_id'].'">Likes: 123</span>
+                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
@@ -300,7 +299,7 @@
     }
 
     function echoSearchResults($userId, $username, $profilePic){
-        echo '<a href="OProfile.php?userid=' . $userId. '" class="inline-block w-full text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
+        echo '<a href="OProfile.php?userid=' . $userId. '" class="inline-block w-3/4 text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
         echo '<div class="flex justify-between ubuntu-medium items-center text-white bg-gray-800 hover:border-orange-500 hover: border-4 p-2 rounded-lg mb-3">';
         echo $username;
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full">';
@@ -417,4 +416,5 @@
         </div>
         ';
     }
+
 
