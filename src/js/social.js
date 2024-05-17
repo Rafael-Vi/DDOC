@@ -30,6 +30,7 @@ function searchStuff() {
       }
       searchDestroyable = document.createElement('div');
       searchDestroyable.id = 'search-destroyable';
+      searchDestroyable.classList.add('flex', 'flex-col', 'items-center');
       searchDestroyable.innerHTML = data;
       searchPeople.appendChild(searchDestroyable);
   })

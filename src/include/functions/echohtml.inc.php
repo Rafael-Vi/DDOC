@@ -158,7 +158,7 @@
                         <input type="text" placeholder="🔍  Pesquisar" id="search-input" class="bg-gray-100 h-8 py-4 px-2 w-full sm:w-auto mb-8 rounded-md text-black font-semibold" />
                         <button onclick="openSearch(event)" class="w-8 h-8 ml-2 ubuntu-bold rounded-full hover:bg-gray-800 text-black hover:text-white">x</button>
                     </div>
-                    <div class="flex-1">
+                    <div class="flex-1 items-center">
                         <div class="mt-4 mx-4 h-5/6 relative p-2 rounded-md" id="search-people">
                         </div>
                     </div>
@@ -218,7 +218,6 @@
         ';
     }
 
-   
 
 
     function echoShowPost($post){
@@ -299,20 +298,22 @@
     }
 
     function echoSearchResults($userId, $username, $profilePic){
-        echo '<a href="OProfile.php?userid=' . $userId. '" class="inline-block w-3/4 text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
+        echo '<a href="OProfile.php?userid=' . $userId. '" class=" w-4/5 text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
         echo '<div class="flex justify-between ubuntu-medium items-center text-white bg-gray-800 hover:border-orange-500 hover: border-4 p-2 rounded-lg mb-3">';
         echo $username;
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 rounded-full">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 m-2 rounded-full">';
         echo '</div>';
         echo '</a>';
     }
-    function echoConvo(){
-        echo '<a href="messages.php?convo_id=PersonID" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4">';
-        echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
+
+    function echoConvo($profilePic, $name, $personId){
+        global $arrConfig;
+        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4">';
+        echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
-        echo '<div class="w-12 h-12 rounded-full bg-gray-500 mr-4"></div>'; // Circle for the profile picture
+        echo '<img src="'.$arrConfig['url_users'].''.$profilePic.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
         echo '<div>';
-        echo '<div class="font-bold">Miguel</div>'; // Name
+        echo '<div class="font-bold">'.$name.'</div>'; // Name
         echo '<div class="text-sm leading-relaxed">Last message...</div>'; // Last message
         echo '</div>';
         echo '</div>';
@@ -320,6 +321,7 @@
         echo '</div>';
         echo '</a>';
     }
+
 
     function echoNotif($row){
         $date = $row['date_sent'];
@@ -341,15 +343,16 @@
     }
     
     function echoMessages($messageID, $message, $date, $sender){
+        global $arrConfig;
         echo'<div class="chat chat-start">
         <div class="chat-image avatar">
           <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src="'.$sender['profile_pic'].'" />
+            <img alt="Tailwind CSS chat bubble component" src="'.$arrConfig['url_users'].''.$sender['profile_pic'].'" />
           </div>
         </div>
-        <div class="chat-header">
+        <div class="chat-header text-white">
           '.$sender['username'].'
-          <time class="text-xs opacity-50">'.$date.'</time>
+          <time class="text-xs opacity-50 text-white">'.$date.'</time>
         </div>
         <div class="chat-bubble">'.$message.'</div>
 
@@ -360,7 +363,7 @@
               <img alt="Tailwind CSS chat bubble component" src="'.$_SESSION['imageProfile'].'" />
           </div>
       </div>
-      <div class="chat-header">
+      <div class="chat-header text-white">
           '.$_SESSION['username'].'
           <time class="text-xs opacity-50">'.$date.'</time>
       </div>
