@@ -219,7 +219,6 @@
     }
 
 
-
     function echoShowPost($post){
         global $arrConfig;
         echo'<div id="post-'.$post['post_id'].'" class="h-full w-full p-10 flex flex-col relative bottom-0 overflow-auto">';
@@ -419,5 +418,4 @@
         </div>
         ';
     }
-
 

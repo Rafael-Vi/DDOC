@@ -11,7 +11,9 @@ include "include/config.inc.php";
 
 
 <?php
+     if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
+  }
 ?>
 
 <!DOCTYPE html>

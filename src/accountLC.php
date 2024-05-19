@@ -5,6 +5,7 @@ include "include/config.inc.php";
 <?php
     include "include/functions/saveLastPage.inc.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,19 @@ include "include/config.inc.php";
 <body class="bg-gray-900">
 
 <?php echoLoadScreen(); ?>
+<?php
+if(isset($_SESSION['error'])) {
+    echoError($_SESSION['error']);
+    unset($_SESSION['error']);
+} elseif(isset($_SESSION['success'])) {
+    if ($_SESSION['success'] == 'Registration successful') {
+        validRegisterAl();
+    } else {
+        echoSuccess($_SESSION['success']);
+    }
+    unset($_SESSION['success']);
+}
+?>
 <div class="flip-container">
     <div class="flipper" id="flipper">
         <div class="front">

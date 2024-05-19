@@ -110,7 +110,7 @@
 
         function executeQuery($dbConn, $query, $params) {
             $stmt = mysqli_prepare($dbConn, $query);
-
+        
             $types = '';
             foreach ($params as $param) {
                 if (is_int($param)) {
@@ -123,11 +123,15 @@
                     $types .= 'b'; // for blob and unknown types
                 }
             }
-
+        
             mysqli_stmt_bind_param($stmt, $types, ...$params);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            return $result;
+            $executed = mysqli_stmt_execute($stmt);
+            if ($executed) {
+                $result = mysqli_stmt_get_result($stmt);
+                return $result !== false ? $result : true;
+            } else {
+                return false;
+            }
         }
 
         function db_connect() {
@@ -162,30 +166,29 @@
     //? USER RELATED ------------------------------------------------------------------------
 
     
-        function newUser($dbConn, $email, $username, $password){
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        
-            // Prepare the SQL query to insert into the table using prepared statements
-            $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
-        
-            // Execute the query
-            $insertResult = executeQuery($dbConn, $insertSql, [$email, $username, $hashedPassword]);
-        
-            if ($insertResult) {
-                validRegisterAl();
-            } else {
-                // Handle the insert error
-                echo "Error: " . mysqli_error($dbConn);
-            }
-            // Close the database connection
-            mysqli_close($dbConn);
+    function newUser($dbConn, $email, $username, $password){
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+        $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
+    
+        $insertResult = executeQuery($dbConn, $insertSql, [$email, $username, $hashedPassword]);
+    
+        if ($insertResult) {
+
+        $_SESSION['success'] = 'Registration successful';
+
+        } else {
+            $_SESSION['error'] = "Error: " . mysqli_error($dbConn) . 
+                                 " Error code: " . mysqli_errno($dbConn) . 
+                                 " SQLSTATE: " . mysqli_sqlstate($dbConn);
         }
+    
+        mysqli_close($dbConn);
+    }
 
         function updateUser($uid, $username, $realName, $profilePic, $biography) {
             global $arrConfig;
             $dbConn = db_connect();
-            
-            // Construct the update query based on the provided values
             $updateSql = "UPDATE users SET";
             $updateFields = array();
             $params = array();
@@ -214,8 +217,7 @@
                 $updateFields[] = " user_biography = ?";
                 $params[] = $biography;
             }
-            
-            // Check if any fields need to be updated
+
             if (!empty($updateFields)) {
                 $updateSql .= implode(",", $updateFields);
                 $updateSql .= " WHERE user_id = ?";
@@ -224,15 +226,14 @@
                 $updateResult = executeQuery($dbConn, $updateSql, $params);
             
                 if ($updateResult) {
-                    // Handle the update success
-                    updateSuccess();    
+
+                    echoSuccess("User updated successfully.");   
                 } else {
-                    // Handle the update error
+
                     $error = mysqli_error($dbConn);
                     mySQLerror($error);
                 }
             }
-            // Close the database connection
             mysqli_close($dbConn);
         }
 

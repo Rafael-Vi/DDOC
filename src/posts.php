@@ -12,7 +12,9 @@
 
 
 <?php
+     if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
+  }
 ?>
 <?php 
     $post = showPost($_GET['id'], "no");
