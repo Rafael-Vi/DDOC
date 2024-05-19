@@ -40,11 +40,10 @@
     <?php echoNav(); ?>
 
     <div id="ThisPost-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
-        
-        <h1 class=" h-32 text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md  shadow-amber-600 bg-gray-800">
-          Theme: <?php echo $post['theme_name'] ?>
-        </h1>
-
+    <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
+<a href="javascript:history.back()" class="btn">Go Back</a>
+      Theme: <?php echo $post['theme_name'] ?>
+    </div>
               <?php 
                 showPost($_GET['id'], "yes");
               ?>

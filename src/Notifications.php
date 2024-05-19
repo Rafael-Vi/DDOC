@@ -25,11 +25,13 @@
     <?php echoNav(); ?>
     <div id="notifications-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         
-        <h1 class=" h-32 text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md  shadow-amber-600 bg-gray-800">
+      <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
+  <a href="javascript:history.back()" class="btn">Go Back</a>
         Notifications
-        </h1>
+      </div>
 
-        <div name="notifications-container" id="notifications-container"" class="h-full border border-black w-full p-10 overflow-auto">
+        <div name="notifications-container" id="notifications-container" class="h-full w-full px-10 overflow-auto">
+        <?php setNotifRead()?>
         <?php getNotif(); ?>
         </div>
     </div>
@@ -41,7 +43,7 @@
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
   <script src="../src/js/timer.js"></script>
-  <script src="../src/js/deleteNotification.js"></script>
+  <script src="../src/js/Notification.js"></script>
   <script src="../src/js/social.js"></script>
 </body>
 </html>

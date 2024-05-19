@@ -48,13 +48,14 @@ $GLOBALS['type'] = $type;
     ?>
     <?php echoNav(); ?>
     <div id="Accrankings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
-    <h1 class=" h-32 text-white text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
+    <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
+<a href="javascript:history.back()" class="btn">Go Back</a>
       Account Rankings
-    </h1>
+    </div>
 
 
     <div class="flex flex-col h-full w-full pt-6 pb-8 px-10">
-        <div class="flex flex-col w-full p-10 sticky">
+        <div class="flex flex-col w-full px-10 sticky">
             <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
                 <?php
                 global $arrConfig;

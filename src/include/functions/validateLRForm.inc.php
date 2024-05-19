@@ -1,28 +1,26 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    // Check if the login form was submitted
-    if ($_POST['submit'] === 'loginSubmit') {
-        // Check if the email and password are not empty
-        if (isset($_POST['emailL']) && isset($_POST['passwordL']) && !empty($_POST['emailL']) && !empty($_POST['passwordL'])) {
-            $email = strtolower(preg_replace('/\s+/', '', $_POST['emailL']));
-            $password = $_POST['passwordL'];
 
-            // Call the validateLogin function
+    if ($_POST['submit'] === 'loginSubmit') {
+
+        if (isset($_POST['emailL']) && isset($_POST['passwordL']) && !empty($_POST['emailL']) && !empty($_POST['passwordL'])) {
+            $email = strtolower(preg_replace('/\s+/', '', htmlspecialchars($_POST['emailL'])));
+            $password = htmlspecialchars($_POST['passwordL']);
+
             validateLogin($email, $password);
         }
     }
-    // Check if the register form was submitted
-    elseif ($_POST['submit'] === 'registerSubmit') {
-        // Check if the username, email, and password are not empty
-        if (isset($_POST['usernameR']) && isset($_POST['emailR']) && isset($_POST['passwordR']) && !empty($_POST['usernameR']) && !empty($_POST['emailR']) && !empty($_POST['passwordR'])) {
-            $username = preg_replace('/\s+/', '', $_POST['usernameR']);
-            $email = strtolower(trim($_POST['emailR']));
-            $password = $_POST['passwordR'];
 
-            // Call the validateRegister function
+    elseif ($_POST['submit'] === 'registerSubmit') {
+
+        if (isset($_POST['usernameR']) && isset($_POST['emailR']) && isset($_POST['passwordR']) && !empty($_POST['usernameR']) && !empty($_POST['emailR']) && !empty($_POST['passwordR'])) {
+            $username = preg_replace('/\s+/', '', htmlspecialchars($_POST['usernameR']));
+            $email = strtolower(trim(htmlspecialchars($_POST['emailR'])));
+            $password = htmlspecialchars($_POST['passwordR']);
             validateRegister($username, $email, $password);
         }
+
     }
 }
 
@@ -43,7 +41,7 @@ function validateLogin($email, $password) {
             if ($userDetails) {
                 $_SESSION['uid'] = $userDetails['user_id'];
                 $_SESSION['can_post'] = $userDetails['can_post'];
-                 header("Location: social.php");
+                header("Location: social.php");
                 exit;
             }
         } else {

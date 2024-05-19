@@ -80,9 +80,11 @@
                             <a href="./Notifications.php" id="notifications-link" style="color: black">
                                 <i class="mr-2 fi fi-sr-megaphone"></i> Notificações
                             </a>
-                            <span id="notif-number" class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
-                                99+
-                            </span>
+                            <div id="notif-number-cleaner" class="*:rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
+                                <span id="notif-number" class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
+                                    99+
+                                </span>
+                            </div>
                         </li>
                         <li class="px-5 py-2">
                             <div class="flex flex-row items-center h-8">
@@ -219,11 +221,19 @@
     }
 
 
-    function echoShowPost($post){
+    function echoShowPost($post, $creator){
         global $arrConfig;
         echo'<div id="post-'.$post['post_id'].'" class="h-full w-full p-10 flex flex-col relative bottom-0 overflow-auto">';
         switch($post['post_type']) {
             case 'image':
+                echo'
+                <!-- Second row: Caption, like button, like count, and ranking -->
+                <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                </div>
+            </div>';
                 echo'
                 <!-- First row: Post image -->
                 <div class="flex flex-col justify-center items-center bg-gray-950 h-full">
@@ -234,8 +244,11 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
-                    <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
+                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>';
+                    if($post['enabled'] == 0) {
+                        echo'<button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>';
+                    }
+                    echo'
                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
@@ -243,11 +256,19 @@
                 break;
             case 'audio':
                 echo'
+                <!-- Second row: Caption, like button, like count, and ranking -->
+                <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                </div>
+            </div>';
+                echo'
                 <!-- First row: Post audio -->
                 <div class="flex justify-center relative">
                     <div class="flex flex-col justify-center items-center h-ful w-fulll">
-                        <img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
-                        <audio controls class="rounded-sm w-full h-16 mb-10 block mx-auto z-0 mt-4">
+                        <img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[50vh]">
+                        <audio controls class="rounded-sm w-full h-16 mb-4 block mx-auto z-0 mt-4">
                             <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
                             O seu browser não suporta a tag de áudio.
                         </audio>
@@ -257,14 +278,26 @@
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
-                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
-                    <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
+                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>';
+                    if($post['enabled'] == 0) {
+                        echo'<button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>';
+                    }
+                    echo'
                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
             case 'video':
                 echo'
+                <!-- Second row: Caption, like button, like count, and ranking -->
+                <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                </div>
+            </div>';
+                echo'
+    
                 <!-- First row: Post video -->
                 <div class="flex grow-0">
                     <video controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
@@ -276,8 +309,11 @@
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>
-                    <button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>
+                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>';
+                    if($post['enabled'] == 0) {
+                        echo'<button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>';
+                    }
+                    echo'
                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
                     <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';

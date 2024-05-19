@@ -80,6 +80,13 @@
                     echo $response;
                 }
                 break;
+            case 'loadNotificationsNavBar':
+                if (isset($_SESSION['uid'])) {
+                    $response = getNotif(false);
+                    error_log("loadUserNotifications response: " . $response);
+                    echo $response;
+                }
+                break;
             case 'checkIfitsOwner':
                 if (isset($_POST['postid'])) {
                     $postID = $_POST['postid'];
@@ -151,40 +158,36 @@
 
     //TODO FUNCTIONS ---------------------------------------------------------------------
 
-        function getDef(){
-        }
-
         function sendMessage(){
         }
 
-        function getHome(){
-        }
+
 
     //TODO FUNCTIONS --------------------------------------------------------------------
 
 
     //? USER RELATED ------------------------------------------------------------------------
 
-    
-    function newUser($dbConn, $email, $username, $password){
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    
-        $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
-    
-        $insertResult = executeQuery($dbConn, $insertSql, [$email, $username, $hashedPassword]);
-    
-        if ($insertResult) {
 
-        $_SESSION['success'] = 'Registration successful';
+        function newUser($dbConn, $email, $username, $password){
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        
+            $insertSql = "INSERT INTO users (user_email, user_name, user_password) VALUES (?, ?, ?)";
+        
+            $insertResult = executeQuery($dbConn, $insertSql, [$email, $username, $hashedPassword]);
+        
+            if ($insertResult) {
 
-        } else {
-            $_SESSION['error'] = "Error: " . mysqli_error($dbConn) . 
-                                 " Error code: " . mysqli_errno($dbConn) . 
-                                 " SQLSTATE: " . mysqli_sqlstate($dbConn);
+            $_SESSION['success'] = 'Registration successful';
+
+            } else {
+                $_SESSION['error'] = "Error: " . mysqli_error($dbConn) . 
+                                    " Error code: " . mysqli_errno($dbConn) . 
+                                    " SQLSTATE: " . mysqli_sqlstate($dbConn);
+            }
+        
+            mysqli_close($dbConn);
         }
-    
-        mysqli_close($dbConn);
-    }
 
         function updateUser($uid, $username, $realName, $profilePic, $biography) {
             global $arrConfig;
@@ -538,10 +541,11 @@
             }
         
             // Prepare the SQL query with the post_id condition using prepared statements
-            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme, r.PostRank
+            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme, r.PostRank, p.Enabled, u.user_name, u.user_profilePic
             FROM posts p 
             LEFT JOIN theme t ON p.theme_id = t.theme_id 
             LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.theme_id = r.theme_id
+            LEFT JOIN users u ON p.user_id = u.user_id
             WHERE p.post_id = ?";
             $stmt = mysqli_prepare($dbConn, $sql);
         
@@ -554,7 +558,7 @@
             }
         
             // Bind result variables
-            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name, $rank);
+            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name, $rank, $enabled, $creator_name, $creator_avatar);
         
             // Fetch the result
             if (mysqli_stmt_fetch($stmt)) {
@@ -568,11 +572,14 @@
                     'user_id' => $user_id,
                     'theme_id' => $theme_id,
                     'theme_name' => $theme_name,
-                    'rank' => $rank
+                    'rank' => $rank,
+                    'enabled' => $enabled,
+                    'creator_name' => $creator_name,
+                    'creator_avatar' => $creator_avatar
                 );
                 // Display the post if $show is not 'no'
                 if ($show !== 'no') {
-                    echoShowPost($post);
+                    echoShowPost($post, array('name' => $creator_name, 'avatar_url' => $creator_avatar));
                 }
         
             } else {
@@ -584,7 +591,6 @@
             mysqli_close($dbConn);
             return $post;
         }
-
         function getPosts($uid) {
         // Start the database connection
             $dbConn = db_connect();
@@ -723,75 +729,96 @@
     function deleteNotif($notifID) {
         // Start the database connection
         $dbConn = db_connect();
-
+    
         // Check connection
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
-        // Prepare the SQL query to delete the notification based on notification_id using prepared statements
-        $stmt = $dbConn->prepare("DELETE FROM notifications WHERE id = ?");
-        
-        // Bind parameters
-        $stmt->bind_param("i", $notifID);
-
+    
+        // Prepare the SQL query to delete the notification based on notification_id
+        $query = "DELETE FROM notifications WHERE id = ?";
+        $params = [$notifID];
+    
         // Execute the query
-        if ($stmt->execute()) {
+        if (executeQuery($dbConn, $query, $params)) {
             echo "Notification with ID $notifID deleted successfully.";
         } else {
             echo "Failed to delete notification with ID $notifID.";
         }
-
-        // Close statement and connection
-        mysqli_stmt_close($stmt);
+    
+        // Close connection
         mysqli_close($dbConn);
-
     }
-    function getNotif(){
-        $receiverId = $_SESSION['uid'];
 
+    function getNotif($echoNotif = true) {
+        $receiverId = $_SESSION['uid'];
+    
         global $arrConfig;
         $dbConn = db_connect(); 
         if ($dbConn === false) {
             return "ERROR: Could not connect. " . mysqli_connect_error();
         }
-
+    
         // Prepare the SQL query
-
-        $sql = "SELECT * FROM notifications WHERE receiver_id = ? ORDER BY date_sent DESC";
-
-        $stmt = mysqli_prepare($dbConn, $sql);
-        if ($stmt === false) {
-            return "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
-        }
-
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "i", $receiverId);
-
+        $query = "SELECT * FROM notifications WHERE receiver_id = ? ORDER BY date_sent DESC";
+        $params = [$receiverId];
+    
         // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            return "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+        $result = executeQuery($dbConn, $query, $params);
+        if ($result === false) {
+            return "ERROR: Could not execute query: $query. " . mysqli_error($dbConn);
         }
-
-        // Bind result variables
-        $result = mysqli_stmt_get_result($stmt);
-        // Fetch all notifications and echo them
-        if(mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echoNotif($row);
+    
+        // Fetch all notifications
+        $notifications = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+        // If echoNotif is true, echo the notifications
+        if ($echoNotif) {
+            if (count($notifications) > 0) {
+                foreach ($notifications as $notification) {
+                    echoNotif($notification);
+                }
+            } else {
+                echo'<div class="flex flex-col  items-center justify-center h-full">
+                <h2 class="text-3xl font-bold bg-gray-800 rounded-lg p-8 text-white">
+                No notifications found.
+                </h2>
+                </div>';
             }
         } else {
-            echo'<div class="flex flex-col  items-center justify-center h-full">
-            <h2 class="text-3xl font-bold bg-gray-800 rounded-lg p-8 text-white">
-            No notifications found.
-            </h2>
-            </div>';
+            $unreadCount = 0;
+            foreach ($notifications as $notification) {
+                if ($notification['is_read'] == 0) {
+                    $unreadCount++;
+                }
+            }
+            return $unreadCount;
         }
-
-        mysqli_stmt_close($stmt);
+    
+        // Close connection
         mysqli_close($dbConn);
     }
-
+    
+    function setNotifRead() {
+        $receiverId = $_SESSION['uid'];
+    
+        global $arrConfig;
+        $dbConn = db_connect();
+        if ($dbConn === false) {
+            return "ERROR: Could not connect. " . mysqli_connect_error();
+        }
+    
+        $query = "UPDATE notifications SET is_read = 1 WHERE receiver_id = ?";
+        $params = [$receiverId];
+    
+        // Execute the query
+        if(executeQuery($dbConn, $query, $params) === false) {
+            return "ERROR: Could not execute query: $query. " . mysqli_error($dbConn);
+        }
+    
+        // Close connection
+        mysqli_close($dbConn);
+    }
 
     //?NOTIFICATION RELATED ---------------------------------------------------------------
 
@@ -1449,5 +1476,59 @@
         mysqli_close($dbConn);
     }
     
+    function getHome(){
+        global $arrConfig;
+        
     
+        // Check if the session user and theme are set
+        if (isset($_SESSION['uid']) && isset($_SESSION['themes'])) {
+
+            $userId = $_SESSION['uid'];
+            $themeId = $_SESSION['themes'][0]['theme_id'];
+
+    
+            // Connect to your database
+            $dbConn = db_connect();
+    
+            $query = "SELECT p.post_id FROM posts p JOIN follow f ON p.user_id = f.followee_id WHERE f.follower_id = ? AND p.theme_id = ? ORDER BY p.created_at DESC LIMIT 10";
+            $params = array($userId, $themeId);
+    
+            // Execute the statement
+            $result = executeQuery($dbConn, $query, $params);
+    
+            // Fetch all rows as an associative array
+            $followedPosts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+            // Prepare the SQL statement to get other posts randomly
+            $query = "SELECT post_id FROM posts WHERE theme_id = ? AND user_id NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) AND user_id != ? ORDER BY created_at DESC LIMIT 5";
+            $params = array($themeId, $userId, $userId);
+    
+            // Execute the statement
+            $result = executeQuery($dbConn, $query, $params);
+    
+            // Fetch all rows as an associative array
+            $otherPosts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+            // Merge the two arrays
+            $posts = array_merge($followedPosts, $otherPosts);
+    
+            // Close the connection
+            mysqli_close($dbConn);
+    
+            // Check if there are any posts
+            if (empty($posts)) {
+                echo '<div class="flex flex-col  items-center justify-center h-full">
+                        <h2 class="text-3xl font-bold bg-gray-800 rounded-lg p-8 text-white">
+                            Nenhum post foi criado ainda.
+                        </h2>
+                      </div>';
+            } else {
+                // Use showPost() for each post
+                foreach ($posts as $post) {
+                    showPost($post['post_id'], "yes");
+                }
+            }
+        }
+    }
+
     //*MISCELLANEOUS -------------------------------------------------------------------

@@ -30,9 +30,10 @@ include "include/config.inc.php";
     ?>
     <?php echoNav(); ?>
     <div id="settings-div" class=" bg-gray-800 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
-        <h1 class=" h-32 text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
-        Settings
-        </h1>
+    <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
+      <a href="javascript:history.back()" class="btn">Go Back</a>
+      Settings
+    </div>
 
         <div class="w-full h-auto">
            <div class=" h-32 text-white text-center sm:text-start w-full p-10 font-bold text-4xl bg-gray-700">

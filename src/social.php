@@ -1,17 +1,8 @@
 <?php
-include "include/config.inc.php";
-?>
-
-<?php
+  include "include/config.inc.php";
   include "include/functions/checkLogin.inc.php";
-?> 
-<?php
-      require "include/functions/checkThemeIsFinished.inc.php";
-?>
-
-
-<?php
-     if (checkThemeIsFinished()){
+  require "include/functions/checkThemeIsFinished.inc.php";
+  if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
   }
 ?>
@@ -33,24 +24,15 @@ include "include/config.inc.php";
   <?php echoNav(); ?>
 
   <div class="bg-gray-900 fixed w-full md:w-9/12 p-0 m-0 md:right-0 h-full flex flex-col justify-center items-center" id="home-div">
-    <h1 class="h-32 text-white border text-center sm:text-start border-black w-full p-10 font-bold text-4xl z-10 shadow-md shadow-amber-600 bg-gray-800 sticky top-0">
+   <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
+    <a href="javascript:history.back()" class="btn">Go Back</a>
       Home
-    </h1>
+    </div>
 
-    <div class="h-full  border-black w-full p-10 overflow-auto">
-  
-              <?php 
-                showPost(46, "yes");
-              ?>
-
-    
-              <?php 
-                showPost(47, "yes");
-              ?>
-
-              <?php 
-                showPost(50, "yes");
-              ?>
+    <div class="h-full  border-black w-full px-10 overflow-auto">
+      <?php 
+        getHome();
+      ?>
     </div>
   </div>
 
