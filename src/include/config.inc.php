@@ -4,6 +4,7 @@
     require "functions/alerts.inc.php";
     require "functions/echohtml.inc.php";
     require "functions/SQLfunctions.inc.php";
+    require "functions/Development.inc.php";
     require "functions/validateLRForm.inc.php";
     getThemes(false);
     if(isset($_Session['uid'])){
