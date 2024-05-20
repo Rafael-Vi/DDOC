@@ -4,7 +4,7 @@
     if($_SERVER['HTTP_HOST'] == 'localhost') {
         error_reporting(E_ALL);
         $arrConfig['url_site']='https://gentl.store/';
-        $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
+        $arrConfig['dir_site'] = "/var/www/DDOC";
         $arrConfig['connect_DB'] = array('localhost', 'root', 'ddocPassNice', 'ddoc');
     }
     else if($_SERVER['HTTP_HOST'] == 'web.colgaia.local') {
