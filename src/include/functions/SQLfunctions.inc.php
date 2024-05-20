@@ -76,14 +76,12 @@
             case 'loadNotifications':
                 if (isset($_SESSION['uid'])) {
                     $response = getNotif();
-                    error_log("loadUserNotifications response: " . $response);
                     echo $response;
                 }
                 break;
             case 'loadNotificationsNavBar':
                 if (isset($_SESSION['uid'])) {
                     $response = getNotif(false);
-                    error_log("loadUserNotifications response: " . $response);
                     echo $response;
                 }
                 break;
