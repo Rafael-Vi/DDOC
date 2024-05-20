@@ -23,7 +23,7 @@
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
       <h1 class="ubuntu-bold text-4xl text-white p-2 rounded">404 Page not Found!!!</h1>
-<a href="javascript:history.back()" class="btn">Go Back</a>
+<a href="javascript:history.back()" class="btn w-full sm:w-auto">Go Back</a>
     </div>
 </div>
 </body>
