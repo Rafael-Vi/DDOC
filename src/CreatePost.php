@@ -37,7 +37,7 @@ include "include/config.inc.php";
     </div>
 
     <?php
-    if ($_SESSION['can_post'] == 0) {
+    if ($_SESSION['can_post'] == 0 || $_SESSION['can_post'] == "0") {
     ?>
 <form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
 

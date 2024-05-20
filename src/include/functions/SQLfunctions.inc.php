@@ -337,16 +337,23 @@
             // Execute the query
             $result = executeQuery($dbConn, $sql, $params);
         
+            // Check if the query was successful
+            if($result === false) {
+                error_log("Error: " . mysqli_error($dbConn));
+                return;
+            }
+        
             // Fetch the result
             if($row = mysqli_fetch_assoc($result)) {
                 $_SESSION['can_post'] = $row['can_post'];
             } else {
-                echo "Error: " . mysqli_error($dbConn);
+                error_log("Error: No user found with ID " . $userId);
             }
         
             // Close the database connection
             mysqli_close($dbConn);
         }
+
         
     //? USER RELATED ------------------------------------------------------------------------
 
