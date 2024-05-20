@@ -175,7 +175,7 @@
         echo'
         <div class="btm-nav md:hidden bg-white shadow-md flex items-center z-40 justify-between absolute bottom-0 w-full shadow-top">
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
-                <a href="#" class="flex flex-col items-center justify-center">
+                <a href="./social.php" class="flex flex-col items-center justify-center">
                     <i class="fi fi-sr-home"></i>
                     <span class="btm-nav-label">Home</span>
                 </a>
@@ -187,13 +187,13 @@
                 </a>
             </div>
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-yellow-500 rounded-full p-2 m-auto flex items-center justify-center">
-                <a href="#" class="flex flex-col items-center justify-center">
+                <a href="./profile.php"" class="flex flex-col items-center justify-center">
                     <i class="fi fi-sr-user"></i> 
                     <span class="btm-nav-label">Perfil</span>
                 </a>
             </div>
             <div class="text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
-                <a href="#" class="flex flex-col items-center justify-center">
+                <a href="./CreatePost.php"" class="flex flex-col items-center justify-center">
                     <i class="fi fi-sr-add"></i>
                     <span class="btm-nav-label">Criar</span>
                 </a>
