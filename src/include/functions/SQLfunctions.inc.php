@@ -479,63 +479,70 @@
                 echo "<option value='$type' $selected>" . ucfirst($type) . "</option>";
             }
         }
+
         function createPost($uid, $title, $type, $file, $theme) {
-        global $arrConfig;
-        $dbConn = db_connect();
-
-        $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileName .= "." . $fileExtension;
-
-        // Get the MIME type of the file
-        $fileType = mime_content_type($file['tmp_name']);
-
-        // Define the expected MIME types for each extension
-        $expectedMimeTypes = [
-            'mp3' => 'audio/mpeg',
-            'jpeg' => 'image/jpeg',
-            'jpg' => 'image/jpeg',
-            'png' => 'image/png',
-            'gif' => 'image/gif',
-            'mp4' => 'video/mp4',
-            // Add more extensions and MIME types as needed
-        ];
-
-        // Check if the extension is known and the MIME type matches the expected MIME type
-        if (!isset($expectedMimeTypes[$fileExtension]) || $fileType !== $expectedMimeTypes[$fileExtension]) {
-            die('File type and extension do not match.');
-        }
+            global $arrConfig;
+            $dbConn = db_connect();
+        
+            $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
+            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $fileName .= "." . $fileExtension;
+        
+            // Get the MIME type of the file
+            $fileType = mime_content_type($file['tmp_name']);
+        
+            // Define the expected MIME types for each extension
+            $expectedMimeTypes = [
+                'mp3' => 'audio/mpeg',
+                'jpeg' => 'image/jpeg',
+                'jpg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'mp4' => 'video/mp4',
+                // Add more extensions and MIME types as needed
+            ];
+        
+            // Check if the extension is known and the MIME type matches the expected MIME type
+            if (!isset($expectedMimeTypes[$fileExtension]) || $fileType !== $expectedMimeTypes[$fileExtension]) {
+                die('File type and extension do not match.');
+            }
+        
+            // Check if a file with the same name already exists
+            if (file_exists($arrConfig['dir_posts']."/$type/".$fileName)) {
+                die('A file with the same name already exists.');
+            }
         
             // Prepare the SQL query to insert into the table using prepared statements
             $sql = "INSERT INTO posts (user_id, caption, post_type, post_url, theme_id) VALUES (?, ?, ?, ?, ?)";
-            $stmt = $dbConn->prepare($sql);
-        
-            $stmt->bind_param("isssi", $uid, $title, $type, $fileName, $theme); // bind parameters
-        
+            
+            // Execute the query
+            // Execute the query
+            $result = executeQuery($dbConn, $sql, [$uid, $title, $type, $fileName, $theme]);
+
+            if($result === false) {
+                error_log("Error: " . mysqli_error($dbConn));
+            }
+
             // Move the uploaded file
             if (!move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName)) {
                 die('Error uploading file - check destination is writeable. '.$type.'');
             }
         
-            // Execute the query
-            if($stmt->execute() === false) {
-                die("Error: " . $stmt->error);
-            }
-        
-            if ($stmt) {
+            if ($result) {
                 // Handle the successful post creation
                 echo "Post created successfully.";
                 //updateUserPostStatus($_SESSION['uid']);
                 sendNotification(null, $_SESSION['uid'], "PostCreated");
             } else {
                 // Handle the post creation error
-                die("Error: " . $stmt->error);
+                error_log("Error: " . mysqli_error($dbConn));
             }
         
             if ($file['error'] > 0) {
-                die('File upload error: ' . $file['error']);
+                error_log('File upload error: ' . $file['error']);
             }
         }
+  
         function showPost($postId, $show) {
             // Start the database connection
             $dbConn = db_connect();
