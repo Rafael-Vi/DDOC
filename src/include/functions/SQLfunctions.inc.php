@@ -316,7 +316,8 @@
         
             if ($result) {
                 // Handle the successful update
-                echo "User can now post.";
+                echo "User can not post.";
+                $_SESSION['can_post'] = 1;
             } else {
                 // Handle the update error
                 echo "Error updating user: " . mysqli_error($dbConn);
