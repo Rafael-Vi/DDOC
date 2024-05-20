@@ -3,6 +3,9 @@ $dbConn = db_connect();
 
 // Prepare the SQL query to check the development status
 $sql = "SELECT * FROM database_status";
+// Define params as an empty array
+$params = array();
+
 
 // Execute the query
 $result = executeQuery($dbConn, $sql, $params);
@@ -19,7 +22,6 @@ switch ($status) {
         // If status is 1, do nothing
         break;
     case 0:
-        // If status is 0, redirect to "down"
         header("Location: errorPages/maintenance.php");
         exit();
     default:
