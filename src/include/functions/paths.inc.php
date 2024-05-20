@@ -3,9 +3,9 @@
 
     if($_SERVER['HTTP_HOST'] == 'localhost') {
         error_reporting(E_ALL);
-        $arrConfig['url_site']='http://localhost/DDOC';
+        $arrConfig['url_site']='https://gentl.store/';
         $arrConfig['dir_site'] = "C:\\wamp64\\www\\DDOC";
-        $arrConfig['connect_DB'] = array('localhost', 'root', '', 'ddoc');
+        $arrConfig['connect_DB'] = array('localhost', 'root', 'ddocPassNice', 'ddoc');
     }
     else if($_SERVER['HTTP_HOST'] == 'web.colgaia.local') {
         $arrConfig['url_site']='http://web.colgaia.local/12itm124/DDOC';
