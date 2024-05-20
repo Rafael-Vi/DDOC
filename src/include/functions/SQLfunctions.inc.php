@@ -266,7 +266,7 @@
                 $biography = $row['user_biography'];
         
                 if (!$profilePic) {
-                    $profilePic = $arrConfig['url_images']. "Unknown_person.jpg";
+                    $profilePic = $arrConfig['url_assets']. "/images/Unknown_person.jpg";
                 }
                 else{
                     $profilePic = $arrConfig['url_users']. $profilePic ;
