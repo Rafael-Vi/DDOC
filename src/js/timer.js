@@ -15,8 +15,6 @@ function calculateRemainingTime() {
     .then(response => response.text())
     .then(data => {
       console.log(data);
-      // Reload the page
-      location.reload();
     })
     .catch(error => console.error('Error:', error));
   }
