@@ -44,7 +44,7 @@ include "include/config.inc.php";
 
 <div class="flex flex-col items-center w-full sm:w-3/5">
     <div class="flex flex-col items-center">
-        <img src="<?php echo $arrConfig['url_assets'] . 'images/something.jpg'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
+        <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
     </div>
     <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Título:</label>
     <input type="text" id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-gray-800 text-white w-full"><br>
