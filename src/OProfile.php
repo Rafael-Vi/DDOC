@@ -12,6 +12,7 @@ include "include/config.inc.php";
      if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
   }
+  require "include/functions/Development.inc.php";
 ?>
 
 <!DOCTYPE html>

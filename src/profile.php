@@ -7,6 +7,7 @@ include "include/config.inc.php";
 ?> 
 <?php
       require "include/functions/checkThemeIsFinished.inc.php";
+      require "include/functions/Development.inc.php";
 ?>
 
 

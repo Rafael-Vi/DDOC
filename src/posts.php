@@ -22,6 +22,7 @@
         header("Location: ./errorPages/noPostFound.php");
         exit();
     }
+    require "include/functions/Development.inc.php";
 ?>
 
 
