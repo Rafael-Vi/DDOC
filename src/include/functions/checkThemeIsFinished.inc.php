@@ -16,13 +16,13 @@ function checkThemeIsFinished() {
                 if ($dbConn === false) {
                     die("ERROR: Could not connect. " . mysqli_connect_error());
                 }
-                include "./saveLastPage.inc.php";
+                include "saveLastPage.inc.php";
             }
         }
         return true; // Return true if there is a theme set
     }
     else {
-        header("Location: ./errorPages/NoThemeError.php");
+        header("Location: errorPages/NoThemeError.php");
         return false; // Return false if there is no theme set
     }
 }
