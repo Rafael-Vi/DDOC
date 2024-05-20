@@ -1,10 +1,4 @@
-<?php
-include "../include/config.inc.php";
-?>
 
-<?php
-  include "../include/functions/checkLogin.inc.php";
-?> 
 
 <!DOCTYPE html>
 <html lang="en">
