@@ -113,23 +113,27 @@
 
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
-        function executeQuery($dbConn, $query, $params) {
+
+        function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
         
-            $types = '';
-            foreach ($params as $param) {
-                if (is_int($param)) {
-                    $types .= 'i';
-                } elseif (is_bool($param)) {
-                    $types .= 'i'; // booleans are treated as integers
-                } elseif (is_string($param)) {
-                    $types .= 's';
-                } else {
-                    $types .= 'b'; // for blob and unknown types
+            if ($params !== null) {
+                $types = '';
+                foreach ($params as $param) {
+                    if (is_int($param)) {
+                        $types .= 'i';
+                    } elseif (is_bool($param)) {
+                        $types .= 'i'; // booleans are treated as integers
+                    } elseif (is_string($param)) {
+                        $types .= 's';
+                    } else {
+                        $types .= 'b'; // for blob and unknown types
+                    }
                 }
+        
+                mysqli_stmt_bind_param($stmt, $types, ...$params);
             }
         
-            mysqli_stmt_bind_param($stmt, $types, ...$params);
             $executed = mysqli_stmt_execute($stmt);
             if ($executed) {
                 $result = mysqli_stmt_get_result($stmt);
@@ -138,7 +142,7 @@
                 return false;
             }
         }
-
+        
         function db_connect() {
             global $arrConfig;
 
