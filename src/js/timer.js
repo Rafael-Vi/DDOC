@@ -42,5 +42,5 @@ function startTimer() {
   }, 1000); // Update every second
 }
 
-startTimer();
+//startTimer();
 
