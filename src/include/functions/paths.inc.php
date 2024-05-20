@@ -1,8 +1,7 @@
 <?php
     global $arrConfig;
     $arrConfig = [];
-echo $_SERVER['HTTP_HOST'];
-    if($_SERVER['HTTP_HOST'] == 'https://gentl.store') {
+    if($_SERVER['HTTP_HOST'] == 'gentl.store') {
         error_reporting(E_ALL);
         $arrConfig['url_site']='https://gentl.store';
         $arrConfig['dir_site'] = "/var/www/DDOC";
