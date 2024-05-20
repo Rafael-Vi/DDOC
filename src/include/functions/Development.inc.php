@@ -22,7 +22,7 @@ switch ($status) {
         // If status is 1, do nothing
         break;
     case 0:
-        header("Location: /errorPages/maintenance.php");
+        header("Location: ../errorPages/maintenance.php");
         exit();
     default:
         // Optional: handle other cases
