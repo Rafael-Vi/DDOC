@@ -531,7 +531,7 @@
             if ($result) {
                 // Handle the successful post creation
                 echo "Post created successfully.";
-                //updateUserPostStatus($_SESSION['uid']);
+                updateUserPostStatus($_SESSION['uid']);
                 sendNotification(null, $_SESSION['uid'], "PostCreated");
             } else {
                 // Handle the post creation error
