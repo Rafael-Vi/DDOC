@@ -304,20 +304,18 @@
             mysqli_close($dbConn);
         }
         
-        function updateUserPostStatus($userId) {
+        function updateUserPostStatus($userId , $status) {
             $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
         
             // Prepare the SQL query to update the table
-            $sql = "UPDATE users SET can_post = 1 WHERE user_id = ?";
-            $params = array($userId);
+            $sql = "UPDATE users SET can_post = ? WHERE user_id = ?";
+            $params = array($status,$userId);
         
             // Execute the query
             $result = executeQuery($dbConn, $sql, $params);
         
             if ($result) {
-                // Handle the successful update
-                echo "User can not post.";
-                $_SESSION['can_post'] = 1;
+                $_SESSION['can_post'] = $status;
             } else {
                 // Handle the update error
                 echo "Error updating user: " . mysqli_error($dbConn);
@@ -539,7 +537,7 @@
             if ($result) {
                 // Handle the successful post creation
                 echo "Post created successfully.";
-                updateUserPostStatus($_SESSION['uid']);
+                updateUserPostStatus($_SESSION['uid'], 1);
                 sendNotification(null, $_SESSION['uid'], "PostCreated");
             } else {
                 // Handle the post creation error
@@ -668,32 +666,39 @@
         }
         function updatePost(){
         }
+
+    
         function deletePost($postID) {
-        // Start the database connection
-        $dbConn = db_connect();
-
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
+            // Start the database connection
+            $dbConn = db_connect();
+        
+            // Check connection
+            if ($dbConn === false) {
+                die("ERROR: Could not connect. " . mysqli_connect_error());
+            }
+        
+            // Delete the post
+            $query = "DELETE FROM posts WHERE post_id = ?";
+            $params = [$postID];
+            if (!executeQuery($dbConn, $query, $params)) {
+                echo "Failed to delete post with ID $postID.";
+                return;
+            }
+        
+            // Delete all likes associated with the post
+            $query = "DELETE FROM likes WHERE post_id = ?";
+            if (!executeQuery($dbConn, $query, $params)) {
+                echo "Failed to delete likes for post with ID $postID.";
+                return;
+            }
+    
+            // Update user status
+            updateUserPostStatus($_SESSION['uid'], 0);
+            // Close connection
+            mysqli_close($dbConn);
         }
+        
 
-        // Prepare the SQL query to delete the post based on post_id using prepared statements
-        $stmt = $dbConn->prepare("DELETE FROM posts WHERE post_id = ?");
-
-        // Bind parameters
-        $stmt->bind_param("i", $postID);
-
-        // Execute the query
-        if ($stmt->execute()) {
-            echo "Post with ID $postID deleted successfully.";
-        } else {
-            echo "Failed to delete post with ID $postID.";
-        }
-
-        // Close statement and connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-        }
 
     //*POST RELATED ------------------------------------------------------------------------
 
