@@ -22,8 +22,8 @@
         aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
-      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Server está em manutenção!!! Paciência amigx</h1>
-<a href="javascript:history.back()" class="btn  w-3/4 sm:w-auto">Go Back</a>
+      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Server está em manutenção!!!</h1>
+<a href="javascript:history.back()" class="btn  w-3/4 sm:w-auto">Voltar atrás</a>
     </div>
 </div>
 </body>
