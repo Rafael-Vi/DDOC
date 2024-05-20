@@ -22,7 +22,7 @@
         aspect-square w-24 flex justify-center items-center text-yellow-700 shadow-sm shadow-black"></div>
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
-      <h1 class="ubuntu-bold text-xl sm:text-4xl text-white p-2 rounded">That user doesn't exist!!!</h1>
+      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">That user doesn't exist!!!</h1>
 <a href="javascript:history.back()" class="btn  w-3/4 sm:w-auto">Go Back</a>
     </div>
 </div>
