@@ -935,7 +935,7 @@
         }
         $currentUserId = $_SESSION['uid'];
     
-        $result = executeQuery($dbConn, "SELECT * FROM messages WHERE (messenger_id = ? AND receiver_id = ?) OR (messenger_id = ? AND receiver_id = ?) ORDER BY DateTime DESC", [$convoId, $currentUserId, $currentUserId, $convoId]);
+        $result = executeQuery($dbConn, "SELECT * FROM messages WHERE (messenger_id = ? AND receiver_id = ?) OR (messenger_id = ? AND receiver_id = ?) ORDER BY DateTime ASC", [$convoId, $currentUserId, $currentUserId, $convoId]);
         while ($row = mysqli_fetch_assoc($result)) {
             echoMessages($row['message_id'], $row['message'], $row['DateTime'], $sender, $row['messenger_id']);
         }

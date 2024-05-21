@@ -50,7 +50,7 @@ include "include/config.inc.php";
 
             // Check if the provided convo_id is valid
             if (in_array($_GET['convo_id'], $convoIds)) {
-                echo' <div class="h-full w-full overflow-auto hide-scrollbar flex flex-col-reverse" id="message-container">';
+                echo' <div class="h-full w-full overflow-auto hide-scrollbar" id="message-container">';
                 // Define a random message ID, message, date, and sender
                 $userDetails = getUserDetails($_GET['convo_id']);
                 $username = $userDetails['username'];
