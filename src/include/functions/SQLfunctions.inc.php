@@ -1,4 +1,4 @@
-<?php
+r<?php
 
     @session_start();
     require_once "echohtml.inc.php";
@@ -292,7 +292,7 @@
                 if($rowRank = mysqli_fetch_assoc($resultRank)) {
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
-                    echo "No rank found for this user.";
+                    header("../../errorPages/NoUserFound.php");
                 }
                 
                 echoProfileInfo($username, $email, $profilePic, $realName, $biography, $_SESSION['rank']);
