@@ -1489,7 +1489,7 @@ r<?php
             $profilePic = $row['user_profilePic'];
     
             if (!$profilePic) {
-                $profilePic = $arrConfig['url_assets'].'/images/default.png'; 
+                $profilePic = $arrConfig['url_assets'].'images/default.png'; 
             } else {
                 if ($arrConfig !== null && isset($arrConfig['url_users']) && $arrConfig['url_users'] !== "") {
                     $profilePic = $arrConfig['url_users']. $profilePic;
