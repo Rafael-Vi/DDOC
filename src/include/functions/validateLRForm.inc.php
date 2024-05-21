@@ -28,7 +28,7 @@ function validateLogin($email, $password) {
     $dbConn = db_connect();
 
     $sql = "SELECT user_email, user_password FROM users WHERE user_email = ?";
-    $sql2 = "SELECT user_id, can_post FROM users WHERE user_email = ?";
+    $sql2 = "SELECT user_id, can_post, user_name, user_profilePic FROM users WHERE user_email = ?";
 
     $result = executeQuery($dbConn, $sql, [$email]);
     $result2 = executeQuery($dbConn, $sql2, [$email]);
@@ -41,6 +41,8 @@ function validateLogin($email, $password) {
             if ($userDetails) {
                 $_SESSION['uid'] = $userDetails['user_id'];
                 $_SESSION['can_post'] = $userDetails['can_post'];
+                $_SESSION['profilePic'] = $userDetails['user_profilePic'];
+                $_SESSION['username'] = $userDetails['user_name'];
                 header("Location: social.php");
                 exit;
             }
