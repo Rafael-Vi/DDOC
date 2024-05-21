@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+:<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@
   <div class="text-7xl text-white ubuntu-bold"> 
       WELCOME TO
   </div>
-  <div class="flex items-center justify-center flex-row">
+  <div class="flex items-center justify-left flex-row">
         <p class=" text-7xl text-white ubuntu-bold">D</p>
         <p class=" text-7xl mx-1 text-white ubuntu-bold">D</p>
         <div class="loader  border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin
@@ -34,12 +34,12 @@
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
 </div>
-<div class="w-1/2 p-8 flex items-left justify-center">
+<div class="w-1/2 p-8 flex items-left justify-left">
     <ul class="text-white w-42">
-        <li><a class="btn m-2 p-2 text-2xl w-full" href="./accountLC.php">Entra...</a></li>
-        <li><a class="btn m-2 p-2 text-2xl w-full" href="#">Funcionalidades</a></li>
-        <li><a class="btn m-2 p-2 text-2xl w-full" href="#">Manual</a></li>
-        <li><a class="btn m-2 p-2 text-2xl w-full" href="#">Contactar Creador</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="./accountLC.php">Entra...</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="#">Funcionalidades</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="#">Manual</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="#">Contactar Creador</a></li>
     </ul>
 </div>
 </section>
