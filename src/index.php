@@ -22,8 +22,8 @@
 
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
 <!-- Updated First div -->
-<div class="flex flex-col w-1/2 p-8 flex items-center justify-center ml-auto">
-    <div class="text-7xl text-white ubuntu-bold hidden lg:block lg:justify-right"> 
+<div class="flex flex-col w-1/2 p-8 flex items-center justify-center lg:ml-auto">
+    <div class="text-7xl text-white ubuntu-bold hidden lg:block"> 
         WELCOME TO
     </div>
     <div class="flex items-center justify-center lg:justify-right flex-row">
