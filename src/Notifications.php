@@ -38,7 +38,7 @@
     </div>
     <?php echoBottomNav(); ?>
   <script>
-    var themes = <?php echo json_encode($theme['finish_date']); ?>;
+    var themes = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>
   <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
