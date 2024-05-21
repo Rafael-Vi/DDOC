@@ -50,7 +50,7 @@
   <div class="hero-content text-center">
     <div class="max-w-md">
       <h1 class="text-5xl font-bold mb-2">Agora que sabes no que te vais meter</h1>
-      <button href="./accountLC.php" class="bg-orange-500 rounded-md hover:bg-gray-600 text-white hover:text-orange-500 w-full">Entra</button>
+      <button href="./accountLC.php" class="bg-orange-500 rounded-md hover:bg-gray-600 text-white hover:text-orange-500 w-full h-22 mt-8">Entra</button>
     </div>
   </div>
 </div>
