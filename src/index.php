@@ -21,11 +21,11 @@
 
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
     <!-- First div -->
-    <div class="flex flex-col w-1/2 p-8 flex items-center justify-center lg:ml-auto">
+    <div class="flex flex-col w-full sm:w-1/2 p-8 items-center justify-center lg:ml-auto">
         <div class="lg:text-8xl text-white ubuntu-bold hidden lg:block"> 
             WELCOME TO
         </div>
-        <div class="flex items-center justify-center lg:justify-right flex-row float right">
+        <div class="flex items-center justify-center lg:justify-right flex-row float-right">
             <p class="text-8xl text-white ubuntu-bold">D</p>
             <p class="text-8xl mx-1 text-white ubuntu-bold">D</p>
             <div class="loader border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
@@ -34,7 +34,7 @@
     </div>
 
     <!-- Second div -->
-    <div class="w-1/2 p-8 flex items-start justify-start">
+    <div class="w-full sm:w-1/2 p-8 flex items-center justify-center">
         <ul class="text-white w-42">
             <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="./accountLC.php">Entra...</a></li>
             <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#functions">Funcionalidades</a></li>
@@ -48,7 +48,7 @@
 
 <ul class="timeline timeline-vertical h-full">
   <li>
-    <div class="timeline-start timeline-box">Temas Diários</div>
+    <div class="timeline-start timeline-box text-4xl">Temas Diários</div>
     <div class="timeline-middle">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
     </div>
@@ -56,7 +56,29 @@
   </li>
   <li>
     <hr/>
-    <div class="timeline-start timeline-box">Ranking temático</div>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+    <div class="timeline-start timeline-box text-4xl">Ranking temático</div>
+    <div class="timeline-middle">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+    </div>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+  </li>
+  <li>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+    <hr/>
+    <div class="timeline-start timeline-box text-4xl">Ranks de Contas</div>
     <div class="timeline-middle">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
     </div>
@@ -64,15 +86,12 @@
   </li>
   <li>
     <hr/>
-    <div class="timeline-start timeline-box">Ranks de Contas</div>
-    <div class="timeline-middle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-    </div>
     <hr/>
-  </li>
-  <li>
     <hr/>
-    <div class="timeline-start timeline-box">Mensagens</div>
+    <hr/>
+    <hr/>
+    <hr/>
+    <div class="timeline-start timeline-box text-4xl">Mensagens</div>
     <div class="timeline-middle">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
     </div>
