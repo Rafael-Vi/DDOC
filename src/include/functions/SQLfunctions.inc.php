@@ -221,7 +221,7 @@
             $updateSql = "UPDATE users SET";
             $updateFields = array();
             $params = array();
-            $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
+            
             $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
             $profilePicName .= "." . $fileExtension;
             
@@ -236,7 +236,7 @@
             }
             
             if (!empty($profilePic)) {
-                var_dump($profilePic);
+                $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
                 move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
                 $updateFields[] = " user_profilePic = ?";
                 $params[] = $profilePicName;
