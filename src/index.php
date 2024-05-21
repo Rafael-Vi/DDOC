@@ -44,44 +44,6 @@
     </div>
 </section>
 
-<section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="functions">
-
-<ul class="timeline timeline-vertical h-full">
-  <li>
-    <div class="timeline-start timeline-box text-4xl">Temas Diários</div>
-    <div class="timeline-middle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-    </div>
-    <hr/>
-  </li>
-  <li>
-    <hr/>
-    <div class="timeline-start timeline-box text-4xl">Ranking temático</div>
-    <div class="timeline-middle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-    </div>
-    <hr/>
-  </li>
-  <li>
-    <hr/>
-    <div class="timeline-start timeline-box text-4xl">Ranks de Contas</div>
-    <div class="timeline-middle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-    </div>
-    <hr/>
-  </li>
-  <li>
-    <hr/>
-    <div class="timeline-start timeline-box text-4xl">Mensagens</div>
-    <div class="timeline-middle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-    </div>
-    <hr/>
-  </li>
-</ul>
-</section>
-
-
 <section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center">
 
 <div class="hero min-h-screen bg-base-200">
