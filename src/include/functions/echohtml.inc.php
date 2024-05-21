@@ -377,7 +377,7 @@
         echo '</a>';
     }
 
-    function echoMessages($messageID, $message, $date, $sender, $messenger){
+    function echoMessages($messageID, $message, $sender, $messenger){
         global $arrConfig;
         $currentUserId = $_SESSION['uid'];
     
@@ -392,7 +392,6 @@
                 </div>
                 <div class="chat-header text-white">
                     '.$_SESSION['username'].'
-                    <time class="text-xs opacity-50">'.$date.'</time>
                 </div>
                 <div class="chat-bubble">'.$message.'</div>
                 <button class="delete-button w-24top-0 left-0 bg-red-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100" onclick="deleteMessage('.$messageID.')">
@@ -410,7 +409,6 @@
                 </div>
                 <div class="chat-header text-white">
                     '.$sender['username'].'
-                    <time class="text-xs opacity-50 text-white">'.$date.'</time>
                 </div>
                 <div class="chat-bubble">'.$message.'</div>
             </div>';
