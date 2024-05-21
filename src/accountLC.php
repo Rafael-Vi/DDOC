@@ -1,8 +1,7 @@
 
 <?php
 include "include/config.inc.php";
-?>
-<?php
+
     include "include/functions/saveLastPage.inc.php";
     require "include/functions/Development.inc.php";
 ?>

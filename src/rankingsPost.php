@@ -1,23 +1,15 @@
 <?php
 include "include/config.inc.php";
-?>
 
-<?php
   include "include/functions/checkLogin.inc.php";
-?> 
 
-<?php
       require "include/functions/checkThemeIsFinished.inc.php";
       require "include/functions/Development.inc.php";
-?>
 
-
-<?php
      if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
   }
-?>
-<?php
+
 require "include/functions/checkFilterVars.inc.php";
 
 // Start the session if it's not already started

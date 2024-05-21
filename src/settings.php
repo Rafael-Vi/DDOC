@@ -1,13 +1,10 @@
 <?php
 include "include/config.inc.php";
-?>
 
-<?php
   include "include/functions/checkLogin.inc.php";
-?> <?php
+
       require "include/functions/checkThemeIsFinished.inc.php";
-?>
-<?php
+
      if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
   }

@@ -1,22 +1,14 @@
 <?php
   require "include/config.inc.php";
-?>
 
-<?php
   require "include/functions/checkLogin.inc.php";
-?> 
 
-<?php
   require "include/functions/checkThemeIsFinished.inc.php";
-?>
 
-
-<?php
      if (checkThemeIsFinished()){
     include "include/functions/saveLastPage.inc.php";
   }
-?>
-<?php 
+
     $post = showPost($_GET['id'], "no");
     if ($post === false) {
         header("Location: ./errorPages/noPostFound.php");
