@@ -1475,7 +1475,7 @@ r<?php
         }
     
         // Prepare the SQL query to select the user data
-        $sql = "SELECT user_id, user_name, user_profilePic FROM users WHERE user_id != ? AND user_name LIKE ?";
+        $sql = "SELECT user_id, user_name, user_profilePic FROM users WHERE user_id != ? AND user_name LIKE ? LIMIT 5";
         $params = array($uid, "%" . $value . "%");
     
         // Execute the query
