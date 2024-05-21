@@ -39,9 +39,12 @@ function loadMessages() {
             console.log('Messages loaded:', data);
             lastMessage = data;
             document.getElementById('message-container').innerHTML = data;
+            var messageContainer = document.getElementById('message-container');
+            messageContainer.scrollTop = messageContainer.scrollHeight;
         }
     })
     .catch(error => console.error(error));
+    
 }
 
 function sendMessage(recipientid) {

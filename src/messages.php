@@ -94,6 +94,15 @@ ob_end_flush();?>
     </script><script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
     </script>
+
+    
+<script>
+    // Scroll to the bottom of the message container
+    window.onload = function() {
+        var messageContainer = document.getElementById('message-container');
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+</script>
   <script src="../src/js/timer.js"></script>
 <script src="../src/js/sendMessages.js"></script>
   <script src="../src/js/social.js"></script>
