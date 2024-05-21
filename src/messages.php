@@ -65,6 +65,7 @@ include "include/config.inc.php";
                 $_SESSION['sender'] = $sender;
                 $_SESSION['convo_id'] = $_GET['convo_id'];
                 getMessages($sender,$_GET['convo_id']);
+                echo'<div class="h-42"> </div>';
                 echo'</div>';
 
                 echo'
