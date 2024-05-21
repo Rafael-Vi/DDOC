@@ -1489,12 +1489,12 @@ r<?php
             $profilePic = $row['user_profilePic'];
     
             if (!$profilePic) {
-                $profilePic = $arrConfig['url_assets'].'images/default.png'; 
+                $profilePic = $arrConfig['url_assets'].'images/Unknown_person.jpg'; 
             } else {
                 if ($arrConfig !== null && isset($arrConfig['url_users']) && $arrConfig['url_users'] !== "") {
                     $profilePic = $arrConfig['url_users']. $profilePic;
                 } else {
-                    $profilePic = $arrConfig['url_assets'].'/images/'. $profilePic; 
+                    $profilePic = $arrConfig['url_assets'].'images/Unknown_person.jpg';
                 }    
             }
             echoSearchResults($userId, $username, $profilePic);
