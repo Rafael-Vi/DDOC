@@ -36,18 +36,7 @@ include "include/config.inc.php";
       Settings
     </div>
 
-        <div class="w-full h-auto">
-           <div class=" h-32 text-white text-center sm:text-start w-full p-10 font-bold text-4xl bg-gray-700">
-            <i class="fi fi-sr-universal-access mr-5"></i></i>Acessibility
-           </div>
-            <div class="bg-gray-800 p-4 rounded-md  pl-10">
-                <h2 class="text-2xl font-bold text-center sm:text-start mb-4 text-white">Language</h2>
-                <ul class="space-y-2">
-                <button class="btn hover:text-orange-500 text-white ubuntu-medium text-lg bg-orange-500">Portuguese</button>
-                <button class="btn hover:text-orange-500 text-white ubuntu-medium text-lg bg-purple-800">English</button>
-                </ul>
-            </div>  
-        </div>
+
         <div class="h-auto w-full">
            <div class=" h-32 text-white text-center sm:text-start w-full p-10 font-bold text-4xl bg-gray-700">
             <i class="fi fi-sr-portrait mr-5"></i>  Account
