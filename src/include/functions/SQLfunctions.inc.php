@@ -120,6 +120,12 @@
                     error_log($response);
                 }
                 break;
+            case 'deleteMessage':
+                if (isset($_POST['messageId'])) {
+                    $messageId = $_POST['messageId'];
+                    deleteMessage($messageId);
+                }
+                break;
 
 
         }
@@ -954,6 +960,21 @@
         }
     }
 
+    function deleteMessage($messageID){
+        global $arrConfig;
+        $dbConn = db_connect();
+        if ($dbConn === false) {
+            return "ERROR: Could not connect. " . mysqli_connect_error();
+        }
+    
+        $result = executeQuery($dbConn, "DELETE FROM messages WHERE message_id = ?", [$messageID]);
+    
+        if ($result === false) {
+            // Handle error - inform the user that the message could not be deleted
+        } else {
+            // Message deleted successfully
+        }
+    }
     //*CONVO RELATED ---------------------------------------------------------------------
 
 

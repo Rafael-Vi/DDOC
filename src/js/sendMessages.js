@@ -46,6 +46,7 @@ function loadMessages() {
 
 function sendMessage(recipientid) {
     let message = document.getElementById('message-box').value;
+    document.getElementById('message-box').value = '';
     fetch('../src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
         headers: {
@@ -77,14 +78,20 @@ function deleteMessage(messageId) {
         return;
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../src/include/functions/deleteMessage.inc.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (this.status == 200) {
-            console.log('Message deleted:', messageId);
-            checkUpdates();
-        }
-    };
-    xhr.send('function=deleteMessage&messageId=' + encodeURIComponent(messageId));
+    fetch('../src/include/functions/SQLfunctions.inc.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            function: 'deleteMessage',
+            messageId: messageId
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Message deleted:', messageId);
+        checkUpdates();
+    })
+    .catch(error => console.error(error));
 }
