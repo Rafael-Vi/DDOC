@@ -20,7 +20,7 @@
 </head>
 <body class="bg-gray-800">
 
-<section class="w-full h-full flex sm:flex-row flex-col" id="welcome-ddoc">
+<section class="w-full h-full flex sm:flex-row flex-col items-center justify-center" id="welcome-ddoc">
 
 <div>
   <div class="flex items-center justify-center flex-row">
@@ -32,7 +32,7 @@
       </div>
 </div>
 <div>
-    <ul>
+    <ul class="text-white">
         <li><a href="./accountLC.php">Entra...</a></li>
         <li><a href="#">Funcionalidades</a></li>
         <li><a href="#">Manual</a></li>
