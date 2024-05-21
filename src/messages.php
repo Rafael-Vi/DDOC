@@ -41,15 +41,16 @@ include "include/config.inc.php";
         ?>   
         </h1>
 
-        <div class="h-full w-full px-10 overflow-auto hide-scrollbar " id="message-container">
+        <div class="h-full w-full px-10 overflow-auto hide-scrollbar ">
         <?php 
-
+        
         if (isset($_GET['convo_id']) && $_GET['convo_id'] != "") {
             // Get all conversation IDs
             $convoIds = getConvo();
 
             // Check if the provided convo_id is valid
             if (in_array($_GET['convo_id'], $convoIds)) {
+                echo' <div class="h-full w-full overflow-auto hide-scrollbar" id="message-container">';
                 // Define a random message ID, message, date, and sender
                 $userDetails = getUserDetails($_GET['convo_id']);
                 $username = $userDetails['username'];
@@ -63,7 +64,7 @@ include "include/config.inc.php";
              
                 $_SESSION['sender'] = $sender;
                 getMessages($sender,$_GET['convo_id']);
-                
+                echo'</div>';
 
                 echo'
                 <div class="fixed w-full md:w-9/12  bottom-16 md:bottom-0 right-0 p-4 md:p-6 bg-gray-800 text-white">
