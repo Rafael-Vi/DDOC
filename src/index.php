@@ -21,8 +21,8 @@
 <body class="bg-gray-800">
 
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
-  <!-- First div -->
-  <div class="flex flex-col w-1/2 p-8 flex items-center justify-center">
+<!-- Updated First div -->
+<div class="flex flex-col w-1/2 p-8 flex items-center justify-center ml-auto">
     <div class="text-7xl text-white ubuntu-bold hidden lg:block"> 
         WELCOME TO
     </div>
@@ -32,7 +32,7 @@
         <div class="loader border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
         <p class="mx-1 my-8 text-7xl text-white ubuntu-bold">C</p>
     </div>
-  </div>
+</div>
 
   <!-- Second div -->
   <div class="w-1/2 p-8 flex items-start justify-start">
