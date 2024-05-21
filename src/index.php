@@ -22,9 +22,9 @@
 
 <section class="w-full h-screen flex sm:flex-row flex-col items-center justify-center" id="welcome-ddoc">
 
-<div class="flex flex-col">
+<div class="flex flex-col w-1/2 p-8 flex items-center justify-center">
   <div class="text-7xl text-white ubuntu-bold"> 
-      WELCOME TO - - - - - - 
+      WELCOME TO
   </div>
   <div class="flex items-center justify-center flex-row">
         <p class=" text-7xl text-white ubuntu-bold">D</p>
@@ -34,7 +34,7 @@
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
 </div>
-<div>
+<div class="w-1/2 p-8 flex items-center justify-center">
     <ul class="text-white w-42">
         <li><a class="btn m-2 p-2 text-2xl w-full" href="./accountLC.php">Entra...</a></li>
         <li><a class="btn m-2 p-2 text-2xl w-full" href="#">Funcionalidades</a></li>
