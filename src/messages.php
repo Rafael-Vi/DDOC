@@ -69,7 +69,7 @@ include "include/config.inc.php";
                 echo'</div>';
 
                 echo'
-                <div class="fixed w-full md:w-9/12  bottom-16 md:bottom-0 right-0 p-4 md:p-6 bg-gray-800 text-white">
+                <div class="absolute w-full md:w-9/12  bottom-16 md:bottom-0 right-0 p-4 md:p-6 bg-gray-800 text-white">
                 <div class="flex justify-center h-10">
                     <input id="message-box" type="text" class="rounded-l-lg w-full p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" placeholder="Mensagem">
                     <button onclick="sendMessage(\'' . $_GET['convo_id'] . '\')" class="flex items-center justify-center px-8 rounded-r-lg bg-orange-500 hover:bg-gray-700 hover:text-orange-500 text-gray-800 font-bold p-4 uppercase border-t border-b border-r"><i class="fi-sr-paper-plane fi" id="message-button"></i></button>
