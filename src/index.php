@@ -23,7 +23,7 @@
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
     <!-- First div -->
     <div class="flex flex-col w-1/2 p-8 flex items-center justify-center lg:ml-auto">
-        <div class="lg:text-7xl xl:text-8xl text-white ubuntu-bold hidden lg:block"> 
+        <div class="lg:text-8xl text-white ubuntu-bold hidden lg:block"> 
             WELCOME TO
         </div>
         <div class="flex items-center justify-center lg:justify-right flex-row float right">
