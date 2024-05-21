@@ -950,7 +950,7 @@
             return "ERROR: Could not connect. " . mysqli_connect_error();
         }
         $currentUserId = $_SESSION['uid'];
-    
+
         $result = executeQuery($dbConn, "INSERT INTO messages (messenger_id, receiver_id, message) VALUES (?, ?, ?)", [$currentUserId, $receiver, $message]);
         sendNotification($receiver, $currentUserId, "MessageReceived");
     
