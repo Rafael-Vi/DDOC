@@ -25,6 +25,7 @@ if (isset($_POST['submit'])) {
 }
 
 function validateLogin($email, $password) {
+    global $arrConfig;
     $dbConn = db_connect();
 
     $sql = "SELECT user_email, user_password FROM users WHERE user_email = ?";
@@ -41,7 +42,7 @@ function validateLogin($email, $password) {
             if ($userDetails) {
                 $_SESSION['uid'] = $userDetails['user_id'];
                 $_SESSION['can_post'] = $userDetails['can_post'];
-                $_SESSION['imageProfile'] = $userDetails['user_profilePic'];
+                $_SESSION['imageProfile'] = $arrConfig['url_users'].'images'.$userDetails['user_profilePic'];
                 $_SESSION['username'] = '@'.$userDetails['user_name'];
                 header("Location: social.php");
                 exit;
