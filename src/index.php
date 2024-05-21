@@ -23,10 +23,10 @@
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
     <!-- First div -->
     <div class="flex flex-col w-1/2 p-8 flex items-center justify-center lg:ml-auto">
-        <div class="text-8xl text-white ubuntu-bold hidden lg:block"> 
+        <div class="lg:text-7xl xl:text-8xl text-white ubuntu-bold hidden lg:block"> 
             WELCOME TO
         </div>
-        <div class="flex items-center justify-center lg:justify-right flex-row">
+        <div class="flex items-center justify-center lg:justify-right flex-row float right">
             <p class="text-8xl text-white ubuntu-bold">D</p>
             <p class="text-8xl mx-1 text-white ubuntu-bold">D</p>
             <div class="loader border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
