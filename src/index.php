@@ -20,7 +20,7 @@
 </head>
 <body class="bg-gray-800">
 
-<section class="w-full h-full flex sm:flex-row flex-col items-center justify-center" id="welcome-ddoc">
+<section class="w-full h-screen flex sm:flex-row flex-col items-center justify-center" id="welcome-ddoc">
 
 <div>
   <div class="flex items-center justify-center flex-row">
@@ -33,10 +33,10 @@
 </div>
 <div>
     <ul class="text-white">
-        <li><a href="./accountLC.php">Entra...</a></li>
-        <li><a href="#">Funcionalidades</a></li>
-        <li><a href="#">Manual</a></li>
-        <li><a href="#">Contactar Creador</a></li>
+        <li><a class="btn m-2 p-2 text-2xl" href="./accountLC.php">Entra...</a></li>
+        <li><a class="btn m-2 p-2 text-2xl" href="#">Funcionalidades</a></li>
+        <li><a class="btn m-2 p-2 text-2xl" href="#">Manual</a></li>
+        <li><a class="btn m-2 p-2 text-2xl" href="#">Contactar Creador</a></li>
     </ul>
 </div>
 </section>
