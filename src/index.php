@@ -20,7 +20,7 @@
 </head>
 <body class="bg-gray-800">
 
-<section class="w-full h-auto flex sm:flex-row flex-col" id="welcome-ddoc">
+<section class="w-full h-full flex sm:flex-row flex-col" id="welcome-ddoc">
 
 <div>
   <div class="flex items-center justify-center flex-row">
