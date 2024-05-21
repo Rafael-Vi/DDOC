@@ -36,10 +36,10 @@
 </div>
 <div class="w-1/2 p-8 flex items-left justify-left">
     <ul class="text-white w-42">
-        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="./accountLC.php">Entra...</a></li>
-        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="#">Funcionalidades</a></li>
-        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="#">Manual</a></li>
-        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-50" href="#">Contactar Creador</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="./accountLC.php">Entra...</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Funcionalidades</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Manual</a></li>
+        <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Contactar Creador</a></li>
     </ul>
 </div>
 </section>
