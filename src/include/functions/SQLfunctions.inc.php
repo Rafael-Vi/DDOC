@@ -1,4 +1,4 @@
-r<?php
+<?php
 
     @session_start();
     require_once "echohtml.inc.php";
