@@ -87,7 +87,7 @@ include "include/config.inc.php";
         ?>
        
         </div>
-        <div class=" h-16"></div>
+        <div class=" h-24"></div>
     </div>
 
     <?php echoNav(); echoBottomNav(); 
