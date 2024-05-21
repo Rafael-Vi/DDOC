@@ -377,11 +377,11 @@
         echo '</a>';
     }
 
-    function echoMessages($messageID, $message, $date, $sender, $receiver){
+    function echoMessages($messageID, $message, $date, $sender, $messenger){
         global $arrConfig;
         $currentUserId = $_SESSION['uid'];
     
-        if ($receiver == $currentUserId) {
+        if ($messenger == $currentUserId) {
             // Current user is the sender
             echo '
             <div class="chat chat-end relative group">
