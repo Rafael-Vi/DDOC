@@ -26,7 +26,7 @@
   <div class="text-7xl text-white ubuntu-bold"> 
       WELCOME TO
   </div>
-  <div class="flex items-center justify-left flex-row">
+  <div class="flex items-center justify-right flex-row">
         <p class=" text-7xl text-white ubuntu-bold">D</p>
         <p class=" text-7xl mx-1 text-white ubuntu-bold">D</p>
         <div class="loader  border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin
