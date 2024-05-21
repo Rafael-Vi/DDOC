@@ -952,7 +952,7 @@
         $currentUserId = $_SESSION['uid'];
     
         $result = executeQuery($dbConn, "INSERT INTO messages (messenger_id, receiver_id, message) VALUES (?, ?, ?)", [$currentUserId, $receiver, $message]);
-        sendNotification($receiver, $_SESSION['sender']['username'], "MessageReceived");
+        sendNotification($receiver, $currentUserId, "MessageReceived");
     
         if ($result === false) {
             // Handle error - inform the user that the message could not be sent
