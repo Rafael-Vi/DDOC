@@ -41,8 +41,8 @@ function validateLogin($email, $password) {
             if ($userDetails) {
                 $_SESSION['uid'] = $userDetails['user_id'];
                 $_SESSION['can_post'] = $userDetails['can_post'];
-                $_SESSION['profilePic'] = $userDetails['user_profilePic'];
-                $_SESSION['username'] = $userDetails['user_name'];
+                $_SESSION['imageProfile'] = $userDetails['user_profilePic'];
+                $_SESSION['username'] = '@'.$userDetails['user_name'];
                 header("Location: social.php");
                 exit;
             }
