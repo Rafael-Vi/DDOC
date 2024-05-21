@@ -11,6 +11,7 @@
     }
     if(basename($_SERVER['PHP_SELF']) !== 'messages.php'){
         unset($_SESSION['sender']);
+        unset($_SESSION['convo_id']);
     }
 
 

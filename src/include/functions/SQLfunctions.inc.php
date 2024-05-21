@@ -115,8 +115,9 @@
                 break;
             case 'loadMessages':
                 if (isset($_SESSION['uid'])) {
-                    $response = getMessages($_SESSION['sender'], $_SESSION['uid']);
+                    $response = getMessages($_SESSION['sender'], $_SESSION['convo_id']);
                     echo $response;
+                    error_log($response);
                 }
                 break;
 

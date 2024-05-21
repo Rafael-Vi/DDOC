@@ -381,7 +381,7 @@
         global $arrConfig;
         $currentUserId = $_SESSION['uid'];
     
-        if ($sender['user_id'] == $currentUserId) {
+        if ($receiver == $currentUserId) {
             // Current user is the sender
             echo '
             <div class="chat chat-end relative group">
