@@ -1,8 +1,7 @@
-:<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-
     <!--Page Title-->
     <title>DDOC</title>
 
