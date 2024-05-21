@@ -34,7 +34,7 @@
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
 </div>
-<div class="w-1/2 p-8 flex items-center justify-center">
+<div class="w-1/2 p-8 flex items-left justify-center">
     <ul class="text-white w-42">
         <li><a class="btn m-2 p-2 text-2xl w-full" href="./accountLC.php">Entra...</a></li>
         <li><a class="btn m-2 p-2 text-2xl w-full" href="#">Funcionalidades</a></li>
