@@ -376,37 +376,45 @@
         echo '</div>';
         echo '</a>';
     }
-    
-    function echoMessages($messageID, $message, $date, $sender){
-        global $arrConfig;
-        echo'<div class="chat chat-start">
-        <div class="chat-image avatar">
-          <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src="'.$arrConfig['url_users'].''.$sender['profile_pic'].'" />
-          </div>
-        </div>
-        <div class="chat-header text-white">
-          '.$sender['username'].'
-          <time class="text-xs opacity-50 text-white">'.$date.'</time>
-        </div>
-        <div class="chat-bubble">'.$message.'</div>
 
-      </div>
-      <div class="chat chat-end relative group">
-      <div class="chat-image avatar">
-          <div class="w-10 rounded-full">
-              <img alt="Tailwind CSS chat bubble component" src="'.$_SESSION['imageProfile'].'" />
-          </div>
-      </div>
-      <div class="chat-header text-white">
-          '.$_SESSION['username'].'
-          <time class="text-xs opacity-50">'.$date.'</time>
-      </div>
-      <div class="chat-bubble">'.$message.'</div>
-      <button class="delete-button w-24top-0 left-0 bg-red-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100" onclick="deleteMessage('.$messageID.')">
-          x
-      </button>
-  </div>';
+    function echoMessages($messageID, $message, $date, $sender, $receiver){
+        global $arrConfig;
+        $currentUserId = $_SESSION['uid'];
+    
+        if ($sender['user_id'] == $currentUserId) {
+            // Current user is the sender
+            echo '
+            <div class="chat chat-end relative group">
+                <div class="chat-image avatar">
+                    <div class="w-10 rounded-full">
+                        <img alt="Tailwind CSS chat bubble component" src="'.$_SESSION['imageProfile'].'" />
+                    </div>
+                </div>
+                <div class="chat-header text-white">
+                    '.$_SESSION['username'].'
+                    <time class="text-xs opacity-50">'.$date.'</time>
+                </div>
+                <div class="chat-bubble">'.$message.'</div>
+                <button class="delete-button w-24top-0 left-0 bg-red-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100" onclick="deleteMessage('.$messageID.')">
+                    x
+                </button>
+            </div>';
+        } else {
+            // Current user is the receiver
+            echo '
+            <div class="chat chat-start">
+                <div class="chat-image avatar">
+                    <div class="w-10 rounded-full">
+                        <img alt="Tailwind CSS chat bubble component" src="'.$arrConfig['url_users'].''.$sender['profile_pic'].'" />
+                    </div>
+                </div>
+                <div class="chat-header text-white">
+                    '.$sender['username'].'
+                    <time class="text-xs opacity-50 text-white">'.$date.'</time>
+                </div>
+                <div class="chat-bubble">'.$message.'</div>
+            </div>';
+        }
     }
 
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster){

@@ -55,16 +55,13 @@ include "include/config.inc.php";
                 $username = $userDetails['username'];
                 $profilePic = $userDetails['profile_pic'];
                 
-                // Assuming you have a way to get the messageID and date
-                $messageID = "..."; // replace with how you get the messageID
-                $date = "..."; // replace with how you get the date
-                
                 $sender = [
                     'username' => $username,
                     'profile_pic' => $profilePic
                 ];
+             
+                getMessages($sender,$_GET['convo_id']);
                 
-                echoMessages($messageID, $username, $date, $sender);
 
                 echo'
                 <div class="fixed w-full md:w-9/12  bottom-16 md:bottom-0 right-0 p-4 md:p-6 bg-gray-800 text-white">

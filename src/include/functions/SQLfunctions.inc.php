@@ -163,9 +163,6 @@
 
     //TODO FUNCTIONS ---------------------------------------------------------------------
 
-        function sendMessage(){
-        }
-
 
 
     //TODO FUNCTIONS --------------------------------------------------------------------
@@ -869,7 +866,8 @@
                 'profile_pic' => $row['user_profilePic']
             );
         } else {
-            return null;
+            header("Location:../../errorPages/NoCoversationFound.php");
+            exit;
         }
     }
 
@@ -905,6 +903,25 @@
         return $convoIds;
     }
 
+
+    function getMessages($sender,$convoId) {
+        global $arrConfig;
+        $dbConn = db_connect();
+        if ($dbConn === false) {
+            return "ERROR: Could not connect. " . mysqli_connect_error();
+        }
+        $currentUserId = $_SESSION['uid'];
+    
+        $result = executeQuery($dbConn, "SELECT * FROM messages WHERE (messenger_id = ? AND receiver_id = ?) OR (messenger_id = ? AND receiver_id = ?) ORDER BY DateTime DESC", [$convoId, $currentUserId, $currentUserId, $convoId]);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echoMessages($row['message_id'], $row['message'], $row['DateTime'], $sender, $row['receiver_id']);
+        }
+    }
+
+
+    function sendMessage(){
+
+    }
     //*CONVO RELATED ---------------------------------------------------------------------
 
 
