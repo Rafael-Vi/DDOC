@@ -298,7 +298,7 @@ r<?php
                 echoProfileInfo($username, $email, $profilePic, $realName, $biography, $_SESSION['rank']);
             } else {
                 // Handle the query error
-                echo "No user found with this ID.";
+                header("../../errorPages/NoUserFound.php");
             }
         
             mysqli_close($dbConn);
