@@ -174,6 +174,7 @@ r<?php
     //? USER RELATED ------------------------------------------------------------------------
 
 
+    
         function newUser($dbConn, $email, $username, $password){
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         

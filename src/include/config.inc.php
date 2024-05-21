@@ -1,10 +1,10 @@
 <?php
     @session_start();
-    require "functions/paths.inc.php";
-    require "functions/alerts.inc.php";
-    require "functions/echohtml.inc.php";
-    require "functions/SQLfunctions.inc.php";
-    require "functions/validateLRForm.inc.php";
+    require_once "functions/paths.inc.php";
+    require_once "functions/alerts.inc.php";
+    require_once "functions/echohtml.inc.php";
+    require_once "functions/SQLfunctions.inc.php";
+    require_once "functions/validateLRForm.inc.php";
     getThemes(false);
     if(isset($_SESSION['uid'])){
         getCanPostStatus($_SESSION['uid']);

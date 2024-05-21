@@ -1,10 +1,8 @@
 <?php
-include "include/config.inc.php";
-
+  include "include/config.inc.php";
   include "include/functions/checkLogin.inc.php";
-
-      require "include/functions/checkThemeIsFinished.inc.php";
-      require "include/functions/Development.inc.php";
+  require "include/functions/checkThemeIsFinished.inc.php";
+  require "include/functions/Development.inc.php";
 ?>
 
 
