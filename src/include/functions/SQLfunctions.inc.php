@@ -1489,17 +1489,16 @@ r<?php
             $profilePic = $row['user_profilePic'];
     
             if (!$profilePic) {
-                   $profilePic = $arrConfig['url_assets'].'/images/'. $profilePic; 
-            else{
-                if ($arrConfig !== null && isset($arrConfig['url_users']) $$ $arrConfig !== "") {
+                $profilePic = $arrConfig['url_assets'].'/images/default.png'; 
+            } else {
+                if ($arrConfig !== null && isset($arrConfig['url_users']) && $arrConfig['url_users'] !== "") {
                     $profilePic = $arrConfig['url_users']. $profilePic;
-                }
-                else
-                {
+                } else {
                     $profilePic = $arrConfig['url_assets'].'/images/'. $profilePic; 
                 }    
             }
             echoSearchResults($userId, $username, $profilePic);
+
         }
     
         // Close the database connection
