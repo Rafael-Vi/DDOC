@@ -34,7 +34,7 @@ include "include/config.inc.php";
         <h1 class=" h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white backdrop-blur-md">
             <?php
             if (isset($_GET['convo_id'])){
-                echo 'Conversa com @'.$_SESSION['sender']['username'].'';
+                echo '@'.$_SESSION['sender']['username'].'';
             }else{
                 echo "Mensagens";
             }
