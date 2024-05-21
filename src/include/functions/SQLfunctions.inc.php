@@ -292,13 +292,15 @@ r<?php
                 if($rowRank = mysqli_fetch_assoc($resultRank)) {
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
-                    header("../../errorPages/NoUserFound.php");
+                    header("Location:../../errorPages/NoUserFound.php");
+                    exit;
                 }
                 
                 echoProfileInfo($username, $email, $profilePic, $realName, $biography, $_SESSION['rank']);
             } else {
                 // Handle the query error
                 header("../../errorPages/NoUserFound.php");
+                exit;
             }
         
             mysqli_close($dbConn);
