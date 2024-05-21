@@ -18,18 +18,58 @@ function checkUpdates() {
     };
     xhr.send();
 }
-function sendMessage(message, recipientid) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../src/include/functions/sendMessage.inc.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (this.status == 200) {
+
+
+let lastMessage = null;
+
+function loadMessages() {
+    fetch('../src/include/functions/SQLfunctions.inc.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            function: 'loadMessages',
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Only update if the data has changed
+        if (data !== lastMessage) {
+            console.log('Messages loaded:', data);
+            lastMessage = data;
+            document.getElementById('message-container').innerHTML = data;
+        }
+    })
+    .catch(error => console.error(error));
+}
+
+function sendMessage(recipientid) {
+    let message = document.getElementById('message-box').value;
+    fetch('../src/include/functions/SQLfunctions.inc.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            function: 'sendMessage',
+            message: message,
+            recipient: recipientid
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Only update if the data has changed
+        if (data !== lastMessage) {
             console.log('Message sent:', message);
             checkUpdates();
+            loadMessages();
         }
-    };
-    xhr.send('function=sendMessage&message=' + encodeURIComponent(message) + '&recipient=' + encodeURIComponent(recipientid));
+    })
+    .catch(error => console.error(error));
 }
+
+setInterval(loadMessages, 500);
 
 function deleteMessage(messageId) {
     console.log('Delete message:', messageId)

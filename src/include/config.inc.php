@@ -9,5 +9,8 @@
     if(isset($_SESSION['uid'])){
         getCanPostStatus($_SESSION['uid']);
     }
+    if(basename($_SERVER['PHP_SELF']) !== 'messages.php'){
+        unset($_SESSION['sender']);
+    }
 
 

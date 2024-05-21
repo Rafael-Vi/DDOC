@@ -105,6 +105,22 @@
                     savePost($postid, $postContent);
                 }
                 break;
+
+            case 'sendMessage':
+                if (isset($_POST['message']) && isset($_POST['recipient'])) {
+                    $message = $_POST['message'];
+                    $recipient = $_POST['recipient'];
+                    sendMessage($recipient, $message);
+                }
+                break;
+            case 'loadMessages':
+                if (isset($_SESSION['uid'])) {
+                    $response = getMessages($_SESSION['sender'], $_SESSION['uid']);
+                    echo $response;
+                }
+                break;
+
+
         }
     }
 
@@ -919,9 +935,24 @@
     }
 
 
-    function sendMessage(){
 
+    function sendMessage($receiver, $message){
+        global $arrConfig;
+        $dbConn = db_connect();
+        if ($dbConn === false) {
+            return "ERROR: Could not connect. " . mysqli_connect_error();
+        }
+        $currentUserId = $_SESSION['uid'];
+    
+        $result = executeQuery($dbConn, "INSERT INTO messages (messenger_id, receiver_id, message) VALUES (?, ?, ?)", [$currentUserId, $receiver, $message]);
+    
+        if ($result === false) {
+            // Handle error - inform the user that the message could not be sent
+        } else {
+            // Message sent successfully
+        }
     }
+
     //*CONVO RELATED ---------------------------------------------------------------------
 
 
