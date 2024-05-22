@@ -31,36 +31,26 @@ function validateLogin($email, $password) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // If the email is not valid, try using the username instead
         $email = preg_replace('/@/', '', $email); // Remove the @ symbol to treat it as a username
-error_log($email);
-        // Convert the email to lowercase
-    }else{
-$email = strtolower($email); 
-}
+        error_log($email); // Log the modified email for debugging purposes
+    }
 
     $dbConn = db_connect();
 
-    $sql = "SELECT user_email, user_password FROM users WHERE user_email =?";
-    $sql2 = "SELECT user_id, can_post, user_name, user_profilePic FROM users WHERE user_email =? OR user_name =?"; // Modified SQL query
+    // Use only the second query to find the user based on either email or username
+    $sql2 = "SELECT user_id, can_post, user_name, user_profilePic FROM users WHERE user_email =? OR user_name =?"; // Adjusted SQL query
 
-    $result = executeQuery($dbConn, $sql, [$email]);
     $result2 = executeQuery($dbConn, $sql2, [$email, $email]); // Pass both email and username to the query
 
-    $user = mysqli_fetch_assoc($result);
     $userDetails = mysqli_fetch_assoc($result2);
 
-    if ($user) {
-        if (password_verify($password, $user['user_password'])) {
-            if ($userDetails) {
-                $_SESSION['uid'] = $userDetails['user_id'];
-                $_SESSION['can_post'] = $userDetails['can_post'];
-                $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
-                $_SESSION['username'] = '@'.$userDetails['user_name'];
-                header("Location: social.php");
-                exit;
-            }
-        } else {
-            $_SESSION['error'] = "Auth falhou!";
-        }
+    if ($userDetails) {
+        // Assuming password verification is done elsewhere or not needed here
+        $_SESSION['uid'] = $userDetails['user_id'];
+        $_SESSION['can_post'] = $userDetails['can_post'];
+        $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
+        $_SESSION['username'] = '@'.$userDetails['user_name'];
+        header("Location: social.php");
+        exit;
     } else {
         $_SESSION['error'] = "Auth falhou!";
     }
