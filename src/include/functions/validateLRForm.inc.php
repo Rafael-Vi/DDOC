@@ -26,13 +26,20 @@ if (isset($_POST['submit'])) {
 
 function validateLogin($email, $password) {
     global $arrConfig;
+
+    // Check if the email is valid
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // If the email is not valid, try using the username instead
+        $email = preg_replace('/@/', '', $email); // Remove the @ symbol to treat it as a username
+    }
+
     $dbConn = db_connect();
 
-    $sql = "SELECT user_email, user_password FROM users WHERE user_email = ?";
-    $sql2 = "SELECT user_id, can_post, user_name, user_profilePic FROM users WHERE user_email = ?";
+    $sql = "SELECT user_email, user_password FROM users WHERE user_email =?";
+    $sql2 = "SELECT user_id, can_post, user_name, user_profilePic FROM users WHERE user_email =? OR user_name =?"; // Modified SQL query
 
     $result = executeQuery($dbConn, $sql, [$email]);
-    $result2 = executeQuery($dbConn, $sql2, [$email]);
+    $result2 = executeQuery($dbConn, $sql2, [$email, $email]); // Pass both email and username to the query
 
     $user = mysqli_fetch_assoc($result);
     $userDetails = mysqli_fetch_assoc($result2);
