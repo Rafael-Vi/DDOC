@@ -3,6 +3,7 @@
   include "include/functions/checkLogin.inc.php";
   require "include/functions/checkThemeIsFinished.inc.php";
   require "include/functions/Development.inc.php";
+  getUserInfo($_SESSION['uid']); 
 ?>
 
 
@@ -28,7 +29,7 @@
             echo '<div class="flex  h-32 text-white lg:h-64 mt-8 w-4/6">';
             echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
             
-            getUserInfo($_SESSION['uid']); 
+            echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
 
             echo '<button class="w-full sm:float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-2 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
             echo '</div>';
