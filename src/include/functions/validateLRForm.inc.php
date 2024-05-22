@@ -5,7 +5,7 @@ if (isset($_POST['submit'])) {
     if ($_POST['submit'] === 'loginSubmit') {
 
         if (isset($_POST['emailL']) && isset($_POST['passwordL']) && !empty($_POST['emailL']) && !empty($_POST['passwordL'])) {
-            $email = strtolower(preg_replace('/\s+/', '', htmlspecialchars($_POST['emailL'])));
+            $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['emailL']));
             $password = htmlspecialchars($_POST['passwordL']);
 
             validateLogin($email, $password);
@@ -31,6 +31,7 @@ function validateLogin($email, $password) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // If the email is not valid, try using the username instead
         $email = preg_replace('/@/', '', $email); // Remove the @ symbol to treat it as a username
+        $email = strtolower($email); // Convert the email to lowercase
     }
 
     $dbConn = db_connect();
@@ -63,6 +64,7 @@ function validateLogin($email, $password) {
 
     mysqli_close($dbConn);
 }
+
 
 function validateRegister($username, $email, $password) {
 
