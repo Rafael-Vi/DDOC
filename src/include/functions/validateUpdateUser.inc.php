@@ -9,7 +9,7 @@
       $profilePic = $_FILES['profilePic'];
       var_dump($_POST);
       updateUser($_SESSION['uid'], $username, $realName, $profilePic, $biography);
-      header("Location: /social.php");
+      header("Location: /src/social.php");
       exit;
       }
 

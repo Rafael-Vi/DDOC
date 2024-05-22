@@ -8,5 +8,5 @@
     var_dump($_POST);
 
     createPost($_SESSION['uid'],$title,$type,$file, $_SESSION['themes'][0]['theme_id']);
-    header("Location: social.php");
+    header("Location: /src/social.php");
     exit;
