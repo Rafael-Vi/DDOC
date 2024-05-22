@@ -3,7 +3,9 @@
     @session_start();
     require_once "echohtml.inc.php";
     require_once "paths.inc.php";
-
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    
     //*AJAX HANDLING ---------------------------------------------------------------------
 
     if (isset($_POST['function'])) {
@@ -137,23 +139,39 @@
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
 
-    function sendVerificationEmail($to, $subject, $message, $link) {
-        // Define the headers
-        $headers = "MIME-Version: 1.0\r\n";
-        $headers.= "Content-Type: text/html; charset=UTF-8\r\n";
-        $headers.= "From: DDOC <rafa.pinto.vieira@gmail.com>\r\n";
-        
-        // Define the message
-        $body = "<html><body>";
-        $body.= "<p>Hello,</p>";
-        $body.= "<p>Please click the link below to verify your email:</p>";
-        $body.= "<a href=\"$link\">Verify Email</a></p>";
-        $body.= "</body></html>";
 
-        // Send the email
-        if(mail($to, $subject, $body, $headers)) {
+    require 'vendor/autoload.php';
+    
+    function sendVerificationEmail($to, $subject, $message, $link) {
+        $mail = new PHPMailer(true);
+    
+        try {
+            //Server settings
+            $mail->isSMTP();                                      
+            $mail->Host = 'smtp.eu.mailgun.org';  
+            $mail->SMTPAuth = true;                               
+            $mail->Username = 'brad@gentl.store';                 
+            $mail->Password = 'your_password_here';                           
+            $mail->SMTPSecure = 'tls';                            
+            $mail->Port = 587;                                    
+    
+            //Recipients
+            $mail->setFrom('rafa.pinto.vieira@gmail.com', 'DDOC');
+            $mail->addAddress($to);     
+    
+            //Content
+            $mail->isHTML(true);                                  
+            $mail->Subject = $subject;
+            $body = "<html><body>";
+            $body.= "<p>Hello,</p>";
+            $body.= "<p>Please click the link below to verify your email:</p>";
+            $body.= "<a href=\"$link\">Verify Email</a></p>";
+            $body.= "</body></html>";
+            $mail->Body    = $body;
+    
+            $mail->send();
             return true;
-        } else {
+        } catch (Exception $e) {
             return false;
         }
     }

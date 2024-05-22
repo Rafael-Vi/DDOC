@@ -18,10 +18,10 @@ $dbConn = db_connect();
 // Prepare the query to fetch the user ID based on the email
 $query = "SELECT user_id FROM users WHERE email =?";
 $params = [$email];
-$result = executeQuery($dbConn, $query, $params);
+$result = executeQuery($dbConn, $query, $params);   
 
 // Check if the user exists
-if ($result === false) {
+if ($result === false || $result->num_rows == 0) {
     die('User not found.');
 }
 
@@ -48,5 +48,6 @@ if ($result === false) {
 echo "User email verification status updated successfully.";
 
 // Close the database connection
-mysqli_close($dbConn);
+$dbConn = null; // This is how you close a PDO connection
+
 ?>
