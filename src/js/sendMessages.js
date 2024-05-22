@@ -49,6 +49,9 @@ function loadMessages() {
 
 function sendMessage(recipientid) {
     let message = document.getElementById('message-box').value;
+    if (message.trim() === "") {
+        return; // Don't send if the message is empty
+    }
     document.getElementById('message-box').value = '';
     fetch('../src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
