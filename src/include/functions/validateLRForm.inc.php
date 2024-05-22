@@ -90,7 +90,7 @@ function validateRegister($username, $email, $password) {
     newUser($dbConn, $email, $username, $password);
 
     // Generate the verification link
-    $verificationLink = "http://gentl.store/src/include/functions/verify-email.php?id=". urlencode($username). "&email=". urlencode($email);
+    $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=". urlencode($username). "&email=". urlencode($email);
 
     // Send the verification email
     if(sendVerificationEmail($email, "Email Verification", "Please verify your email.", $verificationLink)) {
