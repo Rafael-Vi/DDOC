@@ -46,7 +46,7 @@ $userInfo = getUserInfo($_GET['userid']);
              <div class="flex justify-center">
 
 
-                      <a <?php echo 'href="./messages.php?convo_id=' . $userid . '"';?> class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4" >
+                      <a <?php echo 'href="./messages.php?convo_id=' . $_GET['userid'] . '"';?> class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4" >
                           Message
                       </a>
                     
