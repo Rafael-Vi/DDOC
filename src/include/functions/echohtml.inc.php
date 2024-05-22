@@ -385,9 +385,8 @@
 
     function echoMessages($messageID, $message, $sender, $messenger){
         global $arrConfig;
-        $currentUserId = $_SESSION['uid'];
     
-        if ($messenger == $currentUserId) {
+        if ($messenger == $_SESSION['uid']) {
             // Current user is the sender
             echo '
             <div class="chat chat-end relative group">
