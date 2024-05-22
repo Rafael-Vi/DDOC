@@ -151,7 +151,7 @@
             $mail->Host = 'smtp.eu.mailgun.org';  
             $mail->SMTPAuth = true;                               
             $mail->Username = 'brad@gentl.store';                 
-            $mail->Password = 'your_password_here';                           
+            $mail->Password = 'dffaafe71dac47d55117967101fc6b5d-a2dd40a3-cb11a0b7';                           
             $mail->SMTPSecure = 'tls';                            
             $mail->Port = 587;                                    
     
