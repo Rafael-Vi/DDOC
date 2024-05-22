@@ -49,7 +49,7 @@ function loadMessages() {
 
 function sendMessage(recipientid) {
     let message = document.getElementById('message-box').value;
-    if (message.trim() === "") {
+    if (message === "") {
         return; // Don't send if the message is empty
     }
     document.getElementById('message-box').value = '';
