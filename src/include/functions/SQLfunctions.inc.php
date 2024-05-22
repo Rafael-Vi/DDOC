@@ -301,9 +301,10 @@
             mysqli_close($dbConn);
         }
 
+
         function getUserInfo($uid){
             global $arrConfig;
-            
+        
             // Start the database connection
             $dbConn = db_connect();
         
@@ -351,8 +352,16 @@
                     header("Location:../../errorPages/NoUserFound.php");
                     exit;
                 }
-                
-                echoProfileInfo($username, $email, $profilePic, $realName, $biography, $_SESSION['rank']);
+        
+                // Return the user data instead of echoing it
+                return array(
+                    'username' => $username,
+                    'email' => $email,
+                    'profilePic' => $profilePic,
+                    'realName' => $realName,
+                    'biography' => $biography,
+                    'rank' => $_SESSION['rank']
+                );
             } else {
                 // Handle the query error
                 header("../../errorPages/NoUserFound.php");

@@ -9,6 +9,9 @@ include "include/config.inc.php";
     include "include/functions/saveLastPage.inc.php";
   }
   require "include/functions/Development.inc.php";
+
+$userInfo = getUserInfo($uid);
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +22,7 @@ include "include/config.inc.php";
     <link rel="stylesheet" href="../src/css/social.css">    <link rel="shortcut icon" href="./assets/images/2.png" >
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="https://cdn.tailwindcss.com"></script>     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <title>{Other Person's Name}</title>
+    <title><?php echo($userInfo['username'])?></title>
 </head>
 <body class="h-full flex">
     <?php if ($_SESSION['uid'] == $_GET['userid']) {
@@ -35,15 +38,15 @@ include "include/config.inc.php";
           <div class="flex  h-32 text-white lg:h-64 mt-8 w-4/6">
               <div class="h-full w-full mt-0 md:mt-8 mb-4">
                 <?php
-                    getUserInfo($_GET['userid']); 
+                    echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
                 ?>  
 
              <div class="flex justify-center">
 
 
-                      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4" >
+                      <a <?php echo 'href="./messages.php?convo_id=' . $userid . '"';?> class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4" >
                           Message
-                      </button>
+                      </a>
                     
                       <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4" id="follow-button" onclick="followCheck()">
                           Follow
