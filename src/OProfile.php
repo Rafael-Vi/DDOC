@@ -39,6 +39,7 @@ $userInfo = getUserInfo($uid);
               <div class="h-full w-full mt-0 md:mt-8 mb-4">
                 <?php
                     echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
+                    unset($userInfo);
                 ?>  
 
              <div class="flex justify-center">
