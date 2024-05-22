@@ -31,6 +31,7 @@ function validateLogin($email, $password) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // If the email is not valid, try using the username instead
         $email = preg_replace('/@/', '', $email); // Remove the @ symbol to treat it as a username
+error_log($email);
         // Convert the email to lowercase
     }else{
 $email = strtolower($email); 
