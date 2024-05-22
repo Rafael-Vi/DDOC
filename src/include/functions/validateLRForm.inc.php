@@ -60,9 +60,8 @@ function validateLogin($email, $password) {
 
 
 function validateRegister($username, $email, $password) {
-
-    $emailSql = "SELECT user_email FROM users WHERE user_email = ?";
-    $usernameSql = "SELECT user_name FROM users WHERE user_name = ?";
+    $emailSql = "SELECT user_email FROM users WHERE user_email =?";
+    $usernameSql = "SELECT user_name FROM users WHERE user_name =?";
 
     $dbConn = db_connect();
     $emailResult = executeQuery($dbConn, $emailSql, [$email]);
@@ -87,5 +86,16 @@ function validateRegister($username, $email, $password) {
         $_SESSION['error'] = $error;
     }
 
+    // Assuming newUser() adds the new user to the database
     newUser($dbConn, $email, $username, $password);
+
+    // Generate the verification link
+    $verificationLink = "http://gentl.store/src/include/functions/verify-email.php?id=". urlencode($username). "&email=". urlencode($email);
+
+    // Send the verification email
+    if(sendVerificationEmail($email, "Email Verification", "Please verify your email.", $verificationLink)) {
+        echo "Verification email sent.";
+    } else {
+        echo "Failed to send verification email.";
+    }
 }
