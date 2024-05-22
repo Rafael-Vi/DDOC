@@ -14,6 +14,19 @@ include "include/config.inc.php";
         // Get all conversation IDs
         $convoIds = getConvo();
         if (in_array($_GET['convo_id'], $convoIds)) {
+            // Define a random message ID, message, date, and sender
+            $userDetails = getUserDetails($_GET['convo_id']);
+            $username = $userDetails['username'];
+            $profilePic = $userDetails['profile_pic'];
+
+            
+            $sender = [
+                'username' => $username,
+                'profile_pic' => $profilePic
+            ];
+        
+            $_SESSION['sender'] = $sender;
+            $_SESSION['convo_id'] = $_GET['convo_id'];
         } else {
             header("Location: messages.php");
             exit; // Ensure no further output is sent
@@ -61,19 +74,7 @@ include "include/config.inc.php";
             // Check if the provided convo_id is valid
             if (in_array($_GET['convo_id'], $convoIds)) {
                 echo' <div class="h-full w-full overflow-auto hide-scrollbar px-2 sm:px-10" id="message-container">';
-                // Define a random message ID, message, date, and sender
-                $userDetails = getUserDetails($_GET['convo_id']);
-                $username = $userDetails['username'];
-                $profilePic = $userDetails['profile_pic'];
 
-                
-                $sender = [
-                    'username' => $username,
-                    'profile_pic' => $profilePic
-                ];
-             
-                $_SESSION['sender'] = $sender;
-                $_SESSION['convo_id'] = $_GET['convo_id'];
                 getMessages($sender,$_GET['convo_id']);
                 echo'</div>';
 
