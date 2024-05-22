@@ -141,7 +141,7 @@ function sendVerificationEmail($to, $subject, $message, $link) {
     // Define the headers
     $headers = "MIME-Version: 1.0\r\n";
     $headers.= "Content-Type: text/html; charset=UTF-8\r\n";
-    $headers.= "From: DDOC <rafa.pinto.vieira@gmail.com>\r\n";
+    $headers.= "From: <rafa.pinto.vieira@gmail.com>\r\n";
     
     // Define the message
     $body = "<html><body>";
