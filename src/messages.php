@@ -33,7 +33,7 @@ include "include/config.inc.php";
     <div id="messages-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         <h1 class=" h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white backdrop-blur-md">
             <?php
-            if (isset($_GET['convo_id'])){
+            if (isset($_GET['convo_id']) && !empty($_GET['convo_id'])){
                 echo '@'.$_SESSION['sender']['username'].'';
             }else{
                 echo "Mensagens";
