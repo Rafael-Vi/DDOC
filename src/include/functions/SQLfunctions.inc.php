@@ -270,7 +270,7 @@
                 $params[] = $realName;
             }
             
-            if (!empty($profilePic)) {
+            if (!empty($profilePic) && !empty($profilePic['name'])) {
                 $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
                 move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
                 $updateFields[] = " user_profilePic = ?";
