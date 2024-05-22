@@ -232,7 +232,7 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <div class="flex items-center">
-                    <a href="./OProfile.php?userid='.$creator['id'].'"><img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class=" hover:scale-105 rounded-full h-10 w-10 bg-red-800"></a>
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="  rounded-full h-10 w-10 bg-red-800"></a>
                     <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
                 </div>
             </div>';
@@ -261,7 +261,7 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <div class="flex items-center">
-                     <a href="./OProfile.php?userid='.$creator['id'].'"><img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
+                     <a class="hover:scale-105"  href="./OProfile.php?userid='.$creator['id'].'"><img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
                     <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
                 </div>
             </div>';
@@ -294,7 +294,7 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <div class="flex items-center">
-                <a href="./OProfile.php?userid='.$creator['id'].'"><img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
+                <a class="hover:scale-105"  href="./OProfile.php?userid='.$creator['id'].'"><img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
                     <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
                 </div>
             </div>';
