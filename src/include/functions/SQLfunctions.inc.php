@@ -626,12 +626,14 @@
             }
         
             // Prepare the SQL query with the post_id condition using prepared statements
-            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme, r.PostRank, p.Enabled, u.user_name, u.user_profilePic
+  
+            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme, r.PostRank, p.Enabled, u.user_id AS creator_id, u.user_name, u.user_profilePic
             FROM posts p 
             LEFT JOIN theme t ON p.theme_id = t.theme_id 
             LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.theme_id = r.theme_id
             LEFT JOIN users u ON p.user_id = u.user_id
             WHERE p.post_id = ?";
+  
             $stmt = mysqli_prepare($dbConn, $sql);
         
             // Bind parameters
@@ -643,10 +645,12 @@
             }
         
             // Bind result variables
-            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name, $rank, $enabled, $creator_name, $creator_avatar);
-        
+     
+            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name, $rank, $enabled, $creator_id, $creator_name, $creator_avatar);
+
             // Fetch the result
             if (mysqli_stmt_fetch($stmt)) {
+      
                 $post = array(
                     'post_id' => $post_id,
                     'post_type' => $post_type,
@@ -659,12 +663,14 @@
                     'theme_name' => $theme_name,
                     'rank' => $rank,
                     'enabled' => $enabled,
+                    'creator_id' => $creator_id,
                     'creator_name' => $creator_name,
                     'creator_avatar' => $creator_avatar
                 );
+   
                 // Display the post if $show is not 'no'
                 if ($show !== 'no') {
-                    echoShowPost($post, array('name' => $creator_name, 'avatar_url' => $creator_avatar));
+                    echoShowPost($post, array('name' => $creator_name, 'avatar_url' => $creator_avatar, 'id' => $creator_id));
                 }
         
             } else {
