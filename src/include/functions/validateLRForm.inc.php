@@ -94,8 +94,8 @@ function validateRegister($username, $email, $password) {
 
     // Send the verification email
     if(sendVerificationEmail($email, "Email Verification", "Please verify your email.", $verificationLink)) {
-        echo "Verification email sent.";
+        die("Verification email sent.");
     } else {
-        echo "Failed to send verification email.";
+        die ("Failed to send verification email.");
     }
 }
