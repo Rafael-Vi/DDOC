@@ -39,7 +39,7 @@ if(isset($_SESSION['error'])) {
             <h2 class="text-2xl font-bold justify-center flex select-none">Login</h2>
             <form id="loginForm" method="post" class="space-y-3">
                 <div class="space-y-2">
-                    <input type="text" id="emailL" name="emailL" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
+                    <input type="text" id="emailL" name="emailL" placeholder="Email/Username" required class="w-full px-4 py-2 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                     <input type="password" id="passwordL" name="passwordL" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                     <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-neutral-800 rounded-md hover:bg-orange-700 select-none">Login</button>
                 </div>
