@@ -139,9 +139,6 @@
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
 
-
-    require 'vendor/autoload.php';
-    
     function sendVerificationEmail($to, $subject, $message, $link) {
         $mail = new PHPMailer(true);
     
@@ -151,7 +148,7 @@
             $mail->Host = 'smtp.eu.mailgun.org';  
             $mail->SMTPAuth = true;                               
             $mail->Username = 'brad@gentl.store';                 
-            $mail->Password = 'dffaafe71dac47d55117967101fc6b5d-a2dd40a3-cb11a0b7';                           
+            $mail->Password = getenv('MAIL_PASSWORD');                           
             $mail->SMTPSecure = 'tls';                            
             $mail->Port = 587;                                    
     
@@ -175,8 +172,6 @@
             return false;
         }
     }
-
-
 
 
         function executeQuery($dbConn, $query, $params = null) {
