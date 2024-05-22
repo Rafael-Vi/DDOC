@@ -161,41 +161,40 @@ function sendVerificationEmail($to, $subject, $message, $link) {
 
 
 
-    function executeQuery($dbConn, $query, $params = null) {
-        $stmt = mysqli_prepare($dbConn, $query);
-    
-        if ($params !== null && !empty($params)) {
-            $types = '';
-            foreach ($params as $param) {
-                if (is_int($param)) {
-                    $types .= 'i';
-                } elseif (is_bool($param)) {
-                    $types .= 'i'; // booleans are treated as integers
-                } elseif (is_string($param)) {
-                    $types .= 's';
-                } else {
-                    $types .= 'b'; // for blob and unknown types
+        function executeQuery($dbConn, $query, $params = null) {
+            $stmt = mysqli_prepare($dbConn, $query);
+        
+            if ($params !== null && !empty($params)) {
+                $types = '';
+                foreach ($params as $param) {
+                    if (is_int($param)) {
+                        $types .= 'i';
+                    } elseif (is_bool($param)) {
+                        $types .= 'i'; // booleans are treated as integers
+                    } elseif (is_string($param)) {
+                        $types .= 's';
+                    } else {
+                        $types .= 'b'; // for blob and unknown types
+                    }
+                }
+        
+                if (!empty($types)) {
+                    mysqli_stmt_bind_param($stmt, $types, ...$params);
                 }
             }
-    
-            if (!empty($types)) {
-                mysqli_stmt_bind_param($stmt, $types, ...$params);
+        
+            $executed = mysqli_stmt_execute($stmt);
+            if ($executed) {
+                $result = mysqli_stmt_get_result($stmt);
+                return $result !== false ? $result : true;
+            } else {
+                return false;
             }
         }
-    
-        $executed = mysqli_stmt_execute($stmt);
-        if ($executed) {
-            $result = mysqli_stmt_get_result($stmt);
-            return $result !== false ? $result : true;
-        } else {
-            return false;
-        }
-    }
 
         function db_connect() {
             global $arrConfig;
 
-            
             $conn = mysqli_connect($arrConfig['connect_DB'][0], $arrConfig['connect_DB'][1], $arrConfig['connect_DB'][2], $arrConfig['connect_DB'][3]);
 
             if (!$conn) {
