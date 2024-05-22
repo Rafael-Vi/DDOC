@@ -10,7 +10,8 @@ include "include/config.inc.php";
   }
   require "include/functions/Development.inc.php";
 
-$userInfo = getUserInfo($uid);
+
+$userInfo = getUserInfo($_GET['userid']);
 
 ?>
 
