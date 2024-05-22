@@ -9,6 +9,18 @@ include "include/config.inc.php";
     include "include/functions/saveLastPage.inc.php";
   }
   require "include/functions/Development.inc.php";
+
+     if (isset($_GET['convo_id']) && $_GET['convo_id'] != "") {
+        // Get all conversation IDs
+        $convoIds = getConvo();
+        if (in_array($_GET['convo_id'], $convoIds)) {
+        } else {
+            header("Location: messages.php");
+            exit; // Ensure no further output is sent
+        }
+    } else {
+        
+    }
 ?>
 
 <!DOCTYPE html>
@@ -45,8 +57,6 @@ include "include/config.inc.php";
         <?php 
         
         if (isset($_GET['convo_id']) && $_GET['convo_id'] != "") {
-            // Get all conversation IDs
-            $convoIds = getConvo();
 
             // Check if the provided convo_id is valid
             if (in_array($_GET['convo_id'], $convoIds)) {
