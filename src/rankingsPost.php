@@ -58,9 +58,7 @@ $GLOBALS['type'] = $type;
     <title>Rankings Posts</title>
 </head>
 <body class="h-full flex">
-    <?php echoLoadScreen(); ?>    <?php
-        //echoShowTheme();
-    ?>
+    <?php //echoLoadScreen(); ?>   
     <?php echoNav(); ?>
     <div id="Postrankings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
     <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
