@@ -648,7 +648,7 @@
             }
 
             // Prepare the SQL query with the user_id condition using prepared statements
-            $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ?";
+            $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ? ORDER BY created_at DESC";
             $stmt = mysqli_prepare($dbConn, $sql);
 
             // Bind parameters
