@@ -1083,7 +1083,7 @@
                 $params = [$rank, $type];
             }
         } else if ($table == 'PostRank') {
-            if ($type == null && $themeId == null || $themeId == 'none' && $type == 'none') {
+            if ($type == null  || $type == 'none') {
                 $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
                 $params = [$rank, $themeId];
             } elseif($type == 'image' && $themeId != null && $themeId != 'none') {
