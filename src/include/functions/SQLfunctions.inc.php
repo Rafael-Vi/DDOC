@@ -1064,62 +1064,58 @@
             echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage']);
         }
     }
+  
     function getPodium($rank, $table, $themeId = null, $type = null){
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
-        // Define the SQL query based on the table
+    
         if ($table == 'AccRank') {
             if ($type == 'none' || $type == null) {
                 $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
+                $params = [$rank];
             } else {
                 $sql = "SELECT UserName, UserImage FROM accountrankingstype WHERE UserRank = ? AND PostType = ? LIMIT 1";
+                $params = [$rank, $type];
             }
         } else if ($table == 'PostRank') {
-            $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? AND TYPE = ? LIMIT 1";
+            if ($type == null) {
+                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+                $params = [$rank, $themeId];
+            } else {
+                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? AND PostType = ? LIMIT 1";
+                $params = [$rank, $themeId, $type];
+            }
         } else {
             die("ERROR: Invalid table name.");
         }
-
-        // Prepare the SQL statement
-        $stmt = mysqli_prepare($dbConn, $sql);
-
-        // Bind parameters
-        if ($table == 'AccRank') {
-            if ($type == 'none' || $type == null) {
-                mysqli_stmt_bind_param($stmt, "i", $rank);
-            } else {
-                mysqli_stmt_bind_param($stmt, "is", $rank, $type);
-            }
-        } else if ($table == 'PostRank') {
-        mysqli_stmt_bind_param($stmt, "iis", $rank, $themeId, $type);
-        }
-
+    
         // Execute the query
-        if (mysqli_stmt_execute($stmt) === false) {
+        $result = executeQuery($dbConn, $sql, $params);
+        if ($result === false) {
             die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
         }
-
-        // Bind result variables and fetch the data based on the table
+    
+        // Fetch the data based on the table
         if ($table == 'AccRank') {
-            mysqli_stmt_bind_result($stmt, $userName, $userImage);
-            if(mysqli_stmt_fetch($stmt)) {
+            $row = mysqli_fetch_assoc($result);
+            if($row) {
                 // Return the user data
-                return array('username' => $userName, 'image' => $userImage);
+                return array('username' => $row['UserName'], 'image' => $row['UserImage']);
             }
         } else if ($table == 'PostRank') {
-            mysqli_stmt_bind_result($stmt, $postName);
-            if(mysqli_stmt_fetch($stmt)) {
+            $row = mysqli_fetch_assoc($result);
+            if($row) {
                 // Return the post name
-                return array('NameOfThePost' => $postName);
+                return array('NameOfThePost' => $row['NameOfThePost']);
             }
         }
-
+    
         return null;
     }
+
 
     //?RANKING RELATED ------------------------------------------------------------------
 
