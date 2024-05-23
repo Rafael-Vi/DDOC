@@ -39,7 +39,7 @@ $GLOBALS['type'] = $type;
     <title>Rankings Accounts</title>
 </head>
 <body class="h-full flex">
-  <?php echoLoadScreen(); ?>    <?php
+  <?php //echoLoadScreen(); ?>    <?php
         //echoShowTheme();
     ?>
     <?php echoNav(); ?>
