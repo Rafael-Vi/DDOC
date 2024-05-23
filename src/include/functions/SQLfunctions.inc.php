@@ -1073,6 +1073,7 @@
         }
     
         // Define the SQL query based on the table
+
         if ($table == 'AccRank') {
             if ($type == 'none' || $type == null) {
                 $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
@@ -1082,12 +1083,20 @@
                 $params = [$rank, $type];
             }
         } else if ($table == 'PostRank') {
-            $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
-            $params = [$rank, $themeId, $type];
+            if ($type == null && $themeId == null || $themeId == 'none' && $type == 'none') {
+                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+                $params = [$rank, $themeId];
+            } elseif($type == 'image' && $themeId != null && $themeId != 'none') {
+                $sql = "SELECT NameOfThePost FROM rankingpoststype WHERE PostRank = ? AND theme_id = ? AND PostType = ? LIMIT 1";
+                $params = [$rank, $themeId, $type];
+            } elseif($type == 'image' && ($themeId == null || $themeId == 'none')) {
+                $sql = "SELECT NameOfThePost FROM postrankingstype WHERE PostRank = ? AND PostType = ? LIMIT 1";
+                $params = [$rank, $type];
+            }
         } else {
             die("ERROR: Invalid table name.");
         }
-    
+
         // Execute the query
         $result = executeQuery($dbConn, $sql, $params);
         if ($result === false) {
