@@ -1072,6 +1072,7 @@
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
     
+        // Define the SQL query based on the table
         if ($table == 'AccRank') {
             if ($type == 'none' || $type == null) {
                 $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
@@ -1081,13 +1082,8 @@
                 $params = [$rank, $type];
             }
         } else if ($table == 'PostRank') {
-            if ($type == null) {
-                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
-                $params = [$rank, $themeId];
-            } else {
-                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? AND PostType = ? LIMIT 1";
-                $params = [$rank, $themeId, $type];
-            }
+            $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+            $params = [$rank, $themeId, $type];
         } else {
             die("ERROR: Invalid table name.");
         }
