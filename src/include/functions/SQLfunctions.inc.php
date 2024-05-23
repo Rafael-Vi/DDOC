@@ -987,6 +987,7 @@
 
     //?RANKING RELATED -------------------------------------------------------------------
     
+  
     function getRankingPost($theme_id, $type){
         // Create a connection to the database
         $dbConn = db_connect();
@@ -994,31 +995,26 @@
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
     
-        // Define the SQL query
-        if (($theme_id && $type) && $theme_id != 'none' && $type != 'none') {
+        // Define the SQL query and parameters
+        if ($theme_id !== null && $type !== null && $theme_id !== 'none' && $type !== 'none') {
             $sql = "SELECT * FROM rankingpoststype WHERE theme_id = ? AND PostType = ?";
-            $stmt = mysqli_prepare($dbConn, $sql);
-            mysqli_stmt_bind_param($stmt, 'is', $theme_id, $type);
-        } elseif ($theme_id && $theme_id != 'none') {
+            $params = array($theme_id, $type);
+        } elseif ($theme_id !== null && $theme_id !== 'none') {
             $sql = "SELECT * FROM rankingposts WHERE theme_id = ?";
-            $stmt = mysqli_prepare($dbConn, $sql);
-            mysqli_stmt_bind_param($stmt, 'i', $theme_id);
-        } elseif ($type && $type != 'none') {
+            $params = array($theme_id);
+        } elseif ($type !== null && $type !== 'none') {
             $sql = "SELECT * FROM rankingpostsotype WHERE PostType = ?";
-            $stmt = mysqli_prepare($dbConn, $sql);
-            mysqli_stmt_bind_param($stmt, 's', $type);
+            $params = array($type);
         } else {
             $sql = "SELECT * FROM rankingpostsall";
-            $stmt = mysqli_prepare($dbConn, $sql);
+            $params = array();
         }
     
         // Execute the query
-        if (mysqli_stmt_execute($stmt) === false) {
+        $result = executeQuery($dbConn, $sql, $params);
+        if ($result === false) {
             die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
         }
-    
-        // Get the result set
-        $result = mysqli_stmt_get_result($stmt);
     
         // Fetch all rows as an associative array
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -1027,8 +1023,7 @@
             echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['PostType'], $row['Likes'], $row['PersonWhoPostedIt']);
         }
     
-        // Close the statement and the connection
-        mysqli_stmt_close($stmt);
+        // Close the connection
         mysqli_close($dbConn);
     }
 
