@@ -500,50 +500,6 @@
 
         }
 
-        function getRankingPost($theme_id, $type){
-            // Create a connection to the database
-            $dbConn = db_connect();
-            if ($dbConn === false) {
-                die("ERROR: Could not connect. " . mysqli_connect_error());
-            }
-        
-            // Define the SQL query
-            if (($theme_id && $type) && $theme_id != 'none' && $type != 'none') {
-                $sql = "SELECT * FROM rankingpoststype WHERE theme_id = ? AND TYPE = ?";
-                $stmt = mysqli_prepare($dbConn, $sql);
-                mysqli_stmt_bind_param($stmt, 'is', $theme_id, $type);
-            } elseif ($theme_id && $theme_id != 'none') {
-                $sql = "SELECT * FROM rankingposts WHERE theme_id = ?";
-                $stmt = mysqli_prepare($dbConn, $sql);
-                mysqli_stmt_bind_param($stmt, 'i', $theme_id);
-            } elseif ($type && $type != 'none') {
-                $sql = "SELECT * FROM rankingpostsotype WHERE TYPE = ?";
-                $stmt = mysqli_prepare($dbConn, $sql);
-                mysqli_stmt_bind_param($stmt, 's', $type);
-            } else {
-                $sql = "SELECT * FROM rankingpostsall";
-                $stmt = mysqli_prepare($dbConn, $sql);
-            }
-        
-            // Execute the query
-            if (mysqli_stmt_execute($stmt) === false) {
-                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-            }
-        
-            // Get the result set
-            $result = mysqli_stmt_get_result($stmt);
-        
-            // Fetch all rows as an associative array
-            $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-            // Echo the posts
-            foreach($rows as $row) {
-                echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['TYPE'], $row['Likes'], $row['PersonWhoPostedIt']);
-            }
-        
-            // Close the statement and the connection
-            mysqli_stmt_close($stmt);
-            mysqli_close($dbConn);
-        }
         function setSelectedType($selectedType) {
             $types = ['none', 'video', 'image', 'audio'];
 
@@ -1030,6 +986,51 @@
 
 
     //?RANKING RELATED -------------------------------------------------------------------
+    
+    function getRankingPost($theme_id, $type){
+        // Create a connection to the database
+        $dbConn = db_connect();
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+    
+        // Define the SQL query
+        if (($theme_id && $type) && $theme_id != 'none' && $type != 'none') {
+            $sql = "SELECT * FROM rankingpoststype WHERE theme_id = ? AND PostType = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            mysqli_stmt_bind_param($stmt, 'is', $theme_id, $type);
+        } elseif ($theme_id && $theme_id != 'none') {
+            $sql = "SELECT * FROM rankingposts WHERE theme_id = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            mysqli_stmt_bind_param($stmt, 'i', $theme_id);
+        } elseif ($type && $type != 'none') {
+            $sql = "SELECT * FROM rankingpostsotype WHERE PostType = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+            mysqli_stmt_bind_param($stmt, 's', $type);
+        } else {
+            $sql = "SELECT * FROM rankingpostsall";
+            $stmt = mysqli_prepare($dbConn, $sql);
+        }
+    
+        // Execute the query
+        if (mysqli_stmt_execute($stmt) === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+        }
+    
+        // Get the result set
+        $result = mysqli_stmt_get_result($stmt);
+    
+        // Fetch all rows as an associative array
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // Echo the posts
+        foreach($rows as $row) {
+            echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['PostType'], $row['Likes'], $row['PersonWhoPostedIt']);
+        }
+    
+        // Close the statement and the connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($dbConn);
+    }
 
     function RankingAcc($type = null){
         // Create a connection to the database
