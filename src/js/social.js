@@ -53,11 +53,13 @@ function logout() {
       window.location.href = '../src/include/functions/logout.inc.php';
   }
 }
+
 window.onload = function() {
   setTimeout(function() {
     document.getElementById('loadingScreen').style.display = 'none';
-}, 600);
+}, 200);
 };
+
 document.getElementById('search-input').addEventListener('input', searchStuff);
 
 function loadNotificationsNavBar() {
