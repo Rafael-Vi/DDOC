@@ -37,7 +37,7 @@ function validateLogin($email, $password) {
     $dbConn = db_connect();
 
     // Use only the second query to find the user based on either email or username
-    $sql2 = "SELECT user_id, can_post, user_name, user_profilePic FROM users WHERE user_email =? OR user_name =?"; // Adjusted SQL query
+    $sql2 = "SELECT id_users, can_post, user_name, user_profilePic FROM users WHERE user_email =? OR user_name =?"; // Adjusted SQL query
 
     $result2 = executeQuery($dbConn, $sql2, [$email, $email]); // Pass both email and username to the query
 
@@ -45,7 +45,7 @@ function validateLogin($email, $password) {
 
     if ($userDetails) {
         // Assuming password verification is done elsewhere or not needed here
-        $_SESSION['uid'] = $userDetails['user_id'];
+        $_SESSION['uid'] = $userDetails['id_users'];
         $_SESSION['can_post'] = $userDetails['can_post'];
         $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
         $_SESSION['username'] = '@'.$userDetails['user_name'];
