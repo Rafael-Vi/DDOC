@@ -1,0 +1,24 @@
+<div class="navbar bg-base-300">
+    <div class="navbar-start">
+        <a href="index.php" class="btn btn-ghost btn-circle">
+            <i class="fi fi-br-house-chimney"></i>
+        </a>
+    </div>
+    <div class="navbar-center">
+     <img class="max-w-xs h-auto" src="./assets/logo_black_crop.png" alt="logo"></img>
+    </div>
+    <div class="navbar-end">
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn placeholder">
+                <div class="w-auto rounded-lg">
+                    <span class="text-xs"><?php echo $_SESSION['admin_nome']?></span>
+                    <!-- USER/ADMIN -->
+                </div>
+            </div>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">   
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="divider h-0 mt-0 mb-1"></div>
