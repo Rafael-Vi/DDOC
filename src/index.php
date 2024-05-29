@@ -45,6 +45,38 @@
     </div>
 </section>
 
+<section id="functions">
+
+<div class="collapse bg-base-200">
+  <input type="radio" name="my-accordion-1" checked="checked" /> 
+  <div class="collapse-title text-xl font-medium">
+    Click to open this one and close others
+  </div>
+  <div class="collapse-content"> 
+    <p>hello</p>
+  </div>
+</div>
+<div class="collapse bg-base-200">
+  <input type="radio" name="my-accordion-1" /> 
+  <div class="collapse-title text-xl font-medium">
+    Click to open this one and close others
+  </div>
+  <div class="collapse-content"> 
+    <p>hello</p>
+  </div>
+</div>
+<div class="collapse bg-base-200">
+  <input type="radio" name="my-accordion-1" /> 
+  <div class="collapse-title text-xl font-medium">
+    Click to open this one and close others
+  </div>
+  <div class="collapse-content"> 
+    <p>hello</p>
+  </div>
+</div>
+
+</section>
+
 <section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center">
 
 <div class="hero min-h-screen bg-base-200">
