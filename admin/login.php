@@ -6,19 +6,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pass = (string) $_POST['pass'];
 
     $db_conn = db_connect();
-    $result = executeQuery($db_conn, "SELECT * FROM users WHERE user_name = ? AND password = ?", [$user, $pass]);
+    $result = executeQuery($db_conn, "SELECT * FROM users WHERE user_name = ?", [$user]);
 
     if ($result->num_rows > 0) {
         $user_data = $result->fetch_assoc();
-        if($user_data['is_admin'] == 1) {
-            $_SESSION['admin_id'] = $user_data['id_user'];
-            $_SESSION['admin_nome'] = $user_data['nome'];
-            header('Location: index.php');
+        if (password_verify($pass, $user_data['user_password'])) {
+            if($user_data['is_admin'] == 1) {
+                $_SESSION['admin_id'] = $user_data['id_users'];
+                $_SESSION['admin_nome'] = $user_data['user_name'];
+                header('Location: index.php');
+            } else {
+                echo '<div class="toast">';
+                echo '
+                    <div class="alert alert-error">
+                        <span>You are not authorized to access this page</span>
+                    </div>
+                ';
+                echo '</div>';
+            }
         } else {
             echo '<div class="toast">';
             echo '
                 <div class="alert alert-error">
-                    <span>You are not authorized to access this page</span>
+                    <span>Invalid Credentials</span>
                 </div>
             ';
             echo '</div>';
