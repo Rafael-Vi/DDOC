@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pass = (string) $_POST['pass'];
 
     $db_conn = db_connect();
-    $result = executeQuery($db_conn, "SELECT * FROM user WHERE username = ? AND password = ?", [$user, $pass]);
+    $result = executeQuery($db_conn, "SELECT * FROM users WHERE user_name = ? AND password = ?", [$user, $pass]);
 
     if ($result->num_rows > 0) {
         $user_data = $result->fetch_assoc();
