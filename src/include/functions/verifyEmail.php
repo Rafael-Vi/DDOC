@@ -16,7 +16,7 @@ if (!$email ||!$idFromGet) {
 $dbConn = db_connect();
 
 // Prepare the query to fetch the user ID based on the email
-$query = "SELECT user_id FROM users WHERE email =?";
+$query = "SELECT id_users FROM users WHERE email =?";
 $params = [$email];
 $result = executeQuery($dbConn, $query, $params);   
 
@@ -27,7 +27,7 @@ if ($result === false || $result->num_rows == 0) {
 
 // Fetch the user ID
 $user = $result->fetch(PDO::FETCH_ASSOC);
-$userID = $user['user_id'];
+$userID = $user['id_users'];
 
 // Check if the ID from the GET parameters matches the user ID fetched from the database
 if ($userID!= $idFromGet) {
@@ -35,7 +35,7 @@ if ($userID!= $idFromGet) {
 }
 
 // Update the email_verify field to 1 for the matching user
-$query = "UPDATE users SET email_verify = 1 WHERE user_id =?";
+$query = "UPDATE users SET email_verify = 1 WHERE id_users =?";
 $params = [$userID];
 $result = executeQuery($dbConn, $query, $params);
 

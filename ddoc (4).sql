@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `accountrankingstype` (
 DROP TABLE IF EXISTS `convo`;
 CREATE TABLE IF NOT EXISTS `convo` (
   `convo_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `ouser_id` int NOT NULL,
+  `id_users` int NOT NULL,
+  `oid_users` int NOT NULL,
   PRIMARY KEY (`convo_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `convo` (
 DROP TABLE IF EXISTS `definitions`;
 CREATE TABLE IF NOT EXISTS `definitions` (
   `definicoes_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
+  `id_users` int NOT NULL,
   `privateProfile` int DEFAULT NULL,
   PRIMARY KEY (`definicoes_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -144,10 +144,10 @@ INSERT INTO `follow` (`follower_id`, `followee_id`) VALUES
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
   `like_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
+  `id_users` int NOT NULL,
   `post_id` int NOT NULL,
   PRIMARY KEY (`like_id`),
-  KEY `user_id` (`user_id`),
+  KEY `id_users` (`id_users`),
   KEY `post_id` (`post_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
 -- Extraindo dados da tabela `likes`
 --
 
-INSERT INTO `likes` (`like_id`, `user_id`, `post_id`) VALUES
+INSERT INTO `likes` (`like_id`, `id_users`, `post_id`) VALUES
 (12, 12, 44),
 (78, 8, 44),
 (11, 12, 43),
@@ -222,7 +222,7 @@ INSERT INTO `notifications` (`id`, `message`, `date_sent`, `receiver_id`, `is_re
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
+  `id_users` int NOT NULL,
   `post_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `post_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `caption` text COLLATE utf8mb4_general_ci,
@@ -231,14 +231,14 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`),
-  KEY `user_id` (`user_id`)
+  KEY `id_users` (`id_users`)
 ) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `posts`
 --
 
-INSERT INTO `posts` (`post_id`, `user_id`, `post_type`, `post_url`, `caption`, `theme_id`, `Enabled`, `created_at`, `updated_at`) VALUES
+INSERT INTO `posts` (`post_id`, `id_users`, `post_type`, `post_url`, `caption`, `theme_id`, `Enabled`, `created_at`, `updated_at`) VALUES
 (43, 12, 'image', 'image-wired-outline-955-demand.gif-12.gif', 'Fixe Post', 5, 1, '2024-03-22 14:23:16', '2024-04-01 20:00:06'),
 (44, 12, 'image', 'image-makeitmeme_ycJ2r.jpeg-12.jpeg', 'asdas', 5, 1, '2024-03-22 14:25:34', '2024-03-22 14:26:04'),
 (46, 8, 'image', 'image-CM8.png-8.png', 'Fixolas', 6, 1, '2024-04-03 18:32:24', '2024-04-04 14:38:02'),
@@ -370,7 +370,7 @@ INSERT INTO `theme` (`theme_id`, `theme`, `finish_date`, `is_finished`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
+  `id_users` int NOT NULL AUTO_INCREMENT,
   `user_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `user_email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `user_password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
@@ -380,14 +380,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_verified` int DEFAULT NULL,
   `can_post` int DEFAULT '0',
   `user_lang` varchar(4) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pt',
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`id_users`)
 ) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_profilePic`, `user_realName`, `user_biography`, `is_verified`, `can_post`, `user_lang`) VALUES
+INSERT INTO `users` (`id_users`, `user_name`, `user_email`, `user_password`, `user_profilePic`, `user_realName`, `user_biography`, `is_verified`, `can_post`, `user_lang`) VALUES
 (8, 'ADMIN', 'rafa.pinto.vieira@gmail.com', '$2y$10$YHqi2BhvQzXDhgYpwz/qLuzV18yzCylK4rY3.mRZ6wWkKTiGN.tWK', 'ProfilePic-makeitmeme_ZzjUu.jpeg-8.jpeg', 'asdasdasdas', 'HELOOOOO THEREEE', NULL, 0, 'pt'),
 (9, 'SuggarDaddy', 'sugarisoverratedanyways@gmail.com', '$2y$10$OqK1mG6lmN.NU56ilbuOee8614ZVgVCk4RzzD7hgZuAiUTIDQku4q', 'ProfilePic-makeitmeme_vHF2x.jpeg-9.jpeg', 'Matos Diabetes', 'Tenho diabetes não perguntei és gay', NULL, 0, 'pt'),
 (15, 'BatmanAgainstNi', 'FolhadoDesfolhado@gmail.com', '$2y$10$0mBYkOA2qT6wRhHK1NH9OuYkwojQROWikWAo61l2H33jTLy/6.nqC', 'ProfilePic-Melder.png-15.png', 'Odeio Pretos', 'Eu amo morcegos, mas odeio os preto da guiné (aka todos)', NULL, 0, 'pt'),
@@ -405,7 +405,7 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `use
 DROP TABLE IF EXISTS `accountrankings`;
 
 DROP VIEW IF EXISTS `accountrankings`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `accountrankings`  AS SELECT row_number() OVER (ORDER BY ifnull(count(`l`.`post_id`),0) desc ) AS `UserRank`, `u`.`user_name` AS `UserName`, ifnull(count(`l`.`post_id`),0) AS `TotalLikes`, `u`.`user_profilePic` AS `UserImage` FROM ((`users` `u` left join `posts` `p` on((`u`.`user_id` = `p`.`user_id`))) left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) GROUP BY `u`.`user_id`, `u`.`user_name`, `u`.`user_profilePic`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `accountrankings`  AS SELECT row_number() OVER (ORDER BY ifnull(count(`l`.`post_id`),0) desc ) AS `UserRank`, `u`.`user_name` AS `UserName`, ifnull(count(`l`.`post_id`),0) AS `TotalLikes`, `u`.`user_profilePic` AS `UserImage` FROM ((`users` `u` left join `posts` `p` on((`u`.`id_users` = `p`.`id_users`))) left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) GROUP BY `u`.`id_users`, `u`.`user_name`, `u`.`user_profilePic`  ;
 
 -- --------------------------------------------------------
 
@@ -415,7 +415,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `accountrankingstype`;
 
 DROP VIEW IF EXISTS `accountrankingstype`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `accountrankingstype`  AS SELECT row_number() OVER (PARTITION BY `p`.`post_type` ORDER BY ifnull(count(`l`.`post_id`),0) desc ) AS `UserRank`, `u`.`user_name` AS `UserName`, ifnull(count(`l`.`post_id`),0) AS `TotalLikes`, `u`.`user_profilePic` AS `UserImage`, `p`.`post_type` AS `PostType` FROM ((`users` `u` left join `posts` `p` on((`u`.`user_id` = `p`.`user_id`))) left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) WHERE (`p`.`post_type` is not null) GROUP BY `p`.`post_type`, `u`.`user_id`, `u`.`user_name`, `u`.`user_profilePic`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `accountrankingstype`  AS SELECT row_number() OVER (PARTITION BY `p`.`post_type` ORDER BY ifnull(count(`l`.`post_id`),0) desc ) AS `UserRank`, `u`.`user_name` AS `UserName`, ifnull(count(`l`.`post_id`),0) AS `TotalLikes`, `u`.`user_profilePic` AS `UserImage`, `p`.`post_type` AS `PostType` FROM ((`users` `u` left join `posts` `p` on((`u`.`id_users` = `p`.`id_users`))) left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) WHERE (`p`.`post_type` is not null) GROUP BY `p`.`post_type`, `u`.`id_users`, `u`.`user_name`, `u`.`user_profilePic`  ;
 
 -- --------------------------------------------------------
 
@@ -425,7 +425,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `rankingposts`;
 
 DROP VIEW IF EXISTS `rankingposts`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingposts`  AS SELECT `p`.`post_id` AS `PostId`, row_number() OVER (PARTITION BY `t`.`theme_id` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingposts`  AS SELECT `p`.`post_id` AS `PostId`, row_number() OVER (PARTITION BY `t`.`theme_id` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`id_users` = `u`.`id_users`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
 
 -- --------------------------------------------------------
 
@@ -435,7 +435,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `rankingpostsall`;
 
 DROP VIEW IF EXISTS `rankingpostsall`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpostsall`  AS SELECT row_number() OVER (ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `PostRank` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpostsall`  AS SELECT row_number() OVER (ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`id_users` = `u`.`id_users`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `PostRank` ASC  ;
 
 -- --------------------------------------------------------
 
@@ -445,7 +445,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `rankingpostsotype`;
 
 DROP VIEW IF EXISTS `rankingpostsotype`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpostsotype`  AS SELECT row_number() OVER (PARTITION BY `p`.`post_type` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpostsotype`  AS SELECT row_number() OVER (PARTITION BY `p`.`post_type` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`id_users` = `u`.`id_users`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
 
 -- --------------------------------------------------------
 
@@ -455,7 +455,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `rankingpoststype`;
 
 DROP VIEW IF EXISTS `rankingpoststype`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpoststype`  AS SELECT row_number() OVER (PARTITION BY `t`.`theme_id`,`p`.`post_type` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`user_id` = `u`.`user_id`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rankingpoststype`  AS SELECT row_number() OVER (PARTITION BY `t`.`theme_id`,`p`.`post_type` ORDER BY count(`l`.`post_id`) desc ) AS `PostRank`, `p`.`post_url` AS `PostImage`, `p`.`caption` AS `NameOfThePost`, `p`.`post_type` AS `TYPE`, count(`l`.`post_id`) AS `Likes`, `u`.`user_name` AS `PersonWhoPostedIt`, `t`.`theme_id` AS `theme_id`, `t`.`is_finished` AS `IsFinished` FROM (((`posts` `p` left join `likes` `l` on((`p`.`post_id` = `l`.`post_id`))) left join `users` `u` on((`p`.`id_users` = `u`.`id_users`))) left join `theme` `t` on((`p`.`theme_id` = `t`.`theme_id`))) GROUP BY `p`.`post_id`, `p`.`post_url`, `p`.`caption`, `p`.`post_type`, `u`.`user_name`, `t`.`theme_id`, `t`.`is_finished` ORDER BY `t`.`theme_id` ASC, `PostRank` ASC  ;
 
 DELIMITER $$
 --
