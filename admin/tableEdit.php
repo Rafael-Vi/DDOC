@@ -100,85 +100,85 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <form class="card-body max-h-[80vh]" action="" method="post">
             <div class="overflow-auto">
                 <?php
-                foreach ($columns as $column) {
-                    $type = $column_types[$column];
-                    $comment = $column_comments[$column];
-                    $value = $column == $primary_key ? $id : $data[0][$column];
-                    $disabled = $column == $primary_key ? ' disabled' : '';
-
-                    if (isset($foreign_keys[$column])) {
-                        $ref_table = $foreign_keys[$column]['table'];
-                        $ref_column = $foreign_keys[$column]['column'];
-                        
-                        $columns_result = executeQuery($db_conn, "SHOW COLUMNS FROM $ref_table");
-                        while ($row = $columns_result->fetch_assoc()) {
-                            if ($row['Field'] == $ref_column) {
-                                break;
-                            }
-                        }
-                        $next_column = $columns_result->fetch_assoc()['Field'];
-                        $ref_result = executeQuery($db_conn, "SELECT $ref_column, $next_column FROM $ref_table");
-                        echo '<div class="form-control w-full max-w-xs">
-                                <label for="' . $column . '" class="label">' . $comment . '</label>
-                                <select id="' . $column . '" name="' . $column . '" class="select select-bordered">
-                                    <option value="NULL">Selecione uma opção</option>';
-                        while ($row = $ref_result->fetch_assoc()) {
-                            $selected = $row[$ref_column] == $data[0][$column] ? ' selected' : '';
-                            echo '<option value="' . $row[$ref_column] . '"' . $selected . '>' . $row[$ref_column] . '-' . $row[$next_column] . '</option>';
-                        }
-                        echo '</select></div>';
-                    } else {
-                        switch ($type) {
-                        case 'VARCHAR':
-                        case 'INT':
-                        case 'DOUBLE':
-                            echo '
-                                <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $comment . '</label>
-                                    <input type="text" id="' . $column . '" name="' . $column . '" class="input input-bordered" value="' . $value . '" placeholder="Insira o valor para o campo"' . $disabled . '>
-                                </div>
-                            ';
-                            break;
-                        case 'TEXT':
-                            echo '
-                                <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $comment . '</label>
-                                    <textarea id="' . $column . '" name="' . $column . '" class="input input-bordered"' . $disabled . '>' . $value . '</textarea>
-                                </div>
-                            ';
-                            break;
-                        case 'TINYINT(1)':
-                            $checked = $value ? ' checked' : '';
-                            echo '
-                                <div class="form-control w-full max-w-xs pt-6">
-                                    <label for="' . $column . '" class="label cursor-pointer">
-                                        <span>' . $comment . '</span>
-                                        <input type="checkbox" id="' . $column . '" name="' . $column . '" class="checkbox"' . $checked . $disabled . '>
-                                    </label>
-                                </div>
-                            ';
-                            break;
-                        case 'DATETIME':
-                            list($date, $time) = explode(' ', $value);
-                            echo '
-                                <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '_date" class="label">' . $comment . '</label>
-                                    <input type="date" id="' . $column . '_date" name="' . $column . '_date" class="input input-bordered" value="' . $date . '"' . $disabled . '>
-                                    <input type="time" id="' . $column . '_time" name="' . $column . '_time" class="input input-bordered" value="' . $time . '"' . $disabled . '>
-                                </div>
-                            ';
-                            break;
-                        case 'VARCHAR(7)':
-                            echo '
-                                <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $comment . '</label>
-                                    <input type="color" id="' . $column . '" name="' . $column . '" class="" value="' . $value . '"' . $disabled . '>
-                                </div>
-                            ';
+               foreach ($columns as $column) {
+                $type = $column_types[$column];
+                $comment = $column_comments[$column]; // Use a different variable for the comment
+                $value = $column == $primary_key ? $id : $data[0][$column];
+                $disabled = $column == $primary_key ? ' disabled' : '';
+            
+                if (isset($foreign_keys[$column])) {
+                    $ref_table = $foreign_keys[$column]['table'];
+                    $ref_column = $foreign_keys[$column]['column'];
+                    
+                    $columns_result = executeQuery($db_conn, "SHOW COLUMNS FROM $ref_table");
+                    while ($row = $columns_result->fetch_assoc()) {
+                        if ($row['Field'] == $ref_column) {
                             break;
                         }
                     }
+                    $next_column = $columns_result->fetch_assoc()['Field'];
+                    $ref_result = executeQuery($db_conn, "SELECT $ref_column, $next_column FROM $ref_table");
+                    echo '<div class="form-control w-full max-w-xs">
+                            <label for="' . $column . '" class="label">' . $comment . '</label>
+                            <select id="' . $column . '" name="' . $column . '" class="select select-bordered">
+                                <option value="NULL">Selecione uma opção</option>';
+                    while ($row = $ref_result->fetch_assoc()) {
+                        $selected = $row[$ref_column] == $data[0][$column] ? ' selected' : '';
+                        echo '<option value="' . $row[$ref_column] . '"' . $selected . '>' . $row[$ref_column] . '-' . $row[$next_column] . '</option>';
+                    }
+                    echo '</select></div>';
+                } else {
+                    switch ($type) {
+                    case 'VARCHAR':
+                    case 'INT':
+                    case 'DOUBLE':
+                        echo '
+                            <div class="form-control w-full max-w-xs">
+                                <label for="' . $column . '" class="label">' . $comment . '</label>
+                                <input type="text" id="' . $column . '" name="' . $column . '" class="input input-bordered" value="' . $value . '" placeholder="Insira o valor para o campo"' . $disabled . '>
+                            </div>
+                        ';
+                        break;
+                    case 'TEXT':
+                        echo '
+                            <div class="form-control w-full max-w-xs">
+                                <label for="' . $column . '" class="label">' . $comment . '</label>
+                                <textarea id="' . $column . '" name="' . $column . '" class="input input-bordered"' . $disabled . '>' . $value . '</textarea>
+                            </div>
+                        ';
+                        break;
+                    case 'TINYINT(1)':
+                        $checked = $value ? ' checked' : '';
+                        echo '
+                            <div class="form-control w-full max-w-xs pt-6">
+                                <label for="' . $column . '" class="label cursor-pointer">
+                                    <span>' . $comment . '</span>
+                                    <input type="checkbox" id="' . $column . '" name="' . $column . '" class="checkbox"' . $checked . $disabled . '>
+                                </label>
+                            </div>
+                        ';
+                        break;
+                    case 'DATETIME':
+                        list($date, $time) = explode(' ', $value);
+                        echo '
+                            <div class="form-control w-full max-w-xs">
+                                <label for="' . $column . '_date" class="label">' . $comment . '</label>
+                                <input type="date" id="' . $column . '_date" name="' . $column . '_date" class="input input-bordered" value="' . $date . '"' . $disabled . '>
+                                <input type="time" id="' . $column . '_time" name="' . $column . '_time" class="input input-bordered" value="' . $time . '"' . $disabled . '>
+                            </div>
+                        ';
+                        break;
+                    case 'VARCHAR(7)':
+                        echo '
+                            <div class="form-control w-full max-w-xs">
+                                <label for="' . $column . '" class="label">' . $comment . '</label>
+                                <input type="color" id="' . $column . '" name="' . $column . '" class="" value="' . $value . '"' . $disabled . '>
+                            </div>
+                        ';
+                        break;
+                    }
                 }
+            }
                 ?>
             </div>
             <div class="divider"></div>
