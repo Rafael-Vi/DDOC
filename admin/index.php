@@ -25,7 +25,7 @@
                     <h2 class="card-title">Tabela ' . $table . '</h2>
                     <p>--------------------------------------------------</p>
                     <div class="card-actions justify-end">
-                        <a href="tableView.php?table=' . $table . '" class="btn">
+                        <a href="tableView.php?table=' . $table . '" class="btn hover:bg-purple-800">
                             <i class="fi fi-br-blog-pencil"></i>
                             Edit
                         </a>
