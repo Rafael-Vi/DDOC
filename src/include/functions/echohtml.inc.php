@@ -81,9 +81,6 @@
                                 <i class="mr-2 fi fi-sr-megaphone"></i> Notificações
                             </a>
                             <div id="notif-number-cleaner" class="*:rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
-                                <span id="notif-number" class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
-                                    99+
-                                </span>
                             </div>
                         </li>
                         <li class="px-5 py-2">
