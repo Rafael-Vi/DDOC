@@ -1,11 +1,11 @@
-<div class="navbar bg-base-300">
+<div class="navbar bg-gray-200">
     <div class="navbar-start">
         <a href="index.php" class="btn btn-ghost btn-circle">
             <i class="fi fi-br-house-chimney"></i>
         </a>
     </div>
     <div class="navbar-center">
-     <img class="max-w-xs h-auto" src="./assets/logo_black_crop.png" alt="logo"></img>
+     <img class="w-24 h-auto" src="./assets/logo.png" alt="logo"></img>
     </div>
     <div class="navbar-end">
         <div class="dropdown dropdown-end">
