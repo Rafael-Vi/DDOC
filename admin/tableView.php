@@ -19,15 +19,13 @@ if (isset($_GET['table']) && !empty($_GET['table'])) {
 
 
 // get table columns
-$result = executeQuery($db_conn, "SELECT COLUMN_NAME, COLUMN_TYPE, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$table' AND TABLE_SCHEMA = '" . $arrConfig['connect_DB'][3] . "'");
+$result = executeQuery($db_conn, "SELECT COLUMN_NAME, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$table' AND TABLE_SCHEMA = '" . $arrConfig['connect_DB'][3] . "'");
 
 $columns = [];
 $column_types = [];
-$column_comments = [];
 while ($row = $result->fetch_assoc()) {
     $columns[] = $row['COLUMN_NAME'];
     $column_types[$row['COLUMN_NAME']] = strtoupper($row['COLUMN_TYPE']);
-    $column_comments[$row['COLUMN_NAME']] = $row['COLUMN_COMMENT'];
 
     if (str_contains($column_types[$row['COLUMN_NAME']], 'VARCHAR') && $column_types[$row['COLUMN_NAME']] !== 'VARCHAR(7)') {
         $column_types[$row['COLUMN_NAME']] = 'VARCHAR';
@@ -54,7 +52,7 @@ mysqli_close($db_conn);
                         <tr>
                             <?php
                             foreach ($columns as $column) {
-                                echo '<th>' . $column_comments[$column] . '</th>';
+                                echo '<th>' . $column . '</th>';
                             }
                             ?>
                             <th></th>
