@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php
                foreach ($columns as $column) {
                 $type = $column_types[$column];
-                $comment = $column_comments[$column]; // Use a different variable for the comment
+                $comment = $column_comments[$column]; // Use a different variable for the comment yes
                 $value = $column == $primary_key ? $id : $data[0][$column];
                 $disabled = $column == $primary_key ? ' disabled' : '';
             
