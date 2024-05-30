@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <div class="w-screen h-[90vh] p-2 flex items-center justify-center">
     <div class="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure><img src="./assets/logo_big.png" class="w-full" alt="GENTL LOGO"/></figure>
+        <figure><img src="./assets/logo.png" class="w-full" alt="GENTL LOGO"/></figure>
         <div class="card-body">
             <h2 class="card-title">Login</h2>
             <form action="" method="post">
