@@ -365,8 +365,8 @@
         $date = $row['date_sent'];
         $message = $row['message'];
         $notificationId = $row['id'];
-        echo '<a href="#" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4 notification-message group">';
-        echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
+        echo '<a href="#" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 notification-message group">';
+        echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<div class=" h-1 mr-4"></div>'; // Circle for the profile picture
         echo '<div>';
