@@ -6,13 +6,13 @@
     $db_conn = db_connect();
 
     // Get all table names in the database
-    $result = executeQuery($db_conn, "SHOW TABLES FROM " . $arrConfig['connect_DB'][3]);
+    $result = executeQuery($db_conn, "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_TYPE = 'BASE TABLE'", [$arrConfig['connect_DB'][3]]);
 
     while ($row = $result->fetch_row()) {
         $table = $row[0];
 
         // Get comment for the current table
-        $commentResult = executeQuery($db_conn, "SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" . $arrConfig['connect_DB'][3] . "' AND TABLE_NAME = '$table'");
+        $commentResult = executeQuery($db_conn, "SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$arrConfig['connect_DB'][3], $table]);
 
         $table_comment = '';
         if ($commentRow = $commentResult->fetch_assoc()) {
@@ -22,7 +22,7 @@
         echo '
             <div class="card w-96 bg-primary-content">
                 <div class="card-body">
-                    <h2 class="card-title">Tabela ' . $table_comment . '</h2>
+                    <h2 class="card-title">Tabela ' . $table . '</h2>
                     <p>--------------------------------------------------</p>
                     <div class="card-actions justify-end">
                         <a href="tableView.php?table=' . $table . '" class="btn">
