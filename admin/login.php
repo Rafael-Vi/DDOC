@@ -63,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
                 <div class="divider"></div>
-                <div class="card-actions justify-end">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                <div class="card-actions justify-center">
+                    <button type="submit" class="btn btn-primary w-full">Login</button>
                 </div>
             </form>
         </div>
