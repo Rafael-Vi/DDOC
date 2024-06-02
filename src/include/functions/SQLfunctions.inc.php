@@ -542,7 +542,7 @@
             }
         
             // Prepare the SQL query to insert into the table using prepared statements
-            $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, theme_id) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, id_theme) VALUES (?, ?, ?, ?, ?)";
             
             // Execute the query
             // Execute the query
@@ -583,10 +583,10 @@
         
             // Prepare the SQL query with the post_id condition using prepared statements
   
-            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.id_users, p.theme_id, t.theme, r.PostRank, p.Enabled, u.id_users AS creator_id, u.user_name, u.user_profilePic
+            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.id_users, p.id_theme, t.theme, r.PostRank, p.Enabled, u.id_users AS creator_id, u.user_name, u.user_profilePic
             FROM posts p 
-            LEFT JOIN theme t ON p.theme_id = t.theme_id 
-            LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.theme_id = r.theme_id
+            LEFT JOIN theme t ON p.id_theme = t.id_theme 
+            LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.id_theme = r.id_theme
             LEFT JOIN users u ON p.id_users = u.id_users
             WHERE p.post_id = ?";
   
@@ -602,7 +602,7 @@
         
             // Bind result variables
      
-            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $id_users, $theme_id, $theme_name, $rank, $enabled, $creator_id, $creator_name, $creator_avatar);
+            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $id_users, $id_theme, $theme_name, $rank, $enabled, $creator_id, $creator_name, $creator_avatar);
 
             // Fetch the result
             if (mysqli_stmt_fetch($stmt)) {
@@ -615,7 +615,7 @@
                     'created_at' => $created_at,
                     'updated_at' => $updated_at,
                     'id_users' => $id_users,
-                    'theme_id' => $theme_id,
+                    'id_theme' => $id_theme,
                     'theme_name' => $theme_name,
                     'rank' => $rank,
                     'enabled' => $enabled,
@@ -988,7 +988,7 @@
     //?RANKING RELATED -------------------------------------------------------------------
     
   
-    function getRankingPost($theme_id, $type){
+    function getRankingPost($id_theme, $type){
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
@@ -996,12 +996,12 @@
         }
     
         // Define the SQL query and parameters
-        if ($theme_id !== null && $type !== null && $theme_id !== 'none' && $type !== 'none') {
-            $sql = "SELECT * FROM rankingpoststype WHERE theme_id = ? AND PostType = ?";
-            $params = array($theme_id, $type);
-        } elseif ($theme_id !== null && $theme_id !== 'none') {
-            $sql = "SELECT * FROM rankingposts WHERE theme_id = ?";
-            $params = array($theme_id);
+        if ($id_theme !== null && $type !== null && $id_theme !== 'none' && $type !== 'none') {
+            $sql = "SELECT * FROM rankingpoststype WHERE id_theme = ? AND PostType = ?";
+            $params = array($id_theme, $type);
+        } elseif ($id_theme !== null && $id_theme !== 'none') {
+            $sql = "SELECT * FROM rankingposts WHERE id_theme = ?";
+            $params = array($id_theme);
         } elseif ($type !== null && $type !== 'none') {
             $sql = "SELECT * FROM rankingpostsotype WHERE PostType = ?";
             $params = array($type);
@@ -1080,10 +1080,10 @@
             }
         } else if ($table == 'PostRank') {
             if ($type == null  || $type == 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND id_theme = ? LIMIT 1";
                 $params = [$rank, $themeId];
             } elseif($type == 'image' && $themeId != null && $themeId != 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpoststype WHERE PostRank = ? AND theme_id = ? AND PostType = ? LIMIT 1";
+                $sql = "SELECT NameOfThePost FROM rankingpoststype WHERE PostRank = ? AND id_theme = ? AND PostType = ? LIMIT 1";
                 $params = [$rank, $themeId, $type];
             } elseif($type == 'image' && ($themeId == null || $themeId == 'none')) {
                 $sql = "SELECT NameOfThePost FROM postrankingstype WHERE PostRank = ? AND PostType = ? LIMIT 1";
@@ -1556,13 +1556,13 @@
         }
     
         // Bind result variables
-        mysqli_stmt_bind_result($stmt, $theme_id, $theme, $finish_date, $is_finished);
+        mysqli_stmt_bind_result($stmt, $id_theme, $theme, $finish_date, $is_finished);
     
         // Fetch the theme data
         $themes = array();
         while(mysqli_stmt_fetch($stmt)) {
             $themes[] = array(
-                'theme_id' => $theme_id,
+                'id_theme' => $id_theme,
                 'theme' => $theme,
                 'finish_date' => $finish_date,
                 'is_finished' => $is_finished
@@ -1574,13 +1574,13 @@
     
         if (!$all) {
             $_SESSION['themes'] = $themes;
-            $_SESSION['theme_id'] = $themes;
+            $_SESSION['id_theme'] = $themes;
         }
         else{
-        echo '<option value="none"' . (empty($GLOBALS['theme_id']) ? ' selected' : '') . '>None</option>';
+        echo '<option value="none"' . (empty($GLOBALS['id_theme']) ? ' selected' : '') . '>None</option>';
         foreach ($themes as $theme) {
-            $selected = ($theme['theme_id'] == $GLOBALS['theme_id']) ? 'selected' : '';
-            echo '<option value="' . $theme['theme_id'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
+            $selected = ($theme['id_theme'] == $GLOBALS['id_theme']) ? 'selected' : '';
+            echo '<option value="' . $theme['id_theme'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
         }
         }
 
@@ -1632,13 +1632,13 @@
         if (isset($_SESSION['uid']) && isset($_SESSION['themes'])) {
 
             $userId = $_SESSION['uid'];
-            $themeId = $_SESSION['themes'][0]['theme_id'];
+            $themeId = $_SESSION['themes'][0]['id_theme'];
 
     
             // Connect to your database
             $dbConn = db_connect();
     
-            $query = "SELECT p.post_id FROM posts p JOIN follow f ON p.id_users = f.followee_id WHERE f.follower_id = ? AND p.theme_id = ? ORDER BY p.created_at DESC LIMIT 10";
+            $query = "SELECT p.post_id FROM posts p JOIN follow f ON p.id_users = f.followee_id WHERE f.follower_id = ? AND p.id_theme = ? ORDER BY p.created_at DESC LIMIT 10";
             $params = array($userId, $themeId);
     
             // Execute the statement
@@ -1648,7 +1648,7 @@
             $followedPosts = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
             // Prepare the SQL statement to get other posts randomly
-            $query = "SELECT post_id FROM posts WHERE theme_id = ? AND id_users NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) AND id_users != ? ORDER BY created_at DESC LIMIT 5";
+            $query = "SELECT post_id FROM posts WHERE id_theme = ? AND id_users NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) AND id_users != ? ORDER BY created_at DESC LIMIT 5";
             $params = array($themeId, $userId, $userId);
     
             // Execute the statement

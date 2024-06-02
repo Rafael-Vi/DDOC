@@ -16,7 +16,7 @@ function checkThemeVar() {
         }
 
         // Prepare a query to check if the theme exists in the database
-        $sql = "SELECT * FROM theme WHERE theme_id = ?";
+        $sql = "SELECT * FROM theme WHERE id_theme = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
         mysqli_stmt_bind_param($stmt, "i", $themeId);
 

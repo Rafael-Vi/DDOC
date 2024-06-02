@@ -3,7 +3,7 @@
     function echoShowTheme(){
         foreach ($_SESSION['themes'] as $theme) {
             echo '<p>';
-            echo 'Theme ID: ' . htmlspecialchars($theme['theme_id']) . '<br>';
+            echo 'Theme ID: ' . htmlspecialchars($theme['id_theme']) . '<br>';
             echo 'Theme: ' . htmlspecialchars($theme['theme']) . '<br>';
             echo 'Finish Date: ' . htmlspecialchars($theme['finish_date']) . '<br>';
             echo 'Is Finished: ' . ($theme['is_finished'] ? 'Yes' : 'No');
@@ -116,7 +116,7 @@
                                 Segundos
                             </div>
                             </div>
-                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['theme_id']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['id_theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
                             <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Tema: '."{$_SESSION['themes'][0]['theme']}".'</div>
                             </a>
                         </li>
