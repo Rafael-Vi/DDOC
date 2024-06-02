@@ -139,40 +139,6 @@
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
 
-    function sendVerificationEmail($to, $subject, $message, $link) {
-        $mail = new PHPMailer(true);
-    
-        try {
-            //Server settings
-            $mail->isSMTP();                                      
-            $mail->Host = 'smtp.eu.mailgun.org';  
-            $mail->SMTPAuth = true;                               
-            $mail->Username = 'brad@gentl.store';                 
-            $mail->Password = getenv('MAIL_PASSWORD');                           
-            $mail->SMTPSecure = 'tls';                            
-            $mail->Port = 587;                                    
-    
-            //Recipients
-            $mail->setFrom('rafa.pinto.vieira@gmail.com', 'DDOC');
-            $mail->addAddress($to);     
-    
-            //Content
-            $mail->isHTML(true);                                  
-            $mail->Subject = $subject;
-            $body = "<html><body>";
-            $body.= "<p>Hello,</p>";
-            $body.= "<p>Please click the link below to verify your email:</p>";
-            $body.= "<a href=\"$link\">Verify Email</a></p>";
-            $body.= "</body></html>";
-            $mail->Body    = $body;
-    
-            $mail->send();
-            return true;
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
 
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
@@ -258,45 +224,41 @@
             $params = array();
             
             $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
-            $profilePicName .= "." . $fileExtension;
+            $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
+            move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
+            $updateFields[] = " user_profilePic = ?";
+            $params[] = $profilePicName;
             
             if (!empty($username)) {
-                $updateFields[] = " user_name = ?";
-                $params[] = $username;
+            $updateFields[] = " user_name = ?";
+            $params[] = $username;
             }
             
             if (!empty($realName)) {
-                $updateFields[] = " user_realName = ?";
-                $params[] = $realName;
-            }
-            
-            if (!empty($profilePic) && !empty($profilePic['name'])) {
-                $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
-                move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
-                $updateFields[] = " user_profilePic = ?";
-                $params[] = $profilePicName;
+            $updateFields[] = " user_realName = ?";
+            $params[] = $realName;
             }
             
             if (!empty($biography)) {
-                $updateFields[] = " user_biography = ?";
-                $params[] = $biography;
+            $updateFields[] = " user_biography = ?";
+            $params[] = $biography;
             }
 
             if (!empty($updateFields)) {
-                $updateSql .= implode(",", $updateFields);
-                $updateSql .= " WHERE id_users = ?";
-                $params[] = $uid;
+            $updateSql .= implode(",", $updateFields);
+            $updateSql .= " WHERE id_users = ?";
+            $params[] = $uid;
             
-                $updateResult = executeQuery($dbConn, $updateSql, $params);
+            $updateResult = executeQuery($dbConn, $updateSql, $params);
             
-                if ($updateResult) {
+            if ($updateResult) {
 
-                    echoSuccess("User updated successfully.");   
-                } else {
+                echoSuccess("User updated successfully.");   
+            } else {
 
-                    $error = mysqli_error($dbConn);
-                    mySQLerror($error);
-                }
+                $error = mysqli_error($dbConn);
+                mySQLerror($error);
+            }
             }
             mysqli_close($dbConn);
         }
@@ -762,7 +724,7 @@
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'YourRank':
-                $rankData = getPodium($receiverId);
+                $rankData = getPodium($receiverId, "post");
                 if ($rankData !== null) {
                     $message = $rankData['username'] . ', your current rank is ' . $rankData['rank'];
                 }
