@@ -24,7 +24,11 @@
         echo '</div>';
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32  h-32 text-white md:w-56 md:h-56 ml-10 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 border-2 border-gray-600">';
+        echo '<div class="avatar">';
+        echo '<div class="w-24 mask mask-squircle">';
+        echo '<img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />';
+        echo '</div>';
+        echo '</div>';
     }
 
     function echoUserPosts($post) {
