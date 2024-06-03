@@ -123,7 +123,7 @@ $GLOBALS['type'] = $type;
           <div>
               <label for="typeSelect" class="mb-2 text-white">Tipo:</label>
               <select class="select select-bordered w-full max-w-xs mb-8 text-white" id="typeSelect">
-                  <option disabled>Type - - -</option>
+                  <option disabled class="text-white">Type - - -</option>
                   <?php setSelectedType($GLOBALS['type'] ?? ''); ?>
               </select>
           </div>
