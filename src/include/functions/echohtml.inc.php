@@ -456,10 +456,16 @@
             <td class="text-white">'.$likes.'</td>
             <td class="flex flex-row items-center justify-end pr-32 text-white">
                 @'.$poster;
+            
                 if($url_image != null){
                     echo'
-                    <img class="rounded-full w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">';
+                    <div class="avatar">
+                        <div class="w-24 mask mask-squircle">
+                            <img class="rounded-full w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                        </div>
+                    </div>';
                 }
+               
         echo'
             </td>
         </tr>
