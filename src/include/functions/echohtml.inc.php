@@ -454,7 +454,7 @@
         <tr class="hover:bg-gray-700 transition-colors duration-200">
             <td class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
-            <td class="flex flex-row items-center justify-end pr-32 text-white">
+            <td class="flex flex-row items-center justify-end text-white">
                 @'.$poster;
             
                 if($url_image != null){
