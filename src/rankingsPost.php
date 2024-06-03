@@ -129,23 +129,25 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
 
-        <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800 ">
-          <div class="flex w-full text-center justify-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900 items-center">
-            <div class="ubuntu-bold w-1/6">Rank</div>
-            <div class="ubuntu-bold w-1/6">Conteúdo do Post</div> <!-- Image of the post -->
-            <div class="ubuntu-bold w-1/6">Nome do Post</div> <!-- Name of the post -->
-            <div class="ubuntu-bold w-1/6">Tipe</div> <!-- Type -->
-            <div class="ubuntu-bold w-1/6">Likes</div> <!-- Likes -->
-            <div class="ubuntu-bold w-1/6">Dono do Post</div> <!-- Person who posted it -->
-          </div>
-          <div class="h-full overflow-y-auto w-full">
-
-          <?php 
-            getRankingPost($GLOBALS['id_theme'], $GLOBALS['type']);
-          ?>
-          </div>
-          <!-- End of post div -->
-      </div>
+      <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800 ">
+        <table class="table-fixed table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
+            <thead>
+                <tr>
+                    <th class="ubuntu-bold w-1/6">Rank</th>
+                    <th class="ubuntu-bold w-1/6">Conteúdo do Post</th> <!-- Image of the post -->
+                    <th class="ubuntu-bold w-1/6">Nome do Post</th> <!-- Name of the post -->
+                    <th class="ubuntu-bold w-1/6">Tipe</th> <!-- Type -->
+                    <th class="ubuntu-bold w-1/6">Likes</th> <!-- Likes -->
+                    <th class="ubuntu-bold w-1/6">Dono do Post</th> <!-- Person who posted it -->
+                </tr>
+            </thead>
+            <tbody class="h-full overflow-y-auto w-full">
+                <?php 
+                    getRankingPost($GLOBALS['id_theme'], $GLOBALS['type']);
+                ?>
+            </tbody>
+        </table>
+    </div>
 
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
