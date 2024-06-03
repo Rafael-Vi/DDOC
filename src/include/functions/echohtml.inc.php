@@ -23,9 +23,9 @@
         echo '</div>';
         echo '</div>';
         echo '</div>';
-        echo '<div class="relative mt-8 mb-8">';
+        echo '<div class="relative flex mt-8 mb-8">';
         echo '<div class="avatar">';
-        echo '<div class="w-32 mask mask-squircle">';
+        echo '<div class="w-42 mask mask-squircle mx-auto">';
         echo '<img src="'.$profilePic.'" />';
         echo '</div>';
         echo '</div>';
