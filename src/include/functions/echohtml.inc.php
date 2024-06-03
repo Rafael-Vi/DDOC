@@ -421,32 +421,36 @@
         }
     }
 
+
+
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster){
         global $arrConfig;  
         echo'
-        <div class="flex items-center w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-        <div class="text-white w-1/6">'.$rank.'</div> <!-- Rank of the post -->
-        <div class="flex items-center justify-center w-1/6">';
-        if ($type == 'video') {
-            echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
-            echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
-            echo '<source src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" type="video/mp4">';
-            echo 'Your browser does not support the video tag.';
-            echo '</video>';
-            echo '</div>';
-        } else if ($type == 'audio') {
-            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32  h-32 text-white">'; // Display audio.jpeg for audio type
-        } else {
-            echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32  h-32 text-white">'; // Changed from w-16 h-16 to w-32  h-32 text-white
-        }
-        echo '</div> <!-- Image of the post -->
-        <div class="text-white w-1/6">'.$name.'</div> <!-- Name of the post -->
-        <div class="text-white w-1/6">'.$type.'</div> <!-- Type -->
-        <div class="text-white w-1/6">'.$likes.'</div> <!-- Likes -->
-        <div class="text-white w-1/6">@'.$poster.'</div> <!-- Person who posted it -->
-        </div>
+        <tr class="text-white">
+            <td class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
+            <td class="w-1/6">';
+            if ($type == 'video') {
+                echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
+                echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+                echo '<source src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" type="video/mp4">';
+                echo 'Your browser does not support the video tag.';
+                echo '</video>';
+                echo '</div>';
+            } else if ($type == 'audio') {
+                echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32  h-32 text-white">'; // Display audio.jpeg for audio type
+            } else {
+                echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32  h-32 text-white">'; // Changed from w-16 h-16 to w-32  h-32 text-white
+            }
+            echo '</td> <!-- Image of the post -->
+            <td class="w-1/6">'.$name.'</td> <!-- Name of the post -->
+            <td class="w-1/6">'.$type.'</td> <!-- Type -->
+            <td class="w-1/6">'.$likes.'</td> <!-- Likes -->
+            <td class="w-1/6">@'.$poster.'</td> <!-- Person who posted it -->
+        </tr>
         ';
     }
+    
+    
 
     function echoRankAcc($rank, $likes, $poster, $url_image){
         global $arrConfig;  
