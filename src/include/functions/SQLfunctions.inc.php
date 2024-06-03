@@ -467,7 +467,7 @@
 
             foreach ($types as $type) {
                 $selected = ($type == $selectedType) ? 'selected' : '';
-                echo '<option class="text-white" value='.$type.' '.$selected.'>' . ucfirst($type) . '</option>';
+                echo '<option class="text-white" value="'.$type.'" '.$selected.'>' . ucfirst($type) . '</option>';
             }
         }
 
