@@ -25,8 +25,8 @@
         echo '</div>';
         echo '<div class="relative mt-8 mb-8">';
         echo '<div class="avatar">';
-        echo '<div class="w-24 mask mask-squircle">';
-        echo '<img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />';
+        echo '<div class="w-32 mask mask-squircle">';
+        echo '<img src="'.$profilePic.'" />';
         echo '</div>';
         echo '</div>';
     }
