@@ -451,19 +451,18 @@
     function echoRankAcc($rank, $likes, $poster, $url_image){
         global $arrConfig;  
         echo '
-        <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-        <div class="text-white w-1/3 text-center">#'.$rank.'</div> <!-- Rank of the post -->
-        <div class="text-white w-1/3 text-center">'.$likes.'</div> <!-- Likes -->
-            <div class="flex flex-row items-center justify-end pr-32 w-1/3">
-                <div class="text-white mr-4">@'.$poster.'</div>
-                ';
+        <tr class="hover:bg-gray-700 transition-colors duration-200">
+            <td class="text-white">#'.$rank.'</td>
+            <td class="text-white">'.$likes.'</td>
+            <td class="flex flex-row items-center justify-end pr-32 text-white">
+                @'.$poster;
                 if($url_image != null){
                     echo'
-                    <img class="rounded-full w-8 h-8" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">';
+                    <img class="rounded-full w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">';
                 }
         echo'
-            </div>
-        </div>
+            </td>
+        </tr>
         ';
     }
 
