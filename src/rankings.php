@@ -100,7 +100,7 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
       <div class="overflow-x-auto">
-            <table class="table w-full text-center bg-gray-800">
+            <table class="table-s w-full text-center bg-gray-800">
                 <thead>
                     <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
                         <th class="ubuntu-bold w-2/6">
@@ -112,7 +112,7 @@ $GLOBALS['type'] = $type;
                         <th class="ubuntu-bold w-2/6">Account</th>
                     </tr>
                 </thead>
-                <tbody id="tableRanking" class=" h-24">
+                <tbody id="tableRanking" class="">
                     <?php 
                         RankingAcc();
                     ?>
