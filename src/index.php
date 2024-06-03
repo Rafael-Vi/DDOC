@@ -24,7 +24,7 @@
     <!-- First div -->
     <div class="flex flex-col w-full sm:w-1/2 p-8 items-center justify-center lg:ml-auto">
         <div class="lg:text-8xl text-white ubuntu-bold hidden xl:block"> 
-            WELCOME TO
+           Bem vindo ao
         </div>
         <div class="flex items-center justify-center lg:justify-right flex-row float-right">
             <p class="text-8xl text-white ubuntu-bold">D</p>
