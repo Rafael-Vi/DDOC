@@ -29,6 +29,7 @@
         echo '<img src="'.$profilePic.'" />';
         echo '</div>';
         echo '</div>';
+        echo '</div>';
     }
 
     function echoUserPosts($post) {
