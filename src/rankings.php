@@ -100,25 +100,25 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
       <div class="overflow-x-auto">
-            <table class="table-s w-full text-center bg-gray-800">
-                <thead>
-                    <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
-                        <th class="ubuntu-bold w-2/6">
-                            <button id="invertButton" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded mr-1">
-                                <i class="fi-sr-apps-sort fi"></i>Rank
-                            </button>
-                        </th>
-                        <th class="ubuntu-bold w-2/6">Likes</th>
-                        <th class="ubuntu-bold w-2/6">Account</th>
-                    </tr>
-                </thead>
-                <tbody id="tableRanking" class="">
-                    <?php 
-                        RankingAcc();
-                    ?>
-                </tbody>
-            </table>
-        </div>
+        <table class="table w-full text-center bg-gray-800">
+            <thead>
+                <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
+                    <th class="ubuntu-bold w-2/6">
+                        <button id="invertButton" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded mr-1">
+                            <i class="fi-sr-apps-sort fi"></i>Rank
+                        </button>
+                    </th>
+                    <th class="ubuntu-bold w-2/6">Likes</th>
+                    <th class="ubuntu-bold w-2/6">Account</th>
+                </tr>
+            </thead>
+            <tbody id="tableRanking" class="h-32 overflow-y-scroll">
+                <?php 
+                    RankingAcc();
+                ?>
+            </tbody>
+        </table>
+    </div>
     </div>
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
