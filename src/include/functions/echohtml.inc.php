@@ -454,18 +454,17 @@
         <tr class="hover:bg-gray-700 transition-colors duration-200">
             <td class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
-            <td class="flex flex-row items-center justify-end text-white">
+            <td class="flex flex-row items-center justify-end pr-32 text-white">
                 @'.$poster;
             
                 if($url_image != null){
                     echo'
                     <div class="avatar">
                         <div class="w-20 mask mask-squircle">
-                            <img class="rounded-full w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                            <img class="rounded-lg w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
                         </div>
                     </div>';
                 }
-                
                
         echo'
             </td>
