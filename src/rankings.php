@@ -123,11 +123,6 @@ $GLOBALS['type'] = $type;
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
-    <script>
-    document.getElementById('invertButton').addEventListener('click', function() {
-        document.getElementById('tableRanking').classList.toggle('flex-col-reverse');
-    });
-    </script>
   <script src="../src/js/timer.js"></script>
   <script src="../src/js/filterTheme.js"></script>
   <script src="../src/js/social.js"></script>
