@@ -112,8 +112,8 @@ $GLOBALS['type'] = $type;
         <div class="flex flex-row gap-4">
           <div>
               <label for="themeSelect" class="mb-2 text-white">Temas:</label>
-              <select class="select select-bordered w-full max-w-xs mb-8 text-black" id="themeSelect">
-                  <option disabled>Temas - - - </option>
+              <select class="select select-bordered w-full max-w-xs mb-8 text-white" id="themeSelect">
+                  <option class="text-white" disabled>Temas - - - </option>
                   <?php
                     getThemes(true);
                   ?>

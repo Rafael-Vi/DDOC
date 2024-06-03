@@ -1539,10 +1539,10 @@
             $_SESSION['id_theme'] = $themes;
         }
         else{
-        echo '<option class="bg-gray-200" value="none"' . (empty($GLOBALS['id_theme']) ? ' selected' : '') . '>None</option>';
+        echo '<option class="text-white" value="none"' . (empty($GLOBALS['id_theme']) ? ' selected' : '') . '>None</option>';
         foreach ($themes as $theme) {
             $selected = ($theme['id_theme'] == $GLOBALS['id_theme']) ? 'selected' : '';
-            echo '<option class="bg-gray-200" value="' . $theme['id_theme'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
+            echo '<option class="text-white" value="' . $theme['id_theme'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
         }
         }
 
