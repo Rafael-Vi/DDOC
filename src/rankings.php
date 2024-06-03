@@ -100,7 +100,7 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
       <div class="overflow-x-auto">
-            <table class="table w-full text-center bg-gray-800 h-48">
+            <table class="table w-full text-center bg-gray-800 h-32">
                 <thead>
                     <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
                         <th class="ubuntu-bold w-2/6">
