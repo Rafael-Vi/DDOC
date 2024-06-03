@@ -460,7 +460,7 @@
                 if($url_image != null){
                     echo'
                     <div class="avatar">
-                        <div class="w-24 mask mask-squircle">
+                        <div class="w-20 mask mask-squircle">
                             <img class="rounded-full w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
                         </div>
                     </div>';
