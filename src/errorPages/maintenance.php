@@ -23,7 +23,7 @@
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
       <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Server está em manutenção!!!</h1>
-<a href="javascript:history.back()" class="btn  w-3/4 sm:w-auto">Voltar atrás</a>
+<a href="/src/index.php" class="btn  w-3/4 sm:w-auto">Voltar atrás</a>
     </div>
 </div>
 </body>
