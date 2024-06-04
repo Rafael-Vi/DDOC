@@ -7,6 +7,6 @@
     var_dump($_FILES);
     var_dump($_POST);
 
-    createPost($_SESSION['uid'],$title,$type,$file, $_SESSION['themes'][0]['theme_id']);
+    createPost($_SESSION['uid'],$title,$type,$file, $_SESSION['themes'][0]['id_theme']);
     header("Location: /src/social.php");
     exit;

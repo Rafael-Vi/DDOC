@@ -1,0 +1,7 @@
+VARCHAR -> <input type="text" />
+TEXT -> <textarea />
+TINYINT(1) -> <input type="checkbox" />
+INT -> <input type="text" />
+DOUBLE -> <input type="text" />
+DATETIME -> <input type="date" /><input type="time" /> (QUESTÃO DE COMPATIBILIDADE COM OS BROWSERS, POIS O 'datetime-local' NÃO É TOTALMENTE COMPATÍVEL)
+COLOR [[VARCHAR(7) - Hex Code]] -> <input type="color" />

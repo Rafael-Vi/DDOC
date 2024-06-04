@@ -3,7 +3,7 @@
     function echoShowTheme(){
         foreach ($_SESSION['themes'] as $theme) {
             echo '<p>';
-            echo 'Theme ID: ' . htmlspecialchars($theme['theme_id']) . '<br>';
+            echo 'Theme ID: ' . htmlspecialchars($theme['id_theme']) . '<br>';
             echo 'Theme: ' . htmlspecialchars($theme['theme']) . '<br>';
             echo 'Finish Date: ' . htmlspecialchars($theme['finish_date']) . '<br>';
             echo 'Is Finished: ' . ($theme['is_finished'] ? 'Yes' : 'No');
@@ -23,8 +23,12 @@
         echo '</div>';
         echo '</div>';
         echo '</div>';
-        echo '<div class="relative mt-8 mb-8">';
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="object-contain rounded-full w-32  h-32 text-white md:w-56 md:h-56 ml-10 mr-10 lg:ml-3/5 sm:mr-8 md:mr-3/5 border-2 border-gray-600">';
+        echo '<div class="relative flex flex-col mt-8 mb-auto">';
+        echo '<div class="avatar">';
+        echo '<div class="w-36 mask mask-squircle">';
+        echo '<img src="'.$profilePic.'" />';
+        echo '</div>';
+        echo '</div>';
     }
 
     function echoUserPosts($post) {
@@ -81,9 +85,6 @@
                                 <i class="mr-2 fi fi-sr-megaphone"></i> Notificações
                             </a>
                             <div id="notif-number-cleaner" class="*:rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
-                                <span id="notif-number" class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
-                                    99+
-                                </span>
                             </div>
                         </li>
                         <li class="px-5 py-2">
@@ -119,7 +120,7 @@
                                 Segundos
                             </div>
                             </div>
-                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['theme_id']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['id_theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
                             <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Tema: '."{$_SESSION['themes'][0]['theme']}".'</div>
                             </a>
                         </li>
@@ -368,8 +369,8 @@
         $date = $row['date_sent'];
         $message = $row['message'];
         $notificationId = $row['id'];
-        echo '<a href="#" class="text-orange-500 hover:text-orange-800 transform hover:scale-110 transition-all duration-200 mb-4 notification-message group">';
-        echo '<div class="flex justify-between items-center text-white hover:text-orange-800 bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
+        echo '<a href="#" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 notification-message group">';
+        echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<div class=" h-1 mr-4"></div>'; // Circle for the profile picture
         echo '<div>';
@@ -420,49 +421,58 @@
         }
     }
 
+
+
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster){
         global $arrConfig;  
         echo'
-        <div class="flex items-center w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-        <div class="text-white w-1/6">'.$rank.'</div> <!-- Rank of the post -->
-        <div class="flex items-center justify-center w-1/6">';
-        if ($type == 'video') {
-            echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
-            echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
-            echo '<source src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" type="video/mp4">';
-            echo 'Your browser does not support the video tag.';
-            echo '</video>';
-            echo '</div>';
-        } else if ($type == 'audio') {
-            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32  h-32 text-white">'; // Display audio.jpeg for audio type
-        } else {
-            echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32  h-32 text-white">'; // Changed from w-16 h-16 to w-32  h-32 text-white
-        }
-        echo '</div> <!-- Image of the post -->
-        <div class="text-white w-1/6">'.$name.'</div> <!-- Name of the post -->
-        <div class="text-white w-1/6">'.$type.'</div> <!-- Type -->
-        <div class="text-white w-1/6">'.$likes.'</div> <!-- Likes -->
-        <div class="text-white w-1/6">@'.$poster.'</div> <!-- Person who posted it -->
-        </div>
+        <tr class="text-white hover:bg-gray-700">
+            <td class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
+            <td class="w-1/6">';
+            if ($type == 'video') {
+                echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
+                echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+                echo '<source src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" type="video/mp4">';
+                echo 'Your browser does not support the video tag.';
+                echo '</video>';
+                echo '</div>';
+            } else if ($type == 'audio') {
+                echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32  h-32 text-white">'; // Display audio.jpeg for audio type
+            } else {
+                echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32  h-32 text-white">'; // Changed from w-16 h-16 to w-32  h-32 text-white
+            }
+            echo '</td> <!-- Image of the post -->
+            <td class="w-1/6">'.$name.'</td> <!-- Name of the post -->
+            <td class="w-1/6">'.$type.'</td> <!-- Type -->
+            <td class="w-1/6">'.$likes.'</td> <!-- Likes -->
+            <td class="w-1/6">@'.$poster.'</td> <!-- Person who posted it -->
+        </tr>
         ';
     }
+    
+    
 
     function echoRankAcc($rank, $likes, $poster, $url_image){
         global $arrConfig;  
         echo '
-        <div class="flex w-full text-center justify-center bg-gray-800 p-2 border-r-2 border-gray-900 shadow-lg mb-2 hover:bg-gray-700 transition-colors duration-200">
-        <div class="text-white w-1/3 text-center">#'.$rank.'</div> <!-- Rank of the post -->
-        <div class="text-white w-1/3 text-center">'.$likes.'</div> <!-- Likes -->
-            <div class="flex flex-row items-center justify-end pr-32 w-1/3">
-                <div class="text-white mr-4">@'.$poster.'</div>
-                ';
+        <tr class="hover:bg-gray-700 transition-colors duration-200">
+            <td class="text-white">#'.$rank.'</td>
+            <td class="text-white">'.$likes.'</td>
+            <td class="flex flex-row items-center justify-end pr-32 text-white">
+                @'.$poster;
+            
                 if($url_image != null){
                     echo'
-                    <img class="rounded-full w-8 h-8" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">';
+                    <div class="avatar">
+                        <div class="w-20 mask mask-squircle">
+                            <img class="rounded-lg w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                        </div>
+                    </div>';
                 }
+               
         echo'
-            </div>
-        </div>
+            </td>
+        </tr>
         ';
     }
 

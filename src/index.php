@@ -23,8 +23,8 @@
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
     <!-- First div -->
     <div class="flex flex-col w-full sm:w-1/2 p-8 items-center justify-center lg:ml-auto">
-        <div class="lg:text-8xl text-white ubuntu-bold hidden lg:block"> 
-            WELCOME TO
+        <div class="lg:text-8xl text-white ubuntu-bold hidden xl:block"> 
+           Bem vindo ao
         </div>
         <div class="flex items-center justify-center lg:justify-right flex-row float-right">
             <p class="text-8xl text-white ubuntu-bold">D</p>
@@ -40,9 +40,41 @@
             <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="./accountLC.php">Entra...</a></li>
             <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#functions">Funcionalidades</a></li>
             <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Manual</a></li>
-            <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Contactar Creador</a></li>
+            <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Contactar Criador</a></li>
         </ul>
     </div>
+</section>
+
+<section id="functions">
+
+<div class="collapse bg-base-200">
+  <input type="radio" name="my-accordion-1" checked="checked" /> 
+  <div class="collapse-title text-xl font-medium">
+    Click to open this one and close others
+  </div>
+  <div class="collapse-content"> 
+    <p>hello</p>
+  </div>
+</div>
+<div class="collapse bg-base-200">
+  <input type="radio" name="my-accordion-1" /> 
+  <div class="collapse-title text-xl font-medium">
+    Click to open this one and close others
+  </div>
+  <div class="collapse-content"> 
+    <p>hello</p>
+  </div>
+</div>
+<div class="collapse bg-base-200">
+  <input type="radio" name="my-accordion-1" /> 
+  <div class="collapse-title text-xl font-medium">
+    Click to open this one and close others
+  </div>
+  <div class="collapse-content"> 
+    <p>hello</p>
+  </div>
+</div>
+
 </section>
 
 <section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center">

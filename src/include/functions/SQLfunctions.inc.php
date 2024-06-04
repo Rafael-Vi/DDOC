@@ -139,40 +139,6 @@
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
 
-    function sendVerificationEmail($to, $subject, $message, $link) {
-        $mail = new PHPMailer(true);
-    
-        try {
-            //Server settings
-            $mail->isSMTP();                                      
-            $mail->Host = 'smtp.eu.mailgun.org';  
-            $mail->SMTPAuth = true;                               
-            $mail->Username = 'brad@gentl.store';                 
-            $mail->Password = getenv('MAIL_PASSWORD');                           
-            $mail->SMTPSecure = 'tls';                            
-            $mail->Port = 587;                                    
-    
-            //Recipients
-            $mail->setFrom('rafa.pinto.vieira@gmail.com', 'DDOC');
-            $mail->addAddress($to);     
-    
-            //Content
-            $mail->isHTML(true);                                  
-            $mail->Subject = $subject;
-            $body = "<html><body>";
-            $body.= "<p>Hello,</p>";
-            $body.= "<p>Please click the link below to verify your email:</p>";
-            $body.= "<a href=\"$link\">Verify Email</a></p>";
-            $body.= "</body></html>";
-            $mail->Body    = $body;
-    
-            $mail->send();
-            return true;
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
 
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
@@ -258,45 +224,41 @@
             $params = array();
             
             $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
-            $profilePicName .= "." . $fileExtension;
+            $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
+            move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
+            $updateFields[] = " user_profilePic = ?";
+            $params[] = $profilePicName;
             
             if (!empty($username)) {
-                $updateFields[] = " user_name = ?";
-                $params[] = $username;
+            $updateFields[] = " user_name = ?";
+            $params[] = $username;
             }
             
             if (!empty($realName)) {
-                $updateFields[] = " user_realName = ?";
-                $params[] = $realName;
-            }
-            
-            if (!empty($profilePic) && !empty($profilePic['name'])) {
-                $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
-                move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
-                $updateFields[] = " user_profilePic = ?";
-                $params[] = $profilePicName;
+            $updateFields[] = " user_realName = ?";
+            $params[] = $realName;
             }
             
             if (!empty($biography)) {
-                $updateFields[] = " user_biography = ?";
-                $params[] = $biography;
+            $updateFields[] = " user_biography = ?";
+            $params[] = $biography;
             }
 
             if (!empty($updateFields)) {
-                $updateSql .= implode(",", $updateFields);
-                $updateSql .= " WHERE user_id = ?";
-                $params[] = $uid;
+            $updateSql .= implode(",", $updateFields);
+            $updateSql .= " WHERE id_users = ?";
+            $params[] = $uid;
             
-                $updateResult = executeQuery($dbConn, $updateSql, $params);
+            $updateResult = executeQuery($dbConn, $updateSql, $params);
             
-                if ($updateResult) {
+            if ($updateResult) {
 
-                    echoSuccess("User updated successfully.");   
-                } else {
+                echoSuccess("User updated successfully.");   
+            } else {
 
-                    $error = mysqli_error($dbConn);
-                    mySQLerror($error);
-                }
+                $error = mysqli_error($dbConn);
+                mySQLerror($error);
+            }
             }
             mysqli_close($dbConn);
         }
@@ -313,8 +275,8 @@
                 die("ERROR: Could not connect. " . mysqli_connect_error());
             }
         
-            // Prepare the SQL query with the user_id condition using prepared statements
-            $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE user_id = ?";
+            // Prepare the SQL query with the id_users condition using prepared statements
+            $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE id_users = ?";
             $params = array($uid);
         
             // Execute the query
@@ -375,7 +337,7 @@
             $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
         
             // Prepare the SQL query to update the table
-            $sql = "UPDATE users SET can_post = ? WHERE user_id = ?";
+            $sql = "UPDATE users SET can_post = ? WHERE id_users = ?";
             $params = array($status,$userId);
         
             // Execute the query
@@ -396,7 +358,7 @@
             $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
         
             // Prepare the SQL query to select the can_post value
-            $sql = "SELECT can_post FROM users WHERE user_id = ?";
+            $sql = "SELECT can_post FROM users WHERE id_users = ?";
             $params = array($userId);
         
             // Execute the query
@@ -465,7 +427,7 @@
         }
 
         // Prepare the SQL query with the post_id condition using prepared statements
-        $sql = "SELECT user_id FROM posts WHERE post_id = ?";
+        $sql = "SELECT id_users FROM posts WHERE post_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
 
         // Bind parameters
@@ -505,7 +467,7 @@
 
             foreach ($types as $type) {
                 $selected = ($type == $selectedType) ? 'selected' : '';
-                echo "<option value='$type' $selected>" . ucfirst($type) . "</option>";
+                echo '<option class="text-white" value="'.$type.'" '.$selected.'>' . ucfirst($type) . '</option>';
             }
         }
 
@@ -542,7 +504,7 @@
             }
         
             // Prepare the SQL query to insert into the table using prepared statements
-            $sql = "INSERT INTO posts (user_id, caption, post_type, post_url, theme_id) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, id_theme) VALUES (?, ?, ?, ?, ?)";
             
             // Execute the query
             // Execute the query
@@ -583,11 +545,11 @@
         
             // Prepare the SQL query with the post_id condition using prepared statements
   
-            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.user_id, p.theme_id, t.theme, r.PostRank, p.Enabled, u.user_id AS creator_id, u.user_name, u.user_profilePic
+            $sql = "SELECT p.post_id, p.post_type, p.post_url, p.caption, p.created_at, p.updated_at, p.id_users, p.id_theme, t.theme, r.PostRank, p.Enabled, u.id_users AS creator_id, u.user_name, u.user_profilePic
             FROM posts p 
-            LEFT JOIN theme t ON p.theme_id = t.theme_id 
-            LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.theme_id = r.theme_id
-            LEFT JOIN users u ON p.user_id = u.user_id
+            LEFT JOIN theme t ON p.id_theme = t.id_theme 
+            LEFT JOIN rankingposts r ON p.post_id = r.PostId AND p.id_theme = r.id_theme
+            LEFT JOIN users u ON p.id_users = u.id_users
             WHERE p.post_id = ?";
   
             $stmt = mysqli_prepare($dbConn, $sql);
@@ -602,7 +564,7 @@
         
             // Bind result variables
      
-            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $user_id, $theme_id, $theme_name, $rank, $enabled, $creator_id, $creator_name, $creator_avatar);
+            mysqli_stmt_bind_result($stmt, $post_id, $post_type, $post_url, $caption, $created_at, $updated_at, $id_users, $id_theme, $theme_name, $rank, $enabled, $creator_id, $creator_name, $creator_avatar);
 
             // Fetch the result
             if (mysqli_stmt_fetch($stmt)) {
@@ -614,8 +576,8 @@
                     'caption' => $caption,
                     'created_at' => $created_at,
                     'updated_at' => $updated_at,
-                    'user_id' => $user_id,
-                    'theme_id' => $theme_id,
+                    'id_users' => $id_users,
+                    'id_theme' => $id_theme,
                     'theme_name' => $theme_name,
                     'rank' => $rank,
                     'enabled' => $enabled,
@@ -647,8 +609,8 @@
                 die("ERROR: Could not connect. " . mysqli_connect_error());
             }
 
-            // Prepare the SQL query with the user_id condition using prepared statements
-            $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE user_id = ? ORDER BY created_at DESC";
+            // Prepare the SQL query with the id_users condition using prepared statements
+            $sql = "SELECT post_id, post_type, post_url, caption, created_at, updated_at FROM posts WHERE id_users = ? ORDER BY created_at DESC";
             $stmt = mysqli_prepare($dbConn, $sql);
 
             // Bind parameters
@@ -741,7 +703,7 @@
         }
     
         // Fetch the username based on the senderId
-        $result = executeQuery($dbConn, "SELECT user_name FROM users WHERE user_id = ?", [$senderId]);
+        $result = executeQuery($dbConn, "SELECT user_name FROM users WHERE id_users = ?", [$senderId]);
         $senderUsername = mysqli_fetch_assoc($result)['user_name'];
     
         $message = '';
@@ -762,7 +724,7 @@
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'YourRank':
-                $rankData = getPodium($receiverId);
+                $rankData = getPodium($receiverId, "post");
                 if ($rankData !== null) {
                     $message = $rankData['username'] . ', your current rank is ' . $rankData['rank'];
                 }
@@ -887,7 +849,7 @@
             return "ERROR: Could not connect. " . mysqli_connect_error();
         }
 
-        $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE user_id = ?", [$convo_id]);
+        $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$convo_id]);
 
         if ($row = mysqli_fetch_assoc($result)) {
             return array(
@@ -920,7 +882,7 @@
         foreach ($userId2 as $followerId) {
             $result = executeQuery($dbConn, "SELECT * FROM follow WHERE follower_id = ? AND followee_id = ?", [$followerId, $_SESSION['uid']]);
             if (mysqli_num_rows($result) > 0) {
-                $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE user_id = ?", [$followerId]);
+                $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$followerId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($echo === "echo") {
                         echoConvo($row['user_profilePic'], $row['user_name'], $followerId);
@@ -988,7 +950,7 @@
     //?RANKING RELATED -------------------------------------------------------------------
     
   
-    function getRankingPost($theme_id, $type){
+    function getRankingPost($id_theme, $type){
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
@@ -996,12 +958,12 @@
         }
     
         // Define the SQL query and parameters
-        if ($theme_id !== null && $type !== null && $theme_id !== 'none' && $type !== 'none') {
-            $sql = "SELECT * FROM rankingpoststype WHERE theme_id = ? AND PostType = ?";
-            $params = array($theme_id, $type);
-        } elseif ($theme_id !== null && $theme_id !== 'none') {
-            $sql = "SELECT * FROM rankingposts WHERE theme_id = ?";
-            $params = array($theme_id);
+        if ($id_theme !== null && $type !== null && $id_theme !== 'none' && $type !== 'none') {
+            $sql = "SELECT * FROM rankingpoststype WHERE id_theme = ? AND PostType = ?";
+            $params = array($id_theme, $type);
+        } elseif ($id_theme !== null && $id_theme !== 'none') {
+            $sql = "SELECT * FROM rankingposts WHERE id_theme = ?";
+            $params = array($id_theme);
         } elseif ($type !== null && $type !== 'none') {
             $sql = "SELECT * FROM rankingpostsotype WHERE PostType = ?";
             $params = array($type);
@@ -1080,10 +1042,10 @@
             }
         } else if ($table == 'PostRank') {
             if ($type == null  || $type == 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND theme_id = ? LIMIT 1";
+                $sql = "SELECT NameOfThePost FROM rankingposts WHERE PostRank = ? AND id_theme = ? LIMIT 1";
                 $params = [$rank, $themeId];
             } elseif($type == 'image' && $themeId != null && $themeId != 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpoststype WHERE PostRank = ? AND theme_id = ? AND PostType = ? LIMIT 1";
+                $sql = "SELECT NameOfThePost FROM rankingpoststype WHERE PostRank = ? AND id_theme = ? AND PostType = ? LIMIT 1";
                 $params = [$rank, $themeId, $type];
             } elseif($type == 'image' && ($themeId == null || $themeId == 'none')) {
                 $sql = "SELECT NameOfThePost FROM postrankingstype WHERE PostRank = ? AND PostType = ? LIMIT 1";
@@ -1161,7 +1123,7 @@
         }
 
         // Prepare the SQL query to check if the current user has liked the post with the given id
-        $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+        $sql = "SELECT * FROM likes WHERE id_users = ? AND post_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
 
         // Check if the statement was prepared successfully
@@ -1182,7 +1144,7 @@
 
         // If the post is not liked by the user, insert a like
         if (mysqli_stmt_num_rows($stmt) > 0) {
-            $sql = "DELETE FROM likes WHERE user_id = ? AND post_id = ?";
+            $sql = "DELETE FROM likes WHERE id_users = ? AND post_id = ?";
             $stmt = mysqli_prepare($dbConn, $sql);
             if ($stmt === false) {
                 die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
@@ -1198,7 +1160,7 @@
             mysqli_close($dbConn);
             return "like";
         } else {
-            $sql = "INSERT INTO likes (user_id, post_id) VALUES (?, ?)";
+            $sql = "INSERT INTO likes (id_users, post_id) VALUES (?, ?)";
             $stmt = mysqli_prepare($dbConn, $sql);
             if ($stmt === false) {
                 die("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
@@ -1213,7 +1175,7 @@
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
             $postData = showPost($postid, 'no');
-            $receiverId = $postData['user_id'];
+            $receiverId = $postData['id_users'];
             sendNotification($receiverId, $currentSessionUser, "PostLiked");
             return "liked";
         }
@@ -1227,7 +1189,7 @@
         }
 
         // Prepare the SQL query to check if the current user has liked the post with the given id
-        $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+        $sql = "SELECT * FROM likes WHERE id_users = ? AND post_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
 
         // Check if the statement was prepared successfully
@@ -1440,7 +1402,7 @@
         }
 
         // Prepare the SQL query to get the followers
-        $sql = "SELECT users.* FROM follow JOIN users ON follow.follower_id = users.user_id WHERE follow.followee_id = ?";
+        $sql = "SELECT users.* FROM follow JOIN users ON follow.follower_id = users.id_users WHERE follow.followee_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
 
         // Check if the statement was prepared successfully
@@ -1474,7 +1436,7 @@
             if ($follower['user_profilePic'] !== null) {
                 $follower['user_profilePic'] = $arrConfig['url_users'] . $follower['user_profilePic'];
             }
-            echoSearchResults($follower['user_id'], $follower['user_name'], $follower['user_profilePic']);
+            echoSearchResults($follower['id_users'], $follower['user_name'], $follower['user_profilePic']);
         }
     }
 
@@ -1488,7 +1450,7 @@
         }
 
         // Prepare the SQL query to get the following
-        $sql = "SELECT users.* FROM follow JOIN users ON follow.followee_id = users.user_id WHERE follow.follower_id = ?";
+        $sql = "SELECT users.* FROM follow JOIN users ON follow.followee_id = users.id_users WHERE follow.follower_id = ?";
         $stmt = mysqli_prepare($dbConn, $sql);
 
         // Check if the statement was prepared successfully
@@ -1526,7 +1488,7 @@
             else{
                 $followee['user_profilePic'] = 'https://th.bing.com/th/id/R.3e77a1db6bb25f0feb27c95e05a7bc57?rik=DswMYVRRQEHbjQ&riu=http%3a%2f%2fwww.coalitionrc.com%2fwp-content%2fuploads%2f2017%2f01%2fplaceholder.jpg&ehk=AbGRPPcgHhziWn1sygs8UIL6XIb1HLfHjgPyljdQrDY%3d&risl=&pid=ImgRaw&r=00';
             }
-            echoSearchResults($followee['user_id'], $followee['user_name'], $followee['user_profilePic']);
+            echoSearchResults($followee['id_users'], $followee['user_name'], $followee['user_profilePic']);
         }
     }
 
@@ -1556,13 +1518,13 @@
         }
     
         // Bind result variables
-        mysqli_stmt_bind_result($stmt, $theme_id, $theme, $finish_date, $is_finished);
+        mysqli_stmt_bind_result($stmt, $id_theme, $theme, $finish_date, $is_finished);
     
         // Fetch the theme data
         $themes = array();
         while(mysqli_stmt_fetch($stmt)) {
             $themes[] = array(
-                'theme_id' => $theme_id,
+                'id_theme' => $id_theme,
                 'theme' => $theme,
                 'finish_date' => $finish_date,
                 'is_finished' => $is_finished
@@ -1574,13 +1536,13 @@
     
         if (!$all) {
             $_SESSION['themes'] = $themes;
-            $_SESSION['theme_id'] = $themes;
+            $_SESSION['id_theme'] = $themes;
         }
         else{
-        echo '<option value="none"' . (empty($GLOBALS['theme_id']) ? ' selected' : '') . '>None</option>';
+        echo '<option class="text-white" value="none"' . (empty($GLOBALS['id_theme']) ? ' selected' : '') . '>None</option>';
         foreach ($themes as $theme) {
-            $selected = ($theme['theme_id'] == $GLOBALS['theme_id']) ? 'selected' : '';
-            echo '<option value="' . $theme['theme_id'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
+            $selected = ($theme['id_theme'] == $GLOBALS['id_theme']) ? 'selected' : '';
+            echo '<option class="text-white" value="' . $theme['id_theme'] . '" ' . $selected . '>' . $theme['theme'] . '</option>';
         }
         }
 
@@ -1594,7 +1556,7 @@
         }
     
         // Prepare the SQL query to select the user data
-        $sql = "SELECT user_id, user_name, user_profilePic FROM users WHERE user_id != ? AND user_name LIKE ? LIMIT 5";
+        $sql = "SELECT id_users, user_name, user_profilePic FROM users WHERE id_users != ? AND user_name LIKE ? LIMIT 5";
         $params = array($uid, "%" . $value . "%");
     
         // Execute the query
@@ -1603,7 +1565,7 @@
         // Fetch the user data
         while($row = mysqli_fetch_assoc($result)) {
             // Access the user data
-            $userId = $row['user_id'];
+            $userId = $row['id_users'];
             $username = $row['user_name'];
             $profilePic = $row['user_profilePic'];
     
@@ -1632,13 +1594,13 @@
         if (isset($_SESSION['uid']) && isset($_SESSION['themes'])) {
 
             $userId = $_SESSION['uid'];
-            $themeId = $_SESSION['themes'][0]['theme_id'];
+            $themeId = $_SESSION['themes'][0]['id_theme'];
 
     
             // Connect to your database
             $dbConn = db_connect();
     
-            $query = "SELECT p.post_id FROM posts p JOIN follow f ON p.user_id = f.followee_id WHERE f.follower_id = ? AND p.theme_id = ? ORDER BY p.created_at DESC LIMIT 10";
+            $query = "SELECT p.post_id FROM posts p JOIN follow f ON p.id_users = f.followee_id WHERE f.follower_id = ? AND p.id_theme = ? ORDER BY p.created_at DESC LIMIT 10";
             $params = array($userId, $themeId);
     
             // Execute the statement
@@ -1648,7 +1610,7 @@
             $followedPosts = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
             // Prepare the SQL statement to get other posts randomly
-            $query = "SELECT post_id FROM posts WHERE theme_id = ? AND user_id NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) AND user_id != ? ORDER BY created_at DESC LIMIT 5";
+            $query = "SELECT post_id FROM posts WHERE id_theme = ? AND id_users NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) AND id_users != ? ORDER BY created_at DESC LIMIT 5";
             $params = array($themeId, $userId, $userId);
     
             // Execute the statement
