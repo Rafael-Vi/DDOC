@@ -492,7 +492,7 @@ function createPost($uid, $title, $type, $file, $theme) {
     $expectedMimeTypes = [
         'mp3' => 'audio/mpeg',
         'jpeg' => 'image/jpeg',
-        'jpg' => 'image/jpg',
+        'jpg' => 'image/jpeg',
         'png' => 'image/png',
         'gif' => 'image/gif',
         'mp4' => 'video/mp4',
