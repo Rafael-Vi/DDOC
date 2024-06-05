@@ -252,13 +252,13 @@
             $updateResult = executeQuery($dbConn, $updateSql, $params);
             
             if ($updateResult) {
-
                 echoSuccess("User updated successfully.");   
             } else {
-
                 $error = mysqli_error($dbConn);
                 mySQLerror($error);
+                
             }
+            
             }
             mysqli_close($dbConn);
         }
