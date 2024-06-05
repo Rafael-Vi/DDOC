@@ -104,8 +104,12 @@ function deletePost() {
                 }
             };
             xhr.send('function=deletePost&postid=' + encodeURIComponent(postid));
-           console.log('Post deleted successfully');
-           loadPosts();
+            if (response.success) {
+                console.log('Post was deleted successfully');
+                loadPosts();
+            } else {
+                console.error('There was an error deleting the post');
+            }
         } else {
             console.error('User is not the owner of the post');
         }

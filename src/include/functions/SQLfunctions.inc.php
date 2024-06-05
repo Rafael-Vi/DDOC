@@ -667,30 +667,30 @@ function createPost($uid, $title, $type, $file, $theme) {
         
             // Check connection
             if ($dbConn === false) {
-                die("ERROR: Could not connect. " . mysqli_connect_error());
+                error_log("ERROR: Could not connect. " . mysqli_connect_error());
+                die();
             }
         
             // Delete the post
             $query = "DELETE FROM posts WHERE post_id = ?";
             $params = [$postID];
             if (!executeQuery($dbConn, $query, $params)) {
-                echo "Failed to delete post with ID $postID.";
+                error_log("Failed to delete post with ID $postID.");
                 return;
             }
         
             // Delete all likes associated with the post
             $query = "DELETE FROM likes WHERE post_id = ?";
             if (!executeQuery($dbConn, $query, $params)) {
-                echo "Failed to delete likes for post with ID $postID.";
+                error_log("Failed to delete likes for post with ID $postID.");
                 return;
             }
-    
+        
             // Update user status
             updateUserPostStatus($_SESSION['uid'], 0);
             // Close connection
             mysqli_close($dbConn);
         }
-        
 
 
     //*POST RELATED ------------------------------------------------------------------------
