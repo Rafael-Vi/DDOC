@@ -27,7 +27,7 @@ include "include/config.inc.php";
     <?php echoLoadScreen(); ?>  
 
     <?php echoNav(); ?>
-    <div id="createPost-div" class="overflow-y bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
+    <div id="createPost-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
     <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
 <a href="javascript:history.back()" class="btn">Voltar atrás</a>
       Publicar Post
@@ -39,7 +39,7 @@ include "include/config.inc.php";
     ?>
 <form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
 
-<div class="flex flex-col items-center w-full sm:w-3/5">
+<div class="flex flex-col items-center w-full sm:w-3/5 overflow-y">
     <div class="flex flex-col items-center">
         <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
     </div>
