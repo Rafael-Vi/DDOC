@@ -21,10 +21,10 @@
 <body class="h-full flex">
     <?php echoLoadScreen(); ?>   
     <?php echoNav(); ?>
-    <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900  md:right-0">
+    <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-primary md:right-0">
        
       <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
-      <a href="javascript:history.back()" class="sm:flex btn mt-8 hidden">Voltar atrás</a>
+      <a href="javascript:history.back()" class="sm:flex btn mt-8 hidden text-on-secondary">Voltar atrás</a>
         <?php
             echo '<div class="flex  h-32 text-white lg:h-64 mt-8 w-4/6">';
             echo '<div class="h-full w-full mt-0 md:mt-8 mb-4">';
@@ -33,19 +33,18 @@
  
             unset($userInfo); 
 
-            echo '<button class="w-full sm:float-right bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-2 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
+            echo '<button class="w-full sm:float-right bg-warning hover:bg-warning text-white font-bold py-2 px-2 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
             echo '</div>';
             echo '</div>';
         ?>  
 
-      <div id="profilePosts-div" class="relative p-auto overflow-auto bg-gray-800">
+      <div id="profilePosts-div" class="relative p-auto overflow-auto bg-neutral">
 
         <?php
           getPosts($_SESSION['uid']);
         ?>
       </div>
   </div>
-
     
 <dialog id="profile-dialog" class="modal ubuntu-medium">
   <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data">
