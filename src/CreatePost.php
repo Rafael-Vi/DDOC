@@ -56,7 +56,7 @@ require "include/functions/Development.inc.php";
     echo'<div class="flex flex-col  items-center justify-center h-full">
     <h2 class="text-3xl font-bold bg-ddark-primary rounded-lg p-8 text-ddark-neutral gap-3">
     You have already posted in this theme.
-    <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-gray-800 text-ddark-neutral font-bold py-2 px-4 rounded mt-4">Go to your profile</a>
+    <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-bl-800 text-ddark-neutral font-bold py-2 px-4 rounded mt-4">Go to your profile</a>
     </h2>
     </div>';
   }
