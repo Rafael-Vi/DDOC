@@ -43,8 +43,8 @@ include "include/config.inc.php";
     <div class="flex flex-col items-center">
         <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
     </div>
-    <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Título:</label>
-    <input type="text" id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-gray-800 text-white w-full"><br>
+    <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
+    <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-gray-800 text-white w-full" maxlength="255"></textarea><br>
     <label for="post-type" class="text-white font-bold text-left float-left">Tipo:</label>
     <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-gray-800 text-white mb-4 w-full">
         <option value="audio">Audio</option>
@@ -52,7 +52,7 @@ include "include/config.inc.php";
         <option value="video">Vídeo</option>
     </select><br>
     <label for="file-upload" class="text-white font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-    <input type="file" id="file-input" name="file-input" class="rounded-lg bg-gray-800 text-white mb-4 w-full"><br>
+    <input type="file" id="file-input" name="file-input" class="rounded-lg bg-gray-800 text-white mb-4 w-full">
     <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-gray-800 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
     <button type="submit" name="CreatePost" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
 </div>

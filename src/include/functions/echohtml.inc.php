@@ -248,7 +248,7 @@
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>';
+                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
                     if($post['enabled'] == 0) {
                         echo'<button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>';
                     }
@@ -284,7 +284,7 @@
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
-                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>';
+                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
                     if($post['enabled'] == 0) {
                         echo'<button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>';
                     }
@@ -316,7 +316,7 @@
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <span class="text-white text-2xl font-bold ml-4">Legenda: "'.$post['caption'].'"</span>';
+                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
                     if($post['enabled'] == 0) {
                         echo'<button id="like-button-'.$post['post_id'].'" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck('.$post['post_id'].')">Like</button>';
                     }
