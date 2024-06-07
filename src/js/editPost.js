@@ -94,6 +94,7 @@ function deletePost() {
                         if (response.success) {
                             // Post was deleted successfully
                             console.log('Post was deleted successfully');
+                            loadPosts(); // Move this inside the if block
                         } else {
                             // There was an error deleting the post
                             console.error('There was an error deleting the post');
@@ -104,8 +105,6 @@ function deletePost() {
                 }
             };
             xhr.send('function=deletePost&postid=' + encodeURIComponent(postid));
-           console.log('Post deleted successfully');
-           loadPosts();
         } else {
             console.error('User is not the owner of the post');
         }
