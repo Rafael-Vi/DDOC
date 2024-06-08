@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $('#search-button').on('click', openSearch);
   function openSearch(event) {
       event.preventDefault();
       $('#search-div').toggleClass('hidden');

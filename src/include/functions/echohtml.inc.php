@@ -72,7 +72,7 @@
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="#" id="search-link" style="color: black" onclick="openSearch(event)"><i
+                            <a href="#" id="search-link" class="hidden" style="color: black" onclick="openSearch(event)"><i
                             class=
                             "mr-2 fi fi-sr-search"
                             ></i> Pesquisa</a>
