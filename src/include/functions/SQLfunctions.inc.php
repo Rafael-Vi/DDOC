@@ -663,8 +663,9 @@ function createPost($uid, $title, $type, $file, $theme) {
         function updatePost(){
         }
 
-    
+
         function deletePost($postID) {
+            global $arrConfig;
             // Start the database connection
             $dbConn = db_connect();
         
@@ -674,6 +675,23 @@ function createPost($uid, $title, $type, $file, $theme) {
                 die();
             }
         
+            // Retrieve the file path and theme_id using post_url
+            $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
+            $stmt = mysqli_prepare($dbConn, $query);
+            mysqli_stmt_bind_param($stmt, "i", $postID);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $file = mysqli_fetch_assoc($result);
+            
+            // Adjusted to use 'dir_posts' for file path construction
+            $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'] ?? null;
+            $postThemeId = $file['id_theme'] ?? null;
+            mysqli_stmt_close($stmt);
+            
+            // Delete the file if it exists
+            if ($filePath && file_exists($filePath)) {
+                unlink($filePath);
+            }
             // Delete the post
             $query = "DELETE FROM posts WHERE post_id = ?";
             $params = [$postID];
@@ -689,12 +707,15 @@ function createPost($uid, $title, $type, $file, $theme) {
                 return;
             }
         
-            // Update user status
-            updateUserPostStatus($_SESSION['uid'], 0);
+            // Check if post's theme_id matches session theme_id and update user status if necessary
+            if (isset($_SESSION['theme_id']) && $postThemeId == $_SESSION['theme_id']) {
+                // Assuming updateUserPostStatus function exists and takes user ID and a status code
+                updateUserPostStatus($_SESSION['uid'], 0); // Adjust status code as needed
+            }
+        
             // Close connection
             mysqli_close($dbConn);
         }
-
 
     //*POST RELATED ------------------------------------------------------------------------
 
