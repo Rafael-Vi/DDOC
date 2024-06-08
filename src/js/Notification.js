@@ -27,10 +27,7 @@ function loadNotifications() {
             // Only update if the data has changed
             if (data !== lastData) {
                 const $notificationsContainer = $('#notifications-container');
-                // Preserve the div with id 'delete-all-notif'
-                const $deleteAllNotif = $('#delete-all-notif').detach();
                 $notificationsContainer.html(data);
-                $notificationsContainer.prepend($deleteAllNotif);
                 lastData = data;
             }
         },

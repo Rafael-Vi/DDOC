@@ -29,12 +29,13 @@
       <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
   <a href="javascript:history.back()" class="btn">Voltar atrás</a>
         Notifications
+
+        <div class="mt-8 mb-8 float right" id="delete-all-notif">
+            <button class="btn btn-danger" onclick="deleteAllNotifications()">Delete All Notifications</button>
+          </div>
       </div>
 
         <div name="notifications-container" id="notifications-container" class="h-full w-full px-10 overflow-auto">
-          <div class="mt-8 mb-8" id="delete-all-notif">
-            <button class="btn btn-danger" onclick="deleteAllNotifications()">Delete All Notifications</button>
-          </div>
         <?php setNotifRead()?>
         <?php getNotif(); ?>
         </div>
