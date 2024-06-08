@@ -34,26 +34,39 @@
     function echoUserPosts($post) {
         global $arrConfig;
     
-        echo '<div class="post-container border-2 border-white" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
-        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'">';
+        // Start of the card
+        echo '<div class="post-container card card-compact w-full bg-black border border-white">';
     
+        // Card image or video
         if ($post['post_type'] == 'video') {
-            echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
-            echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
-            echo '<source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4">';
+            echo '<div class="card-media">';
+            echo '<video controls class="w-full" style="object-fit: cover;">';
+            echo '<source src="' . $arrConfig['url_posts'] . $post['post_type'] . '/' . $post['post_url'] . '" type="video/mp4">';
             echo 'Your browser does not support the video tag.';
             echo '</video>';
             echo '</div>';
         } else if ($post['post_type'] == 'audio') {
-            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">'; // Display audio.jpeg for audio type
+            echo '<div class="card-media">';
+            echo '<img src="' . $arrConfig['url_assets'] . 'images/audio.jpg" alt="Audio Image" class="w-full" style="object-fit: cover;">';
+            echo '</div>';
         } else {
-            echo '<img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="'.$post['caption'].'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+            echo '<div class="card-media">';
+            echo '<img src="' . $arrConfig['url_posts'] . $post['post_type'] . '/' . $post['post_url'] . '" alt="' . $post['caption'] . '" class="w-full" style="object-fit: cover;">';
+            echo '</div>';
         }
     
-        echo '</a>';
-        echo '<button disabled class="new-button absolute top-0 right-0 m-2 bg-slate-800 text-white font-bold py-2 px-4 mr-8 rounded" style="visibility: hidden; margin-right: 80px;">'.htmlspecialchars($post['caption']).'</button>'; // New disabled button with unique class
-        echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showModal(\'' . addslashes($post['post_id']) . '\', \'' . addslashes($post['caption']) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" data-id="'.urlencode($post['post_id']).'" style="visibility: hidden;">Edit</button>'; 
-        echo '</div>';  
+        // Card body with caption (if needed)
+        echo '<div class="card-body">';
+        echo '<p class="text-white">' . htmlspecialchars($post['caption']) . '</p>';
+        echo '</div>';
+    
+        // Edit button (hidden by default, can be shown with JavaScript)
+        echo '<div class="card-actions justify-end">';
+        echo '<button onclick="showModal(\'' . addslashes($post['post_id']) . '\', \'' . addslashes($post['caption']) . '\')" class="btn btn-warning btn-sm" style="visibility: hidden;">Edit</button>';
+        echo '</div>';
+    
+        // End of the card
+        echo '</div>';
     }
 
     function echoNoPosts(){
