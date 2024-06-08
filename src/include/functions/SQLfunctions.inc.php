@@ -129,11 +129,9 @@
                 }
                 break;
             case 'deleteAllNotifications':
-                if (isset($_POST['id'])) {
-                    $id = $_POST['id'];
-                    deleteAllNotifications();
-                }
 
+                    deleteAllNotifications();
+    
                 break;
 
         }
