@@ -11,24 +11,32 @@
         }
         echo '</div>';
     }
+
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
-        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
+        // Container for profile info and image
+        echo '<div class="flex flex-col md:flex-row items-start md:items-center">';
+    
+        // Profile image
+        echo '<div class="avatar mr-8">';
+        echo '<div class="w-36 h-36 md:w-48 md:h-48 mask mask-squircle">';
+        echo '<img src="'.$profilePic.'" alt="Profile Picture">';
+        echo '</div>';
+        echo '</div>';
+    
+        // User information
+        echo '<div class="flex-1">';
+        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' . $rank . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
-        echo '<div class="font-bold  text-white">' . $realName . '</div>';
+        echo '<div class="font-bold text-white">' . $realName . '</div>';
         echo '<div class="w-full text-white">' . $biography . '</div>';
-        echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
+        echo '<div class="sm:flex sm:space-x-4 mt-4">';
         echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold">Seguidores: ---</div></a>';
         echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="relative flex flex-col mt-8 mb-auto">';
-        echo '<div class="avatar">';
-        echo '<div class="w-36 mask mask-squircle">';
-        echo '<img src="'.$profilePic.'" />';
-        echo '</div>';
-        echo '</div>';
+        echo '</div>'; // Close user information container
+    
+        echo '</div>'; // Close main container
     }
 
     function echoUserPosts($post) {

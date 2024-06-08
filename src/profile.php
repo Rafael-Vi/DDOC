@@ -34,7 +34,7 @@
  
             unset($userInfo); 
 
-            echo '<button class="btn btn-warning w-full sm:float-right text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
+            echo '<button class="btn hover:bg-warning w-full sm:float-right text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
             echo '</div>';
             echo '</div>';
         ?>  
@@ -46,7 +46,7 @@
         ?>
       </div>
   </div>
-      
+
 <dialog id="profile-dialog" class="modal ubuntu-medium">
   <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data">
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
