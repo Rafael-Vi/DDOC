@@ -128,7 +128,13 @@
                     deleteMessage($messageId);
                 }
                 break;
+            case 'deleteAllNotifications':
+                if (isset($_POST['id'])) {
+                    $id = $_POST['id'];
+                    deleteAllNotifications();
+                }
 
+                break;
 
         }
     }
@@ -768,6 +774,29 @@ function createPost($uid, $title, $type, $file, $theme) {
         mysqli_close($dbConn);
     }
 
+
+function deleteAllNotifications() {
+    // Start the database connection
+    $dbConn = db_connect();
+
+    // Check connection
+    if ($dbConn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    // Prepare the SQL query to delete all notifications
+    $query = "DELETE FROM notifications";
+
+    // Execute the query
+    if (executeQuery($dbConn, $query)) {
+        echo "All notifications deleted successfully.";
+    } else {
+        echo "Failed to delete notifications.";
+    }
+
+    // Close connection
+    mysqli_close($dbConn);
+}
     function getNotif($echoNotif = true) {
         $receiverId = $_SESSION['uid'];
     
