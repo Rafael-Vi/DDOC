@@ -1,8 +1,9 @@
 $(document).ready(function() {
-  $('#search-link').on('click', function(event) {
-    event.preventDefault();
-    $('#search-div').toggleClass('hidden');
+  $('#search-link, #search-button').on('click', function(event) {
+      event.preventDefault();
+      $('#search-div').toggleClass('hidden');
   });
+
 
   function searchStuff() {
       const value = $('#search-input').val();

@@ -156,7 +156,7 @@
           
                     <div class="mb-2 mx-4 border-b-4 rounded border-b-orange-500 mt-8 flex">
                         <input type="text" placeholder="🔍  Pesquisar" id="search-input" class="bg-gray-100 h-8 py-4 px-2 w-full sm:w-auto mb-8 rounded-md text-black font-semibold" />
-                        <button onclick="openSearch(event)" class="w-8 h-8 ml-2 ubuntu-bold rounded-full hover:bg-gray-800 text-black hover:text-white">x</button>
+                       <button id="search-button" class="w-8 h-8 ml-2 ubuntu-bold rounded-full hover:bg-gray-800 text-black hover:text-white">x</button>
                     </div>
                     <div class="flex-1 items-center">
                         <div class="mt-4 mx-4 h-5/6 relative p-2 rounded-md" id="search-people">
