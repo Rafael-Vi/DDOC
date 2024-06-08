@@ -227,42 +227,41 @@
             $updateFields = array();
             $params = array();
             
+            // Generate a unique filename for the profile picture
             $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
-            $profilePicName = "ProfilePic-" . $profilePic['name'] . "-" . $_SESSION['uid'];
-            move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$profilePicName);
+            $uniqueFilename = "ProfilePic-" . uniqid() . "." . $fileExtension; // Unique filename
+            move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$uniqueFilename);
             $updateFields[] = " user_profilePic = ?";
-            $params[] = $profilePicName;
+            $params[] = $uniqueFilename;
             
             if (!empty($username)) {
-            $updateFields[] = " user_name = ?";
-            $params[] = $username;
+                $updateFields[] = " user_name = ?";
+                $params[] = $username;
             }
             
             if (!empty($realName)) {
-            $updateFields[] = " user_realName = ?";
-            $params[] = $realName;
+                $updateFields[] = " user_realName = ?";
+                $params[] = $realName;
             }
             
             if (!empty($biography)) {
-            $updateFields[] = " user_biography = ?";
-            $params[] = $biography;
+                $updateFields[] = " user_biography = ?";
+                $params[] = $biography;
             }
-
+        
             if (!empty($updateFields)) {
-            $updateSql .= implode(",", $updateFields);
-            $updateSql .= " WHERE id_users = ?";
-            $params[] = $uid;
-            
-            $updateResult = executeQuery($dbConn, $updateSql, $params);
-            
-            if ($updateResult) {
-                echoSuccess("User updated successfully.");   
-            } else {
-                $error = mysqli_error($dbConn);
-                mySQLerror($error);
+                $updateSql .= implode(",", $updateFields);
+                $updateSql .= " WHERE id_users = ?";
+                $params[] = $uid;
                 
-            }
-            
+                $updateResult = executeQuery($dbConn, $updateSql, $params);
+                
+                if ($updateResult) {
+                    echoSuccess("User updated successfully.");   
+                } else {
+                    $error = mysqli_error($dbConn);
+                    mySQLerror($error);
+                }
             }
             mysqli_close($dbConn);
         }
