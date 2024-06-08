@@ -219,7 +219,7 @@
         
             mysqli_close($dbConn);
         }
-        
+
         function updateUser($uid, $username, $realName, $profilePic, $biography) {
             global $arrConfig;
             $dbConn = db_connect();
@@ -726,7 +726,7 @@ function createPost($uid, $title, $type, $file, $theme) {
             }
         
             // Check if post's theme_id matches session theme_id and update user status if necessary
-            if (isset($_SESSION['theme_id']) && $postThemeId == $_SESSION['theme_id']) {
+            if (isset($_SESSION['themes'][0]['id_theme']) && $postThemeId == $_SESSION['themes'][0]['id_theme']) {
                 // Assuming updateUserPostStatus function exists and takes user ID and a status code
                 updateUserPostStatus($_SESSION['uid'], 0); // Adjust status code as needed
             }
