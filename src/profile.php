@@ -141,6 +141,7 @@
     </div>
   </dialog>
   <?php echoBottomNav(); ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>

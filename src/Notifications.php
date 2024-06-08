@@ -32,11 +32,15 @@
       </div>
 
         <div name="notifications-container" id="notifications-container" class="h-full w-full px-10 overflow-auto">
+          <div class="mt-8">
+            <button class="btn btn-danger" onclick="deleteAllNotifications()">Delete All Notifications</button>
+          </div>
         <?php setNotifRead()?>
         <?php getNotif(); ?>
         </div>
     </div>
     <?php echoBottomNav(); ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     var themes = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>
