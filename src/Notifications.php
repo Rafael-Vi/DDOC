@@ -33,7 +33,7 @@
             Notifications
         </div>
     
-        <div class="mt-8 mb-8 items-end flex justify-end pr-4" id="delete-all-notif">
+        <div class="mt-8 mb-8 items-end flex justify-end pr-10" id="delete-all-notif">
             <button class="btn btn-danger" onclick="deleteAllNotifications()">Delete All Notifications</button>
         </div>
         <div name="notifications-container" id="notifications-container" class="h-full w-full px-10 overflow-auto">
