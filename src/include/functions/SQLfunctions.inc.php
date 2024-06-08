@@ -787,7 +787,7 @@ function deleteAllNotifications() {
     $params = array($_SESSION['uid']);
 
     // Execute the query
-    if (executeQuery($dbConn, $query)) {
+    if (executeQuery($dbConn, $query, $params)) {
         echo "All notifications deleted successfully.";
     } else {
         echo "Failed to delete notifications.";
