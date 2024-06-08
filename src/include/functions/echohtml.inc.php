@@ -72,7 +72,7 @@
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
                         <li class="px-4 py-2">
-                        <a href="#" id="search-link" class="hidden" style="color: black"><i class="mr-2 fi fi-sr-search"></i> Pesquisa</a>
+                        <a href="#" id="search-link" class="" style="color: black"><i class="mr-2 fi fi-sr-search"></i> Pesquisa</a>
                         </li>
                         <li class="px-4 py-2">
                             <a href="./messages.php" id="messages-link" style="color: black"><i class="mr-2 fi fi-sr-comment-alt"></i> Mensagens</a>
