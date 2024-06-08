@@ -31,14 +31,13 @@ function startTimer() {
       clearInterval(timerInterval);
       console.log("Target date reached!");
     } else {
-      // Update the CSS variables with the remaining time
-      document.getElementById('days').style.setProperty('--value', remainingTime.days);
-      document.getElementById('hours').style.setProperty('--value', remainingTime.hours);
-      document.getElementById('minutes').style.setProperty('--value', remainingTime.minutes);
-      document.getElementById('seconds').style.setProperty('--value', remainingTime.seconds);
+      // Update the CSS variables with the remaining time using jQuery
+      $('#days').css('--value', remainingTime.days);
+      $('#hours').css('--value', remainingTime.hours);
+      $('#minutes').css('--value', remainingTime.minutes);
+      $('#seconds').css('--value', remainingTime.seconds);
     }
   }, 1000); // Update every second
 }
 
 startTimer();
-

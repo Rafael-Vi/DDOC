@@ -32,7 +32,7 @@
       </div>
 
         <div name="notifications-container" id="notifications-container" class="h-full w-full px-10 overflow-auto">
-          <div class="mt-8">
+          <div class="mt-8" id="delete-all-notif">
             <button class="btn btn-danger" onclick="deleteAllNotifications()">Delete All Notifications</button>
           </div>
         <?php setNotifRead()?>
