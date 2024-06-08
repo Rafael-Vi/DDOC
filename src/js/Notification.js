@@ -1,43 +1,42 @@
 function deleteNotifications(notificationId) {
-    fetch('../src/include/functions/SQLfunctions.inc.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
+    $.ajax({
+        url: '../src/include/functions/SQLfunctions.inc.php',
+        type: 'POST',
+        data: {
             function: 'deleteNotifications',
-            id: notificationId 
-        })
-    })
-    .then(response => response.text())
-    .then(() => {
-        document.querySelectorAll('.notification-message').forEach(el => el.remove());
-        loadNotifications();
-    })
-    .catch(error => console.error(error));
+            id: notificationId
+        },
+        success: function() {
+            $('.notification-message').remove();
+            loadNotifications();
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
 }
 
 let lastData = null;
 
 function loadNotifications() {
-    fetch('../src/include/functions/SQLfunctions.inc.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+    $.ajax({
+        url: '../src/include/functions/SQLfunctions.inc.php',
+        type: 'POST',
+        data: { function: 'loadNotifications' },
+        success: function(data) {
+            // Only update if the data has changed
+            if (data !== lastData) {
+                const $notificationsContainer = $('#notifications-container');
+                // Preserve the div with id 'delete-all-notif'
+                const $deleteAllNotif = $('#delete-all-notif').detach();
+                $notificationsContainer.html(data);
+                $notificationsContainer.prepend($deleteAllNotif);
+                lastData = data;
+            }
         },
-        body: 'function=loadNotifications',
-    })
-    .then(response => response.text())
-    .then(data => {
-        // Only update if the data has changed
-        if (data !== lastData) {
-            const notificationsContainer = document.getElementById('notifications-container');
-            notificationsContainer.innerHTML = data;
-            lastData = data;
+        error: function(error) {
+            console.error('Error:', error);
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
     });
 }
 
