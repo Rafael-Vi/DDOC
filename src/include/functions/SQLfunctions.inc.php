@@ -219,10 +219,20 @@
         
             mysqli_close($dbConn);
         }
-
+        
         function updateUser($uid, $username, $realName, $profilePic, $biography) {
             global $arrConfig;
             $dbConn = db_connect();
+        
+            // Step 1: Retrieve the current profile picture's filename
+            $currentPicSql = "SELECT user_profilePic FROM users WHERE id_users = ?";
+            $stmt = mysqli_prepare($dbConn, $currentPicSql);
+            mysqli_stmt_bind_param($stmt, "i", $uid);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $currentPic = mysqli_fetch_assoc($result)['user_profilePic'];
+            mysqli_stmt_close($stmt);
+        
             $updateSql = "UPDATE users SET";
             $updateFields = array();
             $params = array();
@@ -230,6 +240,15 @@
             // Generate a unique filename for the profile picture
             $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
             $uniqueFilename = "ProfilePic-" . uniqid() . "." . $fileExtension; // Unique filename
+        
+            // Step 2: Check and delete the current profile picture if different
+            if ($currentPic && $uniqueFilename !== $currentPic) {
+                $currentPicPath = $arrConfig['dir_users'] . $currentPic;
+                if (file_exists($currentPicPath)) {
+                    unlink($currentPicPath);
+                }
+            }
+        
             move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$uniqueFilename);
             $updateFields[] = " user_profilePic = ?";
             $params[] = $uniqueFilename;
@@ -265,7 +284,6 @@
             }
             mysqli_close($dbConn);
         }
-
 
         function getUserInfo($uid){
             global $arrConfig;
