@@ -785,7 +785,8 @@ function deleteAllNotifications() {
     }
 
     // Prepare the SQL query to delete all notifications
-    $query = "DELETE FROM notifications";
+    $query = "DELETE FROM notifications WHERE receiver_id = ?";
+    $params = array($_SESSION['uid']);
 
     // Execute the query
     if (executeQuery($dbConn, $query)) {
