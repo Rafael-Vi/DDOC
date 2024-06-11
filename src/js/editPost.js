@@ -1,12 +1,9 @@
 $(document).ready(function() {
-    $('.post-container').hover(
-        function() { // Mouseover
-            $(this).find('.edit-post, .caption-label, .new-button').css('visibility', 'visible');
-        }, 
-        function() { // Mouseout
-            $(this).find('.edit-post, .caption-label, .new-button').css('visibility', 'hidden');
-        }
-    );
+    $(document).on('mouseenter', '.post-container', function() {
+        $(this).find('.edit-post, .caption-label, .new-button').css('visibility', 'visible');
+    }).on('mouseleave', '.post-container', function() {
+        $(this).find('.edit-post, .caption-label, .new-button').css('visibility', 'hidden');
+    });
 
     function cancel() {
         $('#postContent').val('');
