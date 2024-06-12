@@ -24,7 +24,7 @@ $(document).ready(function() {
         $('#caption').text(caption);
         $('#postContent').attr('placeholder', `Altera "${caption}" para outra legenda...`);
         $('#postId').val(btoa(postid));
-        $('#postEdit').modal('show'); // Assuming Bootstrap modal or similar
+        document.getElementById('postEdit').showModal();
     }
 
     function checkIfOwner(postid, callback) {
