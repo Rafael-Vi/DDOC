@@ -1125,7 +1125,7 @@
                 $sql = $baseSql . "rankingpoststypeall WHERE " . $whereClauses . " AND PostType = ?";
                 $params[] = $type;
             } else {
-                $sql = $baseSql . "rankingposts WHERE " . $whereClauses;
+                $sql = $baseSql . "rankingpoststypeall WHERE " . $whereClauses;
             }
         } else {
             error_log("ERROR: Invalid table name.");
