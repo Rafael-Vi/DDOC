@@ -41,6 +41,7 @@ function checkIfOwner(postid, callback) {
 function deletePost() {
     var postIdElement = document.getElementById('postId');
     var postid = atob(postIdElement.value);
+    console.log('postid:', postid);
     var userConfirmed = window.confirm('Are you sure you want to delete this post?');
     if (!userConfirmed) {
         return;
