@@ -1088,7 +1088,7 @@
         }
     }
   
-    function getPodium($rank, $table, $themeId = null, $type = null){
+    function getPodium($rank, $table, $themeId = null, $type = null) {
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
@@ -1097,29 +1097,20 @@
         }
     
         $sql = null; // Initialize $sql as null
-
-
-        // Improved version for defining SQL queries based on conditions
         $params = []; // Initialize parameters array
-        
-        // Base SQL query for 'AccRank' table
+    
+        // Construct SQL query based on table and conditions
         if ($table == 'AccRank') {
             $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ?";
-            $params[] = $rank; // Add rank to parameters
-        
-            // Add PostType condition if applicable
+            $params[] = $rank;
             if ($type !== null && $type !== 'none') {
                 $sql .= " AND PostType = ?";
                 $params[] = $type;
             }
-        } 
-        // Base SQL query for 'PostRank' table
-        else if ($table == 'PostRank') {
+        } else if ($table == 'PostRank') {
             $baseSql = "SELECT NameOfThePost FROM ";
             $whereClauses = "PostRank = ?";
-            $params[] = $rank; // Add rank to parameters
-        
-            // Determine the correct table and additional conditions
+            $params[] = $rank;
             if ($themeId !== null && $themeId !== 'none' && $type !== null && $type !== 'none') {
                 $sql = $baseSql . "rankingpoststype WHERE " . $whereClauses . " AND id_theme = ? AND PostType = ?";
                 $params[] = $themeId;
@@ -1133,30 +1124,33 @@
             } else {
                 $sql = $baseSql . "rankingposts WHERE " . $whereClauses;
             }
-        } 
-        // Handle invalid table name
-        else {
+        } else {
             error_log("ERROR: Invalid table name.");
-            return null; // Return or handle the error as appropriate
-        }
-        
-        $sql .= " LIMIT 1"; // Limit the results to 1 for both cases
-    
-        // Execute the query
-        $result = executeQuery($dbConn, $sql, $params);
-        if ($result === false) {
-            error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-            return null; // Return or handle the error as appropriate
+            return null;
         }
     
-        // Fetch the data based on the table
-        $row = mysqli_fetch_assoc($result);
-        if ($row) {
-            if ($table == 'AccRank') {
-                return array('username' => $row['UserName'], 'image' => $row['UserImage']);
-            } else if ($table == 'PostRank') {
-                return array('NameOfThePost' => $row['NameOfThePost']);
+        $sql .= " LIMIT 1"; // Limit the results to 1
+    
+        // Prepare SQL statement
+        if ($stmt = mysqli_prepare($dbConn, $sql)) {
+            // Dynamically bind parameters
+            mysqli_stmt_bind_param($stmt, str_repeat('s', count($params)), ...$params);
+            // Execute the query
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+    
+            // Fetch the data
+            $row = mysqli_fetch_assoc($result);
+            if ($row) {
+                if ($table == 'AccRank') {
+                    return ['username' => $row['UserName'], 'image' => $row['UserImage']];
+                } else if ($table == 'PostRank') {
+                    return ['NameOfThePost' => $row['NameOfThePost']];
+                }
             }
+            mysqli_stmt_close($stmt);
+        } else {
+            error_log("ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn));
         }
     
         return null;
