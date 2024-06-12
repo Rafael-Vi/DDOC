@@ -167,9 +167,9 @@
             </div>
         ';
     }
-   
-    
+
     function displayPodium($podium, $positionName) {
+        global $arrConfig;
         if ($podium) {
             // Determine the name to display based on available data
             if (isset($podium['NameOfThePost'])) {
@@ -178,6 +178,12 @@
                 $postName = $podium['username'];
             } else {
                 $postName = 'Unknown';
+            }
+    
+            // Check if an image is available and set the image HTML
+            $imageHtml = '';
+            if (isset($podium['image']) && !empty($podium['image'])) {
+                $imageHtml = "<img src=\"{$arrConfig['url_users']}/{$podium['image']}\" alt=\"User Image\" class=\"rounded-full mb-2\" style=\"width: 100px; height: 100px;\">";
             }
         } else {
             $postName = 'None with this Rank';
@@ -188,6 +194,7 @@
     
         // Display the podium position
         echo "<div class=\"flex flex-col items-center mt-auto\">";
+        echo $imageHtml; // Display the image if available
         echo "<h1 class=\"mb-2 text-white\">$postName</h1>";
         echo "<div class=\"bg-gray-800 rounded-lg text-center p-4 $heightClass relative flex items-center justify-center m-4 sm:m-0\">$positionName</div>";
         echo "</div>";
