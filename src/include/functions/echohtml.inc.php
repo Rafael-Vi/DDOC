@@ -167,9 +167,23 @@
             </div>
         ';
     }
+   
+    
     function displayPodium($podium, $positionName) {
-        // Determine the name to display based on available data
-        $postName = $podium['NameOfThePost'] ?? $podium['UserName'] ?? 'Unknown';
+        if ($podium) {
+            // Determine the name to display based on available data
+            if (isset($podium['NameOfThePost'])) {
+                $postName = $podium['NameOfThePost'];
+            } elseif (isset($podium['UserName'])) {
+                $postName = $podium['UserName'];
+            } else {
+                $postName = 'Unknown';
+            }
+        } else {
+            $postName = 'No post found with this rank.';
+        }
+    
+        // Determine the height class based on the position name
         $heightClass = $positionName === 'First Place' ? 'h-28 w-28' : ($positionName === 'Second Place' ? 'h-20 w-24' : 'h-16 w-24');
     
         // Display the podium position
