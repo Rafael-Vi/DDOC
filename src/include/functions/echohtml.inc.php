@@ -363,7 +363,7 @@
     function echoConvo($profilePic, $name, $personId){
         global $arrConfig;
         $defaultProfilePic = "path/to/default/image.jpg"; // Path to your default image
-        $profilePicUrl = empty($profilePic) ? $defaultProfilePic : $arrConfig['url_assets']."Unknown_person.jpg";
+        $profilePicUrl = empty($profilePic) ? $arrConfig['url_assets']."images/Unknown_person.jpg" : $arrConfig['url_users'].$profilePic;
     
         echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-3/4">';
         echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
