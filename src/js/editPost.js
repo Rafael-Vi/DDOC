@@ -9,11 +9,16 @@ function cancel() {
 function showMyModal(postid, caption) {
     $('#caption').text(caption);
     $('#postContent').attr('placeholder', `Altera "${caption}" para outra legenda...`);
-    // Ensure postid is a string before encoding
     const postIdStr = String(postid);
     $('#postId').val(btoa(postIdStr));
     document.getElementById('postEdit').showModal();
-    // Remember to decode with atob($('#postId').val()) where needed
+
+    // Adding a jQuery change event listener for the postID input
+    $('#inputPostID').change(function() {
+        var newPostId = $(this).val(); // Get the new value from the input
+        var encodedPostId = btoa(String(newPostId)); // Ensure it's a string and encode it
+        $('#postId').val(encodedPostId); // Update the hidden input or any relevant field with the new encoded PostID
+    });
 }
 
 function checkIfOwner(postid, callback) {
