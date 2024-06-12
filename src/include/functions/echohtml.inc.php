@@ -169,9 +169,6 @@
     }
 
     function displayPodium($podium, $positionName) {
-        echo "<pre>";
-        print_r($podium);
-        echo "</pre>";
         // Initialize $imageHtml with a default value (e.g., an empty string or a default image HTML code)
 $imageHtml = '';
         global $arrConfig;
