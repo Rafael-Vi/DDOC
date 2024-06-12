@@ -167,11 +167,10 @@
             </div>
         ';
     }
-
     function displayPodium($podium, $positionName) {
-        // Check if podium data exists
+        // Determine the name to display based on available data
         if ($podium) {
-            $postName = $podium['NameOfThePost'];
+            $postName = isset($podium['NameOfThePost']) ? $podium['NameOfThePost'] : (isset($podium['UserName']) ? $podium['UserName'] : 'Unknown');
             $heightClass = $positionName === 'First Place' ? 'h-28 w-28' : ($positionName === 'Second Place' ? 'h-20 w-24' : 'h-16 w-24');
         } else {
             $postName = 'No post found with this rank.';
