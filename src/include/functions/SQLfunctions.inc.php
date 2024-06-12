@@ -438,49 +438,53 @@
             // Return a JSON object
             echo json_encode(array('success' => $wasUpdated, 'postID' => $postID));
         }
+
         function checkIfOwnerPost($postID, $currentSessionUser) {
-        // Start the database connection
-        $dbConn = db_connect();
-
-        // Check connection
-        if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
-
-        // Prepare the SQL query with the post_id condition using prepared statements
-        $sql = "SELECT id_users FROM posts WHERE post_id = ?";
-        $stmt = mysqli_prepare($dbConn, $sql);
-
-        // Bind parameters
-        mysqli_stmt_bind_param($stmt, "i", $postID);
-
-        // Execute the query
-        if(mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
-        }
-
-        // Bind result variables
-        mysqli_stmt_bind_result($stmt, $userID);
-
-
-        // Fetch the result
-        if (mysqli_stmt_fetch($stmt)) {
-            // Check if the current session user is the owner of the post
-            $isOwner = $userID == $currentSessionUser;
-        } else {
-            $userID = null;
-            $isOwner = false;
-        }
-
-        // Close the database connection
-        mysqli_stmt_close($stmt);
-        mysqli_close($dbConn);
-
-        // Return a JSON object
-
-        echo json_encode(array('isOwner' => $isOwner, 'userID' => $userID, 'postID' => $postID));
-
-
+            // Start the database connection
+            $dbConn = db_connect();
+        
+            // Check connection
+            if ($dbConn === false) {
+                // Consider using exception or a more graceful error handling
+                return ['error' => "ERROR: Could not connect. " . mysqli_connect_error()];
+            }
+        
+            // Prepare the SQL query with the post_id condition using prepared statements
+            $sql = "SELECT id_users FROM posts WHERE post_id = ?";
+            $stmt = mysqli_prepare($dbConn, $sql);
+        
+            // Check if statement was prepared successfully
+            if (!$stmt) {
+                // Consider using exception or a more graceful error handling
+                return ['error' => "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn)];
+            }
+        
+            // Bind parameters
+            mysqli_stmt_bind_param($stmt, "i", $postID);
+        
+            // Execute the query
+            if (!mysqli_stmt_execute($stmt)) {
+                // Consider using exception or a more graceful error handling
+                return ['error' => "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn)];
+            }
+        
+            // Bind result variables
+            mysqli_stmt_bind_result($stmt, $userID);
+        
+            // Fetch the result
+            if (mysqli_stmt_fetch($stmt)) {
+                // Check if the current session user is the owner of the post
+                $isOwner = $userID == $currentSessionUser;
+            } else {
+                $isOwner = false;
+            }
+        
+            // Close the database connection
+            mysqli_stmt_close($stmt);
+            mysqli_close($dbConn);
+        
+            // Return as an array instead of echoing JSON directly
+            return ['isOwner' => $isOwner, 'userID' => $userID, 'postID' => $postID];
         }
 
         function setSelectedType($selectedType) {
