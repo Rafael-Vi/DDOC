@@ -4,6 +4,15 @@ $(document).ready(function() {
     }).on('mouseleave', '.post-container', function() {
         $(this).find('.edit-post, .caption-label, .new-button').css('visibility', 'hidden');
     });
+    
+    $(document).ready(function() {
+        // Bind click event to all buttons with class 'edit-post'
+        $(document).on('click', '.edit-post', function() {
+            var postId = $(this).data('id');
+            var caption = $(this).attr('onclick').match(/showModal\(\'(.*?)\'/)[1]; // Extract postId from the onclick attribute
+            showModal(postId, caption);
+        });
+    });
 
     function cancel() {
         $('#postContent').val('');
