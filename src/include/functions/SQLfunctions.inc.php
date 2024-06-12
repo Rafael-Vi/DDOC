@@ -1124,7 +1124,7 @@
             } else if ($type !== null || $type !== 'none'  && $themeId === null || $themeId === 'none') {
                 $sql = $baseSql . "rankingpoststypeall WHERE " . $whereClauses . " AND PostType = ?";
                 $params[] = $type;
-            } else {
+            } else if($type === null || $type === 'none' && $themeId === null || $themeId === 'none') {
                 $sql = $baseSql . "rankingpostsall WHERE " . $whereClauses;
             }
         } else {
