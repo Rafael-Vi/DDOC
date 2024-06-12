@@ -1121,7 +1121,7 @@
             } else if ($themeId !== null && $themeId !== 'none' && $type === null || $type === 'none') {
                 $sql = $baseSql . "rankingposts WHERE " . $whereClauses . " AND id_theme = ?";
                 $params[] = $themeId;
-            } else if ($type === null || $type === 'none'  && $themeId !== null || $themeId !== 'none') {
+            } else if ($type !== null || $type !== 'none'  && $themeId === null || $themeId === 'none') {
                 $sql = $baseSql . "rankingpoststypeall WHERE " . $whereClauses . " AND PostType = ?";
                 $params[] = $type;
             } else {
