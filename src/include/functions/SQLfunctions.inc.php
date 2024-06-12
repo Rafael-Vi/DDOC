@@ -90,8 +90,8 @@
             case 'checkIfitsOwner':
                 if (isset($_POST['postid'])) {
                     $postID = $_POST['postid'];
-                    $currentSessionUser = $_SESSION['uid'];
-                    echo CheckIfOwnerPost($postID, $currentSessionUser);
+                  
+                    echo CheckIfOwnerPost($postID, $_SESSION['uid']);
                 }
                 break;
             case 'deletePost':
