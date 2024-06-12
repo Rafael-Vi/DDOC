@@ -1101,11 +1101,14 @@
     
         // Construct SQL query based on table and conditions
         if ($table == 'AccRank') {
-            $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ?";
-            $params[] = $rank;
             if ($type !== null && $type !== 'none') {
-                $sql .= " AND PostType = ?";
+                $sql = "SELECT UserName, UserImage FROM accountrankingstype WHERE UserRank = ? AND PostType = ?";
+                $params[] = $rank; // This line is added to correctly add the rank to the parameters array before the type
                 $params[] = $type;
+            }
+            else{
+                $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ?";
+                $params[] = $rank;
             }
         } else if ($table == 'PostRank') {
             $baseSql = "SELECT NameOfThePost FROM ";
