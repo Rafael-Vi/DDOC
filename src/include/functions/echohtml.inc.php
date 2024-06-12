@@ -168,7 +168,22 @@
         ';
     }
 
-
+    function displayPodium($podium, $positionName) {
+        // Check if podium data exists
+        if ($podium) {
+            $postName = $podium['NameOfThePost'];
+            $heightClass = $positionName === 'First Place' ? 'h-28 w-28' : ($positionName === 'Second Place' ? 'h-20 w-24' : 'h-16 w-24');
+        } else {
+            $postName = 'No post found with this rank.';
+            $heightClass = $positionName === 'First Place' ? 'h-28 w-28' : ($positionName === 'Second Place' ? 'h-20 w-24' : 'h-16 w-24');
+        }
+    
+        // Display the podium position
+        echo "<div class=\"flex flex-col items-center mt-auto\">";
+        echo "<h1 class=\"mb-2 text-white\">$postName</h1>";
+        echo "<div class=\"bg-gray-800 rounded-lg text-center p-4 $heightClass relative flex items-center justify-center m-4 sm:m-0\">$positionName</div>";
+        echo "</div>";
+    }
 
     function echoBottomNav(){
         echo'

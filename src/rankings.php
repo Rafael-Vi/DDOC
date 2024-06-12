@@ -54,40 +54,19 @@ $GLOBALS['type'] = $type;
         <div class="flex flex-col w-full px-10 sticky">
             <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
                 <?php
-                global $arrConfig;
-                 $podium = getPodium(2, "AccRank",null, $GLOBALS['type']); ?>
-                <div class="flex flex-col items-center mt-auto">
-                    <?php if ($podium): ?>
-                        <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
-                        <h1 class="mb-2 text-white">@<?php echo $podium['username']; ?></h1>
-                        <div class="bg-gray-800 text-white rounded-lg text-center p-4 h-24 w-28 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
-                    <?php else: ?>
-                        <h1 class="mb-2 text-white">No user found with this rank.</h1>
-                        <div class="bg-gray-800 text-white rounded-lg text-center p-4 h-24 w-28 relative flex items-center justify-center m-4 sm:m-0">Second Place</div>
-                    <?php endif; ?>
-                </div>
-                <?php $podium = getPodium(1, "AccRank",null, $GLOBALS['type']); ?>
-                <div class="flex flex-col items-center mt-auto">
-                    <?php if ($podium): ?>
-                        <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
-                        <h1 class="mb-2 text-white">@<?php echo $podium['username']; ?></h1>
-                        <div class="bg-gray-800 text-white rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
-                    <?php else: ?>
-                        <h1 class="mb-2 text-white">No user found with this rank.</h1>
-                        <div class="bg-gray-800 text-white rounded-lg text-center p-4 h-28 w-28 relative flex items-center justify-center m-4 sm:m-0">First Place</div>
-                    <?php endif; ?>
-                </div>
-                <?php $podium = getPodium(3, "AccRank", null, $GLOBALS['type']); ?>
-                <div class="flex flex-col items-center mt-auto">
-                    <?php if ($podium): ?>
-                        <img src="<?php echo $arrConfig['url_users'] . $podium['image']; ?>" class="rounded-full w-20 h-20 mb-2">
-                        <h1 class="mb-2 text-white">@<?php echo $podium['username']; ?></h1>
-                        <div class="bg-gray-800 text-white rounded-lg text-center p-4 h-20 w-28 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
-                    <?php else: ?>
-                        <h1 class="mb-2 text-white">No user found with this rank.</h1>
-                        <div class="bg-gray-800 text-white rounded-lg text-center p-4 h-20 w-28 relative flex items-center justify-center m-4 sm:m-0">Third Place</div>
-                    <?php endif; ?>
-                </div>
+
+                // Display Second Place
+                $podiumSecond = getPodium(2, "AccRank", null, $GLOBALS['type']);
+                displayPodium($podiumSecond, "Second Place");
+
+                // Display First Place
+                $podiumFirst = getPodium(1, "AccRank", null, $GLOBALS['type']);
+                displayPodium($podiumFirst, "First Place");
+
+                // Display Third Place
+                $podiumThird = getPodium(3, "AccRank", null, $GLOBALS['type']);
+                displayPodium($podiumThird, "Third Place");
+                ?>
             </div>
         </div>
         <div class="flex flex-row gap-4">
