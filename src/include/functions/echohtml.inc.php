@@ -169,6 +169,8 @@
     }
 
     function displayPodium($podium, $positionName) {
+        // Initialize $imageHtml with a default value (e.g., an empty string or a default image HTML code)
+$imageHtml = '';
         global $arrConfig;
         if ($podium) {
             // Determine the name to display based on available data
