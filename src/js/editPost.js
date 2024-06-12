@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.edit-post', function() {
         var postId = $(this).data('id');
-        var caption = $(this).attr('onclick').match(/showModal\(\'(.*?)\'/)[1]; // Extract postId from the onclick attribute
+        var caption = $(this).attr('onclick').match(/showMyModal\(\'(.*?)\'/)[1]; // Extract postId from the onclick attribute
         showModal(postId, caption);
     });
 
@@ -17,10 +17,10 @@ $(document).ready(function() {
         $('#caption').text("Caption");
         $('#postContent').attr('placeholder', 'Altera para outra legenda...');
         $('#postId').val('');
-        $('#postEdit').modal('hide'); // Assuming Bootstrap modal or similar
+        document.getElementById('postEdit').close();
     }
 
-    function showModal(postid, caption) {
+    function showMyModal(postid, caption) {
         $('#caption').text(caption);
         $('#postContent').attr('placeholder', `Altera "${caption}" para outra legenda...`);
         $('#postId').val(btoa(postid));
