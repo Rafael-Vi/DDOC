@@ -6,9 +6,14 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.edit-post', function() {
-        var postId = $(this).data('id');
-        var caption = $(this).attr('onclick').match(/showMyModal\(\'(.*?)\'/)[1]; // Extract caption from the onclick attribute
-        showMyModal(postId, caption); // Corrected function name
+        var onclickAttr = $(this).attr('onclick');
+        var match = onclickAttr.match(/showMyModal\(\'(?:.*?)\', \'(.*?)\'/);
+        if (match && match[1]) {
+            var caption = match[1]; // Extracted caption from the onclick attribute
+            showMyModal(postId, caption); // Call function with postId and caption
+        } else {
+            console.error('Caption extraction failed');
+        }
     });
 
 
