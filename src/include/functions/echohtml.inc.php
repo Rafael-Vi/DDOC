@@ -362,10 +362,13 @@
 
     function echoConvo($profilePic, $name, $personId){
         global $arrConfig;
-        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4">';
+        $defaultProfilePic = "path/to/default/image.jpg"; // Path to your default image
+        $profilePicUrl = empty($profilePic) ? $defaultProfilePic : $arrConfig['url_assets']."Unknown_person.jpg";
+    
+        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-3/4">';
         echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
-        echo '<img src="'.$arrConfig['url_users'].''.$profilePic.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
+        echo '<img src="'.$profilePicUrl.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
         echo '<div>';
         echo '<div class="font-bold">'.$name.'</div>'; // Name
         echo '<div class="text-sm leading-relaxed">Last message...</div>'; // Last message
