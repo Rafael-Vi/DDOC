@@ -1088,8 +1088,6 @@
             echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage']);
         }
     }
-  
-  
     function getPodium($rank, $table, $themeId = null, $type = null){
         // Create a connection to the database
         $dbConn = db_connect();
@@ -1097,58 +1095,60 @@
             error_log("ERROR: Could not connect. " . mysqli_connect_error());
             return null; // Return or handle the error as appropriate
         }
-    
+
         $sql = null; // Initialize $sql as null
         $params = []; // Initialize parameters array
-    
+
         // Define the SQL query based on the table and conditions
         if ($table == 'AccRank') {
             $sql = "SELECT UserName, UserImage FROM accountrankings";
             $whereClauses = ["UserRank = ?"];
             $params[] = $rank;
-    
+
             if ($type !== null && $type !== 'none') {
                 $whereClauses[] = "PostType = ?";
                 $params[] = $type;
             }
-    
+
             $sql .= " WHERE " . implode(" AND ", $whereClauses) . " LIMIT 1";
         } else if ($table == 'PostRank') {
-            // Determine the correct table based on themeId and type
+            // Always select UserName along with NameOfThePost
+            $selectFields = "NameOfThePost, UserName";
+
             if ($themeId !== null && $themeId !== 'none' && $type !== null && $type !== 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpostotype"; // Use rankingpostotype when both themeId and type are set
+                $sql = "SELECT $selectFields FROM rankingpostotype"; // Use rankingpostotype when both themeId and type are set
             } else if ($themeId === 'none' && $type !== null && $type !== 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpoststypeall"; // Use rankingpoststypeall when themeId is 'none' but type is set
+                $sql = "SELECT $selectFields FROM rankingpoststypeall"; // Use rankingpoststypeall when themeId is 'none' but type is set
             } else {
-                $sql = "SELECT NameOfThePost FROM rankingposts"; // Default to rankingposts
+                $sql = "SELECT $selectFields FROM rankingposts"; // Default to rankingposts
             }
-    
+
             $whereClauses = ["PostRank = ?"];
             $params[] = $rank;
-    
+
             if ($themeId !== null && $themeId !== 'none') {
                 $whereClauses[] = "id_theme = ?";
                 $params[] = $themeId;
             }
-    
+
             if ($type !== null && $type !== 'none') {
                 $whereClauses[] = "PostType = ?";
                 $params[] = $type;
             }
-    
+
             $sql .= " WHERE " . implode(" AND ", $whereClauses) . " LIMIT 1";
         } else {
             error_log("ERROR: Invalid table name.");
             return null; // Return or handle the error as appropriate
         }
-    
+
         // Execute the query
         $result = executeQuery($dbConn, $sql, $params);
         if ($result === false) {
             error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
             return null; // Return or handle the error as appropriate
         }
-    
+
         // Fetch the data based on the table
         $row = mysqli_fetch_assoc($result);
         if ($row) {
@@ -1156,13 +1156,14 @@
                 // Return the user data
                 return array('username' => $row['UserName'], 'image' => $row['UserImage']);
             } else if ($table == 'PostRank') {
-                // Return the post name
-                return array('NameOfThePost' => $row['NameOfThePost']);
+                // Return the post name or username
+                return array('NameOfThePost' => $row['NameOfThePost'] ?? $row['UserName']);
             }
         }
-    
+
         return null;
     }
+
     //?RANKING RELATED ------------------------------------------------------------------
 
 
