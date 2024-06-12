@@ -170,6 +170,9 @@
    
     
     function displayPodium($podium, $positionName) {
+        // Debug: Print out the podium array to check its structure
+        echo '<pre>' . print_r($podium, true) . '</pre>';
+    
         if ($podium) {
             // Determine the name to display based on available data
             if (isset($podium['NameOfThePost'])) {
@@ -180,7 +183,7 @@
                 $postName = 'Unknown';
             }
         } else {
-            $postName = 'No post found with this rank.';
+            $postName = 'None with this Rank';
         }
     
         // Determine the height class based on the position name
@@ -192,7 +195,6 @@
         echo "<div class=\"bg-gray-800 rounded-lg text-center p-4 $heightClass relative flex items-center justify-center m-4 sm:m-0\">$positionName</div>";
         echo "</div>";
     }
-
     function echoBottomNav(){
         echo'
         <div class="btm-nav sm:hidden bg-white shadow-md flex items-center z-40 justify-between absolute bottom-0 w-full shadow-top">
