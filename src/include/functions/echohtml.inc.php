@@ -170,15 +170,12 @@
    
     
     function displayPodium($podium, $positionName) {
-        // Debug: Print out the podium array to check its structure
-        echo '<pre>' . print_r($podium, true) . '</pre>';
-    
         if ($podium) {
             // Determine the name to display based on available data
             if (isset($podium['NameOfThePost'])) {
                 $postName = $podium['NameOfThePost'];
-            } elseif (isset($podium['UserName'])) {
-                $postName = $podium['UserName'];
+            } elseif (isset($podium['username'])) {
+                $postName = $podium['username'];
             } else {
                 $postName = 'Unknown';
             }
