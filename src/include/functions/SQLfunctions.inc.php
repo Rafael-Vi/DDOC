@@ -87,13 +87,15 @@
                     echo $response;
                 }
                 break;
+
             case 'checkIfitsOwner':
                 if (isset($_POST['postid'])) {
                     $postID = $_POST['postid'];
-                  
-                    echo CheckIfOwnerPost($postID, $_SESSION['uid']);
+                    $result = CheckIfOwnerPost($postID, $_SESSION['uid']);
+                    echo json_encode($result);
                 }
                 break;
+              
             case 'deletePost':
                 if (isset($_POST['postid'])) {
                     $postID = $_POST['postid'];
