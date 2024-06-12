@@ -1089,7 +1089,6 @@
         }
     }
   
-  
     function getPodium($rank, $table, $themeId = null, $type = null){
         // Create a connection to the database
         $dbConn = db_connect();
@@ -1114,13 +1113,17 @@
     
             $sql .= " WHERE " . implode(" AND ", $whereClauses) . " LIMIT 1";
         } else if ($table == 'PostRank') {
-            // Determine the correct table based on themeId and type
-            if ($themeId !== null && $themeId !== 'none' && $type !== null && $type !== 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpostotype"; // Use rankingpostotype when both themeId and type are set
+            // Adjusted logic to handle 'none' values correctly
+            if ($themeId === 'none' && $type === 'none') {
+                // Handle the case when both themeId and type are 'none'
+                // This could be returning null or selecting a default table/query
+                return null; // Example handling, adjust as needed
+            } else if ($themeId !== null && $type !== null && $themeId !== 'none' && $type !== 'none') {
+                $sql = "SELECT NameOfThePost FROM rankingpostotype";
             } else if ($themeId === 'none' && $type !== null && $type !== 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpoststypeall"; // Use rankingpoststypeall when themeId is 'none' but type is set
+                $sql = "SELECT NameOfThePost FROM rankingpoststypeall";
             } else {
-                $sql = "SELECT NameOfThePost FROM rankingposts"; // Default to rankingposts
+                $sql = "SELECT NameOfThePost FROM rankingposts";
             }
     
             $whereClauses = ["PostRank = ?"];
@@ -1153,10 +1156,8 @@
         $row = mysqli_fetch_assoc($result);
         if ($row) {
             if ($table == 'AccRank') {
-                // Return the user data
                 return array('username' => $row['UserName'], 'image' => $row['UserImage']);
             } else if ($table == 'PostRank') {
-                // Return the post name
                 return array('NameOfThePost' => $row['NameOfThePost']);
             }
         }
