@@ -9,8 +9,11 @@ function cancel() {
 function showMyModal(postid, caption) {
     $('#caption').text(caption);
     $('#postContent').attr('placeholder', `Altera "${caption}" para outra legenda...`);
-    $('#postId').val(btoa(postid));
+    // Ensure postid is a string before encoding
+    const postIdStr = String(postid);
+    $('#postId').val(btoa(postIdStr));
     document.getElementById('postEdit').showModal();
+    // Remember to decode with atob($('#postId').val()) where needed
 }
 
 function checkIfOwner(postid, callback) {
