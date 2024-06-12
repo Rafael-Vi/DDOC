@@ -39,7 +39,8 @@ function checkIfOwner(postid, callback) {
 }
 
 function deletePost() {
-    var postid = atob($('#postId').val());
+    var postIdElement = document.getElementById('postId');
+    var postid = atob(postIdElement.value);
     var userConfirmed = window.confirm('Are you sure you want to delete this post?');
     if (!userConfirmed) {
         return;
@@ -75,7 +76,8 @@ function deletePost() {
 }
 
 function save() {
-    var postid = atob($('#postId').val());
+    var postIdElement = document.getElementById('postId');
+    var postid = atob(postIdElement.value);
     var postContent = $('#postContent').val();
     var confirmation = confirm('Are you sure you want to save this post?');
     if (!confirmation) {
