@@ -1020,17 +1020,16 @@
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
 
-        // Define the SQL query and parameters
-        if ($id_theme !== null && $type !== null && $id_theme !== 'none' && $type !== 'none') {
+      
+        // Improved readability and consistency
+        if ($id_theme !== null && $id_theme !== 'none' && $type !== null && $type !== 'none') {
             $sql = "SELECT * FROM rankingpoststype WHERE id_theme = ? AND PostType = ?";
             $params = array($id_theme, $type);
         } elseif ($id_theme !== null && $id_theme !== 'none') {
             $sql = "SELECT * FROM rankingposts WHERE id_theme = ?";
             $params = array($id_theme);
-        } elseif ($type !== null && $type !== 'none') {
-            $sql = "SELECT * FROM rankingpostsotype WHERE PostType = ?";
-            $params = array($type);
-        } elseif ($type == 'none' && $id_theme != null && $id_theme != 'none') {
+        } elseif ($type !== 'none' && ($id_theme === null || $id_theme === 'none')) {
+            // Grouped conditions for clarity
             $sql = "SELECT * FROM rankingpoststypeall WHERE PostType = ?";
             $params = array($type);
         } else {
@@ -1098,52 +1097,50 @@
         }
     
         $sql = null; // Initialize $sql as null
+
+
+        // Improved version for defining SQL queries based on conditions
         $params = []; // Initialize parameters array
-    
-        // Define the SQL query based on the table and conditions
+        
+        // Base SQL query for 'AccRank' table
         if ($table == 'AccRank') {
-            $sql = "SELECT UserName, UserImage FROM accountrankings";
-            $whereClauses = ["UserRank = ?"];
-            $params[] = $rank;
-    
+            $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ?";
+            $params[] = $rank; // Add rank to parameters
+        
+            // Add PostType condition if applicable
             if ($type !== null && $type !== 'none') {
-                $whereClauses[] = "PostType = ?";
+                $sql .= " AND PostType = ?";
                 $params[] = $type;
             }
-    
-            $sql .= " WHERE " . implode(" AND ", $whereClauses) . " LIMIT 1";
-        } else if ($table == 'PostRank') {
-            // Adjusted logic to handle 'none' values correctly
-            if ($themeId === 'none' && $type === 'none') {
-                // Handle the case when both themeId and type are 'none'
-                // This could be returning null or selecting a default table/query
-                return null; // Example handling, adjust as needed
-            } else if ($themeId !== null && $type !== null && $themeId !== 'none' && $type !== 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpostotype";
-            } else if ($themeId === 'none' && $type !== null && $type !== 'none') {
-                $sql = "SELECT NameOfThePost FROM rankingpoststypeall";
-            } else {
-                $sql = "SELECT NameOfThePost FROM rankingposts";
-            }
-    
-            $whereClauses = ["PostRank = ?"];
-            $params[] = $rank;
-    
-            if ($themeId !== null && $themeId !== 'none') {
-                $whereClauses[] = "id_theme = ?";
+        } 
+        // Base SQL query for 'PostRank' table
+        else if ($table == 'PostRank') {
+            $baseSql = "SELECT NameOfThePost FROM ";
+            $whereClauses = "PostRank = ?";
+            $params[] = $rank; // Add rank to parameters
+        
+            // Determine the correct table and additional conditions
+            if ($themeId !== null && $themeId !== 'none' && $type !== null && $type !== 'none') {
+                $sql = $baseSql . "rankingpoststype WHERE " . $whereClauses . " AND id_theme = ? AND PostType = ?";
                 $params[] = $themeId;
-            }
-    
-            if ($type !== null && $type !== 'none') {
-                $whereClauses[] = "PostType = ?";
                 $params[] = $type;
+            } else if ($themeId !== null && $themeId !== 'none') {
+                $sql = $baseSql . "rankingposts WHERE " . $whereClauses . " AND id_theme = ?";
+                $params[] = $themeId;
+            } else if ($type !== null && $type !== 'none') {
+                $sql = $baseSql . "rankingpoststype WHERE " . $whereClauses . " AND PostType = ?";
+                $params[] = $type;
+            } else {
+                $sql = $baseSql . "rankingposts WHERE " . $whereClauses;
             }
-    
-            $sql .= " WHERE " . implode(" AND ", $whereClauses) . " LIMIT 1";
-        } else {
+        } 
+        // Handle invalid table name
+        else {
             error_log("ERROR: Invalid table name.");
             return null; // Return or handle the error as appropriate
         }
+        
+        $sql .= " LIMIT 1"; // Limit the results to 1 for both cases
     
         // Execute the query
         $result = executeQuery($dbConn, $sql, $params);
