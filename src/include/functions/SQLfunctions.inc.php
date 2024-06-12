@@ -1122,7 +1122,7 @@
                 $sql = $baseSql . "rankingposts WHERE " . $whereClauses . " AND id_theme = ?";
                 $params[] = $themeId;
             } else if ($type === null || $type === 'none'  && $themeId !== null || $themeId !== 'none') {
-                $sql = $baseSql . "rankingpoststype WHERE " . $whereClauses . " AND PostType = ?";
+                $sql = $baseSql . "rankingpoststypeall WHERE " . $whereClauses . " AND PostType = ?";
                 $params[] = $type;
             } else {
                 $sql = $baseSql . "rankingposts WHERE " . $whereClauses;
