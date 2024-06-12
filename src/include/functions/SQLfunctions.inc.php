@@ -492,70 +492,69 @@
             }
         }
 
-function createPost($uid, $title, $type, $file, $theme) {
-    global $arrConfig;
-    $dbConn = db_connect();
+        function createPost($uid, $title, $type, $file, $theme) {
+            global $arrConfig;
+            $dbConn = db_connect();
 
-    // Check if the file upload was successful
-    if ($file['error'] > 0) {
-        error_log('File upload error: ' . $file['error']);
-        return; // Return from the function if the file upload failed
-    }
+            // Check if the file upload was successful
+            if ($file['error'] > 0) {
+                error_log('File upload error: ' . $file['error']);
+                return; // Return from the function if the file upload failed
+            }
 
-    $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
-    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $fileName .= "." . $fileExtension;
+            $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
+            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $fileName .= "." . $fileExtension;
 
-    // Get the MIME type of the file
-    $fileType = mime_content_type($file['tmp_name']);
+            // Get the MIME type of the file
+            $fileType = mime_content_type($file['tmp_name']);
 
-    // Define the expected MIME types for each extension
-    $expectedMimeTypes = [
-        'mp3' => 'audio/mpeg',
-        'jpeg' => 'image/jpeg',
-        'jpg' => 'image/jpeg',
-        'png' => 'image/png',
-        'gif' => 'image/gif',
-        'mp4' => 'video/mp4',
-        // Add more extensions and MIME types as needed
-    ];
+            // Define the expected MIME types for each extension
+            $expectedMimeTypes = [
+                'mp3' => 'audio/mpeg',
+                'jpeg' => 'image/jpeg',
+                'jpg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'mp4' => 'video/mp4',
+                // Add more extensions and MIME types as needed
+            ];
 
-    // Check if the extension is known and the MIME type matches the expected MIME type
-    if (!isset($expectedMimeTypes[$fileExtension]) || $fileType !== $expectedMimeTypes[$fileExtension]) {
-        die('File type and extension do not match.');
-    }
+            // Check if the extension is known and the MIME type matches the expected MIME type
+            if (!isset($expectedMimeTypes[$fileExtension]) || $fileType !== $expectedMimeTypes[$fileExtension]) {
+                die('File type and extension do not match.');
+            }
 
-    // Check if a file with the same name already exists
-    if (file_exists($arrConfig['dir_posts']."/$type/".$fileName)) {
-        die('A file with the same name already exists.');
-    }
+            // Check if a file with the same name already exists
+            if (file_exists($arrConfig['dir_posts']."/$type/".$fileName)) {
+                die('A file with the same name already exists.');
+            }
 
-    // Prepare the SQL query to insert into the table using prepared statements
-    $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, id_theme) VALUES (?, ?, ?, ?, ?)";
+            // Prepare the SQL query to insert into the table using prepared statements
+            $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, id_theme) VALUES (?, ?, ?, ?, ?)";
 
-    // Execute the query
-    $result = executeQuery($dbConn, $sql, [$uid, $title, $type, $fileName, $theme]);
+            // Execute the query
+            $result = executeQuery($dbConn, $sql, [$uid, $title, $type, $fileName, $theme]);
 
-    if($result === false) {
-        error_log("Error: " . mysqli_error($dbConn));
-    }
+            if($result === false) {
+                error_log("Error: " . mysqli_error($dbConn));
+            }
 
-    // Move the uploaded file
-    if (!move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName)) {
-        die('Error uploading file - check destination is writeable. '.$type.'');
-    }
+            // Move the uploaded file
+            if (!move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName)) {
+                die('Error uploading file - check destination is writeable. '.$type.'');
+            }
 
-    if ($result) {
-        // Handle the successful post creation
-        echo "Post created successfully.";
-        updateUserPostStatus($_SESSION['uid'], 1);
-        sendNotification(null, $_SESSION['uid'], "PostCreated");
-    } else {
-        // Handle the post creation error
-        error_log("Error: " . mysqli_error($dbConn));
-    }
-}
-
+            if ($result) {
+                // Handle the successful post creation
+                echo "Post created successfully.";
+                updateUserPostStatus($_SESSION['uid'], 1);
+                sendNotification(null, $_SESSION['uid'], "PostCreated");
+            } else {
+                // Handle the post creation error
+                error_log("Error: " . mysqli_error($dbConn));
+            }
+        }
   
         function showPost($postId, $show) {
             // Start the database connection
@@ -678,9 +677,6 @@ function createPost($uid, $title, $type, $file, $theme) {
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
         }
-        function updatePost(){
-        }
-
 
         function deletePost($postID) {
             global $arrConfig;
@@ -811,29 +807,29 @@ function createPost($uid, $title, $type, $file, $theme) {
     }
 
 
-function deleteAllNotifications() {
-    // Start the database connection
-    $dbConn = db_connect();
+    function deleteAllNotifications() {
+        // Start the database connection
+        $dbConn = db_connect();
 
-    // Check connection
-    if ($dbConn === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
+        // Check connection
+        if ($dbConn === false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        // Prepare the SQL query to delete all notifications
+        $query = "DELETE FROM notifications WHERE receiver_id = ?";
+        $params = array($_SESSION['uid']);
+
+        // Execute the query
+        if (executeQuery($dbConn, $query, $params)) {
+            echo "All notifications deleted successfully.";
+        } else {
+            echo "Failed to delete notifications.";
+        }
+
+        // Close connection
+        mysqli_close($dbConn);
     }
-
-    // Prepare the SQL query to delete all notifications
-    $query = "DELETE FROM notifications WHERE receiver_id = ?";
-    $params = array($_SESSION['uid']);
-
-    // Execute the query
-    if (executeQuery($dbConn, $query, $params)) {
-        echo "All notifications deleted successfully.";
-    } else {
-        echo "Failed to delete notifications.";
-    }
-
-    // Close connection
-    mysqli_close($dbConn);
-}
     function getNotif($echoNotif = true) {
         $receiverId = $_SESSION['uid'];
     
@@ -961,7 +957,6 @@ function deleteAllNotifications() {
         }
         return $convoIds;
     }
-
 
     function getMessages($sender,$convoId) {
         global $arrConfig;
@@ -1091,15 +1086,19 @@ function deleteAllNotifications() {
         }
     }
   
+
+
     function getPodium($rank, $table, $themeId = null, $type = null){
         // Create a connection to the database
         $dbConn = db_connect();
         if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
+            error_log("ERROR: Could not connect. " . mysqli_connect_error());
+            return null; // Return or handle the error as appropriate
         }
     
+        $sql = null; // Initialize $sql as null
+    
         // Define the SQL query based on the table
-
         if ($table == 'AccRank') {
             if ($type == 'none' || $type == null) {
                 $sql = "SELECT UserName, UserImage FROM accountrankings WHERE UserRank = ? LIMIT 1";
@@ -1120,13 +1119,21 @@ function deleteAllNotifications() {
                 $params = [$rank, $type];
             }
         } else {
-            die("ERROR: Invalid table name.");
+            error_log("ERROR: Invalid table name.");
+            return null; // Return or handle the error as appropriate
         }
-
+    
+        // Check if $sql is set
+        if ($sql === null) {
+            error_log("ERROR: SQL query is not set.");
+            return null; // Return or handle the error as appropriate
+        }
+    
         // Execute the query
         $result = executeQuery($dbConn, $sql, $params);
         if ($result === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+            return null; // Return or handle the error as appropriate
         }
     
         // Fetch the data based on the table
@@ -1146,7 +1153,6 @@ function deleteAllNotifications() {
     
         return null;
     }
-
 
     //?RANKING RELATED ------------------------------------------------------------------
 
