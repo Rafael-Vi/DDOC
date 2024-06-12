@@ -19,6 +19,7 @@ function checkIfOwner(postid, callback) {
         url: '../src/include/functions/SQLfunctions.inc.php',
         data: {function: 'checkIfitsOwner', postid: postid},
         success: function(response) {
+            console.log('Server response:', response);
             try {
                 var data = JSON.parse(response);
                 if (!data.isOwner) {
