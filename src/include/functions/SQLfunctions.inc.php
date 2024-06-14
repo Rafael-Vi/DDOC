@@ -353,6 +353,7 @@
                 exit;
             }
         
+            // Close the database connection
             mysqli_close($dbConn);
         }
         
