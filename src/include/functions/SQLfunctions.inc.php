@@ -353,7 +353,6 @@
                 exit;
             }
         
-            // Close the database connection
             mysqli_close($dbConn);
         }
         
@@ -684,58 +683,53 @@
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
         }
-
         function deletePost($postID) {
             global $arrConfig;
-            // Start the database connection
             $dbConn = db_connect();
         
-            // Check connection
             if ($dbConn === false) {
                 error_log("ERROR: Could not connect. " . mysqli_connect_error());
-                die();
+                return false; // Use return instead of die() for better error handling
             }
         
-            // Retrieve the file path and theme_id using post_url
             $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
             $stmt = mysqli_prepare($dbConn, $query);
             mysqli_stmt_bind_param($stmt, "i", $postID);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $file = mysqli_fetch_assoc($result);
-            
-            // Adjusted to use 'dir_posts' for file path construction
-            $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'] ?? null;
-            $postThemeId = $file['id_theme'] ?? null;
             mysqli_stmt_close($stmt);
-            
-            // Delete the file if it exists
-            if ($filePath && file_exists($filePath)) {
-                unlink($filePath);
-            }
-            // Delete the post
-            $query = "DELETE FROM posts WHERE post_id = ?";
-            $params = [$postID];
-            if (!executeQuery($dbConn, $query, $params)) {
-                error_log("Failed to delete post with ID $postID.");
-                return;
+        
+            if ($file) {
+                $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'];
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
             }
         
-            // Delete all likes associated with the post
-            $query = "DELETE FROM likes WHERE post_id = ?";
-            if (!executeQuery($dbConn, $query, $params)) {
-                error_log("Failed to delete likes for post with ID $postID.");
-                return;
+            $queries = [
+                "DELETE FROM posts WHERE post_id = ?",
+                "DELETE FROM likes WHERE post_id = ?"
+            ];
+        
+            foreach ($queries as $query) {
+                $stmt = mysqli_prepare($dbConn, $query);
+                mysqli_stmt_bind_param($stmt, "i", $postID);
+                if (!mysqli_stmt_execute($stmt)) {
+                    error_log("Failed to execute query: $query");
+                    mysqli_stmt_close($stmt);
+                    mysqli_close($dbConn);
+                    return false;
+                }
+                mysqli_stmt_close($stmt);
             }
         
-            // Check if post's theme_id matches session theme_id and update user status if necessary
-            if (isset($_SESSION['themes'][0]['id_theme']) && $postThemeId == $_SESSION['themes'][0]['id_theme']) {
-                // Assuming updateUserPostStatus function exists and takes user ID and a status code
-                updateUserPostStatus($_SESSION['uid'], 0); // Adjust status code as needed
+            if (isset($_SESSION['themes'][0]['id_theme']) && isset($file['id_theme']) && $file['id_theme'] == $_SESSION['themes'][0]['id_theme']) {
+                updateUserPostStatus($_SESSION['uid'], 0);
             }
         
-            // Close connection
             mysqli_close($dbConn);
+            return true;
         }
 
     //*POST RELATED ------------------------------------------------------------------------
@@ -789,34 +783,30 @@
     
         return true;
     }
-
     function deleteNotif($notifID) {
         // Start the database connection
         $dbConn = db_connect();
-
+    
         // Check connection
         if ($dbConn === false) {
-            // Return a JSON-encoded error message
-            echo json_encode(["success" => false, "message" => "ERROR: Could not connect. " . mysqli_connect_error()]);
-            exit; // Stop script execution after sending the response
+            die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
+    
         // Prepare the SQL query to delete the notification based on notification_id
         $query = "DELETE FROM notifications WHERE id = ?";
         $params = [$notifID];
-
+    
         // Execute the query
         if (executeQuery($dbConn, $query, $params)) {
-            // Return a JSON-encoded success message
-            echo json_encode(["success" => true, "message" => "Notification with ID $notifID deleted successfully."]);
+            echo "Notification with ID $notifID deleted successfully.";
         } else {
-            // Return a JSON-encoded error message
-            echo json_encode(["success" => false, "message" => "Failed to delete notification with ID $notifID."]);
+            echo "Failed to delete notification with ID $notifID.";
         }
-
+    
         // Close connection
         mysqli_close($dbConn);
     }
+
 
     function deleteAllNotifications() {
         // Start the database connection
