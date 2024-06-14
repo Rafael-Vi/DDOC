@@ -9,6 +9,7 @@ function cancel() {
 function showMyModal(postid, caption) {
     document.getElementById('caption').textContent = caption;
     document.getElementById('postContent').setAttribute('placeholder', `Altera "${caption}" para outra legenda...`);
+    console.log('postid:', postid);
     document.getElementById('postId').value = btoa(postid);
     document.getElementById('postEdit').showModal();
 }
