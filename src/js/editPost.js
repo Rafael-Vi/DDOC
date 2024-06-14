@@ -7,10 +7,10 @@ function cancel() {
 }
 
 function showMyModal(postid, caption) {
-    $('#caption').text(caption);
-    $('#postContent').attr('placeholder', `Altera "${caption}" para outra legenda...`);
+    document.getElementById('caption').textContent = caption;
+    document.getElementById('postContent').setAttribute('placeholder', `Altera "${caption}" para outra legenda...`);
     const postIdStr = String(postid);
-    $('#postId').val(btoa(postIdStr));
+    document.getElementById('postId').value = btoa(postIdStr);
     document.getElementById('postEdit').showModal();
 }
 
