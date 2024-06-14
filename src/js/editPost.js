@@ -52,7 +52,6 @@ function checkIfOwner(postid, callback) {
 
 function deletePost() {
     var postIdElement = document.getElementById('postId');
-    // Ensure to get the value from the input element before decoding
     var postid = atob(postIdElement.value);
     console.log('postid:', postid);
     var userConfirmed = window.confirm('Are you sure you want to delete this post?');
@@ -70,7 +69,8 @@ function deletePost() {
                         var data = JSON.parse(response);
                         if (data.success) {
                             console.log('Post was deleted successfully');
-                            location.reload(); // Reload the page to update the list of posts
+                            // Ensure the page is reloaded after the AJAX request has successfully completed
+                            location.reload(); 
                         } else {
                             console.error('There was an error deleting the post');
                         }
