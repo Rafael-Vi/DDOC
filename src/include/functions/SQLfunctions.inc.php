@@ -684,7 +684,7 @@
             mysqli_close($dbConn);
         }
        
-        
+
         function deletePost($postID) {
             global $arrConfig;
             $dbConn = db_connect();
@@ -733,7 +733,7 @@
             }
         
             mysqli_close($dbConn);
-            return json_encode(['success' => true]);
+            echo json_encode(['success' => true]);
         }
     //*POST RELATED ------------------------------------------------------------------------
 
