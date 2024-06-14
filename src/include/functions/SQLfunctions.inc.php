@@ -788,30 +788,34 @@
     
         return true;
     }
+
     function deleteNotif($notifID) {
         // Start the database connection
         $dbConn = db_connect();
-    
+
         // Check connection
         if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
+            // Return a JSON-encoded error message
+            echo json_encode(["success" => false, "message" => "ERROR: Could not connect. " . mysqli_connect_error()]);
+            exit; // Stop script execution after sending the response
         }
-    
+
         // Prepare the SQL query to delete the notification based on notification_id
         $query = "DELETE FROM notifications WHERE id = ?";
         $params = [$notifID];
-    
+
         // Execute the query
         if (executeQuery($dbConn, $query, $params)) {
-            echo "Notification with ID $notifID deleted successfully.";
+            // Return a JSON-encoded success message
+            echo json_encode(["success" => true, "message" => "Notification with ID $notifID deleted successfully."]);
         } else {
-            echo "Failed to delete notification with ID $notifID.";
+            // Return a JSON-encoded error message
+            echo json_encode(["success" => false, "message" => "Failed to delete notification with ID $notifID."]);
         }
-    
+
         // Close connection
         mysqli_close($dbConn);
     }
-
 
     function deleteAllNotifications() {
         // Start the database connection
