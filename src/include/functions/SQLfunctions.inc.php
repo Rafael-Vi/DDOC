@@ -683,13 +683,16 @@
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
         }
+       
+        
         function deletePost($postID) {
             global $arrConfig;
             $dbConn = db_connect();
         
             if ($dbConn === false) {
-                error_log("ERROR: Could not connect. " . mysqli_connect_error());
-                return false; // Use return instead of die() for better error handling
+                $error = "ERROR: Could not connect. " . mysqli_connect_error();
+                error_log($error);
+                return json_encode(['success' => false, 'error' => $error]);
             }
         
             $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
@@ -716,10 +719,11 @@
                 $stmt = mysqli_prepare($dbConn, $query);
                 mysqli_stmt_bind_param($stmt, "i", $postID);
                 if (!mysqli_stmt_execute($stmt)) {
-                    error_log("Failed to execute query: $query");
+                    $error = "Failed to execute query: $query";
+                    error_log($error);
                     mysqli_stmt_close($stmt);
                     mysqli_close($dbConn);
-                    return false;
+                    return json_encode(['success' => false, 'error' => $error]);
                 }
                 mysqli_stmt_close($stmt);
             }
@@ -729,9 +733,8 @@
             }
         
             mysqli_close($dbConn);
-            return true;
+            return json_encode(['success' => true]);
         }
-
     //*POST RELATED ------------------------------------------------------------------------
 
     //?NOTIFICATION RELATED ----------------------------------------------------------------
