@@ -7,10 +7,21 @@ function cancel() {
 }
 
 function showMyModal(postid, caption) {
+    console.log('Type of postid:', typeof postid); // Debugging: Check the type
+    console.log('Value of postid:', postid); // Debugging: Check the value
+
     document.getElementById('caption').textContent = caption;
     document.getElementById('postContent').setAttribute('placeholder', `Altera "${caption}" para outra legenda...`);
     console.log('postid:', postid);
-    document.getElementById('postId').value = btoa(postid);
+
+    // Ensure postid is a string or number before encoding
+    if (typeof postid === 'string' || typeof postid === 'number') {
+        document.getElementById('postId').value = btoa(postid.toString());
+    } else {
+        console.error('Invalid postid type:', typeof postid);
+        // Handle the error appropriately
+    }
+
     document.getElementById('postEdit').showModal();
 }
 
