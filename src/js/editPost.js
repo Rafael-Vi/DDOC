@@ -12,13 +12,6 @@ function showMyModal(postid, caption) {
     const postIdStr = String(postid);
     $('#postId').val(btoa(postIdStr));
     document.getElementById('postEdit').showModal();
-
-    // Adding a jQuery change event listener for the postID input
-    $('#inputPostID').change(function() {
-        var newPostId = $(this).val(); // Get the new value from the input
-        var encodedPostId = btoa(String(newPostId)); // Ensure it's a string and encode it
-        $('#postId').val(encodedPostId); // Update the hidden input or any relevant field with the new encoded PostID
-    });
 }
 
 function checkIfOwner(postid, callback) {
