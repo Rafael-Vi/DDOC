@@ -64,24 +64,25 @@ function deletePost() {
                 type: 'POST',
                 url: '../src/include/functions/SQLfunctions.inc.php',
                 data: {function: 'deletePost', postid: postid},
-                success: function(response) {
-                    try {
-                        var data = JSON.parse(response);
-                        if (data.success) {
-                            console.log('Post was deleted successfully');
-                            // Ensure the page is reloaded after the AJAX request has successfully completed
-                            location.reload(); 
-                        } else {
-                            console.error('There was an error deleting the post');
+                success: function(response, textStatus, xhr) {
+                    // Check if the response is not empty and content type is application/json before parsing
+                    if (response && xhr.getResponseHeader("Content-Type").includes("application/json")) {
+                        try {
+                            var data = JSON.parse(response);
+                            if (data.success) {
+                                console.log('Post was deleted successfully');
+                                location.reload(); // Reload the page after successful deletion
+                            } else {
+                                console.error('There was an error deleting the post');
+                            }
+                        } catch (error) {
+                            console.error('Error parsing server response:', error);
+                            console.log('Server response:', response);
                         }
-                    } catch (error) {
-                        console.error('Error parsing server response:', error);
-                        console.log('Server response:', response);
+                    } else {
+                        console.error('Empty or non-JSON response received:', response);
                     }
                 },
-                error: function(xhr, status, error) {
-                    console.error('Error in AJAX request:', error);
-                }
             });
         } else {
             console.error('User is not the owner of the post');
