@@ -12,7 +12,7 @@
         $table = $row[0];
 
         // Only proceed if the table is mentioned in $tablePermissions and display is set to true
-        if (isset($tablePermissions[$table]) && $tablePermissions[$table]['display']) {
+        if (isset($tablePermissions[$table])) {
             // Get comment for the current table
             $commentResult = executeQuery($db_conn, "SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$arrConfig['connect_DB'][3], $table]);
 

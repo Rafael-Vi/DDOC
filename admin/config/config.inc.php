@@ -15,18 +15,33 @@ require 'db.inc.php';
 // Define an associative array to specify permissions for each table
 $tablePermissions = [
     'users' => [
+        'editable' => false,
+        'deletable' => true,
+        'addable' => true
+    ],
+    'theme' => [
         'editable' => true,
         'deletable' => true,
         'addable' => true
     ],
-    'products' => [
+    'database_status' => [
         'editable' => true,
-        'deletable' => true,
-        'addable' => true
-    ],
-    'orders' => [
-        'editable' => false, // Example: Orders can be displayed but not edited
         'deletable' => false,
+        'addable' => false
+    ],
+    'logs' => [
+        'editable' => false,
+        'deletable' => false,
+        'addable' => false
+    ],
+    'report' => [
+        'editable' => false,
+        'deletable' => false,
+        'addable' => false
+    ],
+    'posts' => [
+        'editable' => false,
+        'deletable' => true,
         'addable' => false
     ],
     // Add more tables as needed
