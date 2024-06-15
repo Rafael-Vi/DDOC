@@ -971,6 +971,7 @@
     }
 
     function getMessages($sender,$convoId) {
+        error_log(print_r($convoId));
         global $arrConfig;
         $dbConn = db_connect();
         if ($dbConn === false) {
