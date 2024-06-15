@@ -14,7 +14,7 @@
 
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
-        echo '<div class="profile-info-container flex flex-row-reverse">';
+        echo '<div class="profile-info-container flex flex-row-reverse text-right">';
         // Text Information
         echo '<div class="text-info w-full">';
         echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';

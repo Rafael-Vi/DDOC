@@ -31,14 +31,14 @@ $userInfo = getUserInfo($_SESSION['uid']);
   <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-base-100 md:right-0">
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-col justify-between h-auto md:h-80 pl-4 pr-4 pb-4">
       <a href="javascript:history.back()" class="btn btn-ghost mt-8 hidden">Voltar atrás</a>
-      <div class="flex flex-col lg:flex-row h-auto text-white lg:h-64 mt-8 w-full">
-        <div class="h-full w-full mt-0 md:mt-8 mb-4 float-right">
-          <?php
-          echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
-          unset($userInfo);
-          ?>
-          <button class="btn hover:bg-warning w-full md:w-auto sm:float-right text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>
-        </div>
+      <div class="flex flex-row justify-end lg:h-64 mt-8 w-full">
+          <div class="w-full lg:w-auto">
+            <?php
+            echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
+            unset($userInfo);
+            ?>
+            <button class="btn hover:bg-warning w-full lg:w-auto text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>
+          </div>
       </div>
     </div>
     <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200 min-h-screen">
