@@ -6,7 +6,7 @@
     include "include/functions/saveLastPage.inc.php";
   }
   require "include/functions/Development.inc.php";
-  $userInfo = getUserInfo($uid);
+  $userInfo = getUserInfo($_SESSION['uid']);
 ?>
 
 
@@ -35,6 +35,7 @@
             echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
  
             unset($userInfo); 
+            
 
             echo '<button class="btn hover:bg-warning w-full sm:float-right text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>';       
             echo '</div>';
