@@ -438,7 +438,7 @@ $imageHtml = '';
         } else {
             // Current user is the receiver
             // Check if sender's profile pic is empty or NULL
-            $senderProfilePic = empty($sender['profile_pic']) ? 'url_assets/images/unknown.jpg' : $arrConfig['url_users'].$sender['profile_pic'];
+            $senderProfilePic = empty($sender['profile_pic']) ? "{$arrConfig['url_assets']}/images/Unknown_person.jpg" : "{$arrConfig['url_users']}{$sender['profile_pic']}";
             echo '
             <div class="chat chat-start">
                 <div class="chat-image avatar">
