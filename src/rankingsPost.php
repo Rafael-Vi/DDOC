@@ -83,15 +83,15 @@ $GLOBALS['type'] = $type;
             global $arrConfig;
             // Display Second Place
             $podiumSecond = getPodium(2, "PostRank", $GLOBALS['id_theme'], $GLOBALS['type']);
-            displayPodium($podiumSecond, "Second Place");
+            displayPodium($podiumSecond, "Segundo Lugar");
             
             // Display First Place
             $podiumFirst = getPodium(1, "PostRank", $GLOBALS['id_theme'], $GLOBALS['type']);
-            displayPodium($podiumFirst, "First Place");
+            displayPodium($podiumFirst, "Primeiro Lugar");
             
             // Display Third Place
             $podiumThird = getPodium(3, "PostRank", $GLOBALS['id_theme'], $GLOBALS['type']);
-            displayPodium($podiumThird, "Third Place");
+            displayPodium($podiumThird, "Terceiro Lugar");
             
           ?>
           </div>
@@ -115,7 +115,7 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
 
-      <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800 ">
+      <div class="overflow-x-auto h-96 bg-gray-800 ">
         <table class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
             <thead>
                 <tr>
