@@ -27,7 +27,7 @@ $tablePermissions = [
     'database_status' => [
         'editable' => true,
         'deletable' => false,
-        'addable' => false
+        'addable' => true
     ],
     'logs' => [
         'editable' => false,
