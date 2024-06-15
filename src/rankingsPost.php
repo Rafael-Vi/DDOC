@@ -127,7 +127,7 @@ $GLOBALS['type'] = $type;
                     <th class="ubuntu-bold w-1/6">Dono do Post</th> <!-- Person who posted it -->
                 </tr>
             </thead>
-            <tbody class="h-full overflow-y-auto w-full">
+            <tbody class="h-full w-full">
                 <?php 
                     getRankingPost($GLOBALS['id_theme'], $GLOBALS['type']);
                 ?>
