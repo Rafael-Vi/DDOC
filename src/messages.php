@@ -69,7 +69,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
             if (in_array($_GET['convo_id'], $convoIds)) {
                 echo' <div class="h-full w-full overflow-auto hide-scrollbar px-2 sm:px-10" id="message-container">';
 
-                getMessages($sender,$_GET['convo_id']);
+                getMessages($_SESSION['sender'],$_GET['convo_id']);
                 echo'</div>';
 
                 echo '
