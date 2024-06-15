@@ -14,29 +14,29 @@
 
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
-        echo '<div class="profile-info-container flex">';
+        echo '<div class="profile-info-container flex flex-row-reverse">';
         // Text Information
-        echo '<div class="text-info w-1/2">';
+        echo '<div class="text-info w-full">';
         echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
-        echo '<div class="font-bold  text-white">' . $realName . '</div>';
+        echo '<div class="font-bold text-white">' . $realName . '</div>';
         echo '<div class="w-full text-white">' . $biography . '</div>';
         echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
         echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold">Seguidores: ---</div></a>';
         echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
         echo '</div>';
-        // Image
-        echo '<div class="ml-8 w-1/2 flex justify-center items-center">';
-        echo '<div class="avatar">';
+        // Image and Edit Button in a Column
+        echo '<div class="flex flex-col ml-8 w-1/2 justify-center items-center">';
+        echo '<div class="avatar mb-4">';
         echo '<div class="w-36 rounded-full">';
         echo '<img src="'.$profilePic.'" />';
         echo '</div>';
         echo '</div>';
+        echo '<button class="btn hover:bg-warning text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
         echo '</div>';
         echo '</div>'; // Close profile-info-container
     }
-
     function echoUserPosts($post) {
         global $arrConfig;
     
