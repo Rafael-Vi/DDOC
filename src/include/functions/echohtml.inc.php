@@ -437,11 +437,13 @@ $imageHtml = '';
             </div>';
         } else {
             // Current user is the receiver
+            // Check if sender's profile pic is empty or NULL
+            $senderProfilePic = empty($sender['profile_pic']) ? 'url_assets/images/unknown.jpg' : $arrConfig['url_users'].$sender['profile_pic'];
             echo '
             <div class="chat chat-start">
                 <div class="chat-image avatar">
                     <div class="w-10 rounded-full">
-                        <img alt="Tailwind CSS chat bubble component" src="'.$arrConfig['url_users'].''.$sender['profile_pic'].'" />
+                        <img alt="Tailwind CSS chat bubble component" src="'.$senderProfilePic.'" />
                     </div>
                 </div>
                 <div class="chat-header text-white">
