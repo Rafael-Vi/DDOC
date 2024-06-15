@@ -36,10 +36,6 @@
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-full h-full object-cover"/>'; // Responsive image
         echo '</div>';
         echo '</div>';
-        echo '<button class="btn hover:bg-warning text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
-        echo '</div>';
-        
-        echo '</div>'; // Close profile-info-container
     }
     function echoUserPosts($post) {
         global $arrConfig;
