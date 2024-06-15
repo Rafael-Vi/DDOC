@@ -491,7 +491,7 @@ $imageHtml = '';
         <tr class="hover:bg-gray-700 transition-colors duration-200">
             <th class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
-            <td class="flex flex-row items-center justify-end pr-10 text-white">
+            <td class="flex flex-row items-center justify-end pr-16 text-white">
                 @'.$poster;
             
                 if($url_image != null){
