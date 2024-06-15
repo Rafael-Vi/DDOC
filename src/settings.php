@@ -38,7 +38,7 @@
                 <h2 class="text-2xl font-bold text-center sm:text-start mb-4 text-white">Ações</h2>
                 <ul class="space-y-2">
                     <li class=" btn text-lg ubuntu-medium text-red-500">Apagar Conta</li>
-                    <li class="btn text-lg ubuntu-medium text-orange-500 " onclick="logout()">Logout</li>
+                    <li class="btn text-lg ubuntu-medium text-orange-500 " id="logout-button" onclick="logout()">Logout</li>
                 </ul>
             </div>
         </div>
