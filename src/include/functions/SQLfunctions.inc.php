@@ -294,7 +294,72 @@
             }
             mysqli_close($dbConn);
         }
-
+        function getUserNotCurrent($uid){
+            global $arrConfig;
+        
+            // Start the database connection
+            $dbConn = db_connect();
+        
+            // Check connection
+            if ($dbConn === false) {
+                die("ERROR: Could not connect. " . mysqli_connect_error());
+            }
+        
+            // Prepare the SQL query with the id_users condition using prepared statements
+            $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE id_users = ?";
+            $params = array($uid);
+        
+            // Execute the query
+            $result = executeQuery($dbConn, $sql, $params);
+        
+            // Fetch the user data
+            if($row = mysqli_fetch_assoc($result)) {
+                // Access the user data
+                $username = $row['user_name'];
+                $email = $row['user_email'];
+                $profilePic = $row['user_profilePic'];
+                $realName = $row['user_realName'];
+                $biography = $row['user_biography'];
+        
+                if (!$profilePic) {
+                    $profilePic = $arrConfig['url_assets']. "/images/Unknown_person.jpg";
+                }
+                else{
+                    $profilePic = $arrConfig['url_users']. $profilePic ;
+                }
+        
+                // Prepare the SQL query to get the rank from the accountrankings view
+                $sqlRank = "SELECT UserRank FROM `accountrankings` WHERE `UserName` = ?";
+                $paramsRank = array($username);
+        
+                // Execute the query
+                $resultRank = executeQuery($dbConn, $sqlRank, $paramsRank);
+        
+                // Fetch the rank
+                if($rowRank = mysqli_fetch_assoc($resultRank)) {
+                    $_SESSION['rank'] = $rowRank['UserRank'];
+                } else {
+                    header("Location:../../errorPages/NoUserFound.php");
+                    exit;
+                }
+        
+                // Return the user data instead of echoing it
+                return array(
+                    'username' => $username,
+                    'email' => $email,
+                    'profilePic' => $profilePic,
+                    'realName' => $realName,
+                    'biography' => $biography,
+                    'rank' => $_SESSION['rank']
+                );
+            } else {
+                // Handle the query error
+                header("../../errorPages/NoUserFound.php");
+                exit;
+            }
+        
+            mysqli_close($dbConn);
+        }
         function getUserInfo($uid){
             global $arrConfig;
         

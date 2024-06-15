@@ -11,7 +11,7 @@ include "include/config.inc.php";
   require "include/functions/Development.inc.php";
 
 
-$userInfo = getUserInfo($_GET['userid']);
+$userInfo = getUserNotCurrent($_GET['userid']);
 
 ?>
 
