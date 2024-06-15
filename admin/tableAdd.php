@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php
                 foreach ($columns as $column) {
                     $type = $column_types[$column];
-                    $comment = $column_comments[$column];
+                    $column = $column_comments[$column];
                     $value = $column == $primary_key ? $next_auto_increment : '';
                     $disabled = $column == $primary_key ? ' disabled' : '';
 
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $next_column = $columns_result->fetch_assoc()['Field'];
                         $ref_result = executeQuery($db_conn, "SELECT $ref_column, $next_column FROM $ref_table");
                         echo '<div class="form-control w-full max-w-xs">
-                                <label for="' . $column . '" class="label">' . $comment . '</label>
+                                <label for="' . $column . '" class="label">' . $column . '</label>
                                 <select id="' . $column . '" name="' . $column . '" class="select select-bordered">
                                     <option value="NULL">Selecione uma opção</option>';
                         while ($row = $ref_result->fetch_assoc()) {
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'DOUBLE':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $comment . '</label>
+                                    <label for="' . $column . '" class="label">' . $column . '</label>
                                     <input type="text" id="' . $column . '" name="' . $column . '" class="input input-bordered" value="' . $value . '" placeholder="Insira o valor para o campo"' . $disabled . ' required>
                                 </div>
                             ';
@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'TEXT':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $comment . '</label>
+                                    <label for="' . $column . '" class="label">' . $column . '</label>
                                     <textarea id="' . $column . '" name="' . $column . '" class="input input-bordered"' . $disabled . ' required>' . $value . '</textarea>
                                 </div>
                             ';
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             echo '
                                 <div class="form-control w-full max-w-xs pt-6">
                                     <label for="' . $column . '" class="label cursor-pointer">
-                                        <span>' . $comment . '</span>
+                                        <span>' . $column . '</span>
                                         <input type="checkbox" id="' . $column . '" name="' . $column . '" class="checkbox"' . $disabled . '>
                                     </label>
                                 </div>
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'DATETIME':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '_date" class="label">' . $comment . '</label>
+                                    <label for="' . $column . '_date" class="label">' . $column . '</label>
                                     <input type="date" id="' . $column . '_date" name="' . $column . '_date" class="input input-bordered" value=""' . $disabled . ' required>
                                     <input type="time" id="' . $column . '_time" name="' . $column . '_time" class="input input-bordered" value=""' . $disabled . ' required>
                                 </div>
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'VARCHAR(7)':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $comment . '</label>
+                                    <label for="' . $column . '" class="label">' . $column . '</label>
                                     <input type="color" id="' . $column . '" name="' . $column . '" class="" value="' . $value . '"' . $disabled . ' required>
                                 </div>
                             ';
