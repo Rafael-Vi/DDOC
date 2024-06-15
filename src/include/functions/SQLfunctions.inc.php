@@ -117,17 +117,20 @@
                     sendMessage($recipient, $message);
                 }
                 break;
+
             case 'loadMessages':
-                if (isset($_SESSION['uid'])) {
-                    $response = getMessages($_SESSION['sender'], $_SESSION['convo_id']);
-                    echo $response;
-                    // Check if $response is null before logging
-                    if ($response === null) {
-                        error_log('No response received from getMessages.');
-                    } else {
-                        error_log($response);
+                    if (isset($_SESSION['uid'])) {
+                        // Assuming $_SESSION['uid'] is the logged-in user's ID
+                        $userId = $_SESSION['uid'];
+                        // Directly use $userId instead of $_SESSION['sender']
+                        $response = getMessages($userId, $_SESSION['convo_id']);
+                        echo $response;
+                        if ($response === null) {
+                            error_log('No response received from getMessages.');
+                        } else {
+                            error_log($response);
+                        }
                     }
-                }
                 break;
             case 'deleteMessage':
                 if (isset($_POST['messageId'])) {
