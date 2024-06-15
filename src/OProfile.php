@@ -32,7 +32,11 @@ $userInfo = getUserNotCurrent($_GET['userid']);
     }?>
     <?php echoLoadScreen(); ?>   
     <?php echoNav(); ?>
-    <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
+    <body class="h-full flex">
+  <?php echoLoadScreen(); ?>
+  <?php echoNav(); ?>
+
+ <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
        
        <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between  h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
        <a href="javascript:history.back()" class="btn mt-8 hidden sm:flex">Voltar atrás</a>
