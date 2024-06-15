@@ -11,6 +11,13 @@ if (isset($_GET['table']) && !empty($_GET['table'])) {
         header('Location: index.php');
         exit;
     }
+
+    // Check if the table is allowed to be deleted from
+    if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['deletable']) {
+        header('Location: index.php');
+        exit;
+    }
+
 } else {
     header('Location: index.php');
     exit;
