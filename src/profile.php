@@ -36,8 +36,10 @@ $userInfo = getUserInfo($_SESSION['uid']);
             <?php
             echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
             unset($userInfo);
+            echo '<button class="btn hover:bg-warning text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
+            echo '</div>';
+            echo '</div>'; // Close profile-info-container
             ?>
-            <button class="btn hover:bg-warning w-full lg:w-auto text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center h-10 mt-4" onclick="openDialog()">Edit Profile</button>
           </div>
       </div>
     </div>
