@@ -185,7 +185,7 @@ $imageHtml = '';
             // Check if an image is available and set the image HTML
             $imageHtml = '';
             if (isset($podium['image']) && !empty($podium['image'])) {
-                $imageHtml = "<img src=\"{$arrConfig['url_users']}/{$podium['image']}\" alt=\"User Image\" class=\"rounded-full mb-2\" style=\"width: 100px; height: 100px;\">";
+                $imageHtml = "<img src=\"{$arrConfig['url_users']}/{$podium['image']}\" alt=\"User Image\" class=\"rounded-full mb-2 w-6 h-auto\">";
             }
         } else {
             $postName = 'None with this Rank';
