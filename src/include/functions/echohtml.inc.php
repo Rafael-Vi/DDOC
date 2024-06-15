@@ -381,7 +381,7 @@ $imageHtml = '';
         $defaultProfilePic = "path/to/default/image.jpg"; // Path to your default image
         $profilePicUrl = empty($profilePic) ? $arrConfig['url_assets']."images/Unknown_person.jpg" : $arrConfig['url_users'].$profilePic;
     
-        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-2/5">';
+        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-80">';
         echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<img src="'.$profilePicUrl.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
