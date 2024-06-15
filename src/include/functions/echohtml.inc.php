@@ -11,8 +11,12 @@
         }
         echo '</div>';
     }
+
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
+        echo '<div class="profile-info-container flex">';
+        // Text Information
+        echo '<div class="text-info w-1/2">';
         echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
         echo '<div class="font-bold  text-white">' . $realName . '</div>';
@@ -22,13 +26,15 @@
         echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
         echo '</div>';
-        echo '</div>';
-        echo '<div class="relative flex flex-col mt-8 mb-auto">';
+        // Image
+        echo '<div class="profile-pic w-1/2 flex justify-center items-center">';
         echo '<div class="avatar">';
         echo '<div class="w-36 rounded-full">';
         echo '<img src="'.$profilePic.'" />';
         echo '</div>';
         echo '</div>';
+        echo '</div>';
+        echo '</div>'; // Close profile-info-container
     }
 
     function echoUserPosts($post) {
