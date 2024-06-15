@@ -11,6 +11,7 @@ if (!isset($_SESSION['admin_id']) && (!in_array(basename($_SERVER['PHP_SELF']), 
 
 
 require 'db.inc.php';
+require 'paths.inc.php';
 
 // Define an associative array to specify permissions for each table
 $tablePermissions = [

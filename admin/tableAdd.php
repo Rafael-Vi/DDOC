@@ -106,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($foreign_keys[$column])) {
                         $ref_table = $foreign_keys[$column]['table'];
                         $ref_column = $foreign_keys[$column]['column'];
+                        
 
                         $columns_result = executeQuery($db_conn, "SHOW COLUMNS FROM $ref_table");
                         while ($row = $columns_result->fetch_assoc()) {

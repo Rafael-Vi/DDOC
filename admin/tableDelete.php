@@ -20,8 +20,7 @@ if (isset($_GET['table']) && !empty($_GET['table']) && isset($_GET['id']) && !em
         exit;
     }
 
-    // Proceed with deletion if the table exists and deletion is permitted
-    $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
+
 
     if ($result->num_rows > 0) {
         // Data exists and can be deleted
@@ -30,6 +29,85 @@ if (isset($_GET['table']) && !empty($_GET['table']) && isset($_GET['id']) && !em
     } else {
         // Data not found
         echo "Data not found.";
+    }
+
+    switch ($table) {
+        case 'users':
+            //deleteUser($id);
+            break;
+        case 'theme':
+                // Proceed with deletion if the table exists and deletion is permitted
+            $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
+            if ($result->num_rows > 0) {
+                // Data exists and can be deleted
+                $result = executeQuery($db_conn, "DELETE FROM $table WHERE id_$table = ?", [$id]);
+                header('Location: tableView.php?table=' . $table);
+            } else {
+                // Data not found
+                echo "Data not found.";
+            }
+            break;
+        case 'posts':
+            if(deletePost($id) === false) {
+                echo "Failed to delete post.";
+            } else {
+                header('Location: tableView.php?table=' . $table);
+            }
+            break;
+        // Add more tables as needed
+        default:
+            header('Location: index.php');
+            exit;
+    }
+    function deletePost($id) {
+        global $arrConfig;
+        $dbConn = db_connect();
+    
+        if ($dbConn === false) {
+            $error = "ERROR: Could not connect. " . mysqli_connect_error();
+            error_log($error);
+            return json_encode(['success' => false, 'error' => $error]);
+        }
+    
+        $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
+        $stmt = mysqli_prepare($dbConn, $query);
+        mysqli_stmt_bind_param($stmt, "i", $postID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $file = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+    
+        if ($file) {
+            $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'];
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+    
+        $queries = [
+            "DELETE FROM posts WHERE post_id = ?",
+            "DELETE FROM likes WHERE post_id = ?"
+        ];
+    
+        foreach ($queries as $query) {
+            $stmt = mysqli_prepare($dbConn, $query);
+            mysqli_stmt_bind_param($stmt, "i", $postID);
+            if (!mysqli_stmt_execute($stmt)) {
+                $error = "Failed to execute query: $query";
+                error_log($error);
+                mysqli_stmt_close($stmt);
+                mysqli_close($dbConn);
+                return json_encode(['success' => false, 'error' => $error]);
+            }
+            mysqli_stmt_close($stmt);
+        }
+    
+        if (isset($_SESSION['themes'][0]['id_theme']) && isset($file['id_theme']) && $file['id_theme'] == $_SESSION['themes'][0]['id_theme']) {
+            updateUserPostStatus($_SESSION['uid'], 0);
+        }
+    
+        mysqli_close($dbConn);
+        echo json_encode(['success' => true]);
     }
 } else {
     header('Location: index.php');
