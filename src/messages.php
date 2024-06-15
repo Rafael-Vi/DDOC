@@ -17,15 +17,12 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
     $convoIds = getConvo();
     if (in_array($_GET['convo_id'], $convoIds)) {
         $userDetails = getUserDetails($_GET['convo_id']);
-        $username = $userDetails['username'];
-        $profilePic = $userDetails['profile_pic'];
         
-        $sender = [
-            'username' => $username,
-            'profile_pic' => $profilePic
+        // Simplified sender assignment
+        $_SESSION['sender'] = [
+            'username' => $userDetails['username'],
+            'profile_pic' => $userDetails['profile_pic']
         ];
-    
-        $_SESSION['sender'] = $sender;
         $_SESSION['convo_id'] = $_GET['convo_id'];
     } else {
         header("Location: messages.php");
