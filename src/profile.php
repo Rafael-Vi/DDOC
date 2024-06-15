@@ -28,7 +28,7 @@
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-col justify-between h-auto md:h-80 pl-4 pr-4 pb-4">
         <a href="javascript:history.back()" class="btn btn-ghost mt-8 hidden">Voltar atrás</a>
         <div class="flex flex-col lg:flex-row h-auto text-white lg:h-64 mt-8 w-full">
-            <div class="h-full w-full mt-0 md:mt-8 mb-4">
+            <div class="h-full w-full mt-0 md:mt-8 mb-4 float-right">
                 <?php
                 echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
                 unset($userInfo);
