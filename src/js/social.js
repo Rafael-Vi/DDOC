@@ -30,11 +30,11 @@ $(document).ready(function() {
       }
   }
 
-  function logout() {
-      if (confirm('DDOC asks: Are you sure you want to log out?')) {
-          window.location.href = '../src/include/functions/logout.inc.php';
-      }
-  }
+  document.onclick = function logout() {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = '../src/include/functions/logout.inc.php';
+        }
+    };
 
   setTimeout(function() {
       $('#loadingScreen').hide();
