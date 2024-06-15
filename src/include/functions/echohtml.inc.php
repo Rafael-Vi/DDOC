@@ -27,7 +27,7 @@
         echo '</div>';
         echo '</div>';
         // Image
-        echo '<div class="profile-pic w-1/2 flex justify-center items-center">';
+        echo '<div class="w-1/2 flex justify-center items-center mb0">';
         echo '<div class="avatar">';
         echo '<div class="w-36 rounded-full">';
         echo '<img src="'.$profilePic.'" />';
