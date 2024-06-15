@@ -13,7 +13,7 @@ if (isset($_GET['table']) && !empty($_GET['table'])) {
     }
 
     // Check if the table is allowed to be deleted from
-    if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['deletable']) {
+    if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['addable']) {
         header('Location: index.php');
         exit;
     }
