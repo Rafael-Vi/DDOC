@@ -42,7 +42,7 @@
             echo '</div>';
         ?>  
 
-      <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200">
+      <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200 min-h-screen">
 
         <?php
           getPosts($_SESSION['uid']);
