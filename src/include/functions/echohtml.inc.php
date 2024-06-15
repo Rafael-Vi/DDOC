@@ -460,7 +460,7 @@ $imageHtml = '';
         global $arrConfig;  
         echo'
         <tr class="text-white hover:bg-gray-700">
-            <td class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
+            <th class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
             <td class="w-1/6">';
             if ($type == 'video') {
                 echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
@@ -489,7 +489,7 @@ $imageHtml = '';
         global $arrConfig;  
         echo '
         <tr class="hover:bg-gray-700 transition-colors duration-200">
-            <td class="text-white">#'.$rank.'</td>
+            <th class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
             <td class="flex flex-row items-center justify-end pr-32 text-white">
                 @'.$poster;

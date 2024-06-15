@@ -116,7 +116,7 @@ $GLOBALS['type'] = $type;
       </div>
 
       <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800 ">
-        <table class="table-fixed table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
+        <table class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
             <thead>
                 <tr>
                     <th class="ubuntu-bold w-1/6">Rank</th>

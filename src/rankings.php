@@ -37,6 +37,11 @@ $GLOBALS['type'] = $type;
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
       <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
     <title>Rankings Accounts</title>
+    <style>
+      #podium-container * {
+        z-index: 1;
+      }
+    </style>
 </head>
 <body class="h-full flex">
   <?php echoLoadScreen(); ?>    <?php
@@ -52,7 +57,7 @@ $GLOBALS['type'] = $type;
 
     <div class="flex flex-col h-full w-full pt-6 pb-8 px-10">
         <div class="flex flex-col w-full px-10 sticky">
-            <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
+            <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600"  id="podium-container">
                 <?php
 
                 // Display Second Place
@@ -79,7 +84,7 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
       <div class="overflow-x-auto">
-        <table class="table-lg w-full text-center bg-gray-800">
+        <table class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
             <thead>
                 <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
                     <th class="ubuntu-bold w-2/6">
