@@ -121,7 +121,12 @@
                 if (isset($_SESSION['uid'])) {
                     $response = getMessages($_SESSION['sender'], $_SESSION['convo_id']);
                     echo $response;
-                    error_log($response);
+                    // Check if $response is null before logging
+                    if ($response === null) {
+                        error_log('No response received from getMessages.');
+                    } else {
+                        error_log($response);
+                    }
                 }
                 break;
             case 'deleteMessage':
