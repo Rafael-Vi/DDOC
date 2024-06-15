@@ -16,17 +16,8 @@
         global $arrConfig;
         // Main container with flex row to ensure alignment to the right
         echo '<div class="profile-info-container flex flex-row justify-end items-center w-full">';
-
-        // Image Container
-        echo '<div class="flex flex-col justify-center items-center w-1/2">';
-        echo '<div class="avatar mb-4">';
-        echo '<div class="w-36 h-36 rounded-full overflow-hidden">';
-        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-full h-full object-cover"/>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>'; // Close image container
-
-        // Text Information in a flex column, aligned to the right
+    
+        // Text Information in a flex column, aligned to the left of the image
         echo '<div class="text-info flex flex-col text-right mr-8">';
         echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' . $rank . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
@@ -37,9 +28,14 @@
         echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
         echo '</div>'; // Close text-info container
-
-        // Edit Profile Button, aligned with the text information
-        echo '<div class="flex justify-end w-full mt-4">';
+    
+        // Image Container, aligned to the right of the text
+        echo '<div class="flex flex-col justify-center items-center w-1/2 ml-4">';
+        echo '<div class="avatar mb-4">';
+        echo '<div class="w-36 h-36 rounded-full overflow-hidden">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-full h-full object-cover"/>';
+        echo '</div>';
+        echo '</div>';
 
     }
     function echoUserPosts($post) {
