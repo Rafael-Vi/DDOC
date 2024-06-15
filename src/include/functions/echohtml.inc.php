@@ -40,10 +40,7 @@
 
         // Edit Profile Button, aligned with the text information
         echo '<div class="flex justify-end w-full mt-4">';
-        echo '<button class="btn hover:bg-warning text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
-        echo '</div>';
 
-        echo '</div>'; // Close main container
     }
     function echoUserPosts($post) {
         global $arrConfig;
