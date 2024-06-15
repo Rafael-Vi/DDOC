@@ -14,26 +14,32 @@
 
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
-        echo '<div class="profile-info-container flex flex-row-reverse text-right">';
-        // Text Information
-        echo '<div class="text-info w-full text-right">'; // Ensure text alignment is right
-        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
+        // Main container with flex row to separate image and text info
+        echo '<div class="profile-info-container flex flex-row-reverse items-center justify-between">';
+        
+        // Text Information in a flex column
+        echo '<div class="text-info flex flex-col text-right mr-8">'; // Flex column for text, margin right for spacing
+        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' . $rank . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
         echo '<div class="font-bold text-white">' . $realName . '</div>';
-        echo '<div class="w-full text-white">' . $biography . '</div>';
-        echo '<div class="sm:flex sm:space-x-4 relative m-auto float-right text-right">'; // Adjust alignment for following/followers
+        echo '<div class="text-white">' . $biography . '</div>';
+        echo '<div class="flex flex-row justify-end space-x-4 mt-4">'; // Flex row for followers/following, justify-end to align right
         echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold">Seguidores: ---</div></a>';
         echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
         echo '</div>';
+        
         // Image and Edit Button in a Column
-        echo '<div class="flex flex-col ml-8 w-1/2 justify-center items-center">';
+        echo '<div class="flex flex-col justify-center items-center w-1/2">'; // Flex column for image and button
         echo '<div class="avatar mb-4">';
-        echo '<div class="w-36 rounded-full">';
-        echo '<img src="'.$profilePic.'" />';
+        echo '<div class="w-36 h-36 rounded-full overflow-hidden">'; // Adjusted for image size and shape
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-full h-full object-cover"/>'; // Responsive image
         echo '</div>';
         echo '</div>';
-
+        echo '<button class="btn hover:bg-warning text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
+        echo '</div>';
+        
+        echo '</div>'; // Close profile-info-container
     }
     function echoUserPosts($post) {
         global $arrConfig;
