@@ -25,7 +25,7 @@
         echo '</div>';
         echo '<div class="relative flex flex-col mt-8 mb-auto">';
         echo '<div class="avatar">';
-        echo '<div class="w-36 mask mask-squircle">';
+        echo '<div class="w-36 rounded-full">';
         echo '<img src="'.$profilePic.'" />';
         echo '</div>';
         echo '</div>';
