@@ -1,6 +1,6 @@
 <div class="navbar bg-gray-800">
     <div class="navbar-start">
-        <a href="index.php" class="btn btn-ghost text-warning btn-circle mx-8">
+        <a href="index.php" class="btn btn-ghost text-warning btn-circle mx-12">
             <i class="fi fi-br-house-chimney"></i>
         </a>
     </div>
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="navbar-end">
-        <div class="dropdown dropdown-end">
+        <div class="dropdown dropdown-end mx-12">
             <div tabindex="0" role="button" class="btn placeholder">
                 <div class="w-auto rounded-lg">
                     <span class="text-xs"><?php echo $_SESSION['admin_nome']?></span>
