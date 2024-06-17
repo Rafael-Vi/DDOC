@@ -1,11 +1,16 @@
-<div class="navbar bg-gray-600">
+<div class="navbar bg-gray-200">
     <div class="navbar-start">
         <a href="index.php" class="btn btn-ghost btn-circle">
             <i class="fi fi-br-house-chimney"></i>
         </a>
     </div>
     <div class="navbar-center">
-     <img class="w-24 h-auto bg-gray-200 rounded-lg" src="./assets/logo.png" alt="logo"></img>
+        <div class="flex items-center justify-center lg:justify-right flex-row float-right">
+            <p class="text-4xl text-white ubuntu-bold">D</p>
+            <p class="text-4xl mx-1 text-white ubuntu-bold">D</p>
+            <div class="loader border-t-4 rounded-full border-t-red-400 bg-orange-300 animate-spin aspect-square w-12 flex justify-center items-center text-yellow-700"></div>
+            <p class="mx-1 my-8 text-4xl text-white ubuntu-bold">C</p>
+        </div>
     </div>
     <div class="navbar-end">
         <div class="dropdown dropdown-end">
