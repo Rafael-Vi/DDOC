@@ -109,7 +109,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
             <div class="flex w-10/12 h-auto justify-start items-center">
                 <h1 class="text-gray-700 font-bold text-lg">Seguidores</h1>
             </div>
-            <div class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
+            <div onclick="closeFollow('follower')" class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
               <button onclick="closeFollow('follower')">X</button>
             </div>
         </div>
@@ -130,7 +130,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
             <div class="flex w-10/12 h-auto justify-start items-center">
                 <h1 class="text-gray-700 font-bold text-lg">A seguir</h1>
             </div>
-            <div class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
+            <div onclick="closeFollow('following')" class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
                 <button onclick="closeFollow('following')">X</button>
             </div>
         </div>
