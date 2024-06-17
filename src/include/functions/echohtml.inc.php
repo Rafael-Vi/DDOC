@@ -511,6 +511,7 @@ $imageHtml = '';
             <th class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
             <td class="flex flex-row items-center justify-center pr-16 text-white">
+            <div class="min-w-46">
                 @'.$poster;
             
                 if($url_image != null && $url_image != ""){
@@ -531,6 +532,7 @@ $imageHtml = '';
                 }
                
         echo'
+            </div>
             </td>
         </tr>
         ';
