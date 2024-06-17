@@ -16,9 +16,9 @@ require 'paths.inc.php';
 // Define an associative array to specify permissions for each table
 $tablePermissions = [
     'users' => [
-        'editable' => false,
+        'editable' => true,
         'deletable' => true,
-        'addable' => true
+        'addable' => false
     ],
     'theme' => [
         'editable' => true,
