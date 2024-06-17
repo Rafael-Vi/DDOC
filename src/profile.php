@@ -28,7 +28,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
 <body class="h-full flex">
   <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
-  <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-base-100 md:right-0">
+  <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-col justify-between h-auto md:h-80 pl-4 pr-4 pb-4">
       <a href="javascript:history.back()" class="btn btn-ghost mt-8 hidden">Voltar atrás</a>
       <div class="flex flex-row justify-end lg:h-64 mt-8 w-full">
@@ -36,7 +36,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
             <?php
             echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
             unset($userInfo);
-            echo '<button class="btn hover:bg-warning text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
+            echo '<button class="btn bg-gray-700 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
             echo '</div>';
             echo '</div>'; // Close profile-info-container
             ?>
