@@ -11,7 +11,7 @@ include "include/config.inc.php";
   require "include/functions/Development.inc.php";
 
 
-$userInfo = getUserNotCurrent($_GET['userid']);
+$userInfo = getUserInfo($_GET['userid']);
 
 ?>
 
@@ -57,15 +57,9 @@ $userInfo = getUserNotCurrent($_GET['userid']);
 
 
             </div>
-            <?php
-            
-            echo '</div>';
-            echo '</div>';
-
-            ?>
             </div>
            </div>
-       <div id="profilePosts-div" class="relative p-auto overflow-auto bg-gray-800">
+       <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200 min-h-screen">
          <?php
             getPosts($_GET['userid']);
          ?>
