@@ -1,9 +1,9 @@
 <?php
 
-
 date_default_timezone_set('Europe/Lisbon');
 
 function checkThemeIsFinished() {
+    getThemes(false);
     // Check if the session theme should be finished
     if (isset($_SESSION['themes']) && !empty($_SESSION['themes']) ){
         $themes = $_SESSION['themes'];

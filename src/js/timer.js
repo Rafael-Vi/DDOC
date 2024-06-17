@@ -30,6 +30,7 @@ function startTimer() {
     if (remainingTime.days <= 0 && remainingTime.hours <= 0 && remainingTime.minutes <= 0 && remainingTime.seconds <= 0) {
       clearInterval(timerInterval);
       console.log("Target date reached!");
+      window.location.reload();
     } else {
       // Update the CSS variables with the remaining time using jQuery
       $('#days').css('--value', remainingTime.days);
