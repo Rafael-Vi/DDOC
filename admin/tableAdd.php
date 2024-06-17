@@ -87,7 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $insert_query = rtrim($insert_query, ', ');
         $values = rtrim($values, ', ');
         $insert_query .= ") $values)";
-        executeQuery($db_conn, $insert_query);
+        if (!executeQuery($db_conn, $insert_query)) {
+            error_log("Error executing query: " . mysqli_error($db_conn));
+        }
     }
     header("Location: tableView.php?table=$table");
 }
