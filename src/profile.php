@@ -105,7 +105,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
   <dialog id="postFollower" class="w-11/12 md:w-1/2 p-5  bg-white rounded-md">
     <div class="flex flex-col w-full h-auto">
         <!-- Header Section -->
-        <div class="flex w-full h-auto justi</div>fy-between items-center">
+        <div class="flex w-full h-auto justify-between items-center">
             <div class="flex w-10/12 h-auto justify-start items-center">
                 <h1 class="text-gray-700 font-bold text-lg">Seguidores</h1>
             </div>
