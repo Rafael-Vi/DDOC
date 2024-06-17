@@ -19,7 +19,7 @@
   <style>
     /* CSS code */
     .navbar {
-      display: none; /* Initially hide the navbar */
+      display: hidden; /* Initially hide the navbar */
     }
 
     .navbar.visible {
