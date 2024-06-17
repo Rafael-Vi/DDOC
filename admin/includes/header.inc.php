@@ -6,7 +6,7 @@ require 'config/config.inc.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENTL. Dashboard</title>
+    <title>DDOC Dashboard</title>
     <link rel="shortcut icon" href="./assets/fav_icon.png" type="image/x-icon">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
