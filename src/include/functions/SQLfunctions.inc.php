@@ -585,25 +585,6 @@
             $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
             $fileName .= "." . $fileExtension;
 
-            // Get the MIME type of the file
-            $fileType = mime_content_type($file['tmp_name']);
-
-            // Define the expected MIME types for each extension
-            $expectedMimeTypes = [
-                'mp3' => 'audio/mpeg',
-                'jpeg' => 'image/jpeg',
-                'jpg' => 'image/jpeg',
-                'png' => 'image/png',
-                'gif' => 'image/gif',
-                'mp4' => 'video/mp4',
-                // Add more extensions and MIME types as needed
-            ];
-
-            // Check if the extension is known and the MIME type matches the expected MIME type
-            if (!isset($expectedMimeTypes[$fileExtension]) || $fileType !== $expectedMimeTypes[$fileExtension]) {
-                die('File type and extension do not match.');
-            }
-
             // Check if a file with the same name already exists
             if (file_exists($arrConfig['dir_posts']."/$type/".$fileName)) {
                 die('A file with the same name already exists.');
