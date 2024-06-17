@@ -365,7 +365,7 @@ $imageHtml = '';
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-gray-500 text-white font-bold py-2 px-4 rounded" disabled>Like</button>';
+                        echo '<button id="like-button" class="bg-gray-400 text-white font-bold py-2 px-4 rounded" disabled>Like</button>';
                     }
                     echo'
                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Likes: 123</span>
