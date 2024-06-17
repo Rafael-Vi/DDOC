@@ -510,14 +510,14 @@ $imageHtml = '';
         <tr class="hover:bg-gray-700 transition-colors duration-200">
             <th class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
-            <td class="flex flex-row items-center justify-end pr-16 text-white">
+            <td class="flex flex-row items-center justify-center pr-16 text-white">
                 @'.$poster;
             
                 if($url_image != null){
                     echo'
-                    <div class="avatar">
+                    <div class="avatar ml-4">
                         <div class="w-20">
-                            <img class="rounded-full w-10 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                            <img class="rounded-full w-10" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
                         </div>
                     </div>';
                 }
