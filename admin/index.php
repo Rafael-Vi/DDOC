@@ -11,32 +11,33 @@
     while ($row = $result->fetch_row()) {
         $table = $row[0];
 
-        // Get comment for the current table
-        $commentResult = executeQuery($db_conn, "SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$arrConfig['connect_DB'][3], $table]);
+        // Only proceed if the table is mentioned in $tablePermissions and display is set to true
+        if (isset($tablePermissions[$table])) {
+            // Get comment for the current table
+            $commentResult = executeQuery($db_conn, "SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$arrConfig['connect_DB'][3], $table]);
 
-        $table_comment = '';
-        if ($commentRow = $commentResult->fetch_assoc()) {
-            $table_comment = $commentRow['TABLE_COMMENT'];
-        }
+            $table_comment = '';
+            if ($commentRow = $commentResult->fetch_assoc()) {
+                $table_comment = $commentRow['TABLE_COMMENT'];
+            }
 
-        echo '
-            <div class="card w-96 bg-primary-content">
-                <div class="card-body">
-                    <h2 class="card-title">Tabela ' . $table . '</h2>
-                    <p>--------------------------------------------------</p>
-                    <div class="card-actions justify-end">
-                        <a href="tableView.php?table=' . $table . '" class="btn hover:bg-purple-800">
-                            <i class="fi fi-br-blog-pencil"></i>
-                            Edit
-                        </a>
+            echo '
+                <div class="card w-96 bg-primary-content">
+                    <div class="card-body">
+                        <h2 class="card-title">Tabela ' . $table . '</h2>
+                        <p>' . htmlspecialchars($table_comment) . '</p>
+                        <div class="card-actions justify-end">
+                            <a href="tableView.php?table=' . $table . '" class="btn hover:bg-purple-800">
+                                <i class="fi fi-br-blog-pencil"></i>
+                                Edit
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        ';
+            ';
+        }
     }
 
     mysqli_close($db_conn);
     ?>
 </div>
-<?php
-    require 'includes/footer.inc.php';

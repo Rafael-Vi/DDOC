@@ -7,18 +7,22 @@ function cancel() {
 }
 
 function showMyModal(postid, caption) {
-    $('#caption').text(caption);
-    $('#postContent').attr('placeholder', `Altera "${caption}" para outra legenda...`);
-    const postIdStr = String(postid);
-    $('#postId').val(btoa(postIdStr));
-    document.getElementById('postEdit').showModal();
+    console.log('Type of postid:', typeof postid); // Debugging: Check the type
+    console.log('Value of postid:', postid); // Debugging: Check the value
 
-    // Adding a jQuery change event listener for the postID input
-    $('#inputPostID').change(function() {
-        var newPostId = $(this).val(); // Get the new value from the input
-        var encodedPostId = btoa(String(newPostId)); // Ensure it's a string and encode it
-        $('#postId').val(encodedPostId); // Update the hidden input or any relevant field with the new encoded PostID
-    });
+    document.getElementById('caption').textContent = caption;
+    document.getElementById('postContent').setAttribute('placeholder', `Altera "${caption}" para outra legenda...`);
+    console.log('postid:', postid);
+
+    // Ensure postid is a string or number before encoding
+    if (typeof postid === 'string' || typeof postid === 'number') {
+        document.getElementById('postId').value = btoa(postid.toString());
+    } else {
+        console.error('Invalid postid type:', typeof postid);
+        // Handle the error appropriately
+    }
+
+    document.getElementById('postEdit').showModal();
 }
 
 function checkIfOwner(postid, callback) {
@@ -48,7 +52,6 @@ function checkIfOwner(postid, callback) {
 
 function deletePost() {
     var postIdElement = document.getElementById('postId');
-    // Ensure to get the value from the input element before decoding
     var postid = atob(postIdElement.value);
     console.log('postid:', postid);
     var userConfirmed = window.confirm('Are you sure you want to delete this post?');
@@ -61,22 +64,18 @@ function deletePost() {
                 type: 'POST',
                 url: '../src/include/functions/SQLfunctions.inc.php',
                 data: {function: 'deletePost', postid: postid},
-                success: function(response) {
-                    try {
-                        var data = JSON.parse(response);
-                        if (data.success) {
-                            console.log('Post was deleted successfully');
-                            location.reload(); // Reload the page to update the list of posts
-                        } else {
-                            console.error('There was an error deleting the post');
-                        }
-                    } catch (error) {
-                        console.error('Error parsing server response:', error);
-                        console.log('Server response:', response);
+                dataType: 'json', // Automatically parse JSON response
+                success: function(data, textStatus, xhr) {
+                    // No need to check Content-Type or parse JSON manually
+                    if (data.success) {
+                        console.log('Post was deleted successfully');
+                        location.reload(); // Reload the page after successful deletion
+                    } else {
+                        console.error('There was an error deleting the post');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error in AJAX request:', error);
+                    console.error('AJAX error:', status, error);
                 }
             });
         } else {
@@ -84,7 +83,6 @@ function deletePost() {
         }
     });
 }
-
 function save() {
     var postIdElement = document.getElementById('postId');
     var postid = atob(postIdElement.value);

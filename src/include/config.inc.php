@@ -9,9 +9,13 @@
     if(isset($_SESSION['uid'])){
         getCanPostStatus($_SESSION['uid']);
     }
+    // Debugging: Check the current file name
+    error_log("Current file: " . basename($_SERVER['PHP_SELF']));
     if(basename($_SERVER['PHP_SELF']) !== 'messages.php'){
         unset($_SESSION['sender']);
         unset($_SESSION['convo_id']);
+        // Debugging: Log if the session variables are unset
+        error_log("Unset sender and convo_id for " . basename($_SERVER['PHP_SELF']));
     }
 
 

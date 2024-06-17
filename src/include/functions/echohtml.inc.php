@@ -11,26 +11,33 @@
         }
         echo '</div>';
     }
+
     function echoProfileInfo($username, $email, $profilePic, $realName, $biography, $rank){
         global $arrConfig;
-        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' ."$rank" . '</div>';
+        // Main container with flex row to ensure alignment to the right
+        echo '<div class="profile-info-container flex flex-row justify-end items-center w-full">';
+    
+        // Text Information in a flex column, aligned to the left of the image
+        echo '<div class="text-info flex flex-col text-right mr-8">';
+        echo '<div class="block text-3xl sm:text-4xl font-bold text-amber-500">Rank: #' . $rank . '</div>';
         echo '<span class="block font-bold text-3xl mt-4 text-amber-700 mb-4">@' . $username . '</span>';
-        echo '<div class="font-bold  text-white">' . $realName . '</div>';
-        echo '<div class="w-full text-white">' . $biography . '</div>';
-        echo '<div class="sm:flex sm:space-x-4 relative m-auto sm:float-right sm:mt-4">';
+        echo '<div class="font-bold text-white">' . $realName . '</div>';
+        echo '<div class="text-white">' . $biography . '</div>';
+        echo '<div class="flex flex-row justify-end space-x-4 gap-4 mt-4">';
         echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold">Seguidores: ---</div></a>';
         echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
         echo '</div>';
+        echo '</div>'; // Close text-info container
+    
+        // Image Container, aligned to the right of the text
+        echo '<div class="flex flex-col justify-center items-center w-1/2 ml-4">';
+        echo '<div class="avatar mb-4">';
+        echo '<div class="w-36 h-36 rounded-full overflow-hidden">';
+        echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-full h-full object-cover"/>';
         echo '</div>';
         echo '</div>';
-        echo '<div class="relative flex flex-col mt-8 mb-auto">';
-        echo '<div class="avatar">';
-        echo '<div class="w-36 mask mask-squircle">';
-        echo '<img src="'.$profilePic.'" />';
-        echo '</div>';
-        echo '</div>';
-    }
 
+    }
     function echoUserPosts($post) {
         global $arrConfig;
     
@@ -64,7 +71,7 @@
     function echoNav(){
         echo'
         <div class="flex w-3/12 flex-column z-40 h-screen" id="topNavBar">
-            <div class="relative md:flex md:flex-col md:top-0 md:left-0 md:w-full md:bg-white md:h-full md:border-r hidden md:rounded-lg md:shadow-xl">
+            <div class="relative md:flex md:flex-col md:top-0 md:left-0 md:w-full md:bg-white md:h-full md:border-r hidden md:shadow-xl">
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
                         <li class="px-5">
@@ -368,7 +375,7 @@ $imageHtml = '';
     }
 
     function echoSearchResults($userId, $username, $profilePic){
-        echo '<a href="OProfile.php?userid=' . $userId. '" class=" w-4/5 text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
+        echo '<a href="OProfile.php?userid=' . $userId. '" class="w-3/4 md:w-full text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
         echo '<div class="flex justify-between ubuntu-medium items-center text-white bg-gray-800 hover:border-orange-500 hover: border-4 p-2 rounded-lg mb-3">';
         echo $username;
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 m-2 rounded-full">';
@@ -381,7 +388,7 @@ $imageHtml = '';
         $defaultProfilePic = "path/to/default/image.jpg"; // Path to your default image
         $profilePicUrl = empty($profilePic) ? $arrConfig['url_assets']."images/Unknown_person.jpg" : $arrConfig['url_users'].$profilePic;
     
-        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-3/4">';
+        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-80">';
         echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<img src="'.$profilePicUrl.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
@@ -437,11 +444,13 @@ $imageHtml = '';
             </div>';
         } else {
             // Current user is the receiver
+            // Check if sender's profile pic is empty or NULL
+            $senderProfilePic = empty($sender['profile_pic']) ? "{$arrConfig['url_assets']}/images/Unknown_person.jpg" : "{$arrConfig['url_users']}{$sender['profile_pic']}";
             echo '
             <div class="chat chat-start">
                 <div class="chat-image avatar">
                     <div class="w-10 rounded-full">
-                        <img alt="Tailwind CSS chat bubble component" src="'.$arrConfig['url_users'].''.$sender['profile_pic'].'" />
+                        <img alt="Tailwind CSS chat bubble component" src="'.$senderProfilePic.'" />
                     </div>
                 </div>
                 <div class="chat-header text-white">
@@ -458,7 +467,7 @@ $imageHtml = '';
         global $arrConfig;  
         echo'
         <tr class="text-white hover:bg-gray-700">
-            <td class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
+            <th class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
             <td class="w-1/6">';
             if ($type == 'video') {
                 echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
@@ -487,16 +496,16 @@ $imageHtml = '';
         global $arrConfig;  
         echo '
         <tr class="hover:bg-gray-700 transition-colors duration-200">
-            <td class="text-white">#'.$rank.'</td>
+            <th class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
-            <td class="flex flex-row items-center justify-end pr-32 text-white">
+            <td class="flex flex-row items-center justify-end pr-16 text-white">
                 @'.$poster;
             
                 if($url_image != null){
                     echo'
                     <div class="avatar">
-                        <div class="w-20 mask mask-squircle">
-                            <img class="rounded-lg w-8 h-8 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                        <div class="w-20">
+                            <img class="rounded-full w-10 ml-4" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
                         </div>
                     </div>';
                 }

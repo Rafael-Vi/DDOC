@@ -12,6 +12,12 @@ if (isset($_GET['table']) && !empty($_GET['table']) && isset($_GET['id']) && !em
         exit;
     }
 
+    // Check if the table is allowed to be deleted from
+    if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['editable']) {
+        header('Location: index.php');
+        exit;
+    }
+
     $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$_GET['id']]);    
     if ($result->num_rows === 0) {
         header('Location: tableView.php?table=' . $table);

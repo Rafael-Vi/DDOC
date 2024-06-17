@@ -37,6 +37,11 @@ $GLOBALS['type'] = $type;
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
       <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
     <title>Rankings Accounts</title>
+    <style>
+      #podium-container * {
+        z-index: 1;
+      }
+    </style>
 </head>
 <body class="h-full flex">
   <?php echoLoadScreen(); ?>    <?php
@@ -44,7 +49,7 @@ $GLOBALS['type'] = $type;
     ?>
     <?php echoNav(); ?>
     <div id="Accrankings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
-    <div class=" z-8 h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md bg-gray-900">
+    <div class=" z-8 h-32 text-center sm:text-start w-full  bg-gray-800 p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
 <a href="javascript:history.back()" class="btn">Voltar atrás</a>
       Account Rankings
     </div>
@@ -52,7 +57,7 @@ $GLOBALS['type'] = $type;
 
     <div class="flex flex-col h-full w-full pt-6 pb-8 px-10">
         <div class="flex flex-col w-full px-10 sticky">
-            <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600">
+            <div class="flex justify-around pb-4 rounded-lg mb-4 border-b-8 border-amber-600"  id="podium-container">
                 <?php
 
                 // Display Second Place
@@ -78,8 +83,8 @@ $GLOBALS['type'] = $type;
               </select>
           </div>
       </div>
-      <div class="overflow-x-auto">
-        <table class="table-lg w-full text-center bg-gray-800">
+      <div class="overflow-x-auto h-96">
+        <table class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
             <thead>
                 <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
                     <th class="ubuntu-bold w-2/6">
@@ -91,7 +96,7 @@ $GLOBALS['type'] = $type;
                     <th class="ubuntu-bold w-2/6">Account</th>
                 </tr>
             </thead>
-            <tbody id="tableRanking" class="h-32 overflow-y-scroll">
+            <tbody id="tableRanking" class="h-32">
                 <?php 
                     RankingAcc();
                 ?>

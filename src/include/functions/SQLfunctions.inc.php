@@ -117,12 +117,20 @@
                     sendMessage($recipient, $message);
                 }
                 break;
+
             case 'loadMessages':
-                if (isset($_SESSION['uid'])) {
-                    $response = getMessages($_SESSION['sender'], $_SESSION['convo_id']);
-                    echo $response;
-                    error_log($response);
-                }
+                    if (isset($_SESSION['uid'])) {
+                        // Assuming $_SESSION['uid'] is the logged-in user's ID
+                        $userId = $_SESSION['uid'];
+                        // Directly use $userId instead of $_SESSION['sender']
+                        $response = getMessages($userId, $_SESSION['convo_id']);
+                        echo $response;
+                        if ($response === null) {
+                            error_log('No response received from getMessages.');
+                        } else {
+                            error_log($response);
+                        }
+                    }
                 break;
             case 'deleteMessage':
                 if (isset($_POST['messageId'])) {
@@ -286,7 +294,72 @@
             }
             mysqli_close($dbConn);
         }
-
+        function getUserNotCurrent($uid){
+            global $arrConfig;
+        
+            // Start the database connection
+            $dbConn = db_connect();
+        
+            // Check connection
+            if ($dbConn === false) {
+                die("ERROR: Could not connect. " . mysqli_connect_error());
+            }
+        
+            // Prepare the SQL query with the id_users condition using prepared statements
+            $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE id_users = ?";
+            $params = array($uid);
+        
+            // Execute the query
+            $result = executeQuery($dbConn, $sql, $params);
+        
+            // Fetch the user data
+            if($row = mysqli_fetch_assoc($result)) {
+                // Access the user data
+                $username = $row['user_name'];
+                $email = $row['user_email'];
+                $profilePic = $row['user_profilePic'];
+                $realName = $row['user_realName'];
+                $biography = $row['user_biography'];
+        
+                if (!$profilePic) {
+                    $profilePic = $arrConfig['url_assets']. "/images/Unknown_person.jpg";
+                }
+                else{
+                    $profilePic = $arrConfig['url_users']. $profilePic ;
+                }
+        
+                // Prepare the SQL query to get the rank from the accountrankings view
+                $sqlRank = "SELECT UserRank FROM `accountrankings` WHERE `UserName` = ?";
+                $paramsRank = array($username);
+        
+                // Execute the query
+                $resultRank = executeQuery($dbConn, $sqlRank, $paramsRank);
+        
+                // Fetch the rank
+                if($rowRank = mysqli_fetch_assoc($resultRank)) {
+                    $_SESSION['rank'] = $rowRank['UserRank'];
+                } else {
+                    header("Location:../../errorPages/NoUserFound.php");
+                    exit;
+                }
+        
+                // Return the user data instead of echoing it
+                return array(
+                    'username' => $username,
+                    'email' => $email,
+                    'profilePic' => $profilePic,
+                    'realName' => $realName,
+                    'biography' => $biography,
+                    'rank' => $_SESSION['rank']
+                );
+            } else {
+                // Handle the query error
+                header("../../errorPages/NoUserFound.php");
+                exit;
+            }
+        
+            mysqli_close($dbConn);
+        }
         function getUserInfo($uid){
             global $arrConfig;
         
@@ -683,60 +756,58 @@
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
         }
+       
 
         function deletePost($postID) {
             global $arrConfig;
-            // Start the database connection
             $dbConn = db_connect();
         
-            // Check connection
             if ($dbConn === false) {
-                error_log("ERROR: Could not connect. " . mysqli_connect_error());
-                die();
+                $error = "ERROR: Could not connect. " . mysqli_connect_error();
+                error_log($error);
+                return json_encode(['success' => false, 'error' => $error]);
             }
         
-            // Retrieve the file path and theme_id using post_url
             $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
             $stmt = mysqli_prepare($dbConn, $query);
             mysqli_stmt_bind_param($stmt, "i", $postID);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $file = mysqli_fetch_assoc($result);
-            
-            // Adjusted to use 'dir_posts' for file path construction
-            $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'] ?? null;
-            $postThemeId = $file['id_theme'] ?? null;
             mysqli_stmt_close($stmt);
-            
-            // Delete the file if it exists
-            if ($filePath && file_exists($filePath)) {
-                unlink($filePath);
-            }
-            // Delete the post
-            $query = "DELETE FROM posts WHERE post_id = ?";
-            $params = [$postID];
-            if (!executeQuery($dbConn, $query, $params)) {
-                error_log("Failed to delete post with ID $postID.");
-                return;
+        
+            if ($file) {
+                $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'];
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
             }
         
-            // Delete all likes associated with the post
-            $query = "DELETE FROM likes WHERE post_id = ?";
-            if (!executeQuery($dbConn, $query, $params)) {
-                error_log("Failed to delete likes for post with ID $postID.");
-                return;
+            $queries = [
+                "DELETE FROM posts WHERE post_id = ?",
+                "DELETE FROM likes WHERE post_id = ?"
+            ];
+        
+            foreach ($queries as $query) {
+                $stmt = mysqli_prepare($dbConn, $query);
+                mysqli_stmt_bind_param($stmt, "i", $postID);
+                if (!mysqli_stmt_execute($stmt)) {
+                    $error = "Failed to execute query: $query";
+                    error_log($error);
+                    mysqli_stmt_close($stmt);
+                    mysqli_close($dbConn);
+                    return json_encode(['success' => false, 'error' => $error]);
+                }
+                mysqli_stmt_close($stmt);
             }
         
-            // Check if post's theme_id matches session theme_id and update user status if necessary
-            if (isset($_SESSION['themes'][0]['id_theme']) && $postThemeId == $_SESSION['themes'][0]['id_theme']) {
-                // Assuming updateUserPostStatus function exists and takes user ID and a status code
-                updateUserPostStatus($_SESSION['uid'], 0); // Adjust status code as needed
+            if (isset($_SESSION['themes'][0]['id_theme']) && isset($file['id_theme']) && $file['id_theme'] == $_SESSION['themes'][0]['id_theme']) {
+                updateUserPostStatus($_SESSION['uid'], 0);
             }
         
-            // Close connection
             mysqli_close($dbConn);
+            echo json_encode(['success' => true]);
         }
-
     //*POST RELATED ------------------------------------------------------------------------
 
     //?NOTIFICATION RELATED ----------------------------------------------------------------
@@ -965,6 +1036,7 @@
     }
 
     function getMessages($sender,$convoId) {
+        error_log(print_r($convoId));
         global $arrConfig;
         $dbConn = db_connect();
         if ($dbConn === false) {

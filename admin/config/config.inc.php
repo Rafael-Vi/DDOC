@@ -11,3 +11,39 @@ if (!isset($_SESSION['admin_id']) && (!in_array(basename($_SERVER['PHP_SELF']), 
 
 
 require 'db.inc.php';
+require 'paths.inc.php';
+
+// Define an associative array to specify permissions for each table
+$tablePermissions = [
+    'users' => [
+        'editable' => false,
+        'deletable' => true,
+        'addable' => true
+    ],
+    'theme' => [
+        'editable' => true,
+        'deletable' => true,
+        'addable' => true
+    ],
+    'database_status' => [
+        'editable' => true,
+        'deletable' => false,
+        'addable' => false
+    ],
+    'logs' => [
+        'editable' => false,
+        'deletable' => false,
+        'addable' => false
+    ],
+    'report' => [
+        'editable' => false,
+        'deletable' => false,
+        'addable' => false
+    ],
+    'posts' => [
+        'editable' => false,
+        'deletable' => true,
+        'addable' => false
+    ],
+    // Add more tables as needed
+];

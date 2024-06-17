@@ -21,8 +21,16 @@ function checkUpdates() {
 
 
 let lastMessage = null;
-
 function loadMessages() {
+    // Assuming convoId is stored in a global variable or session storage
+    let convoId = sessionStorage.getItem('convoId'); // Example: Retrieving from session storage
+
+    // Check if convoId is not set or empty
+    if (!convoId) {
+        console.log('No conversation ID set. Cannot load messages.');
+        return; // Exit the function early
+    }
+
     fetch('../src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
         headers: {
@@ -30,6 +38,7 @@ function loadMessages() {
         },
         body: new URLSearchParams({
             function: 'loadMessages',
+            convoId: convoId, // Include the convoId in the request
         })
     })
     .then(response => response.text())
@@ -44,7 +53,6 @@ function loadMessages() {
         }
     })
     .catch(error => console.error(error));
-    
 }
 
 function sendMessage(recipientid) {

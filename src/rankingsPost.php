@@ -56,6 +56,11 @@ $GLOBALS['type'] = $type;
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
       <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
     <title>Rankings Posts</title>
+    <style>
+      #podium-container * {
+        z-index: 1;
+      }
+    </style>
 </head>
 <body class="h-full flex">
     <?php echoLoadScreen(); ?>    <?php
@@ -63,7 +68,7 @@ $GLOBALS['type'] = $type;
     ?>
     <?php echoNav(); ?>
     <div id="Postrankings-div" class=" bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
-    <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
+    <div class="h-32 text-center z-20 sm:text-start w-full bg-slate-800 p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
 <a href="javascript:history.back()" class="btn">Voltar atrás</a>
       Post Rankings
     </div>
@@ -73,23 +78,23 @@ $GLOBALS['type'] = $type;
     <div class="h-full w-full px-10">
       <div class="flex flex-col h-full w-full p-10">
         <div class="flex flex-col w-full mb-8 sticky">
-          <div class="flex justify-around pb-4 rounded-lg border-b-8 border-amber-600">
+          <div class="flex justify-around pb-4 rounded-lg border-b-8 border-amber-600" id="podium-container">
           <?php
             global $arrConfig;
             // Display Second Place
             $podiumSecond = getPodium(2, "PostRank", $GLOBALS['id_theme'], $GLOBALS['type']);
-            displayPodium($podiumSecond, "Second Place");
+            displayPodium($podiumSecond, "Segundo Lugar");
             
             // Display First Place
             $podiumFirst = getPodium(1, "PostRank", $GLOBALS['id_theme'], $GLOBALS['type']);
-            displayPodium($podiumFirst, "First Place");
+            displayPodium($podiumFirst, "Primeiro Lugar");
             
             // Display Third Place
             $podiumThird = getPodium(3, "PostRank", $GLOBALS['id_theme'], $GLOBALS['type']);
-            displayPodium($podiumThird, "Third Place");
+            displayPodium($podiumThird, "Terceiro Lugar");
             
           ?>
-        </div>
+          </div>
         <div class="flex flex-row gap-4">
           <div>
               <label for="themeSelect" class="mb-2 text-white">Temas:</label>
@@ -110,8 +115,8 @@ $GLOBALS['type'] = $type;
           </div>
       </div>
 
-      <div class="overflow-y-auto h-96 flex flex-col items-center bg-gray-800 ">
-        <table class="table-fixed table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
+      <div class="overflow-x-auto h-96 flex flex-col items-center bg-gray-800 ">
+        <table class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
             <thead>
                 <tr>
                     <th class="ubuntu-bold w-1/6">Rank</th>
@@ -122,7 +127,7 @@ $GLOBALS['type'] = $type;
                     <th class="ubuntu-bold w-1/6">Dono do Post</th> <!-- Person who posted it -->
                 </tr>
             </thead>
-            <tbody class="h-full overflow-y-auto w-full">
+            <tbody class="h-full w-full">
                 <?php 
                     getRankingPost($GLOBALS['id_theme'], $GLOBALS['type']);
                 ?>
