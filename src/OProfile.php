@@ -41,6 +41,7 @@ $userInfo = getUserInfo($_GET['userid']);
                 <?php
                     echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
                     unset($userInfo);
+                    
                 ?>  
 
              <div class="flex justify-center">
@@ -56,6 +57,12 @@ $userInfo = getUserInfo($_GET['userid']);
 
 
             </div>
+            <?php
+            
+            echo '</div>';
+            echo '</div>';
+
+            ?>
             </div>
            </div>
        <div id="profilePosts-div" class="relative p-auto overflow-auto bg-gray-800">
