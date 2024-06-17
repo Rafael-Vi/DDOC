@@ -77,8 +77,8 @@ $GLOBALS['type'] = $type;
         <div class="flex flex-row gap-4">
           <div>
               <label for="typeSelect" class="mb-2 text-white">Tipo:</label>
-              <select class="select select-bordered w-full max-w-xs mb-8 text-white" id="typeSelect">
-                  <option disabled class="text-white">Type - - -</option>
+              <select class="select select-bordered w-full max-w-xs mb-8 " id="typeSelect">
+                  <option disabled class="">Type - - -</option>
                   <?php setSelectedType($GLOBALS['type'] ?? ''); ?>
               </select>
           </div>
