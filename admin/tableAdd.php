@@ -89,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $insert_query .= ") $values)";
         if (!executeQuery($db_conn, $insert_query)) {
             error_log("Error executing query: " . mysqli_error($db_conn));
+            error_log("Query: $insert_query");
+            error_log(print_r($values));
         }
     }
     header("Location: tableView.php?table=$table");
