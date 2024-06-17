@@ -387,7 +387,7 @@ $imageHtml = '';
     }
 
     function echoSearchResults($userId, $username, $profilePic){
-        echo '<a href="OProfile.php?userid=' . $userId. '" class="w-3/4 md:w-full text-orange-500 hover:text-orange-800 transform hover:scale-105 transition-all duration-200">';
+        echo '<a href="OProfile.php?userid=' . $userId. '" class="w-3/4 md:w-full text-orange-500 hover:text-orange-800 transition-all duration-200">';
         echo '<div class="flex justify-between ubuntu-medium items-center text-white bg-gray-800 hover:border-orange-500 hover: border-4 p-2 rounded-lg mb-3">';
         echo $username;
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 m-2 rounded-full">';
