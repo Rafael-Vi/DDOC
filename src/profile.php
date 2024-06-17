@@ -32,16 +32,15 @@ $userInfo = getUserInfo($_SESSION['uid']);
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-col justify-between h-auto md:h-80 pl-4 pr-4 pb-4">
       <a href="javascript:history.back()" class="btn btn-ghost mt-8 hidden">Voltar atrás</a>
       <div class="flex flex-row justify-end lg:h-64 mt-8 w-full">
-          <div class="w-full lg:w-auto">
-            <?php
-            echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
-            unset($userInfo);
-            echo '<button class="btn bg-gray-700 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
-            echo '</div>';
-            echo '</div>'; // Close profile-info-container
-            ?>
-          </div>
-      </div>
+        <div class="w-full lg:w-auto">
+          <?php
+          echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
+          unset($userInfo);
+          echo '<button class="btn bg-gray-700 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
+          echo '</div>';
+          echo '</div>'; // Close profile-info-container
+          ?>
+        </div>
     </div>
     <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200 min-h-screen">
       <?php
@@ -104,44 +103,44 @@ $userInfo = getUserInfo($_SESSION['uid']);
   </dialog>
   <dialog id="postFollower" class="w-11/12 md:w-1/2 p-5  bg-white rounded-md">
     <div class="flex flex-col w-full h-auto">
-        <!-- Header Section -->
-        <div class="flex w-full h-auto justify-between items-center">
-            <div class="flex w-10/12 h-auto justify-start items-center">
-                <h1 class="text-gray-700 font-bold text-lg">Seguidores</h1>
-            </div>
-            <div onclick="closeFollow('follower')" class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
-              <button onclick="closeFollow('follower')">X</button>
-            </div>
+      <!-- Header Section -->
+      <div class="flex w-full h-auto justify-between items-center">
+        <div class="flex w-10/12 h-auto justify-start items-center">
+          <h1 class="text-gray-700 font-bold text-lg">Seguidores</h1>
         </div>
-        <!-- Body Section -->
-        <div class="flex-1">
-            <div class="flex flex-col items-center mt-4 mx-4 h-5/6 relative p-2 rounded-md overflow-auto" id="followers-people">
-                <?php
-                    getFollowers($_SESSION['uid']);
-                ?>
-            </div>
+        <div onclick="closeFollow('follower')" class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
+          <button onclick="closeFollow('follower')">X</button>
         </div>
+      </div>
+      <!-- Body Section -->
+      <div class="flex-1">
+        <div class="flex flex-col items-center mt-4 mx-4 h-5/6 relative p-2 rounded-md overflow-auto" id="followers-people">
+          <?php
+          getFollowers($_SESSION['uid']);
+          ?>
+        </div>
+      </div>
     </div>
   </dialog>
   <dialog id="postFollowing" class="w-11/12 md:w-1/2 p-5  bg-white rounded-md">
     <div class="flex flex-col w-full h-auto">
-        <!-- Header Section -->
-        <div class="flex w-full h-auto justify-between items-center">
-            <div class="flex w-10/12 h-auto justify-start items-center">
-                <h1 class="text-gray-700 font-bold text-lg">A seguir</h1>
-            </div>
-            <div onclick="closeFollow('following')" class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
-                <button onclick="closeFollow('following')">X</button>
-            </div>
+      <!-- Header Section -->
+      <div class="flex w-full h-auto justify-between items-center">
+        <div class="flex w-10/12 h-auto justify-start items-center">
+          <h1 class="text-gray-700 font-bold text-lg">A seguir</h1>
         </div>
-        <!-- Body Section -->
-        <div class="flex-1">
-            <div class="flex flex-col items-center mt-4 mx-4 h-5/6 relative p-2 rounded-md overflow-auto" id="followers-people">
-                <?php
-                    getFollowing($_SESSION['uid']);
-                ?>
-            </div>
+        <div onclick="closeFollow('following')" class="flex w-8 h-8 justify-center items-center bg-gray-900 rounded-full text-gray-50">
+          <button onclick="closeFollow('following')">X</button>
         </div>
+      </div>
+      <!-- Body Section -->
+      <div class="flex-1">
+        <div class="flex flex-col items-center mt-4 mx-4 h-5/6 relative p-2 rounded-md overflow-auto" id="followers-people">
+          <?php
+          getFollowing($_SESSION['uid']);
+          ?>
+        </div>
+      </div>
     </div>
   </dialog>
   <?php echoBottomNav(); ?>
@@ -156,4 +155,5 @@ $userInfo = getUserInfo($_SESSION['uid']);
   <script src="../src/js/EditProfile.js"></script>
   <script src="../src/js/editPost.js"></script>
 </body>
+
 </html>

@@ -66,7 +66,7 @@ mysqli_close($db_conn);
                     <tbody>
                         <?php
                         foreach ($data as $row) {
-                            echo '<tr>';
+                            echo '<tr class="hover">';
                             foreach ($columns as $column) {
                                 echo '<td>' . $row[$column] . '</td>';
                             }

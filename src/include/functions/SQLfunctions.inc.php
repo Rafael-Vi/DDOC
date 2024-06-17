@@ -864,7 +864,6 @@
         mysqli_close($dbConn);
     }
 
-
     function deleteAllNotifications() {
         // Start the database connection
         $dbConn = db_connect();
@@ -1015,7 +1014,6 @@
         }
         return $convoIds;
     }
-
     function getMessages($sender,$convoId) {
         error_log(print_r($convoId));
         global $arrConfig;
@@ -1030,9 +1028,6 @@
             echoMessages($row['message_id'], $row['message'], $sender, $row['messenger_id']);
         }
     }
-
-
-
     function sendMessage($receiver, $message){
         global $arrConfig;
         $dbConn = db_connect();
@@ -1050,7 +1045,6 @@
             // Message sent successfully
         }
     }
-
     function deleteMessage($messageID){
         global $arrConfig;
         $dbConn = db_connect();
@@ -1112,7 +1106,6 @@
         // Close the connection
         mysqli_close($dbConn);
     }
-
     function RankingAcc($type = null){
         // Create a connection to the database
         $dbConn = db_connect();
@@ -1146,7 +1139,7 @@
             echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage']);
         }
     }
-  
+
     function getPodium($rank, $table, $themeId = null, $type = null) {
         // Create a connection to the database
         $dbConn = db_connect();
