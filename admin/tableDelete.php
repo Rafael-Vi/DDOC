@@ -37,16 +37,22 @@ if (isset($_GET['table']) && !empty($_GET['table']) && isset($_GET['id']) && !em
             break;
         case 'theme':
                 // Proceed with deletion if the table exists and deletion is permitted
-            $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
-            if ($result->num_rows > 0) {
-                // Data exists and can be deleted
-                $result = executeQuery($db_conn, "DELETE FROM $table WHERE id_$table = ?", [$id]);
-                header('Location: tableView.php?table=' . $table);
-            } else {
-                // Data not found
-                echo "Data not found.";
-            }
-            break;
+                $result1 = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
+                if ($result1 && $result1->num_rows > 0) {
+                    // Data exists and can be deleted
+                    $result2 = executeQuery($db_conn, "SELECT * FROM posts WHERE id_theme = ?", [$id]);
+                    $result = executeQuery($db_conn, "DELETE FROM $table WHERE id_$table = ?", [$id]);
+                    while ($row = mysqli_fetch_assoc($result2)) {
+                        deletePost($row['post_id']);
+                        $result3 = executeQuery($db_conn, "DELETE FROM likes WHERE post_id = ?", [$row['post_id']]);
+                    }
+                    header('Location: tableView.php?table=' . $table);
+                    exit;
+                } else {
+                    // Data not found
+                    echo "Data not found.";
+                }
+                break;
         case 'posts':
             if(deletePost($id) === false) {
                 echo "Failed to delete post.";
