@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var postType = document.getElementById('post-type');
         var fileInput = document.getElementById('file-input'); // Corrected id
         if (postType && fileInput) {
+            // Clear the file input when the post type changes
+            fileInput.value = ''; // Reset the file input
+
             switch (postType.value) {
                 case 'audio':
                     fileInput.setAttribute('accept', 'audio/mp3');
