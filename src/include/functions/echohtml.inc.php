@@ -24,8 +24,8 @@
         echo '<div class="font-bold text-white">' . $realName . '</div>';
         echo '<div class="text-white">' . $biography . '</div>';
         echo '<div class="flex flex-row justify-end space-x-4 gap-4 mt-4">';
-        echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold">Seguidores: ---</div></a>';
-        echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold">A seguir: ---</div></a>';
+        echo '<a href="#" onclick="showFollow(\'follower\'); return false;"><div id="followers-count" class="font-bold text-white">Seguidores: ---</div></a>';
+        echo '<a href="#" onclick="showFollow(\'following\'); return false;"><div id="following-count" class="font-bold text-white">A seguir: ---</div></a>';
         echo '</div>';
         echo '</div>'; // Close text-info container
     
