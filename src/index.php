@@ -1,93 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <!--Page Title-->
-    <title>DDOC</title>
+  <meta charset="UTF-8">
+  <!--Page Title-->
+  <title>DDOC</title>
 
-    <!--Meta Keywords and Description-->
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <!--Meta Keywords and Description-->
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 
-    <!--Favicon-->
-    <link rel="shortcut icon" href="./assets/images/2.png" >
-    <script src="https://cdn.tailwindcss.com"></script>  
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <!--Favicon-->
+  <link rel="shortcut icon" href="./assets/images/2.png" >
+  <script src="https://cdn.tailwindcss.com"></script>  
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./src/css/social.css">
+  <link rel="stylesheet" href="./src/css/social.css">
 </head>
 <body class="bg-gray-800">
 
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
-    <!-- First div -->
-    <div class="flex flex-col w-full sm:w-1/2 p-8 items-center justify-center lg:ml-auto">
-        <div class="lg:text-8xl text-white ubuntu-bold hidden xl:block"> 
-           Bem vindo ao
-        </div>
-        <div class="flex items-center justify-center lg:justify-right flex-row float-right">
-            <p class="text-8xl text-white ubuntu-bold">D</p>
-            <p class="text-8xl mx-1 text-white ubuntu-bold">D</p>
-            <div class="loader border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
-            <p class="mx-1 my-8 text-8xl text-white ubuntu-bold">C</p>
-        </div>
+  <!-- First div -->
+  <div class="flex flex-col w-full sm:w-1/2 p-8 items-center justify-center lg:ml-auto">
+    <div class="lg:text-8xl text-white ubuntu-bold hidden xl:block"> 
+       Bem vindo ao
     </div>
+    <div class="flex items-center justify-center lg:justify-right flex-row float-right">
+      <p class="text-8xl text-white ubuntu-bold">D</p>
+      <p class="text-8xl mx-1 text-white ubuntu-bold">D</p>
+      <div class="loader border-t-8 rounded-full border-t-red-400 bg-orange-300 animate-spin aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
+      <p class="mx-1 my-8 text-8xl text-white ubuntu-bold">C</p>
+    </div>
+  </div>
 
-    <!-- Second div -->
-    <div class="w-full sm:w-1/2 p-8 flex items-center justify-center">
-        <ul class="text-white w-42">
-            <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="./accountLC.php">Entra...</a></li>
-            <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#functions">Funcionalidades</a></li>
-            <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Manual</a></li>
-            <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Contactar Criador</a></li>
-        </ul>
-    </div>
+  <!-- Second div -->
+  <div class="w-full sm:w-1/2 p-8 flex items-center justify-center">
+    <ul class="text-white w-42">
+      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="./accountLC.php">Entra...</a></li>
+      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#functions">Funcionalidades</a></li>
+      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Manual</a></li>
+      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Contactar Criador</a></li>
+    </ul>
+  </div>
 </section>
 <div class="flex justify-center items-center min-h-screen">
-<section id="functions" class="flex flex-col">
-        <div class="collapse bg-base-200">
-            <input type="radio" name="my-accordion-1" checked="checked" />
-            <div class="collapse-title text-xl font-medium">
-                Click to open this one and close others
+  <section id="functions" class="flex flex-col">
+    <div class="collapse bg-base-200">
+      <input type="radio" name="my-accordion-1" checked="checked" />
+      <div class="collapse-title text-xl font-medium">
+        Click to open this one and close others
+      </div>
+      <div class="collapse-content">
+        <div class="hero min-h-screen bg-base-200">
+          <div class="hero-content flex-col lg:flex-row-reverse">
+            <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" class="max-w-sm rounded-lg shadow-2xl" />
+            <div>
+              <h1 class="text-5xl font-bold">Box Office News!</h1>
+              <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+              <button class="btn btn-primary">Get Started</button>
             </div>
-            <div class="collapse-content">
-                <p>hello</p>
-            </div>
+          </div>
         </div>
-        <div class="collapse bg-base-200">
-            <input type="radio" name="my-accordion-1" />
-            <div class="collapse-title text-xl font-medium">
-                Click to open this one and close others
+      </div>
+    </div>
+    <div class="collapse bg-base-200">
+      <input type="radio" name="my-accordion-1" />
+      <div class="collapse-title text-xl font-medium">
+        Click to open this one and close others
+      </div>
+      <div class="collapse-content">
+        <div class="hero min-h-screen bg-base-200">
+          <div class="hero-content flex-col lg:flex-row-reverse">
+            <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" class="max-w-sm rounded-lg shadow-2xl" />
+            <div>
+              <h1 class="text-5xl font-bold">Box Office News!</h1>
+              <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+              <button class="btn btn-primary">Get Started</button>
             </div>
-            <div class="collapse-content">
-                <p>hello</p>
-            </div>
+          </div>
         </div>
-        <div class="collapse bg-base-200">
-            <input type="radio" name="my-accordion-1" />
-            <div class="collapse-title text-xl font-medium">
-                Click to open this one and close others
+      </div>
+    </div>
+    <div class="collapse bg-base-200">
+      <input type="radio" name="my-accordion-1" />
+      <div class="collapse-title text-xl font-medium">
+        Click to open this one and close others
+      </div>
+      <div class="collapse-content">
+        <div class="hero min-h-screen bg-base-200">
+          <div class="hero-content flex-col lg:flex-row-reverse">
+            <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" class="max-w-sm rounded-lg shadow-2xl" />
+            <div>
+              <h1 class="text-5xl font-bold">Box Office News!</h1>
+              <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+              <button class="btn btn-primary">Get Started</button>
             </div>
-            <div class="collapse-content">
-                <p>hello</p>
-            </div>
+          </div>
         </div>
-</section>
+      </div>
+    </div>
+  </section>
 </div>
 
 <section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center">
-
-<div class="hero min-h-screen bg-base-200">
-  <div class="hero-content text-center">
-    <div class="max-w-md">
-      <h1 class="text-5xl font-bold mb-2">Agora que sabes no que te vais meter</h1>
-      <a href="./accountLC.php" class="bg-orange-500 rounded-md hover:bg-gray-600 text-white hover:text-orange-500 w-full h-24 mt-8 text-3xl ubuntu-bold">Entra</a>
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold mb-2">Agora que sabes no que te vais meter</h1>
+        <a href="./accountLC.php" class="bg-orange-500 rounded-md hover:bg-gray-600 text-white hover:text-orange-500 w-full h-24 mt-8 text-3xl ubuntu-bold">Entra</a>
+      </div>
     </div>
   </div>
-</div>
-
 </section>
-    
+
 <script src="../dist/bundle.js"></script>
 </body>
 </html>
