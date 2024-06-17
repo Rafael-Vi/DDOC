@@ -16,8 +16,34 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="./src/css/social.css">
+  <style>
+    /* CSS code */
+    .navbar {
+      display: none; /* Initially hide the navbar */
+    }
+
+    .navbar.visible {
+      display: block; /* Show the navbar when the 'visible' class is added */
+    }
+  </style>
 </head>
 <body class="bg-gray-800">
+
+<div class="navbar bg-base-100">
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+  </div>
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">daisyUI</a>
+  </div>
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+    </button>
+  </div>
+</div>
 
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
   <!-- First div -->
@@ -45,7 +71,21 @@
 </section>
 <div class="flex justify-center items-center min-h-screen">
   <section id="functions" class="flex flex-col">
-
+<div class="navbar bg-base-100">
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+  </div>
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">daisyUI</a>
+  </div>
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+    </button>
+  </div>
+</div>
   </section>
 </div>
 
@@ -61,5 +101,24 @@
 </section>
 
 <script src="../dist/bundle.js"></script>
+<script>
+
+  // JavaScript code
+document.addEventListener("DOMContentLoaded", function() {
+  const navbar = document.querySelector('.navbar');
+  const functionalitiesSection = document.querySelector('#functions');
+
+  function toggleNavbarVisibility() {
+    let sectionTop = functionalitiesSection.getBoundingClientRect().top + window.scrollY;
+    if (window.scrollY >= sectionTop) {
+      navbar.classList.add('visible');
+    } else {
+      navbar.classList.remove('visible');
+    }
+  }
+
+  window.addEventListener('scroll', toggleNavbarVisibility);
+});
+</script>
 </body>
 </html>
