@@ -1,4 +1,4 @@
-<div class="navbar bg-gray-600">
+<div class="navbar bg-gray-800">
     <div class="navbar-start">
         <a href="index.php" class="btn btn-ghost text-warning btn-circle">
             <i class="fi fi-br-house-chimney"></i>
