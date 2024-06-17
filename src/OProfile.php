@@ -53,6 +53,7 @@ $userInfo = getUserInfo($_GET['userid']);
                   ';
                   echo '</div>';
                   echo '</div>';
+                  echo '</div>';
                 ?>
 
 
