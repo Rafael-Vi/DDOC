@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="../assets/images/2.png" >
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="https://cdn.tailwindcss.com"></script> <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <title>Esse User não existe!!!</title>
+    <title>Essa Conversa não existe!!!</title>
 </head>
 <body class="bg-gray-800">
 <div class="fixed inset-0 flex-row">
@@ -21,7 +21,7 @@
         aspect-square w-24 flex justify-center items-center text-yellow-700 shadow-sm shadow-black"></div>
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
-      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Não existe essa convers!!!</h1>
+      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Não existe essa conversa!!!</h1>
 <a href="javascript:history.back()" class="btn  w-3/4 sm:w-auto">Voltar atrás</a>
     </div>
 </div>

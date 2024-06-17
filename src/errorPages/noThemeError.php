@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="../assets/images/2.png" >
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="https://cdn.tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <title>não tem tema available!!!</title>
+    <title>Temas não disponíveis</title>
 </head>
 <body class="bg-ddark-primary">
 <div class="fixed inset-0 flex-row">
@@ -21,7 +21,7 @@
         aspect-square w-24 flex justify-center items-center text-yellow-700"></div>
         <p class="mx-1 my-8 text-7xl  text-white ubuntu-bold">C</p>
       </div>
-      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Desculpa, não tem tema available</h1>
+      <h1 class="ubuntu-bold text-2xl sm:text-4xl text-white p-2 rounded">Desculpa, não tem tema disponível</h1>
 <a href="javascript:history.back()" class="btn  w-3/4 sm:w-auto">Voltar atrás</a>
     </div>
 </div>
