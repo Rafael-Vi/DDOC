@@ -22,7 +22,7 @@
             }
 
             echo '
-                <div class="card w-96 bg-primary-content">
+                <div class="card w-96 bg-base-100">
                     <div class="card-body">
                         <h2 class="card-title">Tabela ' . $table . '</h2>
                         <p>' . htmlspecialchars($table_comment) . '</p>
