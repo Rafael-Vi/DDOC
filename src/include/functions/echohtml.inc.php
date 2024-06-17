@@ -204,8 +204,8 @@ $imageHtml = '';
         // Display the podium position
         echo "<div class=\"flex flex-col items-center mt-auto\">";
         echo $imageHtml; // Display the image if available
-        echo "<h1 class=\"mb-2\">$postName</h1>";
-        echo "<div class=\"bg-gray-800 rounded-lg text-center p-4 $heightClass relative flex items-center justify-center m-4 sm:m-0\">$positionName</div>";
+        echo "<h1 class=\"mb-2 text-white\">$postName</h1>";
+        echo "<div class=\"bg-gray-800 rounded-lg text-center p-4 $heightClass relative flex items-center justify-center m-4  text-white sm:m-0\">$positionName</div>";
         echo "</div>";
     }
     function echoBottomNav(){
