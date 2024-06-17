@@ -1,6 +1,6 @@
-<div class="navbar bg-gray-200">
+<div class="navbar bg-gray-600">
     <div class="navbar-start">
-        <a href="index.php" class="btn btn-ghost btn-circle">
+        <a href="index.php" class="btn btn-warning btn-circle">
             <i class="fi fi-br-house-chimney"></i>
         </a>
     </div>
