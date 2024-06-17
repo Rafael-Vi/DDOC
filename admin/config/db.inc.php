@@ -12,6 +12,7 @@ function db_connect()
 }
 function executeQuery($dbConn, $query, $params = null)
 {
+    error_log("Query: $query");
     $stmt = mysqli_prepare($dbConn, $query);
 
     if ($params !== null && !empty($params)) {
