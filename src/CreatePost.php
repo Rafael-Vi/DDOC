@@ -26,7 +26,7 @@
 
   <?php echoNav(); ?>
   <div id="createPost-div" class="bg-gray-800 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
-  <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-ddark-neutral sticky top-0 flex items-center justify-left gap-8">
+  <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl  sticky top-0 flex items-center justify-left gap-8">
 <a href="javascript:history.back()" class="btn">Voltar atrás</a>
     Publicar Post
   </div>
@@ -41,26 +41,26 @@
   <div class="flex flex-col items-center"></div>
     <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
   </div>
-  <label for="post-title" class="text-ddark-neutral font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
-  <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-ddark-primary text-ddark-neutral w-full" maxlength="255"></textarea><br>
-  <label for="post-type" class="text-ddark-neutral font-bold text-left float-left">Tipo:</label>
-  <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-ddark-primary text-ddark-neutral mb-4 w-full">
+  <label for="post-title" class=" font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
+  <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-ddark-primary  w-full" maxlength="255"></textarea><br>
+  <label for="post-type" class=" font-bold text-left float-left">Tipo:</label>
+  <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-ddark-primary  mb-4 w-full">
     <option value="audio">Audio</option>
     <option value="image" selected>Imagem</option>
     <option value="video">Vídeo</option>
   </select><br>
-  <label for="file-upload" class="text-ddark-neutral font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-  <input type="file" id="file-input" name="file-input" class="rounded-lg bg-ddark-primary text-ddark-neutral mb-4 w-full">
-  <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-ddark-primary text-ddark-neutral p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-  <button type="submit" name="CreatePost" class="bg-ddark-success hover:bg-black text-ddark-neutral font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
+  <label for="file-upload" class=" font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
+  <input type="file" id="file-input" name="file-input" class="rounded-lg bg-ddark-primary  mb-4 w-full">
+  <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-ddark-primary  p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
+  <button type="submit" name="CreatePost" class="bg-ddark-success hover:bg-black  font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
 </div>
 </form>
   <?php
   } else {
     echo'<div class="flex flex-col  items-center justify-center h-full">
-    <h2 class="text-3xl font-bold bg-ddark-primary rounded-lg p-8 text-ddark-neutral gap-3">
+    <h2 class="text-3xl font-bold bg-ddark-primary rounded-lg p-8  gap-3">
     You have already posted in this theme.
-    <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-bl-800 text-ddark-neutral font-bold py-2 px-4 rounded mt-4">Go to your profile</a>
+    <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-bl-800  font-bold py-2 px-4 rounded mt-4">Go to your profile</a>
     </h2>
     </div>';
   }
