@@ -513,11 +513,19 @@ $imageHtml = '';
             <td class="flex flex-row items-center justify-center pr-16 text-white">
                 @'.$poster;
             
-                if($url_image != null){
+                if($url_image != null && $url_image != ""){
                     echo'
                     <div class="avatar ml-4">
                         <div class="w-20">
                             <img class="rounded-full w-10" src="'. $arrConfig['url_users'].''.$url_image.'" alt="Profile Picture">
+                        </div>
+                    </div>';
+                }
+                else{
+                    echo'
+                    <div class="avatar ml-4">
+                        <div class="w-20">
+                            <img class="rounded-full w-10" src="'. $arrConfig['url_assets'].'images/Unknown_person.jpg" alt="Profile Picture">
                         </div>
                     </div>';
                 }
