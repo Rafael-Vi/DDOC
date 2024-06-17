@@ -87,8 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $insert_query = rtrim($insert_query, ', ');
         $values = rtrim($values, ', ');
         $insert_query .= ") $values)";
-        error_log("Query: $insert_query");
-        error_log(print_r($values));
         if (!executeQuery($db_conn, $insert_query)) {
             error_log("Error executing query: " . mysqli_error($db_conn));
             error_log("Query: $insert_query");
@@ -105,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php
                 foreach ($columns as $column) {
                     $type = $column_types[$column];
-                    $column = $column_comments[$column];
+                    $comment = $column_comments[$column]; // Use a separate variable for the comment
                     $value = $column == $primary_key ? $next_auto_increment : '';
                     $disabled = $column == $primary_key ? ' disabled' : '';
 
@@ -137,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'DOUBLE':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $column . '</label>
+                                    <label for="' . $column . '" class="label">' . $comment . '</label>
                                     <input type="text" id="' . $column . '" name="' . $column . '" class="input input-bordered" value="' . $value . '" placeholder="Insira o valor para o campo"' . $disabled . ' required>
                                 </div>
                             ';
@@ -145,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'TEXT':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $column . '</label>
+                                    <label for="' . $column . '" class="label">' . $comment . '</label>
                                     <textarea id="' . $column . '" name="' . $column . '" class="input input-bordered"' . $disabled . ' required>' . $value . '</textarea>
                                 </div>
                             ';
@@ -154,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             echo '
                                 <div class="form-control w-full max-w-xs pt-6">
                                     <label for="' . $column . '" class="label cursor-pointer">
-                                        <span>' . $column . '</span>
+                                        <span>' . $comment . '</span>
                                         <input type="checkbox" id="' . $column . '" name="' . $column . '" class="checkbox"' . $disabled . '>
                                     </label>
                                 </div>
@@ -163,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'DATETIME':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '_date" class="label">' . $column . '</label>
+                                    <label for="' . $column . '_date" class="label">' . $comment . '</label>
                                     <input type="date" id="' . $column . '_date" name="' . $column . '_date" class="input input-bordered" value=""' . $disabled . ' required>
                                     <input type="time" id="' . $column . '_time" name="' . $column . '_time" class="input input-bordered" value=""' . $disabled . ' required>
                                 </div>
@@ -172,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         case 'VARCHAR(7)':
                             echo '
                                 <div class="form-control w-full max-w-xs">
-                                    <label for="' . $column . '" class="label">' . $column . '</label>
+                                    <label for="' . $column . '" class="label">' . $comment . '</label>
                                     <input type="color" id="' . $column . '" name="' . $column . '" class="" value="' . $value . '"' . $disabled . ' required>
                                 </div>
                             ';
