@@ -35,6 +35,10 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         switch ($table) {
             case 'users':
                 // Custom deletion logic for users
+                $result2 = executeQuery($db_conn, "SELECT post_id FROM posts WHERE id_users = ?", [$id]);
+                while ($row = mysqli_fetch_assoc($result2)) {
+                    deletePost($row['post_id'], $db_conn); // Pass $db_conn as an argument
+                }
                 break;
             case 'theme':
                 // Additional deletion logic for theme
