@@ -266,7 +266,7 @@ $imageHtml = '';
             case 'image':
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
                 <div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="  rounded-full h-10 w-10 bg-red-800">
@@ -300,7 +300,7 @@ $imageHtml = '';
             case 'audio':
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
                     <div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
@@ -339,7 +339,7 @@ $imageHtml = '';
             case 'video':
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
                 <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                     <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
