@@ -34,11 +34,19 @@
 </head>
 <body class="bg-gray-800">
 
-<div class="navbar bg-base-100 min-h-16 transition-all flex items-center justify-between gap-4 ">
+<div class="navbar bg-base-100 min-h-16 transition-all flex items-center justify-between gap-4">
   <div class="flex items-center ml-8">
-    <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block text-orange-500 w-10 h-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-    </button>
+    <div class="dropdown dropdown-bottom">
+      <button tabindex="0" class="btn btn-square btn-ghost" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block text-orange-500 w-10 h-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 hidden">
+        <li><a href="#">Entrar</a></li>
+        <li><a href="#">Funcionalidades</a></li>
+        <li><a href="#">Manual</a></li>
+        <li><a href="#">Contactar Criador</a></li>
+      </ul>
+    </div>
     <a class="btn btn-ghost text-orange-500 text-3xl">DDOC</a>
   </div>
 </div>
