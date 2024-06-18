@@ -16,7 +16,7 @@ include "include/config.inc.php";
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
      <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
   <style>
-    .message-container {
+    .error-container {
       position: fixed;
       top: 0;
       left: 50%;
