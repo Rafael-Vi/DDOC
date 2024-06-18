@@ -1042,23 +1042,22 @@
             exit;
         }
     }
-
     function getConvo($echo = NULL) {
         global $arrConfig;
         $dbConn = db_connect(); 
         if ($dbConn === false) {
             return "ERROR: Could not connect. " . mysqli_connect_error();
         }
-
+    
         $userId1 = $_SESSION['uid']; // The ID of the first user
-
+    
         $result = executeQuery($dbConn, "SELECT followee_id FROM follow WHERE follower_id = ?", [$userId1]);
         
         $userId2 = [];
         while ($row = mysqli_fetch_assoc($result)) {
             $userId2[] = $row['followee_id'];
         }
-
+    
         $convoIds = [];
         foreach ($userId2 as $followerId) {
             $result = executeQuery($dbConn, "SELECT * FROM follow WHERE follower_id = ? AND followee_id = ?", [$followerId, $_SESSION['uid']]);
@@ -1066,8 +1065,8 @@
                 $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$followerId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($echo === "echo") {
-                        $lastmessage = getMessages($followerId, $_SESSION['uid'], 1);
-                        echoConvo($row['user_profilePic'], $row['user_name'], $followerId, $lastmessage);
+                        $lastmessage = getMessages($followerId, $_SESSION['uid'], 1); // Ensure this function returns the last message correctly
+                        echoConvo($row['user_profilePic'], $row['user_name'], $followerId, $lastmessage); // Ensure last message is correctly passed and handled
                     }
                     $convoIds[] = $followerId;
                 }
@@ -1096,10 +1095,10 @@
             $params[] = $last;
         }
     
-        // Always order by DateTime
-        $query .= " ORDER BY DateTime ASC";
+        // Modify ordering to DESC to ensure the latest message is fetched when $last is specified
+        $query .= " ORDER BY DateTime DESC";
     
-        // Apply LIMIT 1 if $last is not NULL
+        // Apply LIMIT 1 if $last is not NULL to ensure only the latest message is fetched
         if ($last !== NULL) {
             $query .= " LIMIT 1";
         }
@@ -1107,12 +1106,16 @@
         // Execute the query
         $result = executeQuery($dbConn, $query, $params);
         if ($last !== NULL) {
-            // If $last is not NULL, fetch and return the message directly
+            // Fetch and return the latest message directly
             $row = mysqli_fetch_assoc($result);
             return $row ? $row['message'] : null; // Return the message or null if no message is found
         } else {
-            // If $last is NULL, echo the messages as before
+            // If $last is NULL, echo the messages as before but in reverse order to maintain chronological order
+            $messages = [];
             while ($row = mysqli_fetch_assoc($result)) {
+                array_unshift($messages, $row); // Prepend to maintain order when echoing
+            }
+            foreach ($messages as $row) {
                 echoMessages($row['message_id'], $row['message'], $sender, $row['messenger_id']);
             }
         }
