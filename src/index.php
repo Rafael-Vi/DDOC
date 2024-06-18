@@ -34,13 +34,11 @@
 </head>
 <body class="bg-gray-800">
 
-<div class="navbar bg-gray-200 transition-all">
-  <div class="flex-1">
+<div class="navbar bg-gray-200 transition-all flex items-center justify-between">
+  <div class="flex items-center">
     <button class="btn btn-square btn-ghost">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block text-orange-500 w-10 h-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </button>
-  </div>
-  <div class="flex-1">
     <a class="btn btn-ghost text-orange-500 text-3xl">DDOC</a>
   </div>
 </div>
@@ -69,13 +67,8 @@
     </ul>
   </div>
 </section>
-<div class="flex justify-center items-center min-h-screen">
-  <section id="functions" class="flex flex-col">
 
-  </section>
-</div>
-
-<section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center min-h-96">
+<section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center min-h-96" id="functions">
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content text-center">
       <div class="max-w-md">
