@@ -44,7 +44,7 @@ if(isset($_SESSION['error'])) {
                     <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Login</button>
                 </div>
             </form>
-            <a class="flipbutton justify-center flex mt-4 select-none" id="loginButton" href="#">Create my account →</a>
+            <a class="flipbutton justify-center flex mt-4 select-none text-purple-800" id="loginButton" href="#">Create my account →</a>
         </div>
         
         <div class="back">
@@ -57,7 +57,7 @@ if(isset($_SESSION['error'])) {
                     <button type="submit" name="submit" value="registerSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Register</button>
                 </div>
             </form>
-            <a class="flipbutton justify-center flex mt-4 select-none" id="registerButton" href="#">Login to my account</a>
+            <a class="flipbutton justify-center flex mt-4 select-none text-purple-800" id="registerButton" href="#">Login to my account</a>
         </div>
     </div>
 </div>
