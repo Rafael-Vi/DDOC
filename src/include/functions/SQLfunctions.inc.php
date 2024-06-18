@@ -569,7 +569,8 @@
         
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
-        
+            
+            error_log($currentSessionUser);
             return $isOwner;
         }
 
