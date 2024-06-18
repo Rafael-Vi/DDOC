@@ -23,7 +23,7 @@ function checkUpdates() {
 let lastMessage = null;
 function loadMessages() {
     // Assuming convoId is stored in a global variable or session storage
-    let convoId = sessionStorage.getItem('convoId'); // Example: Retrieving from session storage
+    let convoId = sessionStorage.getItem('convo_id'); // Example: Retrieving from session storage
 
     // Check if convoId is not set or empty
     if (!convoId) {
