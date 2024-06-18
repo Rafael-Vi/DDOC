@@ -83,3 +83,6 @@ $(document).ready(function() {
 
   setInterval(loadNotificationsNavBar, 500);
 });
+$('#close-error').on('click', function() {
+    $('.error-container').remove();
+});

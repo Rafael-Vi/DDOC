@@ -60,7 +60,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
     <?php ob_start(); 
 
  ?>
-<div class="message-container">
+<div class="error-container">
   <?php
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);

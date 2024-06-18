@@ -64,7 +64,7 @@ $GLOBALS['type'] = $type;
   //echoShowTheme();
   ?>
   <?php echoNav(); ?>
-  <div class="message-container">
+  <div class="error-container">
   <?php
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
