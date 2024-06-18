@@ -61,21 +61,22 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
     <?php ob_start(); 
 
  ?>
-<div class="error-container">
   <?php
+  echo'  <div class="error-container">';
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
   } elseif(isset($_SESSION['success'])) {
       if ($_SESSION['success'] == 'Registration successful') {
           validRegisterAl();
+          
       } else {
           echoSuccess($_SESSION['success']);
       }
       unset($_SESSION['success']);
   }
+  echo'</div>';
   ?>
-</div>
     <div id="messages-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         <h1 class=" h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white backdrop-blur-md">
             <?php

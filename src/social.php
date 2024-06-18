@@ -35,21 +35,22 @@
 
   <?php echoLoadScreen(); ?>   
   <?php echoNav(); ?>
-  <div class="error-container">
   <?php
+  echo'  <div class="error-container">';
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
   } elseif(isset($_SESSION['success'])) {
       if ($_SESSION['success'] == 'Registration successful') {
           validRegisterAl();
+          
       } else {
           echoSuccess($_SESSION['success']);
       }
       unset($_SESSION['success']);
   }
+  echo'</div>';
   ?>
-</div>
   <div class="bg-gray-900 fixed w-full md:w-9/12 p-0 m-0 md:right-0 h-full flex flex-col justify-center items-center" id="home-div">
    <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
     <a href="javascript:history.back()" class="btn">Voltar atrás</a>

@@ -42,21 +42,24 @@ $userInfo = getUserNotCurrent($_GET['userid']);
   } ?>
   <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
-  <div class="error-container">
+
   <?php
+  echo'  <div class="error-container">';
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
   } elseif(isset($_SESSION['success'])) {
       if ($_SESSION['success'] == 'Registration successful') {
           validRegisterAl();
+          
       } else {
           echoSuccess($_SESSION['success']);
       }
       unset($_SESSION['success']);
   }
+  echo'</div>';
   ?>
-</div>
+
   <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
       <a href="javascript:history.back()" class="btn fixed mt-8">Voltar atrás</a>
