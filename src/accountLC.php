@@ -36,24 +36,24 @@ if(isset($_SESSION['error'])) {
 <div class="flip-container">
     <div class="flipper" id="flipper">
         <div class="front">
-            <h2 class="text-2xl font-bold justify-center flex select-none">Login</h2>
+            <h2 class="text-2xl font-bold justify-center flex select-none text-black">Login</h2>
             <form id="loginForm" method="post" class="space-y-3">
                 <div class="space-y-2">
-                    <input type="text" id="emailL" name="emailL" placeholder="Email/Username" required class="w-full px-4 py-2 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
-                    <input type="password" id="passwordL" name="passwordL" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
-                    <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-neutral-800 rounded-md hover:bg-orange-700 select-none">Login</button>
+                    <input type="text" id="emailL" name="emailL" placeholder="Email/Username" required class="w-full px-4 py-2 bg-base-100 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
+                    <input type="password" id="passwordL" name="passwordL" placeholder="Password" required class="w-full bg-base-100 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
+                    <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-base-100 rounded-md hover:bg-orange-700 select-none">Login</button>
                 </div>
             </form>
             <a class="flipbutton justify-center flex mt-4 select-none" id="loginButton" href="#">Create my account →</a>
         </div>
         
         <div class="back">
-            <h2 class="text-2xl font-bold justify-center flex select-none">Register</h2>
+            <h2 class="text-2xl font-bold justify-center flex select-none text-black">Register</h2>
             <form id="registerForm" method="post" class="space-y-3">
                 <div class="space-y-2">
-                    <input type="text" id="usernameR" name="usernameR" placeholder="Username" required class=" select-none w-full px-4 py-2 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                    <input type="email" id="emailR" name="emailR" placeholder="Email" required class=" select-none w-full px-4 py-2 border border-gray-300 rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                    <input type="password" id="passwordR" name="passwordR" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and at least 8 or more characters" class=" select-none w-full px-4 py-2 border border-gray-300 mb-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <input type="text" id="usernameR" name="usernameR" placeholder="Username" required class="bg-base-100 select-none w-full px-4 py-2 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <input type="email" id="emailR" name="emailR" placeholder="Email" required class=" select-none w-full bg-base-100 px-4 py-2 border border-gray-300 rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <input type="password" id="passwordR" name="passwordR" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and at least 8 or more characters" class="bg-base-100 select-none w-full px-4 py-2 border border-gray-300 mb-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                     <button type="submit" name="submit" value="registerSubmit" class="w-full px-4 py-2 text-white bg-neutral-800 rounded-md hover:bg-orange-700 select-none">Register</button>
                 </div>
             </form>
