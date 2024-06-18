@@ -14,7 +14,18 @@
   <link rel="shortcut icon" href="./assets/images/2.png" >
   <script src="https://cdn.tailwindcss.com"></script>  
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+  <style>
+    .message-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      z-index: 1000; /* Ensure it's above other content */
+    }
+  </style>
   <link rel="stylesheet" href="./src/css/social.css">
 
 </head>

@@ -54,7 +54,18 @@ $GLOBALS['type'] = $type;
   <link rel="stylesheet" href="../src/css/social.css">
   <link rel="shortcut icon" href="./assets/images/2.png">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+  <style>
+    .message-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      z-index: 1000; /* Ensure it's above other content */
+    }
+  </style>
   <title>Rankings Posts</title>
   <style>
     #podium-container * {
@@ -69,6 +80,7 @@ $GLOBALS['type'] = $type;
   //echoShowTheme();
   ?>
   <?php echoNav(); ?>
+  <div class="message-container">
   <?php
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
@@ -82,6 +94,7 @@ $GLOBALS['type'] = $type;
       unset($_SESSION['success']);
   }
   ?>
+</div>
   <div id="Postrankings-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
     <div class="h-32 text-center z-20 sm:text-start w-full bg-slate-800 p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
       <a href="javascript:history.back()" class="btn">Voltar atrás</a>

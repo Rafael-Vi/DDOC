@@ -39,7 +39,18 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
     <link rel="stylesheet" href="../src/css/social.css">    <link rel="shortcut icon" href="./assets/images/2.png" >
     <script src="https://cdn.tailwindcss.com"></script>  
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+  <style>
+    .message-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      z-index: 1000; /* Ensure it's above other content */
+    }
+  </style>
     <title>Messages</title> 
 </head>
 <body class="h-full flex">
@@ -49,7 +60,8 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
     <?php ob_start(); 
 
  ?>
-   <?php
+<div class="message-container">
+  <?php
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
@@ -62,6 +74,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
       unset($_SESSION['success']);
   }
   ?>
+</div>
     <div id="messages-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         <h1 class=" h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white backdrop-blur-md">
             <?php

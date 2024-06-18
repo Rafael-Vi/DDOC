@@ -21,13 +21,25 @@ $userInfo = getUserInfo($_SESSION['uid']);
   <link rel="stylesheet" href="../src/css/social.css">
   <link rel="shortcut icon" href="./assets/images/2.png">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+  <style>
+    .message-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      z-index: 1000; /* Ensure it's above other content */
+    }
+  </style>
   <title>Profile</title>
 </head>
 
 <body class="h-full flex">
   <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
+  <div class="message-container">
   <?php
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
@@ -41,6 +53,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
       unset($_SESSION['success']);
   }
   ?>
+</div>
   <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-col justify-between h-auto md:h-80 pl-4 pr-4 pb-4">
       <a href="javascript:history.back()" class="btn btn-ghost mt-8 hidden">Voltar atrás</a>

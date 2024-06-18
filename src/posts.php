@@ -25,13 +25,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/social.css">    <link rel="shortcut icon" href="./assets/images/2.png" >
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-      <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+       <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+  <style>
+    .message-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      z-index: 1000; /* Ensure it's above other content */
+    }
+  </style>
     <title><?php echo $post['caption']?></title>
 </head>
 <body class="h-full flex">
     <?php echoLoadScreen(); ?>   
     <?php echoNav(); ?>
-    <?php
+<div class="message-container">
+  <?php
   if(isset($_SESSION['error'])) {
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
@@ -44,6 +56,7 @@
       unset($_SESSION['success']);
   }
   ?>
+</div>
 
     <div id="ThisPost-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
     <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
