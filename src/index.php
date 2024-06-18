@@ -28,7 +28,7 @@
     }
 
     .navbar.visible {
-      display: block; /* Show the navbar when the 'visible' class is added */
+      display: flex; /* Show the navbar when the 'visible' class is added */
     }
   </style>
 </head>
