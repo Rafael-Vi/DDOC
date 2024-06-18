@@ -39,8 +39,8 @@ if(isset($_SESSION['error'])) {
             <h2 class="text-2xl font-bold justify-center flex select-none text-black">Login</h2>
             <form id="loginForm" method="post" class="space-y-3">
                 <div class="space-y-2">
-                    <input type="text" id="emailL" name="emailL" placeholder="Email/Username" required class="w-full px-4 py-2 bg-gray-800 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
-                    <input type="password" id="passwordL" name="passwordL" placeholder="Password" required class="w-full bg-gray-800 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
+                    <input type="text" id="emailL" name="emailL" placeholder="Email/Username" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
+                    <input type="password" id="passwordL" name="passwordL" placeholder="Password" required class="w-full text-black bg-gray-200 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                     <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Login</button>
                 </div>
             </form>
@@ -51,9 +51,9 @@ if(isset($_SESSION['error'])) {
             <h2 class="text-2xl font-bold justify-center flex select-none text-black">Register</h2>
             <form id="registerForm" method="post" class="space-y-3">
                 <div class="space-y-2">
-                    <input type="text" id="usernameR" name="usernameR" placeholder="Username" required class="bg-gray-800 select-none w-full px-4 py-2 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                    <input type="email" id="emailR" name="emailR" placeholder="Email" required class=" select-none w-full bg-gray-800 px-4 py-2 border border-gray-300 rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                    <input type="password" id="passwordR" name="passwordR" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and at least 8 or more characters" class="bg-gray-800 select-none w-full px-4 py-2 border border-gray-300 mb-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <input type="text" id="usernameR" name="usernameR" placeholder="Username" required class="bg-gray-200 select-none w-full px-4 py-2 border border-gray-300 text-black rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <input type="email" id="emailR" name="emailR" placeholder="Email" required class=" select-none w-full bg-gray-200 px-4 py-2 border border-gray-300 rounded-md text-black mb-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <input type="password" id="passwordR" name="passwordR" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and at least 8 or more characters" class="bg-gray-200 text-black select-none w-full px-4 py-2 border border-gray-300 mb-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                     <button type="submit" name="submit" value="registerSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Register</button>
                 </div>
             </form>
