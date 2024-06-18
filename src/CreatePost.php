@@ -20,7 +20,7 @@
   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
   <title>Publicar Post</title>
 </head>
-<body class="h-full flex">
+<body class="h-full">
 
   <?php echoLoadScreen(); ?>  
 
