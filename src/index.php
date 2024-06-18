@@ -16,38 +16,10 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="./src/css/social.css">
-  <style>
-    /* CSS code */
-    .navbar {
-      position: fixed; /* Make the navbar fixed at the top */
-      top: 0; /* Position it at the top */
-      left: 0; /* Align it to the left */
-      width: 100%; /* Make it occupy the full width */
-      z-index: 1000; /* Ensure it stays on top of other content */
-      display: none;
-    }
 
-    .navbar.visible {
-      display: flex; /* Show the navbar when the 'visible' class is added */
-    }
-  </style>
 </head>
 <body class="bg-gray-800">
 
-<div class="navbar bg-base-100 min-h-16 transition-all flex items-center justify-between gap-4">
-  <div class="flex items-center ml-8">
-    <div class="dropdown dropdown-bottom">
-        <div tabindex="0" role="button" class="btn m-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block text-orange-500 w-10 h-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></div>
-      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a href="#">Entrar</a></li>
-        <li><a href="#">Funcionalidades</a></li>
-        <li><a href="#">Manual</a></li>
-        <li><a href="#">Contactar Criador</a></li>
-      </ul>
-    </div>
-    <a class="btn btn-ghost text-orange-500 text-3xl">DDOC</a>
-  </div>
-</div>
 
 <section class="w-full h-screen flex flex-col sm:flex-row items-center justify-center" id="welcome-ddoc">
   <!-- First div -->
@@ -86,24 +58,5 @@
 </section>
 
 <script src="../dist/bundle.js"></script>
-<script>
-
-  // JavaScript code
-document.addEventListener("DOMContentLoaded", function() {
-  const navbar = document.querySelector('.navbar');
-  const functionalitiesSection = document.querySelector('#functions');
-
-  function toggleNavbarVisibility() {
-    let sectionTop = functionalitiesSection.getBoundingClientRect().top + window.scrollY;
-    if (window.scrollY >= sectionTop) {
-      navbar.classList.add('visible');
-    } else {
-      navbar.classList.remove('visible');
-    }
-  }
-
-  window.addEventListener('scroll', toggleNavbarVisibility);
-});
-</script>
 </body>
 </html>
