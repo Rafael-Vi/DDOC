@@ -1065,7 +1065,7 @@
                 $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$followerId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($echo === "echo") {
-                        $lastmessage = getMessages($followerId, $_SESSION['uid'], 1); // Ensure this function returns the last message correctly
+                        $lastmessage = getMessages($followerId, $_SESSION['uid'], true); // Ensure this function returns the last message correctly
                         echoConvo($row['user_profilePic'], $row['user_name'], $followerId, $lastmessage); // Ensure last message is correctly passed and handled
                     }
                     $convoIds[] = $followerId;
