@@ -570,7 +570,7 @@
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
             
-            error_log($currentSessionUser);
+            error_log(var_dump($currentSessionUser));
             return $isOwner;
         }
 
