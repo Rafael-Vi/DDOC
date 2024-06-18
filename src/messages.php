@@ -47,6 +47,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
+      min-height: 60px;
       text-align: center;
       z-index: 1000; /* Ensure it's above other content */
     }
