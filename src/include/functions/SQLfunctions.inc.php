@@ -247,21 +247,23 @@
             $updateFields = array();
             $params = array();
             
-            // Generate a unique filename for the profile picture
-            $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
-            $uniqueFilename = "ProfilePic-" . uniqid() . "." . $fileExtension; // Unique filename
+            // Generate a unique filename for the profile picture if a new one is uploaded
+            if ($profilePic['name']) {
+                $fileExtension = pathinfo($profilePic['name'], PATHINFO_EXTENSION);
+                $uniqueFilename = "ProfilePic-" . uniqid() . "." . $fileExtension; // Unique filename
         
-            // Step 2: Check and delete the current profile picture if different
-            if ($currentPic && $uniqueFilename !== $currentPic) {
-                $currentPicPath = $arrConfig['dir_users'] . $currentPic;
-                if (file_exists($currentPicPath)) {
-                    unlink($currentPicPath);
+                // Step 2: Check and delete the current profile picture if different
+                if ($currentPic && $uniqueFilename !== $currentPic) {
+                    $currentPicPath = $arrConfig['dir_users'] . $currentPic;
+                    if (file_exists($currentPicPath)) {
+                        unlink($currentPicPath);
+                    }
                 }
-            }
         
-            move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$uniqueFilename);
-            $updateFields[] = " user_profilePic = ?";
-            $params[] = $uniqueFilename;
+                move_uploaded_file($profilePic['tmp_name'], $arrConfig['dir_users'].$uniqueFilename);
+                $updateFields[] = " user_profilePic = ?";
+                $params[] = $uniqueFilename;
+            }
             
             if (!empty($username)) {
                 $updateFields[] = " user_name = ?";
@@ -482,84 +484,85 @@
 
 
     //*POST RELATED ------------------------------------------------------------------------
+
         function savePost($postID, $postContent) {
-            // Start the database connection
-            $dbConn = db_connect();
-
-            // Check connection
-            if ($dbConn === false) {
-                die("ERROR: Could not connect. " . mysqli_connect_error());
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
             }
-
-            // Prepare the SQL query with the post_id condition using prepared statements
+        
+            $dbConn = db_connect();
+        
+            if ($dbConn === false) {
+                $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+                return;
+            }
+        
             $sql = "UPDATE posts SET caption = ? WHERE post_id = ?";
             $stmt = mysqli_prepare($dbConn, $sql);
-
-            // Bind parameters
+        
             mysqli_stmt_bind_param($stmt, "si", $postContent, $postID);
-
-            // Execute the query
+        
             if(mysqli_stmt_execute($stmt) === false) {
-                die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+                $_SESSION['error'] = "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+                mysqli_stmt_close($stmt);
+                mysqli_close($dbConn);
+                return;
             }
-
-            // Check if the post was updated
+        
             $wasUpdated = mysqli_stmt_affected_rows($stmt) > 0;
-
-            // Close the database connection
+        
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
-
-            // Return a JSON object
-            echo json_encode(array('success' => $wasUpdated, 'postID' => $postID));
-        }
-
-        function checkIfOwnerPost($postID, $currentSessionUser) {
-            // Start the database connection
-            $dbConn = db_connect();
         
-            // Check connection
-            if ($dbConn === false) {
-                // Consider using exception or a more graceful error handling
-                return ['error' => "ERROR: Could not connect. " . mysqli_connect_error()];
+            if ($wasUpdated) {
+                $_SESSION['success'] = "Post updated successfully.";
+            } else {
+                $_SESSION['error'] = "No changes were made to the post.";
+            }
+        }
+        
+        function checkIfOwnerPost($postID, $currentSessionUser) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
             }
         
-            // Prepare the SQL query with the post_id condition using prepared statements
+            $dbConn = db_connect();
+        
+            if ($dbConn === false) {
+                $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+                return false;
+            }
+        
             $sql = "SELECT id_users FROM posts WHERE post_id = ?";
             $stmt = mysqli_prepare($dbConn, $sql);
         
-            // Check if statement was prepared successfully
             if (!$stmt) {
-                // Consider using exception or a more graceful error handling
-                return ['error' => "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn)];
+                $_SESSION['error'] = "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+                mysqli_close($dbConn);
+                return false;
             }
         
-            // Bind parameters
             mysqli_stmt_bind_param($stmt, "i", $postID);
         
-            // Execute the query
             if (!mysqli_stmt_execute($stmt)) {
-                // Consider using exception or a more graceful error handling
-                return ['error' => "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn)];
+                $_SESSION['error'] = "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+                mysqli_stmt_close($stmt);
+                mysqli_close($dbConn);
+                return false;
             }
         
-            // Bind result variables
             mysqli_stmt_bind_result($stmt, $userID);
         
-            // Fetch the result
             if (mysqli_stmt_fetch($stmt)) {
-                // Check if the current session user is the owner of the post
                 $isOwner = $userID == $currentSessionUser;
             } else {
                 $isOwner = false;
             }
         
-            // Close the database connection
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
         
-            // Return as an array instead of echoing JSON directly
-            return ['isOwner' => $isOwner, 'userID' => $userID, 'postID' => $postID];
+            return $isOwner;
         }
 
         function setSelectedType($selectedType) {
@@ -573,47 +576,52 @@
 
         function createPost($uid, $title, $type, $file, $theme) {
             global $arrConfig;
-            $dbConn = db_connect();
-
-            // Check if the file upload was successful
-            if ($file['error'] > 0) {
-                error_log('File upload error: ' . $file['error']);
-                return; // Return from the function if the file upload failed
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
             }
-
-            $fileName = $type . "-" . $file['name'] . "-" . $_SESSION['uid'];
+        
+            $dbConn = db_connect();
+            if (!$dbConn) {
+                $_SESSION['error'] = 'Database connection failed';
+                return;
+            }
+        
+            if ($file['error'] > 0) {
+                $_SESSION['error'] = 'File upload error: ' . $file['error'];
+                return;
+            }
+        
+            $fileName = $type . "-" . htmlspecialchars($file['name']) . "-" . $_SESSION['uid'];
             $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
             $fileName .= "." . $fileExtension;
-
-            // Check if a file with the same name already exists
+        
             if (file_exists($arrConfig['dir_posts']."/$type/".$fileName)) {
-                die('A file with the same name already exists.');
+                $_SESSION['error'] = 'A file with the same name already exists.';
+                return;
             }
-
-            // Prepare the SQL query to insert into the table using prepared statements
+        
+            if (!move_uploaded_file($file['tmp_name'], $arrConfig['dir_posts']."/$type/".$fileName)) {
+                $_SESSION['error'] = 'Error moving uploaded file.';
+                return;
+            }
+        
             $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, id_theme) VALUES (?, ?, ?, ?, ?)";
-
-            // Execute the query
-            $result = executeQuery($dbConn, $sql, [$uid, $title, $type, $fileName, $theme]);
-
-            if($result === false) {
-                error_log("Error: " . mysqli_error($dbConn));
+            $stmt = mysqli_prepare($dbConn, $sql);
+            if (!$stmt) {
+                $_SESSION['error'] = "Error while uploading";
+                return;
             }
-
-            // Move the uploaded file
-            if (!move_uploaded_file($file['tmp_name'],  $arrConfig['dir_posts']."/$type/".$fileName)) {
-                die('Error uploading file - check destination is writeable. '.$type.'');
+        
+            mysqli_stmt_bind_param($stmt, 'issss', $uid, $title, $type, $fileName, $theme);
+            $result = mysqli_stmt_execute($stmt);
+            if (!$result) {
+                $_SESSION['error'] = "Error while uploading";
+                return;
             }
-
-            if ($result) {
-                // Handle the successful post creation
-                echo "Post created successfully.";
-                updateUserPostStatus($_SESSION['uid'], 1);
-                sendNotification(null, $_SESSION['uid'], "PostCreated");
-            } else {
-                // Handle the post creation error
-                error_log("Error: " . mysqli_error($dbConn));
-            }
+        
+            $_SESSION['success'] = "Post created successfully.";
+            updateUserPostStatus($_SESSION['uid'], 1);
+            sendNotification(null, $_SESSION['uid'], "PostCreated");
         }
   
         function showPost($postId, $show) {
@@ -741,12 +749,16 @@
 
         function deletePost($postID) {
             global $arrConfig;
+        
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+        
             $dbConn = db_connect();
         
             if ($dbConn === false) {
-                $error = "ERROR: Could not connect. " . mysqli_connect_error();
-                error_log($error);
-                return json_encode(['success' => false, 'error' => $error]);
+                $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+                return; // Early return to stop execution
             }
         
             $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
@@ -773,11 +785,10 @@
                 $stmt = mysqli_prepare($dbConn, $query);
                 mysqli_stmt_bind_param($stmt, "i", $postID);
                 if (!mysqli_stmt_execute($stmt)) {
-                    $error = "Failed to execute query: $query";
-                    error_log($error);
+                    $_SESSION['error'] = "Failed to delete post";
                     mysqli_stmt_close($stmt);
                     mysqli_close($dbConn);
-                    return json_encode(['success' => false, 'error' => $error]);
+                    return; // Early return to stop execution
                 }
                 mysqli_stmt_close($stmt);
             }
@@ -787,7 +798,7 @@
             }
         
             mysqli_close($dbConn);
-            echo json_encode(['success' => true]);
+            $_SESSION['success'] = "Post deleted successfully.";
         }
     //*POST RELATED ------------------------------------------------------------------------
 
@@ -864,26 +875,32 @@
         mysqli_close($dbConn);
     }
 
+
     function deleteAllNotifications() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    
         // Start the database connection
         $dbConn = db_connect();
-
+    
         // Check connection
         if ($dbConn === false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
+            $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+            return; // Early return to stop execution
         }
-
+    
         // Prepare the SQL query to delete all notifications
         $query = "DELETE FROM notifications WHERE receiver_id = ?";
         $params = array($_SESSION['uid']);
-
+    
         // Execute the query
         if (executeQuery($dbConn, $query, $params)) {
-            echo "All notifications deleted successfully.";
+            $_SESSION['success'] = "All notifications deleted successfully.";
         } else {
-            echo "Failed to delete notifications.";
+            $_SESSION['error'] = "Failed to delete notifications.";
         }
-
+    
         // Close connection
         mysqli_close($dbConn);
     }
