@@ -81,7 +81,7 @@ $userInfo = getUserInfo($_GET['userid']);
           ?>
         </div>
       </div>
-    <div id="profilePosts-div" class="relative p-auto overflow-auto mt-8 bg-base-200 min-h-screen">
+    <div id="profilePosts-div"class="relative p-auto overflow-auto bg-base-200 min-h-screen mt-8">
       <?php
       getPosts($_GET['userid']);
       ?>
