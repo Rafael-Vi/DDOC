@@ -24,6 +24,7 @@
       left: 0; /* Align it to the left */
       width: 100%; /* Make it occupy the full width */
       z-index: 1000; /* Ensure it stays on top of other content */
+      display: none;
     }
 
     .navbar.visible {
