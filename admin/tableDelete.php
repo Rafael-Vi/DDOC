@@ -109,7 +109,7 @@ function deletePost($id, $dbConn) {
 
             if ($theme && $theme['is_finished'] == 0) {
                 // Update usercanpost if the theme is not finished
-                updateUserPostStatus($file['id_users'], 1); 
+                updateUserPostStatus($file['id_users'], 0); 
             }
         }
 
