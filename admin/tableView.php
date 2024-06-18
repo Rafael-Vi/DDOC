@@ -42,6 +42,14 @@ while ($row = $result->fetch_assoc()) {
     $data[] = $row;
 }
 
+// Determine the ID column name based on the table name
+$idColumnName = 'id_' . $table; // Default format
+if ($table === 'posts') {
+    $idColumnName = 'post_id'; // Special case for posts table
+}
+
+
+
 mysqli_close($db_conn);
 ?>
 <div class="w-screen p-2 flex items-center justify-center">
@@ -65,24 +73,26 @@ mysqli_close($db_conn);
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($data as $row) {
-                            echo '<tr class="hover">';
-                            foreach ($columns as $column) {
-                                echo '<td>' . $row[$column] . '</td>';
-                            }
-                            // Check permissions for edit and delete actions
-                            if ($tablePermissions[$table]['editable'] || $tablePermissions[$table]['deletable']) {
-                                echo '<td class="flex justify-end gap-2 m-auto">';
-                                if ($tablePermissions[$table]['editable']) {
-                                    echo '<a href="tableEdit.php?table=' . $table . '&id=' . $row['id_' . $table] . '" class="btn btn-sm"><i class="fi fi-br-blog-pencil"></i></a>';
+                            // Use $idColumnName in the edit and delete links
+                            foreach ($data as $row) {
+                                echo '<tr class="hover">';
+                                foreach ($columns as $column) {
+                                    echo '<td>' . $row[$column] . '</td>';
                                 }
-                                if ($tablePermissions[$table]['deletable']) {
-                                    echo '<a href="tableDelete.php?table=' . $table . '&id=' . $row['id_' . $table] . '" class="btn btn-sm" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fi fi-br-trash"></i></a>';
+                                // Check permissions for edit and delete actions
+                                if ($tablePermissions[$table]['editable'] || $tablePermissions[$table]['deletable']) {
+                                    echo '<td class="flex justify-end gap-2 m-auto">';
+                                    if ($tablePermissions[$table]['editable']) {
+                                        echo '<a href="tableEdit.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm"><i class="fi fi-br-blog-pencil"></i></a>';
+                                    }
+                                    if ($tablePermissions[$table]['deletable']) {
+                                        echo '<a href="tableDelete.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fi fi-br-trash"></i></a>';
+                                    }
+                                    echo '</td>';
                                 }
-                                echo '</td>';
+                                echo '</tr>';
                             }
-                            echo '</tr>';
-                        }
+
                         ?>
                     </tbody>
                 </table>
