@@ -34,19 +34,14 @@
 </head>
 <body class="bg-gray-800">
 
-<div class="navbar bg-base-100">
-  <div class="flex-none">
+<div class="navbar bg-gray-200 transition-all">
+  <div class="flex-1">
     <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block text-orange-500 w-10 h-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </button>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
-  </div>
-  <div class="flex-none">
-    <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-    </button>
+    <a class="btn btn-ghost text-orange-500 text-3xl">DDOC</a>
   </div>
 </div>
 
@@ -80,7 +75,7 @@
   </section>
 </div>
 
-<section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center">
+<section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center min-h-96">
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content text-center">
       <div class="max-w-md">
