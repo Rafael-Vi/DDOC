@@ -28,8 +28,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         exit;
     }
 
-    // Proceed with deletion if the table exists and deletion is permitted
-    $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
+
     if ($result && $result->num_rows > 0) {
         // Data exists and can be deleted
         switch ($table) {
@@ -54,6 +53,10 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                 }
                 break;
             // Add more tables as needed
+            default:
+                // Proceed with deletion if the table exists and deletion is permitted
+                $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
+                break;
         }
         // Execute deletion query
         $result = executeQuery($db_conn, "DELETE FROM $table WHERE id_$table = ?", [$id]);
