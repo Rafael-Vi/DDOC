@@ -60,7 +60,7 @@ $userInfo = getUserInfo($_GET['userid']);
   <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">
     <div id="profileInfo-div" class="b-8 z-20 relative w-full flex flex-row justify-between h-60 md:h-80 pl-4 pr-4 sm:text-right pb-4">
       <a href="javascript:history.back()" class="btn fixed mt-8">Voltar atrás</a>
-      <div class="flex float-end h-32 text-white lg:h-64 mt-8 w-4/6">
+      <div class="flex float-end h-32 text-white lg:h-64 mt-8 w-full">
         <div class="h-full w-full mt-0 md:mt-8 mb-4">
           <?php
           echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
