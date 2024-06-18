@@ -38,7 +38,7 @@
   <div class="flex items-center ml-8">
     <div class="dropdown dropdown-bottom">
         <div tabindex="0" role="button" class="btn m-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block text-orange-500 w-10 h-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></div>
-      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 hidden">
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <li><a href="#">Entrar</a></li>
         <li><a href="#">Funcionalidades</a></li>
         <li><a href="#">Manual</a></li>
