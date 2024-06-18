@@ -431,72 +431,7 @@
             mysqli_close($dbConn);
         }
 
-        function getNotCurrentUser($uid){
-            global $arrConfig;
-        
-            // Start the database connection
-            $dbConn = db_connect();
-        
-            // Check connection
-            if ($dbConn === false) {
-                die("ERROR: Could not connect. " . mysqli_connect_error());
-            }
-        
-            // Prepare the SQL query with the id_users condition using prepared statements
-            $sql = "SELECT user_name, user_email, user_profilePic, user_realName, user_biography FROM users WHERE id_users = ?";
-            $params = array($uid);
-        
-            // Execute the query
-            $result = executeQuery($dbConn, $sql, $params);
-        
-            // Fetch the user data
-            if($row = mysqli_fetch_assoc($result)) {
-                // Access the user data
-                $username = $row['user_name'];
-                $email = $row['user_email'];
-                $profilePic = $row['user_profilePic'];
-                $realName = $row['user_realName'];
-                $biography = $row['user_biography'];
-        
-                if (!$profilePic) {
-                    $profilePic = $arrConfig['url_assets']. "/images/Unknown_person.jpg";
-                }
-                else{
-                    $profilePic = $arrConfig['url_users']. $profilePic ;
-                }
-        
-                // Prepare the SQL query to get the rank from the accountrankings view
-                $sqlRank = "SELECT UserRank FROM `accountrankings` WHERE `UserName` = ?";
-                $paramsRank = array($username);
-        
-                // Execute the query
-                $resultRank = executeQuery($dbConn, $sqlRank, $paramsRank);
-        
-                // Fetch the rank
-                if($rowRank = mysqli_fetch_assoc($resultRank)) {
-                    $_SESSION['rank'] = $rowRank['UserRank'];
-                } else {
-                    header("Location:../../errorPages/NoUserFound.php");
-                    exit;
-                }
-        
-                // Return the user data instead of echoing it
-                return array(
-                    'username' => $username,
-                    'email' => $email,
-                    'profilePic' => $profilePic,
-                    'realName' => $realName,
-                    'biography' => $biography,
-                    'rank' => $_SESSION['rank']
-                );
-            } else {
-                // Handle the query error
-                header("../../errorPages/NoUserFound.php");
-                exit;
-            }
-        
-            mysqli_close($dbConn);
-        }
+      
         
         function updateUserPostStatus($userId , $status) {
             $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
@@ -561,6 +496,7 @@
         
             if ($dbConn === false) {
                 $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+                error_log("ERROR: Could not connect. " . mysqli_connect_error());
                 return;
             }
         
@@ -571,8 +507,10 @@
         
             if(mysqli_stmt_execute($stmt) === false) {
                 $_SESSION['error'] = "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+                error_log("ERROR: Could not connect. " . mysqli_connect_error());
                 mysqli_stmt_close($stmt);
                 mysqli_close($dbConn);
+                
                 return;
             }
         
@@ -597,6 +535,7 @@
         
             if ($dbConn === false) {
                 $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+                error_log("ERROR: Could not connect. " . mysqli_connect_error());
                 return false;
             }
         
@@ -605,6 +544,7 @@
         
             if (!$stmt) {
                 $_SESSION['error'] = "ERROR: Could not prepare query: $sql. " . mysqli_error($dbConn);
+                error_log("ERROR: Could not connect. " . mysqli_connect_error());
                 mysqli_close($dbConn);
                 return false;
             }
@@ -613,6 +553,7 @@
         
             if (!mysqli_stmt_execute($stmt)) {
                 $_SESSION['error'] = "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
+                error_log("ERROR: Could not connect. " . mysqli_connect_error());
                 mysqli_stmt_close($stmt);
                 mysqli_close($dbConn);
                 return false;
