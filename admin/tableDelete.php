@@ -27,10 +27,13 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         header('Location: index.php');
         exit;
     }
-
-
-    if ($result && $result->num_rows > 0) {
-        // Data exists and can be deleted
+    
+    // Preliminary check to see if the data exists
+    $idColumnName = $table === 'posts' ? 'post_id' : "id_$table"; // Adjust ID column name based on table
+    $preliminaryResult = executeQuery($db_conn, "SELECT * FROM $table WHERE $idColumnName = ?", [$id]);
+    
+    if ($preliminaryResult && $preliminaryResult->num_rows > 0) {
+        // Data exists, proceed with deletion logic
         switch ($table) {
             case 'users':
                 // Custom deletion logic for users
@@ -59,12 +62,13 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                 break;
         }
         // Execute deletion query
-        $result = executeQuery($db_conn, "DELETE FROM $table WHERE id_$table = ?", [$id]);
+        $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
         header('Location: tableView.php?table=' . $table);
         exit;
     } else {
         // Data not found
         echo "Data not found.";
+        exit;
     }
 } else {
     header('Location: index.php');
