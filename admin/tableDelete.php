@@ -99,7 +99,7 @@ function deletePost($id, $dbConn) {
             }
 
             // Check the theme's is_finished status
-            $query = "SELECT is_finished FROM themes WHERE id_theme = ?";
+            $query = "SELECT is_finished FROM theme WHERE id_theme = ?";
             $stmt = mysqli_prepare($dbConn, $query);
             mysqli_stmt_bind_param($stmt, "i", $file['id_theme']);
             mysqli_stmt_execute($stmt);
