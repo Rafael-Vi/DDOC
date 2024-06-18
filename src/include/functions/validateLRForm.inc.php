@@ -24,6 +24,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
+
 function validateLogin($email, $password) {
     global $arrConfig;
 
@@ -36,28 +37,33 @@ function validateLogin($email, $password) {
 
     $dbConn = db_connect();
 
-    // Use only the second query to find the user based on either email or username
-    $sql2 = "SELECT id_users, can_post, user_name, user_profilePic FROM users WHERE user_email =? OR user_name =?"; // Adjusted SQL query
+    // Adjusted SQL query to also select the password for verification
+    $sql = "SELECT id_users, can_post, user_name, user_profilePic, user_password FROM users WHERE user_email =? OR user_name =?";
 
-    $result2 = executeQuery($dbConn, $sql2, [$email, $email]); // Pass both email and username to the query
+    $result = executeQuery($dbConn, $sql, [$email, $email]); // Pass both email and username to the query
 
-    $userDetails = mysqli_fetch_assoc($result2);
+    $userDetails = mysqli_fetch_assoc($result);
 
     if ($userDetails) {
-        // Assuming password verification is done elsewhere or not needed here
-        $_SESSION['uid'] = $userDetails['id_users'];
-        $_SESSION['can_post'] = $userDetails['can_post'];
-        $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
-        $_SESSION['username'] = '@'.$userDetails['user_name'];
-        header("Location: social.php");
-        exit;
+        // Verify the password
+        if (password_verify($password, $userDetails['user_password'])) {
+            // Password is correct, proceed with login
+            $_SESSION['uid'] = $userDetails['id_users'];
+            $_SESSION['can_post'] = $userDetails['can_post'];
+            $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
+            $_SESSION['username'] = '@'.$userDetails['user_name'];
+            header("Location: social.php");
+            exit;
+        } else {
+            // Password is incorrect
+            $_SESSION['error'] = "Authentication failed!";
+        }
     } else {
-        $_SESSION['error'] = "Auth falhou!";
+        $_SESSION['error'] = "User not found!";
     }
 
     mysqli_close($dbConn);
 }
-
 
 function validateRegister($username, $email, $password) {
     $emailSql = "SELECT user_email FROM users WHERE user_email =?";
