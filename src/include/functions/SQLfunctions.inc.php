@@ -91,11 +91,13 @@
             case 'deletePost':
                 if (isset($_POST['postid'])) {
                     $postID = $_POST['postid'];
-                    $result = deletePost($postID);
-                    if ($result['success']) {
-                        echo json_encode(['success' => true, 'message' => 'Post deleted successfully.']);
+                    deletePost($postID);
+                    if (isset($_SESSION['success'])) {
+                        echo json_encode(['success' => true, 'message' => $_SESSION['success']]);
+                        unset($_SESSION['success']); // Clear the success message after use
                     } else {
-                        echo json_encode(['success' => false, 'message' => $result['message']]);
+                        echo json_encode(['success' => false, 'message' => $_SESSION['error']]);
+                        unset($_SESSION['error']); // Clear the error message after use
                     }
                 } else {
                     echo json_encode(['success' => false, 'message' => 'Post ID not provided.']);
@@ -106,10 +108,12 @@
                     $postID = $_POST['postid'];
                     $postContent = $_POST['postContent'];
                     $result = savePost($postID, $postContent);
-                    if ($result['success']) {
-                        echo json_encode(['success' => true, 'message' => 'Post saved successfully.']);
+                    if ($result) {
+                        echo json_encode(['success' => true, 'message' => $_SESSION['success']]);
+                        unset($_SESSION['success']); // Clear the success message after use
                     } else {
-                        echo json_encode(['success' => false, 'message' => $result['message']]);
+                        echo json_encode(['success' => false, 'message' => $_SESSION['error']]);
+                        unset($_SESSION['error']); // Clear the error message after use
                     }
                 } else {
                     echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
