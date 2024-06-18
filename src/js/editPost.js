@@ -25,20 +25,59 @@ function showMyModal(postid, caption) {
     document.getElementById('postEdit').showModal();
 }
 
-function checkIfOwner(postid, callback) {
+
+
+function deletePost() {
+    var postIdElement = document.getElementById('postId');
+    var postid = atob(postIdElement.value);
+    console.log('postid:', postid);
+    var userConfirmed = window.confirm('Are you sure you want to delete this post?');
+    if (!userConfirmed) {
+        return;
+    }
+    // Directly proceed with AJAX request without checking if owner
     $.ajax({
         type: 'POST',
         url: '../src/include/functions/SQLfunctions.inc.php',
-        data: {function: 'checkIfitsOwner', postid: postid},
+        data: {function: 'deletePost', postid: postid},
+        dataType: 'json', // Automatically parse JSON response
+        success: function(data, textStatus, xhr) {
+            // No need to check Content-Type or parse JSON manually
+            if (data.success) {
+                console.log('Post was deleted successfully');
+                location.reload(); // Reload the page after successful deletion
+            } else {
+                console.error('There was an error deleting the post');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error);
+        }
+    });
+}
+
+function save() {
+    var postIdElement = document.getElementById('postId');
+    var postid = atob(postIdElement.value);
+    var postContent = $('#postContent').val();
+    var confirmation = confirm('Are you sure you want to save this post?');
+    if (!confirmation) {
+        return;
+    }
+    // Directly proceed with AJAX request without checking if owner
+    $.ajax({
+        type: 'POST',
+        url: '../src/include/functions/SQLfunctions.inc.php',
+        data: {function: 'savePost', postid: postid, postContent: postContent},
         success: function(response) {
-            console.log('Server response:', response);
             try {
                 var data = JSON.parse(response);
-                if (!data.isOwner) {
-                    console.error('User is not the owner of the post');
-                    console.log('userID:', data.userID);
+                if (data.success) {
+                    console.log('Post saved successfully');
+                    location.reload(); // Reload the page to update the list of posts
+                } else {
+                    console.error('Error saving post:', data.error);
                 }
-                callback(data.isOwner);
             } catch (error) {
                 console.error('Error parsing server response:', error);
                 console.log('Server response:', response);
@@ -49,78 +88,6 @@ function checkIfOwner(postid, callback) {
         }
     });
 }
-
-function deletePost() {
-    var postIdElement = document.getElementById('postId');
-    var postid = atob(postIdElement.value);
-    console.log('postid:', postid);
-    var userConfirmed = window.confirm('Are you sure you want to delete this post?');
-    if (!userConfirmed) {
-        return;
-    }
-    checkIfOwner(postid, function(isOwner) {
-        if (isOwner) {
-            $.ajax({
-                type: 'POST',
-                url: '../src/include/functions/SQLfunctions.inc.php',
-                data: {function: 'deletePost', postid: postid},
-                dataType: 'json', // Automatically parse JSON response
-                success: function(data, textStatus, xhr) {
-                    // No need to check Content-Type or parse JSON manually
-                    if (data.success) {
-                        console.log('Post was deleted successfully');
-                        location.reload(); // Reload the page after successful deletion
-                    } else {
-                        console.error('There was an error deleting the post');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX error:', status, error);
-                }
-            });
-        } else {
-            console.error('User is not the owner of the post');
-        }
-    });
-}
-function save() {
-    var postIdElement = document.getElementById('postId');
-    var postid = atob(postIdElement.value);
-    var postContent = $('#postContent').val();
-    var confirmation = confirm('Are you sure you want to save this post?');
-    if (!confirmation) {
-        return;
-    }
-    checkIfOwner(postid, function(isOwner) {
-        if (isOwner) {
-            $.ajax({
-                type: 'POST',
-                url: '../src/include/functions/SQLfunctions.inc.php',
-                data: {function: 'savePost', postid: postid, postContent: postContent},
-                success: function(response) {
-                    try {
-                        var data = JSON.parse(response);
-                        if (data.success) {
-                            console.log('Post saved successfully');
-                            location.reload(); // Reload the page to update the list of posts
-                        } else {
-                            console.error('Error saving post:', data.error);
-                        }
-                    } catch (error) {
-                        console.error('Error parsing server response:', error);
-                        console.log('Server response:', response);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error in AJAX request:', error);
-                }
-            });
-        } else {
-            console.error('User is not the owner of the post');
-        }
-    });
-}
-
 $(document).ready(function() {
     $(document).on('mouseenter', '.post-container', function() {
         $(this).find('.edit-post, .caption-label, .new-button').css('visibility', 'visible');

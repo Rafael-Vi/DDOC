@@ -88,25 +88,31 @@
                 }
                 break;
 
-            case 'checkIfitsOwner':
-                if (isset($_POST['postid'])) {
-                    $postID = $_POST['postid'];
-                    $result = CheckIfOwnerPost($postID, $_SESSION['uid']);
-                    echo json_encode($result);
-                }
-                break;
-              
             case 'deletePost':
                 if (isset($_POST['postid'])) {
                     $postID = $_POST['postid'];
-                    deletePost($postID);
+                    $result = deletePost($postID);
+                    if ($result['success']) {
+                        echo json_encode(['success' => true, 'message' => 'Post deleted successfully.']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => $result['message']]);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Post ID not provided.']);
                 }
                 break;
             case 'savePost':
-                if (isset($_POST['postid']) & isset($_POST['postContent'])) {
-                    $postid = $_POST['postid'];
+                if (isset($_POST['postid']) && isset($_POST['postContent'])) {
+                    $postID = $_POST['postid'];
                     $postContent = $_POST['postContent'];
-                    savePost($postid, $postContent);
+                    $result = savePost($postID, $postContent);
+                    if ($result['success']) {
+                        echo json_encode(['success' => true, 'message' => 'Post saved successfully.']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => $result['message']]);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
                 }
                 break;
 
@@ -487,9 +493,16 @@
 
     //*POST RELATED ------------------------------------------------------------------------
 
+ 
         function savePost($postID, $postContent) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
+            }
+        
+            // Check if the user is the owner of the post
+            if (!checkIfOwnerPost($postID, $_SESSION['uid'])) {
+                $_SESSION['error'] = "You are not authorized to edit this post.";
+                return false; // Stop execution if the user is not the owner
             }
         
             $dbConn = db_connect();
@@ -497,7 +510,7 @@
             if ($dbConn === false) {
                 $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
                 error_log("ERROR: Could not connect. " . mysqli_connect_error());
-                return;
+                return false;
             }
         
             $sql = "UPDATE posts SET caption = ? WHERE post_id = ?";
@@ -507,11 +520,11 @@
         
             if(mysqli_stmt_execute($stmt) === false) {
                 $_SESSION['error'] = "ERROR: Could not execute query: $sql. " . mysqli_error($dbConn);
-                error_log("ERROR: Could not connect. " . mysqli_connect_error());
+                error_log("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
                 mysqli_stmt_close($stmt);
                 mysqli_close($dbConn);
                 
-                return;
+                return false;
             }
         
             $wasUpdated = mysqli_stmt_affected_rows($stmt) > 0;
@@ -521,8 +534,10 @@
         
             if ($wasUpdated) {
                 $_SESSION['success'] = "Post updated successfully.";
+                return true;
             } else {
                 $_SESSION['error'] = "No changes were made to the post.";
+                return false;
             }
         }
         
@@ -570,8 +585,8 @@
             mysqli_stmt_close($stmt);
             mysqli_close($dbConn);
             
-  
-error_log(print_r($currentSessionUser, true));
+            
+            error_log(print_r($currentSessionUser, true));
             return $isOwner;
         }
 
@@ -764,51 +779,65 @@ error_log(print_r($currentSessionUser, true));
                 session_start();
             }
         
+            // Check if the user is the owner of the post
+            if (!checkIfOwnerPost($postID, $_SESSION['uid'])) {
+                $_SESSION['error'] = "You are not authorized to delete this post.";
+                return; // Stop execution if the user is not the owner
+            }
+        
             $dbConn = db_connect();
         
             if ($dbConn === false) {
-                $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
-                return; // Early return to stop execution
+                $_SESSION['error'] = "ERROR: Could not connect to the database. " . mysqli_connect_error();
+                return;
             }
         
-            $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
-            $stmt = mysqli_prepare($dbConn, $query);
-            mysqli_stmt_bind_param($stmt, "i", $postID);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            $file = mysqli_fetch_assoc($result);
-            mysqli_stmt_close($stmt);
+            // Start transaction
+            mysqli_begin_transaction($dbConn);
         
-            if ($file) {
-                $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'];
-                if (file_exists($filePath)) {
-                    unlink($filePath);
-                }
-            }
-        
-            $queries = [
-                "DELETE FROM posts WHERE post_id = ?",
-                "DELETE FROM likes WHERE post_id = ?"
-            ];
-        
-            foreach ($queries as $query) {
+            try {
+                $query = "SELECT post_url, id_theme, post_type FROM posts WHERE post_id = ?";
                 $stmt = mysqli_prepare($dbConn, $query);
                 mysqli_stmt_bind_param($stmt, "i", $postID);
-                if (!mysqli_stmt_execute($stmt)) {
-                    $_SESSION['error'] = "Failed to delete post";
-                    mysqli_stmt_close($stmt);
-                    mysqli_close($dbConn);
-                    return; // Early return to stop execution
-                }
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                $file = mysqli_fetch_assoc($result);
                 mysqli_stmt_close($stmt);
-            }
         
-            if (isset($_SESSION['themes'][0]['id_theme']) && isset($file['id_theme']) && $file['id_theme'] == $_SESSION['themes'][0]['id_theme']) {
-                updateUserPostStatus($_SESSION['uid'], 0);
-            }
+                if ($file) {
+                    $filePath = $arrConfig['dir_posts'] . $file['post_type'] . '/' . $file['post_url'];
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                }
         
-            mysqli_close($dbConn);
-            $_SESSION['success'] = "Post deleted successfully.";
+                $queries = [
+                    "DELETE FROM posts WHERE post_id = ?",
+                    "DELETE FROM likes WHERE post_id = ?"
+                ];
+        
+                foreach ($queries as $query) {
+                    $stmt = mysqli_prepare($dbConn, $query);
+                    mysqli_stmt_bind_param($stmt, "i", $postID);
+                    if (!mysqli_stmt_execute($stmt)) {
+                        throw new Exception("Failed to delete post or likes associated with the post.");
+                    }
+                    mysqli_stmt_close($stmt);
+                }
+        
+                if (isset($_SESSION['themes'][0]['id_theme']) && isset($file['id_theme']) && $file['id_theme'] == $_SESSION['themes'][0]['id_theme']) {
+                    updateUserPostStatus($_SESSION['uid'], 0);
+                }
+        
+                // Commit transaction
+                mysqli_commit($dbConn);
+                $_SESSION['success'] = "Post deleted successfully.";
+            } catch (Exception $e) {
+                mysqli_rollback($dbConn); // Rollback changes on error
+                $_SESSION['error'] = $e->getMessage();
+            } finally {
+                mysqli_close($dbConn); // Ensure the database connection is closed
+            }
         }
     //*POST RELATED ------------------------------------------------------------------------
 
