@@ -886,7 +886,7 @@
     
         // Check connection
         if ($dbConn === false) {
-            $_SESSION['error'] = "ERROR: Could not connect. " . mysqli_connect_error();
+            error_log("ERROR: Could not connect. " . mysqli_connect_error()) ;
             return; // Early return to stop execution
         }
     
@@ -896,9 +896,9 @@
     
         // Execute the query
         if (executeQuery($dbConn, $query, $params)) {
-            $_SESSION['success'] = "All notifications deleted successfully.";
+            error_log("Deleted successfully") ;
         } else {
-            $_SESSION['error'] = "Failed to delete notifications.";
+            error_log("Not deleted successfully") ;
         }
     
         // Close connection
