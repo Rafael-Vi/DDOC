@@ -1043,36 +1043,47 @@
         }
     }
 
+
     function getConvo($echo = NULL) {
         global $arrConfig;
+        // Attempt to establish a database connection
         $dbConn = db_connect(); 
         if ($dbConn === false) {
             return "ERROR: Could not connect. " . mysqli_connect_error();
         }
-
-        $userId1 = $_SESSION['uid']; // The ID of the first user
-
+    
+        // Fetch the ID of the first user from the session
+        $userId1 = $_SESSION['uid'];
+    
+        // Execute a query to find all followee IDs for the user
         $result = executeQuery($dbConn, "SELECT followee_id FROM follow WHERE follower_id = ?", [$userId1]);
         
+        // Collect all followee IDs
         $userId2 = [];
         while ($row = mysqli_fetch_assoc($result)) {
             $userId2[] = $row['followee_id'];
         }
-
+    
+        // Initialize an array to hold conversation IDs
         $convoIds = [];
         foreach ($userId2 as $followerId) {
+            // Check if the follow relationship is mutual
             $result = executeQuery($dbConn, "SELECT * FROM follow WHERE follower_id = ? AND followee_id = ?", [$followerId, $_SESSION['uid']]);
             if (mysqli_num_rows($result) > 0) {
+                // Fetch user details for mutual followers
                 $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$followerId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($echo === "echo") {
-                        $lastmessage = getMessages($followerId, $_SESSION['uid'], NULL);
+                        // If echo is requested, display the conversation
+                        $lastmessage = getMessages($_SESSION['uid'], $followerId, NULL);
                         echoConvo($row['user_profilePic'], $row['user_name'], $followerId, $lastmessage);
                     }
+                    // Add the follower ID to the list of conversation IDs
                     $convoIds[] = $followerId;
                 }
             }
         }
+        // Return the list of conversation IDs
         return $convoIds;
     }
 
