@@ -1075,6 +1075,7 @@
         return $convoIds;
     }
 
+
     function getMessages($sender, $convoId, $last = NULL) {
         global $arrConfig;
         $dbConn = db_connect();
@@ -1089,16 +1090,10 @@
         // Parameters for the query
         $params = [$convoId, $currentUserId, $currentUserId, $convoId];
     
-        // If $last is not NULL, modify the query to include a specific message
-        if ($last !== NULL) {
-            $query .= " AND message_id > ?";
-            $params[] = $last;
-        }
-    
-        // Modify ordering to DESC to ensure the latest message is fetched when $last is specified
+        // Modify ordering to DESC to ensure the latest message is fetched
         $query .= " ORDER BY DateTime DESC";
     
-        // Apply LIMIT 1 if $last is not NULL to ensure only the latest message is fetched
+        // Apply LIMIT 1 if $last is not NULL (interpreted as true) to ensure only the latest message is fetched
         if ($last !== NULL) {
             $query .= " LIMIT 1";
         }
