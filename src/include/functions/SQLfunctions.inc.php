@@ -1066,7 +1066,8 @@
                 $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$followerId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($echo === "echo") {
-                        echoConvo($row['user_profilePic'], $row['user_name'], $followerId);
+                        $lastmessage = getMessages($followerId, $_SESSION['uid'], NULL);
+                        echoConvo($row['user_profilePic'], $row['user_name'], $followerId, $lastmessage);
                     }
                     $convoIds[] = $followerId;
                 }
@@ -1074,8 +1075,8 @@
         }
         return $convoIds;
     }
-    function getMessages($sender,$convoId) {
 
+    function getMessages($sender, $convoId, $last = NULL) {
         global $arrConfig;
         $dbConn = db_connect();
         if ($dbConn === false) {
@@ -1083,9 +1084,37 @@
         }
         $currentUserId = $_SESSION['uid'];
     
-        $result = executeQuery($dbConn, "SELECT * FROM messages WHERE (messenger_id = ? AND receiver_id = ?) OR (messenger_id = ? AND receiver_id = ?) ORDER BY DateTime ASC", [$convoId, $currentUserId, $currentUserId, $convoId]);
-        while ($row = mysqli_fetch_assoc($result)) {
-            echoMessages($row['message_id'], $row['message'], $sender, $row['messenger_id']);
+        // Start building the query
+        $query = "SELECT * FROM messages WHERE (messenger_id = ? AND receiver_id = ?) OR (messenger_id = ? AND receiver_id = ?)";
+    
+        // Parameters for the query
+        $params = [$convoId, $currentUserId, $currentUserId, $convoId];
+    
+        // If $last is not NULL, modify the query to include a specific message
+        if ($last !== NULL) {
+            $query .= " AND message_id > ?";
+            $params[] = $last;
+        }
+    
+        // Always order by DateTime
+        $query .= " ORDER BY DateTime ASC";
+    
+        // Apply LIMIT 1 if $last is not NULL
+        if ($last !== NULL) {
+            $query .= " LIMIT 1";
+        }
+    
+        // Execute the query
+        $result = executeQuery($dbConn, $query, $params);
+        if ($last !== NULL) {
+            // If $last is not NULL, fetch and return the message directly
+            $row = mysqli_fetch_assoc($result);
+            return $row ? $row['message'] : null; // Return the message or null if no message is found
+        } else {
+            // If $last is NULL, echo the messages as before
+            while ($row = mysqli_fetch_assoc($result)) {
+                echoMessages($row['message_id'], $row['message'], $sender, $row['messenger_id']);
+            }
         }
     }
     function sendMessage($receiver, $message){

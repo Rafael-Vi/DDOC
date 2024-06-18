@@ -395,7 +395,7 @@ $imageHtml = '';
         echo '</a>';
     }
 
-    function echoConvo($profilePic, $name, $personId){
+    function echoConvo($profilePic, $name, $personId, $lastMessage){
         global $arrConfig;
         $defaultProfilePic = "path/to/default/image.jpg"; // Path to your default image
         $profilePicUrl = empty($profilePic) ? $arrConfig['url_assets']."images/Unknown_person.jpg" : $arrConfig['url_users'].$profilePic;
@@ -406,7 +406,7 @@ $imageHtml = '';
         echo '<img src="'.$profilePicUrl.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
         echo '<div>';
         echo '<div class="font-bold">'.$name.'</div>'; // Name
-        echo '<div class="text-sm leading-relaxed">Last message...</div>'; // Last message
+        echo '<div class="text-sm leading-relaxed">'.$lastMessage.'</div>'; // Last message
         echo '</div>';
         echo '</div>';
         echo '<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-b-lg"></div>'; // Gradient border
