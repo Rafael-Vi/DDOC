@@ -157,13 +157,11 @@ $GLOBALS['type'] = $type;
         <table  id="tableRanking"  class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
           <thead>
             <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
-              <th class="ubuntu-bold w-2/6">
-                <button id="invertButton" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded mr-1">
-                  <i class="fi-sr-apps-sort fi"></i>Rank
-                </button>
+              <th class="ubuntu-bold w-2/6 hover:bg-black">
+                Rank
               </th>
-              <th class="ubuntu-bold w-2/6">Likes</th>
-              <th class="ubuntu-bold w-2/6">Account</th>
+              <th class="ubuntu-bold w-2/6 hover:bg-black">Likes</th>
+              <th class="ubuntu-bold w-2/6 hover:bg-black">Account</th>
             </tr>
           </thead>
           <tbody class="overflow-auto h-32">
