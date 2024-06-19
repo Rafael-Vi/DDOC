@@ -479,7 +479,7 @@ $imageHtml = '';
         global $arrConfig;  
         echo '<tr class="text-white hover:bg-gray-700"  data-id="'.$id.'" onclick="redirectToPost(this)">';
         echo '<th class="w-1/6">#'.$rank.'</th>'; // Corrected closing tag
-        echo '<td class="w-1/6">';
+        echo '<td class="w-1/6 flex justify-center items-center">';
         if ($type == 'video') {
             echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
             echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
