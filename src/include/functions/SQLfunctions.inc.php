@@ -320,7 +320,7 @@
             }
             mysqli_close($dbConn);
         }
-        <?php
+      
         function getUserNotCurrent($uid){
             global $arrConfig;
         
