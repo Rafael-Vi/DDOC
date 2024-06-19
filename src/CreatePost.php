@@ -70,10 +70,10 @@
   global $arrConfig;
   if ($_SESSION['can_post'] == 0 || $_SESSION['can_post'] == "0") {
   ?>
-<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
+<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20" method="Post" enctype="multipart/form-data">
 
-<div class="flex justify-center p-8 w-full sm:w-1/2 overflow-auto">
-  <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mx-auto object-contain max-w-[30vh]" id="profile-picture">
+<div class="flex justify-center p-16 w-full sm:w-3/4 overflow-auto">
+  <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-96 mx-auto object-contain max-w-[40vh]" id="profile-picture">
 </div>
 <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
 <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
