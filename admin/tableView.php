@@ -96,13 +96,13 @@ if(isset($_SESSION['error'])) {
     <div class="card w-[95%] min-h-[90vh] bg-base-100 shadow-xl relative">
         <div class="card-body max-h-[80vh]">
             <div class="overflow-x-auto">
-                <table class="table">
+                <table class="table" id="table-View">
                     <!-- head -->
                     <thead>
                         <tr>
                             <?php
                             foreach ($columns as $column) {
-                                echo '<th>' . $column . '</th>';
+                                echo '<th class="hover">' . $column . '</th>';
                             }
                             // Check if actions column should be displayed
                             if ($tablePermissions[$table]['editable'] || $tablePermissions[$table]['deletable']) {
@@ -154,5 +154,21 @@ if(isset($_SESSION['error'])) {
             $('.error-container').remove();
         });
     </script>
+      <script>
+    $(document).ready(function() {
+      $('#table-View').DataTable(
+        {
+          "scrollX": false,
+          "paging": true,
+          "pageLength": 4,
+          "ordering": true,
+          "info": false,
+          "lengthChange": false,
+          "searching": false,
+        }
+      );
+    });
+    </script>
+
 <?php
     require 'includes/footer.inc.php';

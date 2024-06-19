@@ -157,11 +157,11 @@ $GLOBALS['type'] = $type;
         <table  id="tableRanking"  class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
           <thead>
             <tr class="text-lg text-white border-b-2 border-gray-900 items-center">
-              <th class="ubuntu-bold w-2/6 hover:bg-black">
+              <th class="ubuntu-bold w-2/6 hover">
                 Rank
               </th>
-              <th class="ubuntu-bold w-2/6 hover:bg-black">Likes</th>
-              <th class="ubuntu-bold w-2/6 hover:bg-black">Account</th>
+              <th class="ubuntu-bold w-2/6 hover">Likes</th>
+              <th class="ubuntu-bold w-2/6 hover">Account</th>
             </tr>
           </thead>
           <tbody class="overflow-auto h-32">
@@ -182,25 +182,25 @@ $GLOBALS['type'] = $type;
   <script src="../src/js/filterTheme.js"></script>
   <script src="../src/js/social.js"></script>
   <script>
-            function redirectToPerson(element) {
-                var profileId = element.getAttribute("data-id");
-                window.location.href = "OProfile.php?userid=" + profileId;
-            }
+    function redirectToPerson(element) {
+        var profileId = element.getAttribute("data-id");
+        window.location.href = "OProfile.php?userid=" + profileId;
+    }
 
-            $(document).ready(function() {
-              $('#tableRanking').DataTable(
-                {
-                  "scrollX": false,
-                  "paging": true,
-                  "pageLength": 4,
-                  "ordering": true,
-                  "info": false,
-                  "lengthChange": false,
-                  "searching": false,
-                }
-              );
-            });
-            </script>
+    $(document).ready(function() {
+      $('#tableRanking').DataTable(
+        {
+          "scrollX": false,
+          "paging": true,
+          "pageLength": 4,
+          "ordering": true,
+          "info": false,
+          "lengthChange": false,
+          "searching": false,
+        }
+      );
+    });
+    </script>
 
 
 </body>

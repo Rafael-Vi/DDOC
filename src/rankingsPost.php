@@ -186,16 +186,16 @@ $GLOBALS['type'] = $type;
             <table id="ranking-Post" class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg border-b-2 border-gray-900">
               <thead>
                 <tr>
-                  <th class="ubuntu-bold w-1/6 hover:bg-black ">Rank</th>
-                  <th class="ubuntu-bold w-1/6 hover:bg-black ">Conteúdo do Post</th>
+                  <th class="ubuntu-bold w-1/6 hover">Rank</th>
+                  <th class="ubuntu-bold w-1/6 hover ">Conteúdo do Post</th>
                   <!-- Image of the post -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-black ">Nome do Post</th>
+                  <th class="ubuntu-bold w-1/6 hover">Nome do Post</th>
                   <!-- Name of the post -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-black ">Tipe</th>
+                  <th class="ubuntu-bold w-1/6 hover ">Tipe</th>
                   <!-- Type -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-black ">Likes</th>
+                  <th class="ubuntu-bold w-1/6 hover ">Likes</th>
                   <!-- Likes -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-black ">Dono do Post</th>
+                  <th class="ubuntu-bold w-1/6 hover ">Dono do Post</th>
                   <!-- Person who posted it -->
                 </tr>
               </thead>
