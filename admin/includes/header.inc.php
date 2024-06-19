@@ -54,6 +54,38 @@ require 'config/config.inc.php';
         padding: 5px 10px;
         cursor: pointer;
       }
+
+      .dataTables_filter {
+    margin-bottom: 20px; /* Adds margin below the search box */
+}
+
+.dataTables_filter label {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds some space between the text and the input box */
+}
+
+.dataTables_filter input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Adds padding, border-radius, and border styling to the search input */
+}
+
+.dataTables_length {
+    margin-bottom: 20px; /* Adds margin below the length selection */
+}
+
+.dataTables_length label {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds some space between the text and the select box */
+}
+
+.dataTables_length select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Adds padding, border-radius, and border styling to the select dropdown */
+}
     </style>
 
     </style>
