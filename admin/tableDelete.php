@@ -114,6 +114,7 @@ function deletePost($id, $dbConn) {
         $queries = [
             "DELETE FROM posts WHERE post_id = ?",
             "DELETE FROM likes WHERE post_id = ?",
+            "DELETE FROM reports WHERE post_id = ?"
         ];
 
         foreach ($queries as $query) {
@@ -179,6 +180,12 @@ function deleteUser($id) {
                 // For each post, call the deletePost function
                 deletePost($row['post_id'], $dbConn);
             }
+        }
+
+        // NEW STEP: Delete every report where sender = $id
+        $query = "DELETE FROM reports WHERE sender = ?";
+        if (!executeQuery($dbConn, $query, [$id])) {
+            throw new Exception("Failed to delete reports");
         }
 
         // After handling all related records, delete the user
