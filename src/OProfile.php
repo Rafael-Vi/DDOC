@@ -10,6 +10,10 @@ if (checkThemeIsFinished()) {
 require "include/functions/Development.inc.php";
 
 $userInfo = getUserNotCurrent($_GET['userid']);
+
+if ($userInfo == null) {
+  header("Location: src/errorPages/NoUserFound.php");
+}
 ?>
 
 <!DOCTYPE html>
