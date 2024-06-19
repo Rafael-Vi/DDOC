@@ -501,10 +501,10 @@ $imageHtml = '';
     }
     
 
-    function echoRankAcc($rank, $likes, $poster, $url_image){
+    function echoRankAcc($rank, $likes, $poster, $url_image, $id){
         global $arrConfig;  
         echo '
-        <tr class="hover:bg-gray-700 transition-colors duration-200">
+        <tr class="hover:bg-gray-700 transition-colors duration-200" data-id="'.$id.'" onclick="redirectToPerson(this)">
             <th class="text-white">#'.$rank.'</td>
             <td class="text-white">'.$likes.'</td>
             <td class="flex flex-row items-center justify-center pr-16 text-white">

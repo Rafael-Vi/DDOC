@@ -1223,7 +1223,7 @@
 
         // Echo the posts
         foreach($rows as $row) {
-            echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage']);
+            echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage'], $row['id_users']);
         }
     }
 

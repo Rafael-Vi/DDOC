@@ -151,6 +151,12 @@ $GLOBALS['type'] = $type;
   <script src="../src/js/timer.js"></script>
   <script src="../src/js/filterTheme.js"></script>
   <script src="../src/js/social.js"></script>
+  <script>
+            function redirectToPerson(element) {
+                var profileId = element.getAttribute("data-id");
+                window.location.href = "OProfile.php?id=" + profileId;
+            }
+            </script>
 </body>
 
 </html>
