@@ -81,7 +81,7 @@
                         </li>
                         </a>
                         <li class="px-4 py-2">
-                        <a href="#" id="" class="search-link" style="color: black"><i class="mr-2 fi fi-sr-search"></i> Pesquisa</a>
+                        <a href="#" id="search-link" class="" style="color: black"><i class="mr-2 fi fi-sr-search"></i> Pesquisa</a>
                         </li>
                         <li class="px-4 py-2">
                             <a href="./messages.php" id="messages-link" style="color: black"><i class="mr-2 fi fi-sr-comment-alt"></i> Mensagens</a>
@@ -220,7 +220,7 @@ $imageHtml = '';
                 </a>
             </div>
             <div class="flex-1 text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
-                <a href="#" class="search-link flex flex-col items-center justify-center">
+                <a href="#" class="flex flex-col items-center justify-center"  onclick="openSearch(event)">
                     <i class="fi fi-sr-search"></i>
                     <span class="btm-nav-label">Pesquisa</span>
                 </a>
