@@ -199,7 +199,7 @@ $imageHtml = '';
         }
     
         // Determine the height class based on the position name
-        $heightClass = $positionName === 'First Place' ? 'h-28 w-28' : ($positionName === 'Second Place' ? 'h-20 w-24' : 'h-16 w-24');
+        $heightClass = $positionName === 'Primeiro Lugar' ? 'h-28 w-28' : ($positionName === 'Segundo Lugar' ? 'h-20 w-24' : 'h-16 w-24');
     
         // Display the podium position
         echo "<div class=\"flex flex-col items-center mt-auto\">";

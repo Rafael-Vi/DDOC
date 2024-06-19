@@ -95,15 +95,15 @@ $GLOBALS['type'] = $type;
 
           // Display Second Place
           $podiumSecond = getPodium(2, "AccRank", null, $GLOBALS['type']);
-          displayPodium($podiumSecond, "Second Place");
+          displayPodium($podiumSecond, "Segundo Lugar");
 
           // Display First Place
           $podiumFirst = getPodium(1, "AccRank", null, $GLOBALS['type']);
-          displayPodium($podiumFirst, "First Place");
+          displayPodium($podiumFirst, "Primeiro Lugar");
 
           // Display Third Place
           $podiumThird = getPodium(3, "AccRank", null, $GLOBALS['type']);
-          displayPodium($podiumThird, "Third Place");
+          displayPodium($podiumThird, "Terceiro Lugar");
           ?>
         </div>
       </div>
