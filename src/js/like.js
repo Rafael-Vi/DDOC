@@ -83,20 +83,22 @@ function openReport(reportId, reportName) {
     console.log('Value of reportId:', reportId); // Debugging: Check the value
 
     // Correctly set the value for the input
-    document.getElementById('postName').value = reportName;
+    document.getElementById('Post-Name').value = "Porque quer reportar: ".reportName;
 
     // Directly encode reportId without checking its type
-    document.getElementById('postId').value = btoa(reportId.toString()); // Update ID to postId
+    document.getElementById('reportId').value = btoa(reportId.toString()); // Update ID to postId
 
     // Show the modal
     document.getElementById('postReport').showModal(); // Update modal ID to postReport
 }
 
 function cancelReport() {
-    // Clear all fields in the modal
-    document.getElementById('postName').value = ''; // Use vanilla JS for consistency
-    document.getElementById('postType').selectedIndex = 0; // Reset select to first option
-    document.getElementById('postId').value = ''; // Clear hidden postId field
-    document.getElementById('postReport').close(); // Use correct modal ID
+    // Clear the reason for reporting
+    document.getElementById('post-reason').value = '';
+    // Reset the type select to its default state
+    document.getElementById('postType').selectedIndex = 0;
+    // Optionally clear the reportId if needed
+    document.getElementById('reportId').value = '';
+    // Close the modal
+    document.getElementById('postReport').close();
 }
-

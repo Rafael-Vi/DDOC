@@ -73,12 +73,13 @@
       <form method="dialog">
         <input type="hidden" id="postId" name="postId">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900" onclick="cancel()">✕</button>
-        <h3 class="font-bold text-lg">Report do Post</h3>
+        <h3 class="font-bold text-lg">Report</h3>
+        <input type="text" class="hidden" disabled val="" id="reportId">
         <div class="form-control">
           <label class="label">
-            <span id="Post-Name" class="label-text">Nome do Post</span>
+            <span id="Post-Name" class="label-text">Porque quer reportar: Nome do Post</span>
           </label>
-          <input type="text" id="postName" class="input input-bordered w-full text-gray-900" placeholder="Insira o nome do post">
+          <input type="text" id="post-reason" class="input input-bordered w-full text-gray-900" placeholder="Insira o motivo de report">
         </div>
 
         <div class="form-control">
@@ -94,7 +95,7 @@
         </div>
         <div class="form-control mt-4 flex flex-row">
           <button class="btn flex-initial" onclick="save()">Report</button>
-          <button class="btn btn-outline ml-2 flex-initial" onclick="cancel()">Cancelar</button>
+          <button class="btn btn-outline ml-2 flex-initial" onclick="cancelReport()">Cancelar</button>
         </div>
       </form>
     </div>
