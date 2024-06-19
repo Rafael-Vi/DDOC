@@ -92,12 +92,12 @@
   </div>
 </div>
 <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-base-200 p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-<button type="submit" name="CreatePost" class="btn btn-warning text-white font-bold py-2 px-4 rounded mt-8 w-full hover:text-orange-500">Publicar Post</button>
+<button type="submit" name="CreatePost" class="btn btn-warning font-bold py-2 px-4 rounded mt-8 w-full hover:text-orange-500">Publicar Post</button>
 </form>
   <?php
   } else {
     echo'<div class="flex flex-col  items-center justify-center h-full">
-    <h2 class="text-3xl font-bold bg-slate-600 rounded-lg p-8 text-white gap-3">
+    <h2 class="text-3xl font-bold bg-base-200 rounded-lg p-8 gap-3">
     You have already posted in this theme.
     <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-bl-800 text-white font-bold py-2 px-4 rounded mt-4">Go to your profile</a>
     </h2>
