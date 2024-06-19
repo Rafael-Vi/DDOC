@@ -78,14 +78,20 @@
   </div>
   <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
   <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
-  <label for="post-type" class="text-white font-bold text-left float-left">Tipo:</label>
-  <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white mb-4 w-full">
-    <option value="audio">Audio</option>
-    <option value="image" selected>Imagem</option>
-    <option value="video">Vídeo</option>
-  </select><br>
-  <label for="file-upload" class="text-white font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-  <input type="file" id="file-input" name="file-input" class="rounded-lg bg-slate-600 text-white mb-4 w-full">
+  <div class="flex flex-row justify-between items-center gap-4">
+  <div class="flex flex-col w-1/2">
+      <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
+      <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white mb-4 w-full">
+        <option value="audio">Audio</option>
+        <option value="image" selected>Imagem</option>
+        <option value="video">Vídeo</option>
+      </select>
+    </div>
+    <div class="flex flex-col w-1/2">
+      <label for="file-input" class="text-white font-bold w-full text-left file-input file-input-bordered file-input-warning max-w-xs">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
+      <input type="file" id="file-input" name="file-input" class="rounded-lg bg-slate-600 text-white mb-4 w-full">
+    </div>
+  </div>
   <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
   <button type="submit" name="CreatePost" class="bg-ddark-success hover:bg-black text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
 </div>
