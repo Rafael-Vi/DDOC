@@ -289,7 +289,7 @@ $imageHtml = '';
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-16 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
@@ -329,7 +329,7 @@ $imageHtml = '';
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                       echo '<button id="like-button' . $post['post_id'] . '" class=" w-16 text-white font-bold py-2 px-4 rounded btn btn-ghost" disabled>Desativado</button>';
+                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
                      <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
@@ -365,7 +365,7 @@ $imageHtml = '';
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                       echo '<button id="like-button' . $post['post_id'] . '" class=" w-16 text-white font-bold py-2 px-4 rounded btn btn-ghost" disabled>Desativado</button>';
+                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
                      <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
