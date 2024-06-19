@@ -474,29 +474,31 @@ $imageHtml = '';
 
 
 
+
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster, $id){
         global $arrConfig;  
-        // Add a data-id attribute to the <tr> for the post ID
-        echo '<tr class="text-white hover:bg-gray-700" data-id="'.$id.'" onclick="redirectToPost(this)">';
-        echo '<th class="w-1/6">#'.$rank.'</th>';
+        echo '<tr class="text-white hover:bg-gray-700"  data-id="'.$id.'" onclick="redirectToPost(this)">';
+        echo '<th class="w-1/6">#'.$rank.'</th>'; // Corrected closing tag
         echo '<td class="w-1/6">';
         if ($type == 'video') {
-            // Video content
+            echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
+            echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+            echo '<source src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" type="video/mp4">';
+            echo 'Your browser does not support the video tag.';
+            echo '</video>';
+            echo '</div>';
         } else if ($type == 'audio') {
-            // Audio content
+            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32 h-32 text-white">'; // Display audio.jpeg for audio type
         } else {
-            // Image content
+            echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32 h-32 text-white">'; // Changed from w-16 h-16 to w-32 h-32 text-white
         }
-        echo '</td>';
-        echo '<td class="w-1/6">'.$name.'</td>';
-        echo '<td class="w-1/6">'.$type.'</td>';
-        echo '<td class="w-1/6">'.$likes.'</td>';
-        echo '<td class="w-1/6">@'.$poster.'</td>';
+        echo '</td>'; // Image of the post
+        echo '<td class="w-1/6">'.$name.'</td>'; // Name of the post, wrapped in <a> tag
+        echo '<td class="w-1/6">'.$type.'</td>'; // Type
+        echo '<td class="w-1/6">'.$likes.'</td>'; // Likes
+        echo '<td class="w-1/6">@'.$poster.'</td>'; // Person who posted it
         echo '</tr>';
-            // JavaScript to make the row clickable
     }
-    
-
     
 
     function echoRankAcc($rank, $likes, $poster, $url_image){
