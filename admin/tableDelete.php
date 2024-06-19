@@ -1,14 +1,6 @@
 <?php
 require 'includes/header.inc.php';
 
-// Define allowed tables and their deletable status
-$tablePermissions = [
-    'users' => ['deletable' => true],
-    'theme' => ['deletable' => true],
-    'posts' => ['deletable' => true],
-    // Add more tables as needed
-];
-
 // check if table and id are set
 if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET['id'])) {
     $table = $_GET['table'];
@@ -16,6 +8,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
 
     // Check if the table is allowed to be deleted from
     if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['deletable']) {
+        $_SESSION['admin_error'] = "Exclusão de registros não permitida para esta tabela.";
         header('Location: index.php');
         exit;
     }
@@ -51,9 +44,11 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                 break;
             case 'posts':
                 if (deletePost($id, $db_conn) === false) { // Pass $db_conn as an argument
-                    echo "Failed to delete post.";
+                    $_SESSION['admin_error'] = "Erro na exclusão do registro.";
+                    header('Location: tableView.php?table=' . $table);
                     exit;
                 }
+                $_SESSION['admin_success'] = "Registro excluído com sucesso.";
                 break;
             // Add more tables as needed
             default:
@@ -63,11 +58,17 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         }
         // Execute deletion query
         $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
+        if ($result) {
+            $_SESSION['admin_success'] = "Registro excluído com sucesso.";
+        } else {
+            $_SESSION['admin_error'] = "Erro na exclusão do registro.";
+        }
         header('Location: tableView.php?table=' . $table);
         exit;
     } else {
         // Data not found
-        echo "Data not found.";
+        $_SESSION['admin_error'] = "Nenhum registro encontrado para exclusão.";
+        header('Location: tableView.php?table=' . $table);
         exit;
     }
 } else {

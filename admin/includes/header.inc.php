@@ -13,6 +13,20 @@ require 'config/config.inc.php';
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <style>
+        .error-container {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            min-height: 60px;
+            text-align: center;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+    </style>
+
+    </style>
 </head>
 <body class="bg-base-300 h-full min-h-screen">
 <?php

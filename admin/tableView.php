@@ -51,7 +51,28 @@ if ($table === 'posts') {
 
 
 mysqli_close($db_conn);
+
+if(isset($_SESSION['error'])) {
+    echo'  <div class="error-container">';
+      echoError($_SESSION['error']);
+      unset($_SESSION['error']);
+    echo'</div>';
+  } elseif(isset($_SESSION['success'])) {
+      if ($_SESSION['success'] == 'Registration successful') {
+        echo'  <div class="error-container">';
+          validRegisterAl();
+          echo'</div>';
+          
+      } else {
+        echo'  <div class="error-container">';
+          echoSuccess($_SESSION['success']);
+          echo'</div>';
+      }
+      unset($_SESSION['success']);
+  }
+
 ?>
+
 <div class="w-screen p-2 flex items-center justify-center">
     <div class="card w-[95%] min-h-[90vh] bg-base-100 shadow-xl relative">
         <div class="card-body max-h-[80vh]">

@@ -1,5 +1,24 @@
 <?php
     require 'includes/header.inc.php';
+    if(isset($_SESSION['admin_error'])) {
+        echo'  <div class="error-container">';
+          echoError($_SESSION['admin_error']);
+          unset($_SESSION['admin_error']);
+        echo'</div>';
+      } elseif(isset($_SESSION['admin_success'])) {
+          if ($_SESSION['admin_success'] == 'Registration successful') {
+            echo'  <div class="error-container">';
+              validRegisterAl();
+              echo'</div>';
+              
+          } else {
+            echo'  <div class="error-container">';
+              echoSuccess($_SESSION['admin_success']);
+              echo'</div>';
+          }
+          unset($_SESSION['admin_success']);
+      }
+    
 ?>
 <div class="w-screen h-full flex flex-wrap items-start gap-2 py-6 px-2 justify-center">
     <?php
