@@ -1077,7 +1077,9 @@
 
 
     function getMessages($sender, $convoId, $last = NULL) {
+    
         global $arrConfig;
+        $sender = $_SESSION['sender'];
         $dbConn = db_connect();
         if ($dbConn === false) {
             return "ERROR: Could not connect. " . mysqli_connect_error();
