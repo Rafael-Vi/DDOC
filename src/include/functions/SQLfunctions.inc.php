@@ -380,7 +380,7 @@
                 );
             } else {
                 // Handle the query error
-                header("errorPages/NoUserFound.php");
+                header("../../errorPages/NoUserFound.php");
                 exit;
             }
         
@@ -448,7 +448,7 @@
                 );
             } else {
                 // Handle the query error
-                header("errorPages/NoUserFound.php");
+                header("../../errorPages/NoUserFound.php");
                 exit;
             }
         
