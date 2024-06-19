@@ -72,7 +72,7 @@
   ?>
 <form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
 
-<div class="flex flex-col items-center w-full sm:w-1/2 overflow-auto">
+<div class="flex flex-col items-left p-8 w-full sm:w-1/2 overflow-auto">
   <div class="flex flex-col items-center"></div>
     <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
   </div>
@@ -89,7 +89,7 @@
     </div>
     <div class="flex flex-col w-1/2">
       <label for="file-input" class="text-white font-bold w-full text-left ">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-      <input type="file" id="file-input" name="file-input" class="file-input file-input-bordered text-warning file-input-warning max-w-xs w-full">
+      <input type="file" id="file-input" name="file-input" class="file-input file-input-warning max-w-xs w-full">
     </div>
   </div>
   <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
