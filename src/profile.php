@@ -120,7 +120,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
       <form method="dialog">
         <input type="hidden" id="postId" name="postId">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900" onclick="cancel()">✕</button>
-        <h3 class="font-bold text-lg text-gray-900">Edit Post</h3>
+        <h3 class="font-bold text-lg">Edit Post</h3>
         <div class="form-control">
           <label class="label">
             <span id="caption" class="label-text">Caption</span>
