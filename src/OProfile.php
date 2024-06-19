@@ -13,6 +13,7 @@ $userInfo = getUserNotCurrent($_GET['userid']);
 
 if ($userInfo == null) {
   header("Location: src/errorPages/NoUserFound.php");
+  exit;
 }
 ?>
 
