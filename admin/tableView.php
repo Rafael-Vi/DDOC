@@ -129,5 +129,11 @@ if(isset($_SESSION['error'])) {
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        $('#close-error').on('click', function() {
+            $('.error-container').remove();
+        });
+    </script>
 <?php
     require 'includes/footer.inc.php';

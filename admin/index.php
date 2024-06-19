@@ -59,4 +59,10 @@
 
     mysqli_close($db_conn);
     ?>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $('#close-error').on('click', function() {
+            $('.error-container').remove();
+        });
+    </script>
 </div>
