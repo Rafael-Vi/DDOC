@@ -131,7 +131,7 @@ $GLOBALS['type'] = $type;
 
               ?>
             </div>
-            <div class="flex flex-row gap-4">
+            <div class="flex flex-row gap-4 mt-8">
               <div>
                 <label for="themeSelect" class="mb-2 text-white">Temas:</label>
                 <select class="select select-bordered w-full max-w-xs mb-8 text-white" id="themeSelect">
