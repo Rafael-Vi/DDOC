@@ -149,6 +149,7 @@ if(isset($_SESSION['error'])) {
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script>
         $('#close-error').on('click', function() {
             $('.error-container').remove();
