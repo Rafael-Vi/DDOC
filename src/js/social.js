@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#search-link, #search-button').on('click', function(event) {
+  $('.search-link, #search-button').on('click', function(event) {
       event.preventDefault();
       $('#search-div').toggleClass('hidden');
   });
