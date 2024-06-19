@@ -68,6 +68,37 @@
         getHome();
       ?>
     </div>
+    <dialog id="postReport" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <input type="hidden" id="postId" name="postId">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900" onclick="cancel()">✕</button>
+        <h3 class="font-bold text-lg">Report do Post</h3>
+        <div class="form-control">
+          <label class="label">
+            <span id="Post-Name" class="label-text">Nome do Post</span>
+          </label>
+          <input type="text" id="postName" class="input input-bordered w-full text-gray-900" placeholder="Insira o nome do post">
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Tipo</span>
+          </label>
+          <select id="postType" class="select select-bordered w-full text-gray-900">
+            <option disabled selected>Escolha o tipo</option>
+            <option value="type1">Conteúdo Inapropriado</option>
+            <option value="type2">Não tem a ver com o tema</option>
+            <option value="type3">Plágio</option>
+          </select>
+        </div>
+        <div class="form-control mt-4 flex flex-row">
+          <button class="btn flex-initial" onclick="save()">Report</button>
+          <button class="btn btn-outline ml-2 flex-initial" onclick="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
   </div>
 
   <?php echoBottomNav(); ?>

@@ -265,14 +265,16 @@ $imageHtml = '';
         switch($post['post_type']) {
             case 'image':
                 echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
-                <div class="flex items-center">
-                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="  rounded-full h-10 w-10 bg-red-800">
-                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
-                </div></a>
-            </div>';
+                    <!-- Second row: User info and action button -->
+                    <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                    </div>
+                    </a>
+                    <!-- Action Button on the right -->
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Action</button>
+                    </div>';
                 echo'
                 <!-- First row: Post image -->
                 <div class="flex flex-col justify-center items-center bg-gray-950 h-full">
@@ -310,15 +312,16 @@ $imageHtml = '';
             </div>';
                 echo'
                 <!-- First row: Post audio -->
-                <div class="flex justify-center relative">
-                    <div class="flex flex-col justify-center items-center h-ful w-fulll">
-                        <img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[50vh]">
-                        <audio controls class="rounded-sm w-full h-16 mb-4 block mx-auto z-0 mt-4">
-                            <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
-                            O seu browser não suporta a tag de áudio.
-                        </audio>
+                    <!-- Second row: User info and action button -->
+                    <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
                     </div>
-                </div>
+                    </a>
+                    <!-- Action Button on the right -->
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Action</button>
+                    </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
@@ -338,14 +341,16 @@ $imageHtml = '';
                 break;
             case 'video':
                 echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
-                <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
-                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
-                </div>
-                </a>
-            </div>';
+                    <!-- Second row: User info and action button -->
+                    <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                    </div>
+                    </a>
+                    <!-- Action Button on the right -->
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Action</button>
+                    </div>';
                 echo'
     
                 <!-- First row: Post video -->
