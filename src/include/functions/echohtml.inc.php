@@ -58,7 +58,7 @@
         }
     
         echo '</a>';
-        echo '<button disabled class="new-button absolute top-0 right-0 m-2 bg-slate-800 text-white font-bold py-2 px-4 mr-8 rounded" style="visibility: hidden; margin-right: 80px;">'.htmlspecialchars($post['caption']).'</button>'; // New disabled button with unique class
+        echo '<button disabled class="new-button absolute top-0 right-0 m-2 btn-ghost btn text-white font-bold py-2 px-4 mr-8 rounded" style="visibility: hidden; margin-right: 80px;">'.htmlspecialchars($post['caption']).'</button>'; // New disabled button with unique class
         echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showMyModal(\'' . htmlspecialchars(addslashes($post['post_id']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($post['caption']), ENT_QUOTES) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" data-id="' . htmlspecialchars(urlencode($post['post_id']), ENT_QUOTES) . '" style="visibility: hidden;">Edit</button>';
         echo '</div>';  
     }
