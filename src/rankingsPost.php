@@ -72,6 +72,36 @@ $GLOBALS['type'] = $type;
     #podium-container * {
       z-index: 1;
     }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+      .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-color: #ee7000;
+        border-color: #007bff;
+        color: #fff;
+      }
+
+      .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+        color: #6c757d;
+      }
+
+      .dataTables_wrapper .dataTables_paginate {
+        margin-top: 25px;
+        position: absolute;
+        left: 0;
+        margin-left: 30px;  
+        z-index: 1;
+      }
+
+      .paginate_button {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        color: #6c757d;
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
   </style>
 </head>
 
@@ -153,7 +183,7 @@ $GLOBALS['type'] = $type;
           </div>
 
           <div class="overflow-x-auto h-96 flex flex-col items-center bg-gray-800 ">
-            <table class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
+            <table id="ranking-Post" class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
               <thead>
                 <tr>
                   <th class="ubuntu-bold w-1/6">Rank</th>
@@ -177,6 +207,7 @@ $GLOBALS['type'] = $type;
             </table>
           </div>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
           <script>
             var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
           </script>
@@ -188,6 +219,26 @@ $GLOBALS['type'] = $type;
                 var postId = element.getAttribute("data-id");
                 window.location.href = "posts.php?id=" + postId;
             }
+            </script>
+              <script>
+            function redirectToPerson(element) {
+                var profileId = element.getAttribute("data-id");
+                window.location.href = "OProfile.php?userid=" + profileId;
+            }
+
+            $(document).ready(function() {
+              $('#ranking-Post').DataTable(
+                {
+                  "scrollX": false,
+                  "paging": true,
+                  "pageLength": 4,
+                  "ordering": true,
+                  "info": false,
+                  "lengthChange": false,
+                  "searching": false,
+                }
+              );
+            });
             </script>
 </body>
 

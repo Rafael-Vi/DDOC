@@ -480,12 +480,14 @@ $imageHtml = '';
     }
 
 
-
-
     function echoRankPosts($rank, $image, $name, $type, $likes, $poster, $id){
         global $arrConfig;  
+        // Pad rank and likes with a leading zero if they are less than 10
+        $formattedRank = str_pad($rank, 2, "0", STR_PAD_LEFT);
+        $formattedLikes = str_pad($likes, 2, "0", STR_PAD_LEFT);
+    
         echo '<tr class="text-white hover:bg-gray-700"  data-id="'.$id.'" onclick="redirectToPost(this)">';
-        echo '<th class="w-1/6">#'.$rank.'</th>'; // Corrected closing tag
+        echo '<th class="w-1/6">#'.$formattedRank.'</th>';
         echo '<td class="w-1/6">';
         if ($type == 'video') {
             echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
@@ -495,25 +497,28 @@ $imageHtml = '';
             echo '</video>';
             echo '</div>';
         } else if ($type == 'audio') {
-            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32 h-32 text-white">'; // Display audio.jpeg for audio type
+            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" class="w-32 h-32 text-white">';
         } else {
-            echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32 h-32 text-white">'; // Changed from w-16 h-16 to w-32 h-32 text-white
+            echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32 h-32 text-white">';
         }
-        echo '</td>'; // Image of the post
-        echo '<td class="w-1/6">'.$name.'</td>'; // Name of the post, wrapped in <a> tag
-        echo '<td class="w-1/6">'.$type.'</td>'; // Type
-        echo '<td class="w-1/6">'.$likes.'</td>'; // Likes
-        echo '<td class="w-1/6">@'.$poster.'</td>'; // Person who posted it
+        echo '</td>';
+        echo '<td class="w-1/6">'.$name.'</td>';
+        echo '<td class="w-1/6">'.$type.'</td>';
+        echo '<td class="w-1/6">'.$formattedLikes.'</td>';
+        echo '<td class="w-1/6">@'.$poster.'</td>';
         echo '</tr>';
     }
     
-
     function echoRankAcc($rank, $likes, $poster, $url_image, $id){
         global $arrConfig;  
+        // Pad rank and likes with a leading zero if they are less than 10
+        $formattedRank = str_pad($rank, 2, "0", STR_PAD_LEFT);
+        $formattedLikes = str_pad($likes, 2, "0", STR_PAD_LEFT);
+    
         echo '
         <tr class="hover:bg-gray-700 transition-colors duration-200" data-id="'.$id.'" onclick="redirectToPerson(this)">
-            <th class="text-white">#'.$rank.'</td>
-            <td class="text-white">'.$likes.'</td>
+            <th class="text-white">#'.$formattedRank.'</th> <!-- Corrected closing tag -->
+            <td class="text-white">'.$formattedLikes.'</td>
             <td class="flex flex-row items-center justify-center pr-16 text-white">
                 @'.$poster;
             
