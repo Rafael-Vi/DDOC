@@ -296,7 +296,7 @@
                 $updateResult = executeQuery($dbConn, $updateSql, $params);
                 
                 if ($updateResult) {
-                    echoSuccess("User updated successfully.");   
+                    $_SESSION['success'] = 'Perfil actualizado com sucesso';
                 } else {
                     $error = mysqli_error($dbConn);
                     mySQLerror($error);
