@@ -144,7 +144,7 @@ $GLOBALS['type'] = $type;
           ?>
         </div>
       </div>
-      <div class="flex flex-row gap-4 mt-8">
+      <div class="flex flex-row gap-4">
         <div>
           <label for="typeSelect" class="mb-2 text-white">Tipo:</label>
           <select class="select select-bordered w-full max-w-xs mb-8 " id="typeSelect">
@@ -195,7 +195,7 @@ $GLOBALS['type'] = $type;
                   "scrollX": false,
                   "paging": true,
                   "pageLength": 4,
-                  "ordering": false,
+                  "ordering": true,
                   "info": false,
                   "lengthChange": false,
                   "searching": false,
