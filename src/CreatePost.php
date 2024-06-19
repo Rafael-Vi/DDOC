@@ -72,29 +72,27 @@
   ?>
 <form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
 
-<div class="flex flex-col items-left p-8 w-full sm:w-1/2 overflow-auto">
-  <div class="flex flex-col items-center"></div>
-    <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
-  </div>
-  <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
-  <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
-  <div class="flex flex-row justify-between items-start gap-4 mt-8">
-  <div class="flex flex-col w-1/2 h-full">
-      <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
-      <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white mb-4 w-full">
-        <option value="audio">Audio</option>
-        <option value="image" selected>Imagem</option>
-        <option value="video">Vídeo</option>
-      </select>
-    </div>
-    <div class="flex flex-col w-1/2">
-      <label for="file-input" class="text-white font-bold w-full text-left ">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-      <input type="file" id="file-input" name="file-input" class="file-input file-input-warning max-w-xs w-full">
-    </div>
-  </div>
-  <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-  <button type="submit" name="CreatePost" class="bg-ddark-success hover:bg-black text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
+<div class="flex justify-center p-8 w-full sm:w-1/2 overflow-auto">
+  <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mx-auto object-contain max-w-[30vh]" id="profile-picture">
 </div>
+<label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
+<textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
+<div class="flex flex-row justify-between items-start gap-4 mt-8 w-full">
+  <div class="flex flex-col w-1/2">
+    <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
+    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white mb-4 w-full">
+      <option value="audio">Audio</option>
+      <option value="image" selected>Imagem</option>
+      <option value="video">Vídeo</option>
+    </select>
+  </div>
+  <div class="flex flex-col w-1/2">
+    <label for="file-input" class="text-white font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
+    <input type="file" id="file-input" name="file-input" class="file-input file-input-warning max-w-xs w-full">
+  </div>
+</div>
+<input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
+<button type="submit" name="CreatePost" class="bg-ddark-success hover:bg-black text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
 </form>
   <?php
   } else {
