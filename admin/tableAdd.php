@@ -88,9 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $values = rtrim($values, ', ');
         $insert_query .= ") $values)";
         if (!executeQuery($db_conn, $insert_query)) {
+            $_SESSION['admin_error'] = "Erro ao adicionar registro";
             error_log("Error executing query: " . mysqli_error($db_conn));
             error_log("Query: $insert_query");
             error_log(print_r($values));
+        }
+        else{
+            $_SESSION['admin_success'] = "Registro adicionado com sucesso";
         }
     }
     header("Location: tableView.php?table=$table");

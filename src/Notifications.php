@@ -27,7 +27,7 @@
       width: 100%;
       min-height: 60px;
       text-align: center;
-      z-index: 1000; /* Ensure it's above other content */
+      z-index: 49; /* Ensure it's above other content */
     }
   </style>
     <title>Notifications</title>
@@ -62,7 +62,7 @@
   ?>
     <div id="notifications-div" class="bg-gray-900 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
         
-        <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 backdrop-blur-md">
+        <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 shadow-mdbackdrop-blur-md">
             <a href="javascript:history.back()" class="btn">Voltar atrás</a>
             Notifications
         </div>

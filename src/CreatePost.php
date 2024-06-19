@@ -28,7 +28,7 @@
       width: 100%;
       min-height: 60px;
       text-align: center;
-      z-index: 1000; /* Ensure it's above other content */
+      z-index: 49; /* Ensure it's above other content */
     }
   </style>
   <title>Publicar Post</title>
@@ -61,7 +61,7 @@
 
   ?>
   <div id="createPost-div" class="bg-gray-800 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0">
-  <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
+  <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8 shadow-mdshadow-md">
 <a href="javascript:history.back()" class="btn">Voltar atrás</a>
     Publicar Post
   </div>
@@ -70,30 +70,34 @@
   global $arrConfig;
   if ($_SESSION['can_post'] == 0 || $_SESSION['can_post'] == "0") {
   ?>
-<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-10" method="Post" enctype="multipart/form-data">
+<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20 overflow-auto" method="Post" enctype="multipart/form-data" style="padding-left: 20%; padding-right: 20%;">
 
-<div class="flex flex-col items-center w-full sm:w-3/5 overflow-y-auto">
-  <div class="flex flex-col items-center"></div>
-    <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-82 lg:h-72 mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain max-w-[30vh]" id="profile-picture">
-  </div>
-  <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
-  <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
-  <label for="post-type" class="text-white font-bold text-left float-left">Tipo:</label>
-  <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white mb-4 w-full">
-    <option value="audio">Audio</option>
-    <option value="image" selected>Imagem</option>
-    <option value="video">Vídeo</option>
-  </select><br>
-  <label for="file-upload" class="text-white font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
-  <input type="file" id="file-input" name="file-input" class="rounded-lg bg-slate-600 text-white mb-4 w-full">
-  <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-  <button type="submit" name="CreatePost" class="bg-ddark-success hover:bg-black text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
+<div class="flex justify-center w-full sm:w-3/4">
+  <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-1/2 mx-auto object-contain max-w-[40vh]" id="profile-picture">
 </div>
+<label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
+<textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-base-200  w-full" maxlength="255"></textarea><br>
+<div class="flex flex-row justify-start items-center gap-4 mt-4 mb-4 w-full"> <!-- Ensure this is flex-row and items are centered -->
+  <div class="flex flex-col w-1/2"> <!-- This is already set to take half width -->
+    <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
+    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-base-200 m-auto  w-full">
+      <option value="audio">Audio</option>
+      <option value="image" selected>Imagem</option>
+      <option value="video">Vídeo</option>
+    </select>
+  </div>
+  <div class="flex flex-col w-1/2"> <!-- This is also set to take half width, ensuring side by side layout -->
+    <label for="file-input" class="text-white font-bold w-full text-left mt-8">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
+    <input type="file" id="file-input" name="file-input" class="file-input file-input-warning max-w-xs w-full">
+  </div>
+</div>
+<input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-base-200 p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
+<button type="submit" name="CreatePost" class="btn btn-warning font-bold py-2 px-4 rounded mt-8 w-full hover:text-orange-500">Publicar Post</button>
 </form>
   <?php
   } else {
     echo'<div class="flex flex-col  items-center justify-center h-full">
-    <h2 class="text-3xl font-bold bg-slate-600 rounded-lg p-8 text-white gap-3">
+    <h2 class="text-3xl font-bold bg-base-200 rounded-lg p-8 gap-3">
     You have already posted in this theme.
     <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-bl-800 text-white font-bold py-2 px-4 rounded mt-4">Go to your profile</a>
     </h2>

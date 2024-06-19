@@ -49,7 +49,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
       width: 100%;
       min-height: 60px;
       text-align: center;
-      z-index: 1000; /* Ensure it's above other content */
+      z-index: 49; /* Ensure it's above other content */
     }
   </style>
     <title>Mensages</title> 
@@ -94,7 +94,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
             ?>   
         </h1>
 
-        <div class="h-full w-full  overflow-auto hide-scrollbar ">
+        <div class="h-full w-full  overflow-auto hide-scrollbar p-8">
         <?php 
         
         if (isset($_GET['convo_id']) && $_GET['convo_id'] != "") {

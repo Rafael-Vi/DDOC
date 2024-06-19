@@ -1,6 +1,25 @@
 <?php
 require 'includes/header.inc.php';
 
+if(isset($_SESSION['admin_error'])) {
+    echo'  <div class="error-container">';
+      echoError($_SESSION['admin_error']);
+      unset($_SESSION['admin_error']);
+    echo'</div>';
+  } elseif(isset($_SESSION['admin_success'])) {
+      if ($_SESSION['admin_success'] == 'Registration successful') {
+        echo'  <div class="error-container">';
+          validRegisterAl();
+          echo'</div>';
+          
+      } else {
+        echo'  <div class="error-container">';
+          echoSuccess($_SESSION['admin_success']);
+          echo'</div>';
+      }
+      unset($_SESSION['admin_success']);
+  }
+
 // check if table is set
 if (isset($_GET['table']) && !empty($_GET['table'])) {
     $table = $_GET['table'];
@@ -51,7 +70,28 @@ if ($table === 'posts') {
 
 
 mysqli_close($db_conn);
+
+if(isset($_SESSION['error'])) {
+    echo'  <div class="error-container">';
+      echoError($_SESSION['error']);
+      unset($_SESSION['error']);
+    echo'</div>';
+  } elseif(isset($_SESSION['success'])) {
+      if ($_SESSION['success'] == 'Registration successful') {
+        echo'  <div class="error-container">';
+          validRegisterAl();
+          echo'</div>';
+          
+      } else {
+        echo'  <div class="error-container">';
+          echoSuccess($_SESSION['success']);
+          echo'</div>';
+      }
+      unset($_SESSION['success']);
+  }
+
 ?>
+
 <div class="w-screen p-2 flex items-center justify-center">
     <div class="card w-[95%] min-h-[90vh] bg-base-100 shadow-xl relative">
         <div class="card-body max-h-[80vh]">
@@ -108,5 +148,11 @@ mysqli_close($db_conn);
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        $('#close-error').on('click', function() {
+            $('.error-container').remove();
+        });
+    </script>
 <?php
     require 'includes/footer.inc.php';

@@ -31,7 +31,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
       width: 100%;
       min-height: 60px;
       text-align: center;
-      z-index: 1000; /* Ensure it's above other content */
+      z-index: 49; /* Ensure it's above other content */
     }
   </style>
   <title>Profile</title>
@@ -70,7 +70,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
           <?php
           echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
           unset($userInfo);
-          echo '<button class="btn bg-gray-700 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
+          echo '<button onclick="openDialog()" class="btn bg-gray-700 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
           echo '</div>';
           echo '</div>'; // Close profile-info-container
           ?>
@@ -84,7 +84,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
   </div>
   </div>
 
-  <dialog id="profile-dialog" class="modal ubuntu-medium">
+  <dialog id="profile-dialog" class="modal">
     <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data">
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
       <div class="flex flex-col mb-4">
@@ -120,7 +120,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
       <form method="dialog">
         <input type="hidden" id="postId" name="postId">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900" onclick="cancel()">✕</button>
-        <h3 class="font-bold text-lg text-gray-900">Edit Post</h3>
+        <h3 class="font-bold text-lg">Edit Post</h3>
         <div class="form-control">
           <label class="label">
             <span id="caption" class="label-text">Caption</span>

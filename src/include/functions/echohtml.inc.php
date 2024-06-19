@@ -74,10 +74,12 @@
             <div class="relative md:flex md:flex-col md:top-0 md:left-0 md:w-full md:bg-white md:h-full md:border-r hidden md:shadow-xl">
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
+                        <a href="social.php">
                         <li class="px-5">
                             <div class="flex flex-row items-center  h-32 text-white w-32">
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
+                        </a>
                         <li class="px-4 py-2">
                         <a href="#" id="search-link" class="" style="color: black"><i class="mr-2 fi fi-sr-search"></i> Pesquisa</a>
                         </li>
@@ -265,25 +267,27 @@ $imageHtml = '';
         switch($post['post_type']) {
             case 'image':
                 echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
-                <div class="flex items-center">
-                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="  rounded-full h-10 w-10 bg-red-800">
-                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
-                </div></a>
-            </div>';
+                    <!-- Second row: User info and action button -->
+                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
+                    </div>
+                    </a>
+                    <!-- Action Button on the right -->
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                    </div>';
                 echo'
                 <!-- First row: Post image -->
-                <div class="flex flex-col justify-center items-center bg-gray-950 h-full">
+                <div class="flex flex-col justify-center items-center bg-base-200 h-full">
                 <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
                 </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
+                    <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
 
                     if ($post['enabled'] == 0) {
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
@@ -292,38 +296,39 @@ $imageHtml = '';
                         echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
-                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+                    <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                    <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 
                 break;
             case 'audio':
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center justify-start py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
                     <div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
-                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                    <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                 </div>
                 </a>
             </div>';
                 echo'
                 <!-- First row: Post audio -->
-                <div class="flex justify-center relative">
-                    <div class="flex flex-col justify-center items-center h-ful w-fulll">
-                        <img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[50vh]">
-                        <audio controls class="rounded-sm w-full h-16 mb-4 block mx-auto z-0 mt-4">
-                            <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
-                            O seu browser não suporta a tag de áudio.
-                        </audio>
+                    <!-- Second row: User info and action button -->
+                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
-                </div>
+                    </a>
+                    <!-- Action Button on the right -->
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                    </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
-                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
+                    <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
 
                     if ($post['enabled'] == 0) {
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
@@ -332,20 +337,22 @@ $imageHtml = '';
                         echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
-                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+                     <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                    <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
             case 'video':
                 echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
-                <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
-                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
-                </div>
-                </a>
-            </div>';
+                    <!-- Second row: User info and action button -->
+                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
+                    </div>
+                    </a>
+                    <!-- Action Button on the right -->
+                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                    </div>';
                 echo'
     
                 <!-- First row: Post video -->
@@ -358,8 +365,8 @@ $imageHtml = '';
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
+                    <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
 
                     if ($post['enabled'] == 0) {
                         echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
@@ -368,8 +375,8 @@ $imageHtml = '';
                         echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
-                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+                     <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                    <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
         }
@@ -399,7 +406,7 @@ $imageHtml = '';
         global $arrConfig;
         $profilePicUrl = empty($profilePic) ? $arrConfig['url_assets']."images/Unknown_person.jpg" : $arrConfig['url_users'].$profilePic;
     
-        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 transform hover:scale-110 transition-all duration-200 mb-4 w-80">';
+        echo '<a href="messages.php?convo_id='.$personId.'" class="text-orange-500 mb-8 transform hover:scale-110 transition-all duration-200 w-80">';
         echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<img src="'.$profilePicUrl.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture
