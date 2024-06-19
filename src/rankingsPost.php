@@ -183,6 +183,12 @@ $GLOBALS['type'] = $type;
           <script src="../src/js/timer.js"></script>
           <script src="../src/js/filterTheme.js"></script>
           <script src="../src/js/social.js"></script>
+          <script>
+            function redirectToPost(element) {
+                var postId = element.getAttribute("data-id");
+                window.location.href = "posts.php?id=" + postId;
+            }
+            </script>
 </body>
 
 </html>
