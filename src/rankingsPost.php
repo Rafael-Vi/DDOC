@@ -186,7 +186,7 @@ $GLOBALS['type'] = $type;
           <script>
             function redirectToPost(element) {
                 var postId = element.getAttribute("data-id");
-                window.location.href = "posts.php?userid=" + postId;
+                window.location.href = "posts.php?id=" + postId;
             }
             </script>
 </body>
