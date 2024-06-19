@@ -161,7 +161,7 @@ if(isset($_SESSION['error'])) {
         {
           "scrollX": false,
           "paging": true,
-          "pageLength": 25,
+          "pageLength": 100,
           "ordering": true,
           "info": false,
           "lengthChange": true,
