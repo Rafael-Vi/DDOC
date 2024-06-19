@@ -1828,13 +1828,13 @@
         $dbConn = db_connect();
     
         // Prepare the SQL statement to insert the new report
-        $insertSql = "INSERT INTO report (id_report, why, R_type, sender, post_id) VALUES (?, ?, ?, ?, ?)";
+        $insertSql = "INSERT INTO report (why, R_type, sender, post_id) VALUES (?, ?, ?, ?)";
         // Assuming sender_id and post_id need to be dynamically provided, add placeholders for these parameters
         $senderId = 0; // Placeholder value, replace with actual sender ID
         $postId = 0; // Placeholder value, replace with actual post ID
     
         // Use the executeQuery function to execute the prepared statement
-        $result = executeQuery($dbConn, $insertSql, [$reportId, $reportReason, $reportType, $senderId, $postId]);
+        $result = executeQuery($dbConn, $insertSql, [$reportReason, $reportType, $_SESSION['uid'], $reportId]);
     
         if ($result) {
             $_SESSION['success'] = 'Report saved successfully';
