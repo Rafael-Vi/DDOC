@@ -39,6 +39,7 @@ $GLOBALS['type'] = $type;
   <link rel="shortcut icon" href="./assets/images/2.png">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.tailwindcss.css">
   <style>
     .error-container {
       position: fixed;
@@ -50,7 +51,37 @@ $GLOBALS['type'] = $type;
       text-align: center;
       z-index: 49; /* Ensure it's above other content */
     }
-  </style>
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+      .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+      }
+
+      .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+        color: #6c757d;
+      }
+
+      .dataTables_wrapper .dataTables_paginate {
+        margin-top: 25px;
+        position: absolute;
+        left: 0;
+        margin-left: 30px;
+        z-index: 1;
+      }
+
+      .paginate_button {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        color: #6c757d;
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    </style>
   <title>Rankings Accounts</title>
   <style>
     #podium-container * {
