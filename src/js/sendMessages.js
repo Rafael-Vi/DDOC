@@ -26,7 +26,6 @@ function loadMessages() {
     .then(data => {
         // Only update if the data has changed
         if (data !== lastMessage) {
-            console.log('Messages loaded:', data);
             lastMessage = data;
             document.getElementById('message-container').innerHTML = data;
             var messageContainer = document.getElementById('message-container');
@@ -35,6 +34,7 @@ function loadMessages() {
     })
     .catch(error => console.error(error));
 }
+
 function sendMessage(recipientid) {
     let message = document.getElementById('message-box').value;
     if (message === "") {
