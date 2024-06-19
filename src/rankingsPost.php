@@ -183,23 +183,23 @@ $GLOBALS['type'] = $type;
           </div>
 
           <div class=" h-96 flex flex-col items-center bg-gray-800 ">
-            <table id="ranking-Post" class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg text-white border-b-2 border-gray-900">
+            <table id="ranking-Post" class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg border-b-2 border-gray-900">
               <thead>
                 <tr>
-                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800">Rank</th>
-                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800">Conteúdo do Post</th>
+                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800 text-white ">Rank</th>
+                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800 text-white ">Conteúdo do Post</th>
                   <!-- Image of the post -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800">Nome do Post</th>
+                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800 text-white ">Nome do Post</th>
                   <!-- Name of the post -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800">Tipe</th>
+                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800 text-white ">Tipe</th>
                   <!-- Type -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800">Likes</th>
+                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800 text-white ">Likes</th>
                   <!-- Likes -->
-                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800">Dono do Post</th>
+                  <th class="ubuntu-bold w-1/6 hover:bg-white hover:text-gray-800 text-white ">Dono do Post</th>
                   <!-- Person who posted it -->
                 </tr>
               </thead>
-              <tbody class="h-full w-full">
+              <tbody class="h-full w-full text-white ">
                 <?php
                 getRankingPost($GLOBALS['id_theme'], $GLOBALS['type']);
                 ?>
