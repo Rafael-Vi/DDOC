@@ -76,7 +76,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
           ?>
         </div>
     </div>
-    <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200 min-h-screen mt-8">
+    <div id="profilePosts-div" class="relative p-auto overflow-auto bg-base-200 min-h-full mt-8">
       <?php
       getPosts($_SESSION['uid']);
       ?>
