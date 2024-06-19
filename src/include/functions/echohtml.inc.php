@@ -266,90 +266,90 @@ $imageHtml = '';
             case 'image':
                 echo'
                     <!-- Second row: User info and action button -->
-                    <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                     <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
-                        <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-black font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>';
                 echo'
                 <!-- First row: Post image -->
-                <div class="flex flex-col justify-center items-center bg-gray-950 h-full">
+                <div class="flex flex-col justify-center items-center bg-base-200 h-full">
                 <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
                 </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
+                    <textarea class="text-black text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
 
                     if ($post['enabled'] == 0) {
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
+                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-black font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-black font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
-                    <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+                    <span class="text-black text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                    <span class="text-black text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 
                 break;
             case 'audio':
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-start py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                <div class="flex items-center justify-start py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
                     <div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
-                    <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                    <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                 </div>
                 </a>
             </div>';
                 echo'
                 <!-- First row: Post audio -->
                     <!-- Second row: User info and action button -->
-                    <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                     <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
-                        <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-black font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
-                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
+                    <textarea class="text-black text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
 
                     if ($post['enabled'] == 0) {
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
+                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-black font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-black font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
-                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+                     <span class="text-black text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                    <span class="text-black text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
             case 'video':
                 echo'
                     <!-- Second row: User info and action button -->
-                    <div class="flex items-center justify-between py-4 pl-8 bg-gray-800 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                     <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
-                        <span class="text-xl font-bold ml-4 text-white">@'.$creator['name'].'</span>
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-black font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>';
                 echo'
     
@@ -363,18 +363,18 @@ $imageHtml = '';
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 bg-gray-800 rounded-b-lg border-t-4 border-t-orange-500">
-                    <textarea class="text-white text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
+                    <textarea class="text-black text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
 
                     if ($post['enabled'] == 0) {
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
+                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-black font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
                     } else {
                         // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-black font-bold py-2 px-4 rounded" disabled>Desativado</button>';
                     }
                     echo'
-                     <span class="text-white text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-white text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+                     <span class="text-black text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                    <span class="text-black text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
                 break;
         }
