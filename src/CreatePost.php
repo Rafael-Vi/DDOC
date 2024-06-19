@@ -70,9 +70,9 @@
   global $arrConfig;
   if ($_SESSION['can_post'] == 0 || $_SESSION['can_post'] == "0") {
   ?>
-<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20" method="Post" enctype="multipart/form-data">
+<form action="include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20" method="Post" enctype="multipart/form-data" style="padding: 20%">
 
-<div class="flex justify-center p-16 w-full sm:w-3/4 overflow-auto">
+<div class="flex justify-center w-full sm:w-3/4 overflow-auto">
   <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm w-auto h-96 mx-auto object-contain max-w-[40vh]" id="profile-picture">
 </div>
 <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
@@ -80,7 +80,7 @@
 <div class="flex flex-row justify-start items-center gap-4 mt-8 w-full"> <!-- Ensure this is flex-row and items are centered -->
   <div class="flex flex-col w-1/2"> <!-- This is already set to take half width -->
     <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
-    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white mb-4 w-full">
+    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full">
       <option value="audio">Audio</option>
       <option value="image" selected>Imagem</option>
       <option value="video">Vídeo</option>
