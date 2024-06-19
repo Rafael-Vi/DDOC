@@ -474,11 +474,12 @@ $imageHtml = '';
 
 
 
-    function echoRankPosts($rank, $image, $name, $type, $likes, $poster){
+    function echoRankPosts($rank, $image, $name, $type, $likes, $poster, $id){
         global $arrConfig;  
         echo'
+        <a href="posts.php?id='.$id.'">
         <tr class="text-white hover:bg-gray-700">
-            <th class="w-1/6">'.$rank.'</td> <!-- Rank of the post -->
+            <th class="w-1/6">#'.$rank.'</td> <!-- Rank of the post -->
             <td class="w-1/6">';
             if ($type == 'video') {
                 echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
@@ -498,7 +499,8 @@ $imageHtml = '';
             <td class="w-1/6">'.$likes.'</td> <!-- Likes -->
             <td class="w-1/6">@'.$poster.'</td> <!-- Person who posted it -->
         </tr>
-        ';
+        </a>';
+        
     }
     
     

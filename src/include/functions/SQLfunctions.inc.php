@@ -1187,7 +1187,7 @@
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
         // Echo the posts
         foreach($rows as $row) {
-            echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['PostType'], $row['Likes'], $row['PersonWhoPostedIt']);
+            echoRankPosts($row['PostRank'], $row['PostImage'], $row['NameOfThePost'], $row['PostType'], $row['Likes'], $row['PersonWhoPostedIt'], $row['PostId']);
         }
 
         // Close the connection
