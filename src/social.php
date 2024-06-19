@@ -34,7 +34,7 @@ require "include/functions/Development.inc.php";
   <title>DDOC</title>
 </head>
 
-<body class="h-full flex">
+< class="h-full flex">
   <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
   <?php
@@ -97,6 +97,7 @@ require "include/functions/Development.inc.php";
       </form>
     </div>
   </dialog>
+</div>
   <?php echoBottomNav(); ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
