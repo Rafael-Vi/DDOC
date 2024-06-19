@@ -182,12 +182,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
   <script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>
-  <script src="../src/js/checkFollowList.js"></script>
-  <script src="../src/js/timer.js"></script>
-  <script src="../src/js/social.js"></script>
-  <script src="../src/js/follow.js"></script>
-  <script src="../src/js/EditProfile.js"></script>
-  <script src="../src/js/editPost.js"></script>
+  <script src="../dist/bundle.js"></script>
 </body>
 
 </html>
