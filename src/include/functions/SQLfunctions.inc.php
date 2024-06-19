@@ -376,7 +376,7 @@
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
                     error_log("ERROR: No rank found for username: $username"); // Log missing rank
-                    header("Location:../../errorPages/NoUserFound.php");
+                    header("Location:../errorPages/NoUserFound.php");
                     exit;
                 }
         
@@ -392,7 +392,7 @@
             } else {
                 // Handle the query error
                 error_log("ERROR: No user found with UID: $uid"); // Log no user found
-                header("Location:../../errorPages/NoUserFound.php");
+                header("Location:../errorPages/NoUserFound.php");
                 exit;
             }
         
@@ -445,7 +445,7 @@
                 if($rowRank = mysqli_fetch_assoc($resultRank)) {
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
-                    header("Location:../../errorPages/NoUserFound.php");
+                    header("Location:../errorPages/NoUserFound.php");
                     exit;
                 }
         
@@ -460,7 +460,7 @@
                 );
             } else {
                 // Handle the query error
-                header("../../errorPages/NoUserFound.php");
+                header("../errorPages/NoUserFound.php");
                 exit;
             }
         
