@@ -1807,7 +1807,7 @@
         mysqli_close($dbConn);
     }
     
-    function getHome(){
+function getHome(){
         global $arrConfig;
         
     
@@ -1830,9 +1830,9 @@
             // Fetch all rows as an associative array
             $followedPosts = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
-            // Prepare the SQL statement to get other posts randomly
-            $query = "SELECT post_id FROM posts WHERE id_theme = ? AND id_users NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) AND id_users != ? ORDER BY created_at DESC LIMIT 5";
-            $params = array($themeId, $userId, $userId);
+            // Adjust the SQL statement to include the current session user in the random posts
+            $query = "SELECT post_id FROM posts WHERE id_theme = ? AND id_users NOT IN (SELECT followee_id FROM follow WHERE follower_id = ?) ORDER BY RAND() LIMIT 5";
+            $params = array($themeId, $userId);
     
             // Execute the statement
             $result = executeQuery($dbConn, $query, $params);
@@ -1861,5 +1861,4 @@
             }
         }
     }
-
     //*MISCELLANEOUS -------------------------------------------------------------------
