@@ -172,6 +172,7 @@ function deleteUser($id) {
 
         // Select all posts where id_users = $id
         $query = "SELECT post_id FROM posts WHERE id_users = ?";
+        $params = [$id]; 
         $result = executeQuery($dbConn, $query, $params);
         if ($result !== false) {
             while ($row = mysqli_fetch_assoc($result)) {
