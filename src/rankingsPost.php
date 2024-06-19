@@ -231,7 +231,7 @@ $GLOBALS['type'] = $type;
                 {
                   "scrollX": false,
                   "paging": true,
-                  "pageLength": 4,
+                  "pageLength": 3,
                   "ordering": true,
                   "info": false,
                   "lengthChange": false,
