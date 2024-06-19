@@ -320,6 +320,7 @@
             }
             mysqli_close($dbConn);
         }
+        <?php
         function getUserNotCurrent($uid){
             global $arrConfig;
         
@@ -328,6 +329,7 @@
         
             // Check connection
             if ($dbConn === false) {
+                error_log("ERROR: Could not connect. " . mysqli_connect_error()); // Log connection error
                 die("ERROR: Could not connect. " . mysqli_connect_error());
             }
         
@@ -337,6 +339,10 @@
         
             // Execute the query
             $result = executeQuery($dbConn, $sql, $params);
+        
+            if (!$result) {
+                error_log("ERROR: Query failed to execute for getUserNotCurrent with UID: $uid"); // Log query execution failure
+            }
         
             // Fetch the user data
             if($row = mysqli_fetch_assoc($result)) {
@@ -361,10 +367,15 @@
                 // Execute the query
                 $resultRank = executeQuery($dbConn, $sqlRank, $paramsRank);
         
+                if (!$resultRank) {
+                    error_log("ERROR: Query failed to execute for getting rank with username: $username"); // Log rank query failure
+                }
+        
                 // Fetch the rank
                 if($rowRank = mysqli_fetch_assoc($resultRank)) {
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
+                    error_log("ERROR: No rank found for username: $username"); // Log missing rank
                     header("Location:../../errorPages/NoUserFound.php");
                     exit;
                 }
@@ -380,7 +391,8 @@
                 );
             } else {
                 // Handle the query error
-                header("../../errorPages/NoUserFound.php");
+                error_log("ERROR: No user found with UID: $uid"); // Log no user found
+                header("Location:../../errorPages/NoUserFound.php");
                 exit;
             }
         
