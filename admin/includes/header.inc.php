@@ -24,6 +24,36 @@ require 'config/config.inc.php';
             text-align: center;
             z-index: 1000; /* Ensure it's above other content */
         }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+      .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-color: #ee7000;
+        border-color: #007bff;
+        color: #fff;
+      }
+
+      .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+        color: #6c757d;
+      }
+
+      .dataTables_wrapper .dataTables_paginate {
+        margin-top: 25px;
+        position: absolute;
+        left: 0;
+        margin-left: 30px;  
+        z-index: 1;
+      }
+
+      .paginate_button {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        color: #6c757d;
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
     </style>
 
     </style>
