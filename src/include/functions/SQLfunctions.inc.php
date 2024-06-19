@@ -130,10 +130,8 @@
 
             case 'loadMessages':
                     if (isset($_SESSION['uid'])) {
-                        // Assuming $_SESSION['uid'] is the logged-in user's ID
-                        $userId = $_SESSION['uid'];
                         // Directly use $userId instead of $_SESSION['sender']
-                        $response = getMessages($userId, $_SESSION['convo_id']);
+                        $response = getMessages($_SESSION['convo_id']);
                         echo $response;
                         if ($response === null) {
                             error_log('No response received from getMessages.');
@@ -1065,7 +1063,7 @@
                 $result = executeQuery($dbConn, "SELECT user_name, user_profilePic FROM users WHERE id_users = ?", [$followerId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($echo === "echo") {
-                        $lastmessage = getMessages($followerId, $_SESSION['uid'], true); // Ensure this function returns the last message correctly
+                        $lastmessage = getMessages($followerId, true); // Ensure this function returns the last message correctly
                         echoConvo($row['user_profilePic'], $row['user_name'], $followerId, $lastmessage); // Ensure last message is correctly passed and handled
                     }
                     $convoIds[] = $followerId;
@@ -1076,7 +1074,7 @@
     }
 
 
-    function getMessages($sender, $convoId, $last = NULL) {
+    function getMessages($convoId, $last = NULL) {
     
         global $arrConfig;
         $sender = $_SESSION['sender'];
