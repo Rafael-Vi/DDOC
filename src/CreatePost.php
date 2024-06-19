@@ -76,7 +76,7 @@
   <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-96 mx-auto object-contain max-w-[40vh]" id="profile-picture">
 </div>
 <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
-<textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full mt-8" maxlength="255"></textarea><br>
+<textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
 <div class="flex flex-row justify-start items-center gap-4 mt-8 w-full"> <!-- Ensure this is flex-row and items are centered -->
   <div class="flex flex-col w-1/2"> <!-- This is already set to take half width -->
     <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
@@ -87,12 +87,12 @@
     </select>
   </div>
   <div class="flex flex-col w-1/2"> <!-- This is also set to take half width, ensuring side by side layout -->
-    <label for="file-input" class="text-white font-bold w-full text-left">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
+    <label for="file-input" class="text-white font-bold w-full text-left mt-8">Upload de Ficheiro (Musica/Imagem/Vídeo):</label>
     <input type="file" id="file-input" name="file-input" class="file-input file-input-warning max-w-xs w-full">
   </div>
 </div>
 <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-<button type="submit" name="CreatePost" class="btn btn-warning text-white font-bold py-2 px-4 rounded mt-8">Publicar Post</button>
+<button type="submit" name="CreatePost" class="btn btn-warning text-white font-bold py-2 px-4 rounded mt-8 w-full">Publicar Post</button>
 </form>
   <?php
   } else {
