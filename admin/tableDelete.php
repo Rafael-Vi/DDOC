@@ -36,11 +36,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         // Data exists, proceed with deletion logic
         switch ($table) {
             case 'users':
-                // Custom deletion logic for users
-                $result2 = executeQuery($db_conn, "SELECT post_id FROM posts WHERE id_users = ?", [$id]);
-                while ($row = mysqli_fetch_assoc($result2)) {
-                    deletePost($row['post_id'], $db_conn); // Pass $db_conn as an argument
-                }
+                    deleteUser($id); // Pass $db_conn as an argument
                 break;
             case 'theme':
                 // Additional deletion logic for theme
@@ -137,6 +133,71 @@ function deletePost($id, $dbConn) {
         error_log($e->getMessage()); // Log error or handle it as per your requirement
         return false;
     }
+}
+
+
+function deleteUser($id) {
+    $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
+
+    // Start transaction
+    mysqli_begin_transaction($dbConn);
+
+    try {
+        // Delete all notifications where receiver_id is the $id
+        $query = "DELETE FROM notifications WHERE receiver_id = ?";
+        $params = [$id];
+        if (!executeQuery($dbConn, $query, $params)) {
+            throw new Exception("Failed to delete notifications");
+        }
+
+        // Delete all from follow table where follower_id or followee_id = $id
+        $queries = [
+            "DELETE FROM follow WHERE follower_id = ?",
+            "DELETE FROM follow WHERE followee_id = ?"
+        ];
+
+        foreach ($queries as $query) {
+            if (!executeQuery($dbConn, $query, $params)) {
+                throw new Exception("Failed to delete follow records");
+            }
+        }
+
+        // Delete all messages where the user is either the sender or receiver
+        $query = "DELETE FROM messages WHERE messenger_id = ? OR receiver_id = ?";
+        $params = [$id, $id]; // Note: Adjusted to match both conditions
+        if (!executeQuery($dbConn, $query, $params)) {
+            throw new Exception("Failed to delete messages");
+        }
+
+        // Select all posts where id_users = $id
+        $query = "SELECT post_id FROM posts WHERE id_users = ?";
+        $result = executeQuery($dbConn, $query, $params);
+        if ($result !== false) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                // For each post, call the deletePost function
+                deletePost($row['post_id'], $dbConn);
+            }
+        }
+
+        // After handling all related records, delete the user
+        $query = "DELETE FROM users WHERE id_users = ?";
+        if (!executeQuery($dbConn, $query, [$id])) { // Adjusted params to a direct array
+            throw new Exception("Failed to delete user");
+        }
+
+        // Commit transaction
+        mysqli_commit($dbConn);
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        mysqli_rollback($dbConn);
+        error_log($e->getMessage()); // Log error or handle it as per your requirement
+        return false;
+    } finally {
+        // Close the database connection
+        mysqli_close($dbConn);
+    }
+
+    return true;
 }
 
 function updateUserPostStatus($userId , $status) {
