@@ -1,6 +1,25 @@
 <?php
 require 'includes/header.inc.php';
 
+if(isset($_SESSION['admin_error'])) {
+    echo'  <div class="error-container">';
+      echoError($_SESSION['admin_error']);
+      unset($_SESSION['admin_error']);
+    echo'</div>';
+  } elseif(isset($_SESSION['admin_success'])) {
+      if ($_SESSION['admin_success'] == 'Registration successful') {
+        echo'  <div class="error-container">';
+          validRegisterAl();
+          echo'</div>';
+          
+      } else {
+        echo'  <div class="error-container">';
+          echoSuccess($_SESSION['admin_success']);
+          echo'</div>';
+      }
+      unset($_SESSION['admin_success']);
+  }
+
 // check if table is set
 if (isset($_GET['table']) && !empty($_GET['table'])) {
     $table = $_GET['table'];
