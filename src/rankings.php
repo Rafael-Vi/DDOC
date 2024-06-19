@@ -54,7 +54,7 @@ $GLOBALS['type'] = $type;
 
   .dataTables_wrapper .dataTables_paginate .paginate_button.current,
       .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        background-color: #007bff;
+        background-color: #ee7000;
         border-color: #007bff;
         color: #fff;
       }
@@ -69,7 +69,7 @@ $GLOBALS['type'] = $type;
         margin-top: 25px;
         position: absolute;
         left: 0;
-        margin-left: 30px;
+        margin-left: 30px;  
         z-index: 1;
       }
 
