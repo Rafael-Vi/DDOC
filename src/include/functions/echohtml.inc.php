@@ -479,7 +479,7 @@ $imageHtml = '';
         global $arrConfig;  
         echo '<tr class="text-white hover:bg-gray-700">';
         echo '<th class="w-1/6">#'.$rank.'</th>'; // Corrected closing tag
-        echo '<td class="w-1/6">';
+        echo '<td class="w-1/6"><a href="posts.php?id='.$id.'">';
         if ($type == 'video') {
             echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
             echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
@@ -492,7 +492,7 @@ $imageHtml = '';
         } else {
             echo '<img src="'. $arrConfig['url_posts'].'/'.$type.'/'.$image.'" alt="Post Image" class="w-32 h-32 text-white">'; // Changed from w-16 h-16 to w-32 h-32 text-white
         }
-        echo '</td>'; // Image of the post
+        echo '</a></td>'; // Image of the post
         echo '<td class="w-1/6"><a href="posts.php?id='.$id.'">'.$name.'</a></td>'; // Name of the post, wrapped in <a> tag
         echo '<td class="w-1/6">'.$type.'</td>'; // Type
         echo '<td class="w-1/6">'.$likes.'</td>'; // Likes
