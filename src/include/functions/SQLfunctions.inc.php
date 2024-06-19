@@ -1822,13 +1822,13 @@
         // Close the database connection
         mysqli_close($dbConn);
     }
-    
+
     function saveReport($reportId, $reportReason, $reportType) {
         global $arrConfig;
         $dbConn = db_connect();
     
         // Prepare the SQL statement to insert the new report
-        $insertSql = "INSERT INTO report (id_report, why, R_type, sender_id, post_id) VALUES (?, ?, ?, ?, ?)";
+        $insertSql = "INSERT INTO report (id_report, why, R_type, sender, post_id) VALUES (?, ?, ?, ?, ?)";
         // Assuming sender_id and post_id need to be dynamically provided, add placeholders for these parameters
         $senderId = 0; // Placeholder value, replace with actual sender ID
         $postId = 0; // Placeholder value, replace with actual post ID
