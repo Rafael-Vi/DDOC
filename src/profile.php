@@ -84,7 +84,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
   </div>
   </div>
 
-  <dialog id="profile-dialog" class="modal ubuntu-medium">
+  <dialog id="profile-dialog" class="modal">
     <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data">
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Edit Profile</h2>
       <div class="flex flex-col mb-4">
