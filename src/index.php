@@ -24,7 +24,7 @@
       width: 100%;
       min-height: 60px;
       text-align: center;
-      z-index: 1000; /* Ensure it's above other content */
+      z-index: 49; /* Ensure it's above other content */
     }
   </style>
   <link rel="stylesheet" href="./src/css/social.css">
