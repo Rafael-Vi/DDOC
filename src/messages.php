@@ -94,7 +94,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
             ?>   
         </h1>
 
-        <div class="h-full w-full  overflow-auto hide-scrollbar ">
+        <div class="h-full w-full  overflow-auto hide-scrollbar p-8">
         <?php 
         
         if (isset($_GET['convo_id']) && $_GET['convo_id'] != "") {
