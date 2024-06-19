@@ -77,13 +77,13 @@ require "include/functions/Development.inc.php";
             <label class="label"></label>
               <span id="Post-Name" class="label-text">Porque quer reportar: Nome do Post</span>
             </label>
-            <input type="text" value="" id="post-reason" class="input input-bordered w-full text-gray-900" placeholder="Insira o motivo de report">
+            <input type="text" value="" id="post-reason" required class="input input-bordered w-full text-gray-900" placeholder="Insira o motivo de report">
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text">Tipo</span>
             </label>
-            <select id="postType" class="select select-bordered w-full text-gray-900">
+            <select id="postType" required class="select select-bordered w-full text-gray-900">
               <option disabled selected>Escolha o tipo</option>
               <option value="type1">Conteúdo Inapropriado</option>
               <option value="type2">Não tem a ver com o tema</option>

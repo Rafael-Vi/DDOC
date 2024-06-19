@@ -119,6 +119,22 @@
                     echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
                 }
                 break;
+            
+            case 'saveReport':
+                if (isset($_POST['reportId']) && isset($_POST['reportReason']) && isset($_POST['reportType'])) {
+                    $reportId = $_POST['reportId'];
+                    $reportReason = $_POST['reportReason'];
+                    $reportType = $_POST['reportType'];
+                    $result = saveReport($reportId, $reportReason, $reportType); // Assume saveReport is a function defined elsewhere
+                    if ($result) {
+                        echo json_encode(['success' => true, 'message' => 'Report saved successfully.']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Failed to save report.']);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
+                }
+                break;
 
             case 'sendMessage':
                 if (isset($_POST['message']) && isset($_POST['recipient'])) {
@@ -1807,6 +1823,30 @@
         mysqli_close($dbConn);
     }
     
+    function saveReport($reportId, $reportReason, $reportType) {
+        global $arrConfig;
+        $dbConn = db_connect();
+    
+        // Prepare the SQL statement to insert the new report
+        $insertSql = "INSERT INTO report (id_report, why, R_type, sender_id, post_id) VALUES (?, ?, ?, ?, ?)";
+        // Assuming sender_id and post_id need to be dynamically provided, add placeholders for these parameters
+        $senderId = 0; // Placeholder value, replace with actual sender ID
+        $postId = 0; // Placeholder value, replace with actual post ID
+    
+        // Use the executeQuery function to execute the prepared statement
+        $result = executeQuery($dbConn, $insertSql, [$reportId, $reportReason, $reportType, $senderId, $postId]);
+    
+        if ($result) {
+            $_SESSION['success'] = 'Report saved successfully';
+            return true;
+        } else {
+            $error = mysqli_error($dbConn);
+            $_SESSION['error'] = 'Failed to save report: ' . $error;
+            // Assuming mySQLerror is a function to handle SQL errors
+            mySQLerror($error);
+            return false;
+        }
+    }  
 function getHome(){
         global $arrConfig;
         
