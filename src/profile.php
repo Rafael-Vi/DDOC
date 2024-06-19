@@ -38,7 +38,6 @@ $userInfo = getUserInfo($_SESSION['uid']);
 </head>
 
 <body class="h-full flex">
-  <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
    <?php
  
