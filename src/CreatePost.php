@@ -76,11 +76,11 @@
   <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-1/2 mx-auto object-contain max-w-[40vh]" id="profile-picture">
 </div>
 <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
-<textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full" maxlength="255"></textarea><br>
+<textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-base-200  w-full" maxlength="255"></textarea><br>
 <div class="flex flex-row justify-start items-center gap-4 mt-4 mb-4 w-full"> <!-- Ensure this is flex-row and items are centered -->
   <div class="flex flex-col w-1/2"> <!-- This is already set to take half width -->
     <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
-    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-slate-600 text-white w-full">
+    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-base-200  w-full">
       <option value="audio">Audio</option>
       <option value="image" selected>Imagem</option>
       <option value="video">Vídeo</option>
@@ -91,8 +91,8 @@
     <input type="file" id="file-input" name="file-input" class="file-input file-input-warning max-w-xs w-full">
   </div>
 </div>
-<input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-slate-600 text-white p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-<button type="submit" name="CreatePost" class="btn btn-warning text-white font-bold py-2 px-4 rounded mt-8 w-full">Publicar Post</button>
+<input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-base-200 p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
+<button type="submit" name="CreatePost" class="btn btn-warning text-white font-bold py-2 px-4 rounded mt-8 w-full hover:text-orange-500">Publicar Post</button>
 </form>
   <?php
   } else {
