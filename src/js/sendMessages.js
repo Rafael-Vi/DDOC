@@ -1,23 +1,3 @@
-function checkUpdates() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '../src/include/functions/checkUpdates.inc.php', true);
-    xhr.onload = function() {
-        if (this.status == 200) {
-            var response = JSON.parse(this.responseText);
-            if (response.newMessages) {
-                console.log('New messages:', response.newMessages);
-                // Update the HTML with the new messages
-                var messagesDiv = document.getElementById('messages-div');
-                response.newMessages.forEach(function(message) {
-                    var messageElement = document.createElement('p');
-                    messageElement.textContent = message;
-                    messagesDiv.appendChild(messageElement);
-                });
-            }
-        }
-    };
-    xhr.send();
-}
 
 
 let lastMessage = null;
@@ -77,7 +57,6 @@ function sendMessage(recipientid) {
         // Only update if the data has changed
         if (data !== lastMessage) {
             console.log('Message sent:', message);
-            checkUpdates();
             loadMessages();
         }
     })
