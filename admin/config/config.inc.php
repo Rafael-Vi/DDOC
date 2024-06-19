@@ -38,7 +38,7 @@ $tablePermissions = [
     ],
     'report' => [
         'editable' => false,
-        'deletable' => false,
+        'deletable' => true,
         'addable' => false
     ],
     'posts' => [
