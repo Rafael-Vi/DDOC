@@ -273,7 +273,7 @@ $imageHtml = '';
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Action</button>
+                    <button class="bg-base-200 btn hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>';
                 echo'
                 <!-- First row: Post image -->
@@ -320,7 +320,7 @@ $imageHtml = '';
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Action</button>
+                    <button class="bg-base-200 btn hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>
                 ';
                 echo'
@@ -349,7 +349,7 @@ $imageHtml = '';
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Action</button>
+                    <button class="bg-base-200 btn hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>';
                 echo'
     
