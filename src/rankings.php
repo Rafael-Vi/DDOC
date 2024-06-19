@@ -135,7 +135,7 @@ $GLOBALS['type'] = $type;
               <th class="ubuntu-bold w-2/6">Account</th>
             </tr>
           </thead>
-          <tbodyclass="overflow-auto h-32">
+          <tbody class="overflow-auto h-32">
             <?php
             RankingAcc();
             ?>
