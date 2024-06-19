@@ -78,21 +78,14 @@ window.addEventListener('load', function() {
     });
 });
 
-function openReport(reportId, reportType, reportName) {
+function openReport(reportId, reportName) {
     console.log('Type of reportId:', typeof reportId); // Debugging: Check the type
     console.log('Value of reportId:', reportId); // Debugging: Check the value
 
-    // Set the report type and name in the modal
-    document.getElementById('postType').value = reportType; // Update to use value for select
     document.getElementById('postName').value = reportName; // Update to use value for input
 
-    // Ensure reportId is a string or number before encoding
-    if (typeof reportId === 'string' || typeof reportId === 'number') {
-        document.getElementById('postId').value = btoa(reportId.toString()); // Update ID to postId
-    } else {
-        console.error('Invalid reportId type:', typeof reportId);
-        // Handle the error appropriately
-    }
+    // Directly encode reportId without checking its type
+    document.getElementById('postId').value = btoa(reportId.toString()); // Update ID to postId
 
     document.getElementById('postReport').showModal(); // Update modal ID to postReport
 }
@@ -104,3 +97,4 @@ function cancelReport() {
     document.getElementById('postId').value = ''; // Clear hidden postId field
     document.getElementById('postReport').close(); // Use correct modal ID
 }
+

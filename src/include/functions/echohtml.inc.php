@@ -273,7 +273,7 @@ $imageHtml = '';
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button onclick="openReport()" class="bg-base-200 hover:bg-orange-500 font-bold py-2 px-4 rounded mr-4">Report</button>
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>';
                 echo'
                 <!-- First row: Post image -->
@@ -320,7 +320,7 @@ $imageHtml = '';
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button onclick="openReport()" class="bg-base-200 hover:bg-orange-500 font-bold py-2 px-4 rounded mr-4">Report</button>
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>
                 ';
                 echo'
@@ -349,7 +349,7 @@ $imageHtml = '';
                     </div>
                     </a>
                     <!-- Action Button on the right -->
-                    <button onclick="openReport()" class="bg-base-200 hover:bg-orange-500 font-bold py-2 px-4 rounded mr-4">Report</button>
+                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-base-200 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
                     </div>';
                 echo'
     
