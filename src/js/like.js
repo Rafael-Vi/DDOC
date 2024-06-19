@@ -78,29 +78,26 @@ window.addEventListener('load', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Your code here
-    function openReport(reportId, reportName) {
-        console.log('Type of reportId:', typeof reportId); // Debugging: Check the type
-        console.log('Value of reportId:', reportId); // Debugging: Check the value
+function openReport(reportId, reportName) {
+    console.log('Type of reportId:', typeof reportId); // Debugging: Check the type
+    console.log('Value of reportId:', reportId); // Debugging: Check the value
 
-        document.getElementById('Post-Name').textContent = "Porque quer reportar: " + reportName;
+    document.getElementById('Post-Name').textContent = "Porque quer reportar: " + reportName;
 
-        // Directly encode reportId without checking its type
-        document.getElementById('reportId').value = btoa(reportId.toString()); // Update ID to postId
+    // Directly encode reportId without checking its type
+    document.getElementById('reportId').value = btoa(reportId.toString()); // Update ID to postId
 
-        // Show the modal
-        document.getElementById('postReport').showModal(); // Update modal ID to postReport
-    }
+    // Show the modal
+    document.getElementById('postReport').showModal(); // Update modal ID to postReport
+}
 
-    function cancelReport() {
-        // Clear the reason for reporting
-        document.getElementById('post-reason').value = '';
-        // Reset the type select to its default state
-        document.getElementById('postType').selectedIndex = 0;
-        // Optionally clear the reportId if needed
-        document.getElementById('reportId').value = '';
-        // Close the modal
-        document.getElementById('postReport').close();
-    }
-});
+function cancelReport() {
+    // Clear the reason for reporting
+    document.getElementById('post-reason').value = '';
+    // Reset the type select to its default state
+    document.getElementById('postType').selectedIndex = 0;
+    // Optionally clear the reportId if needed
+    document.getElementById('reportId').value = '';
+    // Close the modal
+    document.getElementById('postReport').close();
+}
