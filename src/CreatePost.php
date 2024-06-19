@@ -80,7 +80,7 @@
 <div class="flex flex-row justify-start items-center gap-4 mt-4 mb-4 w-full"> <!-- Ensure this is flex-row and items are centered -->
   <div class="flex flex-col w-1/2"> <!-- This is already set to take half width -->
     <label for="post-type" class="text-white font-bold text-left">Tipo:</label>
-    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-base-200  w-full">
+    <select id="post-type" name="post-type" required class="rounded-lg px-4 py-2 bg-base-200 m-auto  w-full">
       <option value="audio">Audio</option>
       <option value="image" selected>Imagem</option>
       <option value="video">Vídeo</option>
