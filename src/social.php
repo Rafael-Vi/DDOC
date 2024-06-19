@@ -91,8 +91,8 @@ require "include/functions/Development.inc.php";
             </select>
           </div>
           <div class="form-control mt-4 flex flex-row"></div>
-            <button class="btn flex-initial btn-warning" onclick="saveReport()">Report</button>
-            <button class="btn btn-outline ml-2 flex-initial btn-error" onclick="cancelReport()">Cancelar</button>
+            <button class="btn flex-initial btn-warning bg-orange-500" onclick="saveReport()">Report</button>
+            <button class="btn btn-outline ml-2 flex-initial btn-error bg-red-500" onclick="cancelReport()">Cancelar</button>
           </div>
         </form>
       </div>
