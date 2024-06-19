@@ -79,7 +79,7 @@
           <label class="label">
             <span id="Post-Name" class="label-text">Porque quer reportar: Nome do Post</span>
           </label>
-          <input type="text" id="post-reason" class="input input-bordered w-full text-gray-900" placeholder="Insira o motivo de report">
+          <input type="text" value="" id="post-reason" class="input input-bordered w-full text-gray-900" placeholder="Insira o motivo de report">
         </div>
 
         <div class="form-control">
@@ -94,7 +94,7 @@
           </select>
         </div>
         <div class="form-control mt-4 flex flex-row">
-          <button class="btn flex-initial" onclick="save()">Report</button>
+          <button class="btn flex-initial" onclick="saveReport()">Report</button>
           <button class="btn btn-outline ml-2 flex-initial" onclick="cancelReport()">Cancelar</button>
         </div>
       </form>
