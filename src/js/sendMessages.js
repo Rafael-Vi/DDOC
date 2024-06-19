@@ -2,8 +2,9 @@
 
 let lastMessage = null;
 function loadMessages() {
-    // Assuming convoId is stored in a global variable or session storage
-    let convoId = sessionStorage.getItem('convo_id'); // Example: Retrieving from session storage
+    // Parse the URL query string
+    const urlParams = new URLSearchParams(window.location.search);
+    let convoId = urlParams.get('convo_id'); // Get convo_id from the query string
 
     // Check if convoId is not set or empty
     if (!convoId) {
@@ -34,7 +35,6 @@ function loadMessages() {
     })
     .catch(error => console.error(error));
 }
-
 function sendMessage(recipientid) {
     let message = document.getElementById('message-box').value;
     if (message === "") {
