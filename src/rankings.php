@@ -145,6 +145,7 @@ $GLOBALS['type'] = $type;
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
   <script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>
@@ -156,7 +157,23 @@ $GLOBALS['type'] = $type;
                 var profileId = element.getAttribute("data-id");
                 window.location.href = "OProfile.php?userid=" + profileId;
             }
+
+            $(document).ready(function() {
+              $('#tableRanking').DataTable(
+                {
+                  "scrollX": false,
+                  "paging": true,
+                  "pageLength": 5,
+                  "ordering": false,
+                  "info": false,
+                  "lengthChange": false,
+                  "searching": false,
+                }
+              );
+            });
             </script>
+
+
 </body>
 
 </html>
