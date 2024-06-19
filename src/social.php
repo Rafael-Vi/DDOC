@@ -1,3 +1,13 @@
+<?php
+include "include/config.inc.php";
+include "include/functions/checkLogin.inc.php";
+require "include/functions/checkThemeIsFinished.inc.php";
+if (checkThemeIsFinished()) {
+  include "include/functions/saveLastPage.inc.php";
+}
+require "include/functions/Development.inc.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,3 +109,4 @@
 </body>
 
 </html>
+
