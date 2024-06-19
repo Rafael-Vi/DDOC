@@ -43,21 +43,27 @@ $userInfo = getUserNotCurrent($_GET['userid']);
   <?php echoLoadScreen(); ?>
   <?php echoNav(); ?>
 
-  <?php
-  echo'  <div class="error-container">';
+   <?php
+ 
   if(isset($_SESSION['error'])) {
+    echo'  <div class="error-container">';
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
+    echo'</div>';
   } elseif(isset($_SESSION['success'])) {
       if ($_SESSION['success'] == 'Registration successful') {
+        echo'  <div class="error-container">';
           validRegisterAl();
+          echo'</div>';
           
       } else {
+        echo'  <div class="error-container">';
           echoSuccess($_SESSION['success']);
+          echo'</div>';
       }
       unset($_SESSION['success']);
   }
-  echo'</div>';
+
   ?>
 
   <div id="profile-div" class="fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 bg-gray-900 md:right-0">

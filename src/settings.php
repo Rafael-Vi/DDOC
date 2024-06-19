@@ -35,21 +35,27 @@
         //echoShowTheme();
     ?>
     <?php echoNav(); ?>
-    <?php
-  echo'  <div class="error-container">';
+     <?php
+ 
   if(isset($_SESSION['error'])) {
+    echo'  <div class="error-container">';
       echoError($_SESSION['error']);
       unset($_SESSION['error']);
+    echo'</div>';
   } elseif(isset($_SESSION['success'])) {
       if ($_SESSION['success'] == 'Registration successful') {
+        echo'  <div class="error-container">';
           validRegisterAl();
+          echo'</div>';
           
       } else {
+        echo'  <div class="error-container">';
           echoSuccess($_SESSION['success']);
+          echo'</div>';
       }
       unset($_SESSION['success']);
   }
-  echo'</div>';
+
   ?>
     <div id="settings-div" class=" bg-gray-800 fixed flex flex-col h-full w-full md:w-9/12 p-0 m-0 md:right-0 overflow-auto">
     <div class="h-32 text-center sm:text-start w-full p-10 font-bold text-4xl text-white sticky top-0 flex items-center justify-left gap-8">
