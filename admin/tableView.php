@@ -161,10 +161,10 @@ if(isset($_SESSION['error'])) {
         {
           "scrollX": false,
           "paging": true,
-          "pageLength": 100,
+          "pageLength": 10,
           "ordering": true,
           "info": false,
-          "lengthChange": true,
+          "lengthChange": false,
           "searching": true,
         }
       );
