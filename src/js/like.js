@@ -82,7 +82,7 @@ function openReport(reportId, reportName) {
     console.log('Type of reportId:', typeof reportId); // Debugging: Check the type
     console.log('Value of reportId:', reportId); // Debugging: Check the value
 
-    document.getElementById('postName').value = reportName; // Update to use value for input
+    document.getElementById('postName').text = reportName; // Update to use value for input
 
     // Directly encode reportId without checking its type
     document.getElementById('postId').value = btoa(reportId.toString()); // Update ID to postId
