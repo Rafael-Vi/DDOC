@@ -132,7 +132,7 @@ function deletePost($id, $dbConn) {
     } catch (Exception $e) {
         // Rollback transaction on error
         mysqli_rollback($dbConn);
-        error_log($e->getMessage()); // Log error or handle it as per your requirement
+        header('Location: index.php');// Log error or handle it as per your requirement
         return false;
     }
 }
@@ -199,7 +199,7 @@ function deleteUser($id) {
     } catch (Exception $e) {
         // Rollback transaction on error
         mysqli_rollback($dbConn);
-        error_log($e->getMessage()); // Log error or handle it as per your requirement
+        header("Location: index.php");// Log error or handle it as per your requirement
         return false;
     } finally {
         // Close the database connection
