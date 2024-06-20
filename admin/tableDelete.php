@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering at the beginning of the script
 require 'includes/header.inc.php';
 
 $redirectUrl = 'index.php'; // Default redirection if table is not set
@@ -68,6 +69,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
 
 header("Location: $redirectUrl");
 exit;
+ob_end_flush(); // End output buffering and flush output before redirecting
 
 function deletePost($id, $dbConn) {
     global $arrConfig;
@@ -129,11 +131,11 @@ function deletePost($id, $dbConn) {
     } catch (Exception $e) {
         // Rollback transaction on error
         mysqli_rollback($dbConn);
-        header('Location: index.php');// Log error or handle it as per your requirement
+        error_log($e->getMessage()); // Log error
+        $_SESSION['error'] = "An error occurred. Please try again."; // Set error message in session
         return false;
     }
 }
-
 
 function deleteUser($id) {
     $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
@@ -196,7 +198,8 @@ function deleteUser($id) {
     } catch (Exception $e) {
         // Rollback transaction on error
         mysqli_rollback($dbConn);
-        header("Location: index.php");// Log error or handle it as per your requirement
+        error_log($e->getMessage()); // Log error
+        $_SESSION['error'] = "An error occurred. Please try again."; // Set error message in session
         return false;
     } finally {
         // Close the database connection
@@ -220,7 +223,8 @@ function updateUserPostStatus($userId , $status) {
         $_SESSION['can_post'] = $status;
     } else {
         // Handle the update error
-        echo "Error updating user: " . mysqli_error($dbConn);
+        error_log("Error updating user: " . mysqli_error($dbConn)); // Log error
+        $_SESSION['error'] = "An error occurred updating user post status. Please try again."; // Set error message in session
     }
 
     // Close the database connection
