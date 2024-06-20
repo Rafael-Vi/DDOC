@@ -313,19 +313,16 @@ $imageHtml = '';
                 </a>
             </div>';
                 echo'
-                <!-- First row: Post audio -->
-                <div class="flex grow-0">
-                    <div class="flex flex-col justify-center items-center bg-base-200 h-full">
-                        <img src="'. $arrConfig['url_assets']. 'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
-                    </div>
-                    <div class="flex flex-col justify-center items-center bg-base-200 h-full">
-                        <audio controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
-                            <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg" class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
-                            O seu navegador não suporta a tag de áudio.
-                        </audio>
-                    </div>
+                <!-- Post audio with image on top -->
+                <div class="flex flex-col justify-center items-center bg-base-200 h-full">
+                    <img src="'. $arrConfig['url_assets']. 'images/audio.jpg" alt="Audio Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
+                    <audio controls class="rounded-sm w-full h-auto mt-4 object-contain">
+                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
                 </div>
                 ';
+            // Caption, like button, like count, and ranking
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
