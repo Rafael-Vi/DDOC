@@ -314,16 +314,12 @@ $imageHtml = '';
             </div>';
                 echo'
                 <!-- First row: Post audio -->
-                    <!-- Second row: User info and action button -->
-                    <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
-                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
-                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
-                    </div>
-                    </a>
-                    <!-- Action Button on the right -->
-                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
-                    </div>
+                <div class="flex grow-0">
+                    <audio controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
+                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg" class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
+                        O seu navegador não suporta a tag de áudio.
+                    </audio>
+                </div>
                 ';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
