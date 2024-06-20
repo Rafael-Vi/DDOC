@@ -1,80 +1,69 @@
 <?php
 require 'includes/header.inc.php';
 
-// check if table and id are set
+$redirectUrl = 'index.php'; // Default redirection if table is not set
+
+// Check if table and id are set and not empty
 if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET['id'])) {
     $table = $_GET['table'];
     $id = $_GET['id'];
+    $redirectUrl = "tableView.php?table=$table"; // Set redirection to the table view
 
     // Check if the table is allowed to be deleted from
     if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['deletable']) {
         $_SESSION['admin_error'] = "Exclusão de registros não permitida para esta tabela.";
-        header('Location: tableView.php?table=' . $table);
-        exit;
-    }
+    } else {
+        $db_conn = db_connect();
 
-    $db_conn = db_connect();
+        // Validate table name against allowed tables to prevent SQL injection
+        if (!array_key_exists($table, $tablePermissions)) {
+            $_SESSION['admin_error'] = "Tabela inválida.";
+        } else {
+            // Preliminary check to see if the data exists
+            $idColumnName = $table === 'posts' ? 'post_id' : "id_$table"; // Adjust ID column name based on table
+            $preliminaryResult = executeQuery($db_conn, "SELECT * FROM $table WHERE $idColumnName = ?", [$id]);
 
-    // Validate table name against allowed tables to prevent SQL injection
-    if (!array_key_exists($table, $tablePermissions)) {
-        header('Location: tableView.php?table=' . $table);
-        exit;
-    }
-    
-    // Preliminary check to see if the data exists
-    $idColumnName = $table === 'posts' ? 'post_id' : "id_$table"; // Adjust ID column name based on table
-    $preliminaryResult = executeQuery($db_conn, "SELECT * FROM $table WHERE $idColumnName = ?", [$id]);
-    
-    if ($preliminaryResult && $preliminaryResult->num_rows > 0) {
-        // Data exists, proceed with deletion logic
-        switch ($table) {
-            case 'users':
-                    deleteUser($id, $db_conn); // Pass $db_conn as an argument
-                    header('Location: tableView.php?table=' . $table);
-                    exit;
-                break;
-            case 'theme':
-                // Additional deletion logic for theme
-                $result2 = executeQuery($db_conn, "SELECT post_id FROM posts WHERE id_theme = ?", [$id]);
-                while ($row = mysqli_fetch_assoc($result2)) {
-                    deletePost($row['post_id'], $db_conn); // Pass $db_conn as an argument
+            if ($preliminaryResult && $preliminaryResult->num_rows > 0) {
+                // Data exists, proceed with deletion logic
+                $deleteSuccess = false; // Flag to track deletion success
+                switch ($table) {
+                    case 'users':
+                        $deleteSuccess = deleteUser($id, $db_conn); // Assume deleteUser returns boolean
+                        break;
+                    case 'theme':
+                        // Additional deletion logic for theme
+                        $result2 = executeQuery($db_conn, "SELECT post_id FROM posts WHERE id_theme = ?", [$id]);
+                        while ($row = mysqli_fetch_assoc($result2)) {
+                            deletePost($row['post_id'], $db_conn); // Assume deletePost handles its own success/failure internally
+                        }
+                        $deleteSuccess = true; // Assume success if we've reached this point
+                        break;
+                    case 'posts':
+                        $deleteSuccess = deletePost($id, $db_conn); // Assume deletePost returns boolean
+                        break;
+                    default:
+                        // Generic deletion for other tables
+                        $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
+                        $deleteSuccess = $result ? true : false;
+                        break;
                 }
-                header('Location: tableView.php?table=' . $table);
-                exit;
-                break;
-            case 'posts':
-                if (deletePost($id, $db_conn) === false) { // Pass $db_conn as an argument
-                    $_SESSION['admin_error'] = "Erro na exclusão do registro.";
-                    header('Location: tableView.php?table=' . $table);
-                    exit;
-                }
-                $_SESSION['admin_success'] = "Registro excluído com sucesso.";
-                header('Location: tableView.php?table=' . $table);
-                exit;
-                break;
-            // Add more tables as needed
-            default:
-                // Proceed with deletion if the table exists and deletion is permitted
-                $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
-                if ($result) {
+
+                // Set session message based on deletion success
+                if ($deleteSuccess) {
                     $_SESSION['admin_success'] = "Registro excluído com sucesso.";
                 } else {
                     $_SESSION['admin_error'] = "Erro na exclusão do registro.";
                 }
-                header('Location: tableView.php?table=' . $table);
-                exit;
-                break;
+            } else {
+                // Data not found
+                $_SESSION['admin_error'] = "Nenhum registro encontrado para exclusão.";
+            }
         }
-    } else {
-        // Data not found
-        $_SESSION['admin_error'] = "Nenhum registro encontrado para exclusão.";
-        header('Location: tableView.php?table=' . $table);
-        exit;
     }
-} else {
-    header('Location: tableView.php?table=' . $table);
-    exit;
 }
+
+header("Location: $redirectUrl");
+exit;
 
 function deletePost($id, $dbConn) {
     global $arrConfig;
