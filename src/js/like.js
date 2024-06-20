@@ -10,7 +10,7 @@ function likeCheck(postid) {
             if (this.responseText.trim() === 'like') {
                 likeButton.textContent = 'Gosto';
             } else if (this.responseText.trim() === 'liked') {
-                likeButton.textContent = 'Gostou';
+                likeButton.textContent = 'Gostado';
             }
         }
         getLikeCounts(postid);
