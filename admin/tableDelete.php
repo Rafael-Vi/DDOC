@@ -12,12 +12,16 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
     // Check if the table is allowed to be deleted from
     if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['deletable']) {
         $_SESSION['admin_error'] = "Exclusão de registros não permitida para esta tabela.";
+        header("Location: $redirectUrl");
+        exit;
     } else {
         $db_conn = db_connect();
 
         // Validate table name against allowed tables to prevent SQL injection
         if (!array_key_exists($table, $tablePermissions)) {
             $_SESSION['admin_error'] = "Tabela inválida.";
+            header("Location: $redirectUrl");
+            exit;
         } else {
             // Preliminary check to see if the data exists
             $idColumnName = $table === 'posts' ? 'post_id' : "id_$table"; // Adjust ID column name based on table
