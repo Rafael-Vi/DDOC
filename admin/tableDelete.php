@@ -9,7 +9,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
     // Check if the table is allowed to be deleted from
     if (!isset($tablePermissions[$table]) || !$tablePermissions[$table]['deletable']) {
         $_SESSION['admin_error'] = "Exclusão de registros não permitida para esta tabela.";
-        header('Location: index.php');
+        header('Location: tableView.php?table=' . $table);
         exit;
     }
 
@@ -17,7 +17,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
 
     // Validate table name against allowed tables to prevent SQL injection
     if (!array_key_exists($table, $tablePermissions)) {
-        header('Location: index.php');
+        header('Location: tableView.php?table=' . $table);
         exit;
     }
     
@@ -29,7 +29,9 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         // Data exists, proceed with deletion logic
         switch ($table) {
             case 'users':
-                    deleteUser($id); // Pass $db_conn as an argument
+                    deleteUser($id, $db_conn); // Pass $db_conn as an argument
+                    header('Location: tableView.php?table=' . $table);
+                    exit;
                 break;
             case 'theme':
                 // Additional deletion logic for theme
@@ -37,6 +39,8 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                 while ($row = mysqli_fetch_assoc($result2)) {
                     deletePost($row['post_id'], $db_conn); // Pass $db_conn as an argument
                 }
+                header('Location: tableView.php?table=' . $table);
+                exit;
                 break;
             case 'posts':
                 if (deletePost($id, $db_conn) === false) { // Pass $db_conn as an argument
@@ -45,22 +49,22 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                     exit;
                 }
                 $_SESSION['admin_success'] = "Registro excluído com sucesso.";
+                header('Location: tableView.php?table=' . $table);
+                exit;
                 break;
             // Add more tables as needed
             default:
                 // Proceed with deletion if the table exists and deletion is permitted
-                $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_$table = ?", [$id]);
+                $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
+                if ($result) {
+                    $_SESSION['admin_success'] = "Registro excluído com sucesso.";
+                } else {
+                    $_SESSION['admin_error'] = "Erro na exclusão do registro.";
+                }
+                header('Location: tableView.php?table=' . $table);
+                exit;
                 break;
         }
-        // Execute deletion query
-        $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
-        if ($result) {
-            $_SESSION['admin_success'] = "Registro excluído com sucesso.";
-        } else {
-            $_SESSION['admin_error'] = "Erro na exclusão do registro.";
-        }
-        header('Location: tableView.php?table=' . $table);
-        exit;
     } else {
         // Data not found
         $_SESSION['admin_error'] = "Nenhum registro encontrado para exclusão.";
@@ -68,7 +72,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
         exit;
     }
 } else {
-    header('Location: index.php');
+    header('Location: tableView.php?table=' . $table);
     exit;
 }
 
