@@ -315,7 +315,11 @@ $imageHtml = '';
                 echo'
                 <!-- First row: Post audio -->
                 <div class="flex grow-0">
+                
                     <audio controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
+                        <div class="flex flex-col justify-center items-center bg-base-200 h-full">
+                        <img src="'. $arrConfig['url_assets']. 'images/audio.jpg" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
+                        </div>
                         <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg" class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
                         O seu navegador não suporta a tag de áudio.
                     </audio>
