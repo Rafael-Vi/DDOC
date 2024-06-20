@@ -90,11 +90,12 @@ function cancelReport() {
 function saveReport() {
     var reportIdElement = document.getElementById('reportId');
     var reportId = atob(reportIdElement.value); // Decode the report ID
-    var reportReason = $('#post-reason').val().trim(); // Get the reason for the report and trim whitespace
+    var reportReasonRaw = $('#post-reason').val(); // Get the raw reason for the report without trimming
+    var reportReason = reportReasonRaw.trim(); // Trim whitespace for validation
     var reportType = $('#postType').val(); // Get the selected report type
 
-    // Check if the report reason is empty or if the report type is not selected
-    if (reportReason === "" || reportType === null) {
+    // Check if the trimmed report reason is empty or if the report type is not selected
+    if (reportReason === "" || reportType === "") {
         alert('Please fill in all required fields.');
         return; // Exit the function if any field is empty
     }
@@ -104,14 +105,14 @@ function saveReport() {
         return; // Exit the function if the user cancels
     }
 
-    // Proceed with AJAX request to submit the report
+    // Proceed with AJAX request to submit the report using the raw, untrimmed report reason
     $.ajax({
         type: 'POST',
         url: '../src/include/functions/SQLfunctions.inc.php',
         data: {
             function: 'saveReport', // Specify the function to call on the server
             reportId: reportId, // Pass the decoded report ID
-            reportReason: reportReason, // Pass the reason for the report
+            reportReason: reportReasonRaw, // Pass the raw, untrimmed reason for the report
             reportType: reportType // Pass the report type
         },
         success: function(response) {

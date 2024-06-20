@@ -1835,18 +1835,33 @@
         mysqli_close($dbConn);
     }
 
+
     function saveReport($reportId, $reportReason, $reportType) {
         global $arrConfig;
         $dbConn = db_connect();
     
+        // Check if any of the parameters are empty or null
+        if (empty($reportId) || $reportId === "" || $reportId === null) {
+            $_SESSION['error'] = 'Report ID cannot be empty';
+            return false;
+        }
+        if (empty($reportReason) || $reportReason === "" || $reportReason === null) {
+            $_SESSION['error'] = 'Report reason cannot be empty';
+            return false;
+        }
+        if (empty($reportType) || $reportType === "" || $reportType === null) {
+            $_SESSION['error'] = 'Report type cannot be empty';
+            return false;
+        }
+    
         // Prepare the SQL statement to insert the new report
         $insertSql = "INSERT INTO report (why, R_type, sender, post_id) VALUES (?, ?, ?, ?)";
         // Assuming sender_id and post_id need to be dynamically provided, add placeholders for these parameters
-        $senderId = 0; // Placeholder value, replace with actual sender ID
-        $postId = 0; // Placeholder value, replace with actual post ID
+        $senderId = $_SESSION['uid']; // Assuming the sender's ID is stored in the session
+        $postId = $reportId; // Use the provided report ID as the post ID
     
         // Use the executeQuery function to execute the prepared statement
-        $result = executeQuery($dbConn, $insertSql, [$reportReason, $reportType, $_SESSION['uid'], $reportId]);
+        $result = executeQuery($dbConn, $insertSql, [$reportReason, $reportType, $senderId, $postId]);
     
         if ($result) {
             $_SESSION['success'] = 'Report saved successfully';
@@ -1858,7 +1873,7 @@
             mySQLerror($error);
             return false;
         }
-    }  
+    }
 function getHome(){
         global $arrConfig;
         
