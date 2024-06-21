@@ -1,7 +1,38 @@
-var themeSelect = document.getElementById('themeSelect');
-var typeSelect = document.getElementById('typeSelect');
-var selectedTheme = 'none';
-var selectedType = 'none';
+// Step 1: Extract Filters from URL
+function extractFiltersFromUrl() {
+    const pathSegments = window.location.pathname.split('/').filter(Boolean); // Split and remove any empty strings
+    const currentPage = pathSegments.includes('ranking-posts') ? 'ranking-posts' : 'ranking-contas';
+    let theme = 'none';
+    let type = 'none';
+
+    if (currentPage === 'ranking-posts' && pathSegments.length >= 3) {
+        // Assuming the URL structure is /ranking-posts/theme/type or /ranking-posts/theme/
+        theme = pathSegments[1] || 'none';
+        type = pathSegments[2] || 'none';
+    } else if (currentPage === 'ranking-contas' && pathSegments.length >= 2) {
+        // Assuming the URL structure is /ranking-contas/type
+        type = pathSegments[1] || 'none';
+    }
+
+    return { theme, type };
+}
+
+// Step 2: Update Variables Based on URL
+const { theme, type } = extractFiltersFromUrl();
+selectedTheme = theme;
+selectedType = type;
+
+// Step 3: Set Dropdown Values to Reflect URL Filters
+window.addEventListener('DOMContentLoaded', (event) => {
+    if (themeSelect && selectedTheme !== 'none') {
+        themeSelect.value = selectedTheme;
+    }
+    if (typeSelect && selectedType !== 'none') {
+        typeSelect.value = selectedType;
+    }
+});
+
+// Existing code for handling changes in the dropdowns remains the same
 
 function updateUrl() {
     console.log("Attempting to update URL with:", selectedTheme, selectedType); // Debugging
