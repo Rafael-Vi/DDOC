@@ -404,7 +404,7 @@ $imageHtml = '';
         global $arrConfig;
         $profilePicUrl = empty($profilePic) ? $arrConfig['url_assets']."images/Unknown_person.jpg" : $arrConfig['url_users'].$profilePic;
     
-        echo '<a href="mensagens?convo_id='.$personId.'" class="text-orange-500 mb-8 transform hover:scale-110 transition-all duration-200 w-80">';
+        echo '<a href="../mensagens/'.$personId.'" class="text-orange-500 mb-8 transform hover:scale-110 transition-all duration-200 w-80">';
         echo '<div class="flex justify-between items-center text-white bg-gray-800 p-2 rounded-lg m-2 transform hover:scale-105 transition-transform duration-200 relative">';
         echo '<div class="flex items-center">';
         echo '<img src="'.$profilePicUrl.'" class="w-12 h-12 rounded-full mr-4">'; // Circle for the profile picture

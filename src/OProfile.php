@@ -77,7 +77,7 @@ $userInfo = getUserNotCurrent($_GET['userid']);
           unset($userInfo);
           echo '
           <div class="flex justify-center">
-            <a href="../src/messages.php?convo_id=' . $_GET['userid'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">
+            <a href="../mensagens/' . $_GET['userid'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">
             Message
             </a>
             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4" id="follow-button" onclick="followCheck()">
