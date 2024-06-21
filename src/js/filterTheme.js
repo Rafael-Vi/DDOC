@@ -4,23 +4,27 @@ var selectedTheme = '';
 var selectedType = '';
 
 function updateUrl() {
-    if (selectedTheme && selectedType) { // Ensure both selections are made
+    console.log("Attempting to update URL with:", selectedTheme, selectedType); // Debugging
+    if (selectedTheme && selectedType) {
         var baseUrl = window.location.origin + '/ranking-contas/';
-        window.location.href = baseUrl + selectedTheme + '/' + selectedType;
-        console.log("URL Updated");
+        var newUrl = baseUrl + selectedTheme + '/' + selectedType;
+        console.log("URL Updated to:", newUrl); // Debugging
+        window.location.href = newUrl;
     }
 }
 
 if (themeSelect) {
     themeSelect.addEventListener('change', function() {
         selectedTheme = this.value;
-        updateUrl(); // Update URL when theme changes
+        console.log("Theme selected:", selectedTheme); // Debugging
+        updateUrl();
     });
 }
 
 if (typeSelect) {
     typeSelect.addEventListener('change', function() {
         selectedType = this.value;
-        updateUrl(); // Update URL when type changes
+        console.log("Type selected:", selectedType); // Debugging
+        updateUrl();
     });
 }
