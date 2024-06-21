@@ -67,7 +67,7 @@ $GLOBALS['type'] = $type;
       z-index: 49; /* Ensure it's above other content */
     }
   </style>
-  <title>Rankings Posts</title>
+  <title>Ranking de Posts</title>
   <style>
     #podium-container * {
       z-index: 1;
