@@ -13,6 +13,13 @@
     if(isset($_SESSION['uid'])){
         getCanPostStatus($_SESSION['uid']);
     }
+    
+    if(basename($_SERVER['PHP_SELF'] !== 'OProfile.php'))
+    {
+        $userInfo = getUserInfo($_SESSION['uid']);
+    }else{
+        $userInfo = getUserNotCurrent($_GET['userid']);
+    }
 
     if(basename($_SERVER['PHP_SELF']) !== 'messages.php'){
         unset($_SESSION['sender']);

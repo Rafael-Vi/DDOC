@@ -398,6 +398,8 @@
         
             mysqli_close($dbConn);
         }
+        
+        
         function getUserInfo($uid){
             global $arrConfig;
         
@@ -459,8 +461,12 @@
                     'rank' => $_SESSION['rank']
                 );
             } else {
-                // Handle the query error
-                header("../src/errorPages/NoUserFound.php");
+                // If user doesn't exist, clear and destroy the session
+                session_unset(); // Remove all session variables
+                session_destroy(); // Destroy the session
+        
+                // Redirect to the error page
+                header("Location:../src/errorPages/NoUserFound.php");
                 exit;
             }
         

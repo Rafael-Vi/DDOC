@@ -8,7 +8,7 @@ if (checkThemeIsFinished()) {
 }
 
 require "include/functions/Development.inc.php";
-$userInfo = getUserInfo($_SESSION['uid']);
+
 ?>
 
 

@@ -9,7 +9,6 @@ if (checkThemeIsFinished()) {
 
 require "include/functions/Development.inc.php";
 
-$userInfo = getUserNotCurrent($_GET['userid']);
 
 ?>
 
