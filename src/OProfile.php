@@ -83,7 +83,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
             <a href="../mensagens/' . $_GET['userid'] . '" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-4">
             Mensagem
             </a>
-            <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded m-4" id="follow-button" onclick="followCheck()">
+            <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded m-4 w-12" id="follow-button" onclick="followCheck()">
             Seguir
             </button>
           </div>
