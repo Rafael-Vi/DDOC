@@ -43,8 +43,10 @@ function getFollowCounts(userid) {
 
 function checkPage() {
     var userid = "";
-    if (window.location.pathname.endsWith('OProfile.php')) {
-        userid = new URLSearchParams(window.location.search).get('userid');
+    var pathSegments = window.location.pathname.split('/');
+    // Assuming the user ID is always the last segment of the URL
+    if (window.location.pathname.includes('/perfil-de-outro/')) {
+        userid = pathSegments[pathSegments.length - 1];
     }
     getFollowCounts(userid);
 }
