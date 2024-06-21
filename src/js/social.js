@@ -8,7 +8,7 @@ $(document).ready(function() {
   function searchStuff() {
       const value = $('#search-input').val();
       if (value.length != 0) {
-          $.post('../src/include/functions/SQLfunctions.inc.php', {
+          $.post('/src/include/functions/SQLfunctions.inc.php', {
               function: 'getSearchStuff',
               value: value
           }, function(data) {
@@ -55,7 +55,7 @@ $(document).ready(function() {
   $('#search-input').on('input', searchStuff);
 
   function loadNotificationsNavBar() {
-      $.post('../src/include/functions/SQLfunctions.inc.php', {
+      $.post('/src/include/functions/SQLfunctions.inc.php', {
           function: 'loadNotificationsNavBar'
       }, function(data) {
           if (data !== lastDataNotif) {
