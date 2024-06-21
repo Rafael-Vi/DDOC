@@ -1,7 +1,7 @@
 var themeSelect = document.getElementById('themeSelect');
 var typeSelect = document.getElementById('typeSelect');
-var selectedTheme = '';
-var selectedType = '';
+var selectedTheme = 'none';
+var selectedType = 'none';
 
 function updateUrl() {
     console.log("Attempting to update URL with:", selectedTheme, selectedType); // Debugging
