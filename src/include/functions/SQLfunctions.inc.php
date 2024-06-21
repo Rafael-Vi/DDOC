@@ -1016,7 +1016,7 @@
             } else {
                 echo'<div class="flex flex-col  items-center justify-center h-full">
                 <h2 class="text-3xl font-bold bg-gray-800 rounded-lg p-8 text-white">
-                No notifications found.
+                Sem notificações.
                 </h2>
                 </div>';
             }
