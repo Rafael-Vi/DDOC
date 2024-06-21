@@ -184,7 +184,7 @@ $GLOBALS['type'] = $type;
   <script>
     function redirectToPerson(element) {
         var profileId = element.getAttribute("data-id");
-        window.location.href = "OProfile.php?userid=" + profileId;
+        window.location.href = "perfil-de-outro?userid=" + profileId;
     }
 
     $(document).ready(function() {

@@ -217,13 +217,13 @@ $GLOBALS['type'] = $type;
           <script>
             function redirectToPost(element) {
                 var postId = element.getAttribute("data-id");
-                window.location.href = "posts.php?id=" + postId;
+                window.location.href = "post?id=" + postId;
             }
             </script>
               <script>
             function redirectToPerson(element) {
                 var profileId = element.getAttribute("data-id");
-                window.location.href = "OProfile.php?userid=" + profileId;
+                window.location.href = "perfil-de-outro?userid=" + profileId;
             }
 
             $(document).ready(function() {
