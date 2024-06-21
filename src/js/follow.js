@@ -5,7 +5,7 @@ function followCheck() {
     var xhr = new XMLHttpRequest();
     var urlParams = new URLSearchParams(window.location.search);
     var userid = urlParams.get('userid'); // get the userid from the URL
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) 
@@ -31,7 +31,7 @@ function followCheckLoad() {
     var xhr = new XMLHttpRequest();
     var urlParams = new URLSearchParams(window.location.search);
     var userid = urlParams.get('userid'); // get the userid from the URL
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) {
@@ -54,7 +54,7 @@ function getFollowCounts(userid) {
     console.log('Getting follow counts');
     var xhr = new XMLHttpRequest();
     var urlParams = new URLSearchParams(window.location.search);
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         console.log('entered');

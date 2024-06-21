@@ -3,7 +3,7 @@
 function likeCheck(postid) {
     console.log('Like button clicked');
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) {
@@ -23,7 +23,7 @@ function likeCheck(postid) {
 function likeCheckOnLoad(postid) {
     console.log('Page loaded');
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) {
@@ -42,7 +42,7 @@ function likeCheckOnLoad(postid) {
 function getLikeCounts(postid) {
     console.log('Getting like counts');
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
+    xhr.open('POST', '../src/include/functions/SQLfunctions.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) {
@@ -92,7 +92,7 @@ function saveReport() {
 
     $.ajax({
         type: 'POST',
-        url: '/src/include/functions/SQLfunctions.inc.php',
+        url: '../src/include/functions/SQLfunctions.inc.php',
         data: {
             function: 'saveReport',
             reportId: reportId,
