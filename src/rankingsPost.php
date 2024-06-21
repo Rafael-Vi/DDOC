@@ -26,7 +26,7 @@ $themeId = checkThemeVar();
 
 // If the return value is -1, redirect and exit
 if ($themeId == -1) {
-  header("Location: ../src/errorPages/noThemeError.php");
+  header("Location: /src/errorPages/noThemeError.php");
   exit;
 }
 
@@ -57,7 +57,7 @@ $GLOBALS['type'] = $type;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../src/css/social.css">
+  <link rel="stylesheet" href="/src/css/social.css">
   <link rel="shortcut icon" href="./assets/images/2.png">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />

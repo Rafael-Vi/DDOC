@@ -20,7 +20,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../src/css/social.css">
+  <link rel="stylesheet" href="/src/css/social.css">
   <link rel="shortcut icon" href="./assets/images/2.png" >
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
@@ -76,7 +76,7 @@
   global $arrConfig;
   if ($_SESSION['can_post'] == 0 || $_SESSION['can_post'] == "0") {
   ?>
-<form action="../src/include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20 overflow-auto" method="Post" enctype="multipart/form-data" style="padding-left: 20%; padding-right: 20%;">
+<form action="/src/include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20 overflow-auto" method="Post" enctype="multipart/form-data" style="padding-left: 20%; padding-right: 20%;">
 
 <div class="flex justify-center w-full sm:w-3/4">
   <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-1/2 mx-auto object-contain max-w-[40vh]" id="profile-picture">
@@ -116,7 +116,7 @@
 <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>
-  <script src="../src/js/timer.js"></script>
+  <script src="/src/js/timer.js"></script>
   <script>
   document.getElementById('file-input').addEventListener('change', function(e) {
   var file = e.target.files[0];
@@ -155,8 +155,8 @@
   reader.readAsDataURL(file);
   });
 </script>
-  <script src="../src/js/social.js"></script>
-  <script src="../src/js/createPost.js"></script>
+  <script src="/src/js/social.js"></script>
+  <script src="/src/js/createPost.js"></script>
   
 </body>
 </html>

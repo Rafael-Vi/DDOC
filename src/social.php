@@ -19,7 +19,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../src/css/social.css">
+  <link rel="stylesheet" href="/src/css/social.css">
   <link rel="shortcut icon" href="./assets/images/2.png">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
@@ -108,9 +108,9 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
   <script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>
-  <script src="../src/js/timer.js"></script>
-  <script src="../src/js/social.js"></script>
-  <script src="../src/js/like.js"></script>
+  <script src="/src/js/timer.js"></script>
+  <script src="/src/js/social.js"></script>
+  <script src="/src/js/like.js"></script>
 </body>
 
 </html>
