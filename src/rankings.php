@@ -161,7 +161,7 @@ $GLOBALS['type'] = $type;
                 Rank
               </th>
               <th class="ubuntu-bold w-2/6 hover">Likes</th>
-              <th class="ubuntu-bold w-2/6 hover">Account</th>
+              <th class="ubuntu-bold w-2/6 hover">Conta</th>
             </tr>
           </thead>
           <tbody class="overflow-auto h-32">
