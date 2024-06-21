@@ -17,7 +17,10 @@
     if(basename($_SERVER['PHP_SELF'] !== 'OProfile.php'))
     {
         $userInfo = getUserInfo($_SESSION['uid']);
-    }else{
+    }elseif(basename($_SERVER['PHP_SELF'] === 'accountLC.php')){
+
+    }
+    else{
         $userInfo = getUserNotCurrent($_GET['userid']);
     }
 
