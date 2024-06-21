@@ -2,17 +2,25 @@
 //*------------------------------------------------------------------
 function followCheck() {
     console.log('Follow button clicked');
-    var userid = new URLSearchParams(window.location.search).get('userid');
+    // Assuming the user ID is now part of the URL path, similar to checkPage
+    var userid = "";
+    var pathSegments = window.location.pathname.split('/');
+    if (window.location.pathname.includes('/perfil-de-outro/')) {
+        userid = pathSegments[pathSegments.length - 1];
+    }
+    console.log('UserID:', userid); // Debugging: Log the UserID
+
     $.post('/src/include/functions/SQLfunctions.inc.php', { function: 'followCheck', userid: userid }, function(response) {
-        checkPage();
-        console.log('Response from server:', response);
+        console.log('Response from server:', response); // Debugging: Log the response
         var trimmedResponse = $.trim(response);
         var followButton = $('#follow-button');
         if (trimmedResponse === 'follow') {
-            followButton.text('Follow');
+            followButton.text('Seguir');
         } else if (trimmedResponse === 'following') {
-            followButton.text('Following');
+            followButton.text('A seguir');
         }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Error in followCheck:', textStatus, errorThrown); // Error handling
     });
 }
 
@@ -23,9 +31,9 @@ function followCheckLoad() {
         var trimmedResponse = $.trim(response);
         var followButton = $('#follow-button');
         if (trimmedResponse === 'follow') {
-            followButton.text('Follow');
+            followButton.text('Seguir');
         } else if (trimmedResponse === 'following') {
-            followButton.text('Following');
+            followButton.text('A seguir');
         }
         checkPage();
     });
