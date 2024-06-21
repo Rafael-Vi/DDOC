@@ -5,10 +5,20 @@ var selectedType = '';
 
 function updateUrl() {
     console.log("Attempting to update URL with:", selectedTheme, selectedType); // Debugging
-    var baseUrl = window.location.origin + '/ranking-contas/';
+    // Determine the base URL based on the current page context
+    var currentPage = window.location.pathname.includes('ranking-posts') ? 'ranking-posts' : 'ranking-contas';
+    var baseUrl = window.location.origin + '/' + currentPage + '/';
     var newUrl = baseUrl;
-    if (selectedTheme) newUrl += selectedTheme + '/';
-    if (selectedType) newUrl += selectedType;
+    
+    // For 'ranking-posts', append theme and type to the URL
+    if (currentPage === 'ranking-posts') {
+        if (selectedTheme) newUrl += selectedTheme + '/';
+        if (selectedType) newUrl += selectedType;
+    } else if (currentPage === 'ranking-contas') {
+        // For 'ranking-contas', only type is relevant
+        if (selectedType) newUrl += selectedType;
+    }
+    
     console.log("URL Updated to:", newUrl); // Debugging
     window.location.href = newUrl;
 }
