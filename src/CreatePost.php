@@ -70,7 +70,7 @@
   global $arrConfig;
   if ($_SESSION['can_post'] == 0 || $_SESSION['can_post'] == "0") {
   ?>
-<form action="../include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20 overflow-auto" method="Post" enctype="multipart/form-data" style="padding-left: 20%; padding-right: 20%;">
+<form action="../src/include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20 overflow-auto" method="Post" enctype="multipart/form-data" style="padding-left: 20%; padding-right: 20%;">
 
 <div class="flex justify-center w-full sm:w-3/4">
   <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-1/2 mx-auto object-contain max-w-[40vh]" id="profile-picture">
