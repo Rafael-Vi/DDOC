@@ -40,12 +40,19 @@ function followCheckLoad() {
 }
 
 function getFollowCounts(userid) {
-    console.log('Getting follow counts');
+    console.log('Getting follow counts for UserID:', userid);
     $.post('/src/include/functions/SQLfunctions.inc.php', { function: 'getFollowCounts', userid: userid }, function(response) {
         console.log('Response from server:', response);
-        var data = JSON.parse(response);
-        $('#followers-count').text('Seguidores: ' + data.followers);
-        $('#following-count').text('A seguir: ' + data.following);
+        try {
+            var data = JSON.parse(response);
+            console.log('Parsed Data:', data); // Additional logging
+            $('#followers-count').text('Seguidores: ' + data.followers);
+            $('#following-count').text('A seguir: ' + data.following);
+        } catch (e) {
+            console.error('Error parsing JSON:', e);
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX Error in getFollowCounts:', textStatus, errorThrown);
     });
 }
 
