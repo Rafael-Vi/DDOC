@@ -166,7 +166,7 @@ $GLOBALS['type'] = $type;
           </thead>
           <tbody class="overflow-auto h-32">
             <?php
-            RankingAcc();
+              RankingAcc($GLOBALS['type']);
             ?>
           </tbody>
         </table>

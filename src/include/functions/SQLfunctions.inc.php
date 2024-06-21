@@ -1230,32 +1230,33 @@
         if ($dbConn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
-        // Define the SQL query
-        $sql = "SELECT * FROM accountrankings";
-
-        // Prepare the SQL statement
-        $stmt = mysqli_prepare($dbConn, $sql);
-
-        // Execute the query
-        if (mysqli_stmt_execute($stmt) === false) {
-            die("ERROR: Could not execute query: $sql. " . mysqli_error($dbConn));
+    
+        if($type != 'none' && $type != null){
+            $sql = "SELECT * FROM accountrankingstype WHERE PostType = ?";
+            $params = [$type];
+            $result = executeQuery($dbConn, $sql, $params);
         }
-
-        // Get the result set
-        $result = mysqli_stmt_get_result($stmt);
-
-        // Fetch all rows as an associative array
-        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-        // Close the statement and the connection
-        mysqli_stmt_close($stmt);
+        else{
+            $sql = "SELECT * FROM accountrankings";
+            $result = executeQuery($dbConn, $sql);
+        }
+    
+        if ($result === false) {
+            die("ERROR: Could not execute query. " . mysqli_error($dbConn));
+        }
+    
+        if ($result !== true) {
+            // Fetch all rows as an associative array if result is not true (indicating a SELECT query was executed)
+            $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+            // Echo the posts
+            foreach($rows as $row) {
+                echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'], $row['UserImage'], $row['id_users']);
+            }
+        }
+    
+        // Close the connection
         mysqli_close($dbConn);
-
-        // Echo the posts
-        foreach($rows as $row) {
-            echoRankAcc($row['UserRank'], $row['TotalLikes'], $row['UserName'] , $row['UserImage'], $row['id_users']);
-        }
     }
 
     function getPodium($rank, $table, $themeId = null, $type = null) {

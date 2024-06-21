@@ -125,7 +125,7 @@ $userInfo = getUserInfo($_SESSION['uid']);
           <label class="label">
             <span id="caption" class="label-text">Caption</span>
           </label>
-          <textarea id="postContent" class="textarea textarea-bordered w-full text-gray-900" placeholder="Type your post content here..."></textarea>
+          <textarea id="postContent" class="textarea textarea-bordered w-full" placeholder="Type your post content here..."></textarea>
         </div>
         <div class="form-control mt-4 flex flex-row">
           <button class="btn flex-initial" onclick="save()">Save Alterations</button>
