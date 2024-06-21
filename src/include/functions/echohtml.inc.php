@@ -42,7 +42,7 @@
         global $arrConfig;
     
         echo '<div class="post-container border-2 border-white" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
-        echo '<a class="post-image" href="../src/posts.php?id=' . urlencode($post['post_id']) .'">';
+        echo '<a class="post-image" href="../post/' . urlencode($post['post_id']) .'">';
     
         if ($post['post_type'] == 'video') {
             echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
