@@ -10,6 +10,12 @@ if (checkThemeIsFinished()) {
 
 require "include/functions/checkFilterVars.inc.php";
 
+if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
+  $userInfo = getUserInfo($_SESSION['uid']);
+} elseif (basename($_SERVER['PHP_SELF']) === 'OProfile.php') {
+  $userInfo = getUserNotCurrent($_GET['userid']);
+}
+
 // Start the session if it's not already started
 if (session_status() == PHP_SESSION_NONE) {
   session_start();

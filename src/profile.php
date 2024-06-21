@@ -9,6 +9,11 @@ if (checkThemeIsFinished()) {
 
 require "include/functions/Development.inc.php";
 
+if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
+  $userInfo = getUserInfo($_SESSION['uid']);
+} elseif (basename($_SERVER['PHP_SELF']) === 'OProfile.php') {
+  $userInfo = getUserNotCurrent($_GET['userid']);
+}
 ?>
 
 
