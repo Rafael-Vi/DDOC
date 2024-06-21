@@ -30,7 +30,7 @@ function checkThemeVar() {
 
         // If the theme does not exist in the database, redirect to themeNotExist.php
         if (mysqli_num_rows($result) == 0) {
-            header("Location: /src/errorPages/noThemeError.php");
+            header("Location: ../src/errorPages/noThemeError.php");
             exit;
         }
 
@@ -51,7 +51,7 @@ function checkTypeVar() {
 
         // If the type is not valid, redirect to typeNotExist.php
         if (!in_array($type, $validTypes)) {
-            header("Location: /src/errorPages/noTypeError.php");
+            header("Location: ../src/errorPages/noTypeError.php");
             exit;
         }
 

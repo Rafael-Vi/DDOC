@@ -10,9 +10,9 @@ include "include/config.inc.php";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/src/assets/images/2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../src/assets/images/2.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/css/accountLC.css">
+    <link rel="stylesheet" href="../src/css/accountLC.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
      <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
   <style>
@@ -77,6 +77,6 @@ if(isset($_SESSION['error'])) {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../dist/bundle.js"></script>
-<script src="/src/js/social.js"></script>
+<script src="../src/js/social.js"></script>
 </body>
 </html>
