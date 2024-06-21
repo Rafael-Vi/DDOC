@@ -27,7 +27,7 @@ include "include/config.inc.php";
       z-index: 49; /* Ensure it's above other content */
     }
   </style>
-    <title>Login & Register</title>
+    <title>Login & Registo</title>
 </head>
 <body class="bg-gray-900">
 
