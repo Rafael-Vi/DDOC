@@ -77,7 +77,7 @@
                         <a href="../social">
                         <li class="px-5">
                             <div class="flex flex-row items-center  h-32 text-white w-32">
-                            <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
+                            <img src="/src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
                         </li>
                         </a>
                         <li class="px-4 py-2">
