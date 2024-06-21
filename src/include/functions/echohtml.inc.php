@@ -131,7 +131,7 @@
                             </a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./social.php" id="home-link" style="color: black"><i class="mr-2 fi fi-sr-home"></i> Home</a>
+                            <a href="../social" id="home-link" style="color: black"><i class="mr-2 fi fi-sr-home"></i> Home</a>
                         </li>
                         <li class="px-4 py-2">
                             <a href="../ranking-contas" id="Accrankings-link" style="color: black"><i class="mr-2 fi fi-sr-users-alt"></i> Ranks de Contas</a>
@@ -214,7 +214,7 @@ $imageHtml = '';
         echo'
         <div class="btm-nav sm:hidden bg-white shadow-md flex items-center z-40 justify-between absolute bottom-0 w-full shadow-top">
             <div class="flex-1 text-md font-medium text-gray-800 hover:text-gray-700 bg-white rounded-full p-2 mr-1 flex items-center justify-center">
-                <a href="./social.php" class="flex flex-col items-center justify-center">
+                <a href="../social" class="flex flex-col items-center justify-center">
                     <i class="fi fi-sr-home"></i>
                     <span class="btm-nav-label">Home</span>
                 </a>
@@ -269,7 +269,7 @@ $imageHtml = '';
                 echo'
                     <!-- Second row: User info and action button -->
                     <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <a class="hover:scale-105" href="../perfil-de-outro?userid='.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
@@ -305,7 +305,7 @@ $imageHtml = '';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-start py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'">
+                <a class="hover:scale-105" href="../perfil-de-outro?userid='.$creator['id'].'">
                     <div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
                     <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
@@ -343,7 +343,7 @@ $imageHtml = '';
                 echo'
                     <!-- Second row: User info and action button -->
                     <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                    <a class="hover:scale-105" href="./OProfile.php?userid='.$creator['id'].'"><div class="flex items-center">
+                    <a class="hover:scale-105" href="../perfil-de-outro?userid='.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
