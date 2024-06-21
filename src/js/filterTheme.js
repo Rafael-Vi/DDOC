@@ -1,17 +1,26 @@
 var themeSelect = document.getElementById('themeSelect');
+var typeSelect = document.getElementById('typeSelect');
+var selectedTheme = '';
+var selectedType = '';
+
+function updateUrl() {
+    if (selectedTheme && selectedType) { // Ensure both selections are made
+        var baseUrl = window.location.origin + '/ranking-contas/';
+        window.location.href = baseUrl + selectedTheme + '/' + selectedType;
+        console.log("URL Updated");
+    }
+}
+
 if (themeSelect) {
     themeSelect.addEventListener('change', function() {
-        var baseUrl = window.location.origin + '/ranking-contas/theme/';
-        window.location.href = baseUrl + this.value;
-        console.log("Theme changed");
+        selectedTheme = this.value;
+        updateUrl(); // Update URL when theme changes
     });
 }
 
-var typeSelect = document.getElementById('typeSelect');
 if (typeSelect) {
     typeSelect.addEventListener('change', function() {
-        var baseUrl = window.location.origin + '/ranking-contas/type/';
-        window.location.href = baseUrl + this.value;
-        console.log("Type changed");
+        selectedType = this.value;
+        updateUrl(); // Update URL when type changes
     });
 }
