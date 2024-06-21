@@ -43,7 +43,7 @@ $(document).ready(function() {
     $('#logout-button').click(function(e) {
         e.preventDefault(); // Prevent the default anchor behavior
         if (confirm('Are you sure you want to log out?')) {
-            window.location.href = '../src/include/functions/logout.inc.php';
+            window.location.href = '/src/include/functions/logout.inc.php';
         }
     });
 });
