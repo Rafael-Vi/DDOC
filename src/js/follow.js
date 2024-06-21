@@ -1,85 +1,55 @@
 //*DONE
 //*------------------------------------------------------------------
 function followCheck() {
-    console.log('Follow button clasdasdicked');
-    var xhr = new XMLHttpRequest();
-    var urlParams = new URLSearchParams(window.location.search);
-    var userid = urlParams.get('userid'); // get the userid from the URL
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (this.status == 200) 
-        {
-            checkPage();
-            console.log('Response from server:', this.responseText);
-            console.log('Trimmed response:', this.responseText.trim());
-            // Change the text of the follow button based on the response
-            var followButton = document.getElementById('follow-button');
-            if (this.responseText.trim() === 'follow') {
-                followButton.textContent = 'Follow';
-            } else if (this.responseText.trim() === 'following') {
-                followButton.textContent = 'Following';
-            }
-
+    console.log('Follow button clicked');
+    var userid = new URLSearchParams(window.location.search).get('userid');
+    $.post('/src/include/functions/SQLfunctions.inc.php', { function: 'followCheck', userid: userid }, function(response) {
+        checkPage();
+        console.log('Response from server:', response);
+        var trimmedResponse = $.trim(response);
+        var followButton = $('#follow-button');
+        if (trimmedResponse === 'follow') {
+            followButton.text('Follow');
+        } else if (trimmedResponse === 'following') {
+            followButton.text('Following');
         }
-    };
-    xhr.send('function=followCheck&userid=' + encodeURIComponent(userid));
-};
+    });
+}
 
 function followCheckLoad() {
-    console.log('Follow button clicked');
-    var xhr = new XMLHttpRequest();
-    var urlParams = new URLSearchParams(window.location.search);
-    var userid = urlParams.get('userid'); // get the userid from the URL
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (this.status == 200) {
-            console.log('Response from server:', this.responseText);
-            console.log('Trimmed response:', this.responseText.trim());
-            // Change the text of the follow button based on the response
-            var followButton = document.getElementById('follow-button');
-            if (this.responseText.trim() === 'follow') {
-                followButton.textContent = 'Follow';
-            } else if (this.responseText.trim() === 'following') {
-                followButton.textContent = 'Following';
-            }
-            checkPage();
+    var userid = new URLSearchParams(window.location.search).get('userid');
+    $.post('/src/include/functions/SQLfunctions.inc.php', { function: 'followCheckLoad', userid: userid }, function(response) {
+        console.log('Response from server:', response);
+        var trimmedResponse = $.trim(response);
+        var followButton = $('#follow-button');
+        if (trimmedResponse === 'follow') {
+            followButton.text('Follow');
+        } else if (trimmedResponse === 'following') {
+            followButton.text('Following');
         }
-    };
-    xhr.send('function=followCheckLoad&userid=' + encodeURIComponent(userid));
-};
+        checkPage();
+    });
+}
 
 function getFollowCounts(userid) {
     console.log('Getting follow counts');
-    var xhr = new XMLHttpRequest();
-    var urlParams = new URLSearchParams(window.location.search);
-    xhr.open('POST', '/src/include/functions/SQLfunctions.inc.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        console.log('entered');
-        if (this.status == 200) {
-            console.log('Response from server:', this.responseText);
-            // Parse the response
-            var response = JSON.parse(this.responseText);
-            // Update the followers and following counts on the page
-            document.getElementById('followers-count').textContent = 'Seguidores: ' + response.followers;
-            document.getElementById('following-count').textContent = 'A seguir: ' + response.following;
-        }
-    };
-    xhr.send('function=getFollowCounts&userid=' + encodeURIComponent(userid));
-};
+    $.post('/src/include/functions/SQLfunctions.inc.php', { function: 'getFollowCounts', userid: userid }, function(response) {
+        console.log('Response from server:', response);
+        var data = JSON.parse(response);
+        $('#followers-count').text('Seguidores: ' + data.followers);
+        $('#following-count').text('A seguir: ' + data.following);
+    });
+}
 
-function checkPage(){
-    var urlParams = new URLSearchParams(window.location.search);
+function checkPage() {
     var userid = "";
     if (window.location.pathname.endsWith('OProfile.php')) {
-        userid = urlParams.get('userid'); // get the userid from the URL
-    } 
+        userid = new URLSearchParams(window.location.search).get('userid');
+    }
     getFollowCounts(userid);
 }
 
-window.addEventListener('load', function() {
+$(document).ready(function() {
     checkPage();
     followCheckLoad();
 });
