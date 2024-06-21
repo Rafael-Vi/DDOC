@@ -269,7 +269,7 @@ $imageHtml = '';
                 echo'
                     <!-- Second row: User info and action button -->
                     <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                    <a class="hover:scale-105" href="../perfil-de-outro?userid='.$creator['id'].'"><div class="flex items-center">
+                    <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
@@ -305,7 +305,7 @@ $imageHtml = '';
                 echo'
                 <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-start py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="../perfil-de-outro?userid='.$creator['id'].'">
+                <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'">
                     <div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
                     <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
@@ -343,7 +343,7 @@ $imageHtml = '';
                 echo'
                     <!-- Second row: User info and action button -->
                     <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                    <a class="hover:scale-105" href="../perfil-de-outro?userid='.$creator['id'].'"><div class="flex items-center">
+                    <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'"><div class="flex items-center">
                     <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
@@ -392,7 +392,7 @@ $imageHtml = '';
     }
 
     function echoSearchResults($userId, $username, $profilePic){
-        echo '<a href="OProfile.php?userid=' . $userId. '" class="w-3/4 md:w-full text-orange-500 hover:text-orange-800 transition-all duration-200">';
+        echo '<a href="perfil-de-outro/' . $userId. '" class="w-3/4 md:w-full text-orange-500 hover:text-orange-800 transition-all duration-200">';
         echo '<div class="flex justify-between ubuntu-medium items-center text-white bg-gray-800 hover:border-orange-500 hover: border-4 p-2 rounded-lg mb-3">';
         echo $username;
         echo '<img src="' . $profilePic . '" alt="Profile Picture" class="w-12 h-12 m-2 rounded-full">';
