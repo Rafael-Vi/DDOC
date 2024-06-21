@@ -52,7 +52,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
       z-index: 49; /* Ensure it's above other content */
     }
   </style>
-    <title>Mensages</title> 
+    <title>Mensagens</title> 
 </head>
 <body class="h-full flex">
     <?php echoLoadScreen(); ?>    <?php

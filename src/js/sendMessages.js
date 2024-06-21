@@ -1,10 +1,12 @@
 
 
 let lastMessage = null;
+
 function loadMessages() {
-    // Parse the URL query string
-    const urlParams = new URLSearchParams(window.location.search);
-    let convoId = urlParams.get('convo_id'); // Get convo_id from the query string
+    // Extract the convo_id from the URL path
+    const pathSegments = window.location.pathname.split('/');
+    const convoIndex = pathSegments.findIndex(segment => segment === 'mensagens');
+    let convoId = pathSegments[convoIndex + 1]; // Get convo_id from the path
 
     // Check if convoId is not set or empty
     if (!convoId) {
@@ -32,7 +34,7 @@ function loadMessages() {
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error('Error loading messages:', error));
 }
 
 function sendMessage(recipientid) {
