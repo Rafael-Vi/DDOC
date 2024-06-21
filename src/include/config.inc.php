@@ -14,11 +14,9 @@
         getCanPostStatus($_SESSION['uid']);
     }
     
-    if (basename($_SERVER['PHP_SELF']) !== 'OProfile.php') {
+    if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
         $userInfo = getUserInfo($_SESSION['uid']);
-    } elseif (basename($_SERVER['PHP_SELF']) === 'accountLC.php') {
-        // Code for accountLC.php
-    } else {
+    } elseif (basename($_SERVER['PHP_SELF']) === 'OProfile.php') {
         $userInfo = getUserNotCurrent($_GET['userid']);
     }
 

@@ -390,8 +390,11 @@
                     'rank' => $_SESSION['rank']
                 );
             } else {
-                // Handle the query error
-                error_log("ERROR: No user found with UID: $uid"); // Log no user found
+                // If user doesn't exist, clear and destroy the session
+                session_unset(); // Remove all session variables
+                session_destroy(); // Destroy the session
+        
+                // Redirect to the error page
                 header("Location:../src/errorPages/NoUserFound.php");
                 exit;
             }
@@ -399,7 +402,7 @@
             mysqli_close($dbConn);
         }
         
-        
+
         function getUserInfo($uid){
             global $arrConfig;
         
