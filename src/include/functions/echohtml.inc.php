@@ -74,7 +74,7 @@
             <div class="relative md:flex md:flex-col md:top-0 md:left-0 md:w-full md:bg-white md:h-full md:border-r hidden md:shadow-xl">
                 <div class="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
-                        <a href="social.php">
+                        <a href="../social">
                         <li class="px-5">
                             <div class="flex flex-row items-center  h-32 text-white w-32">
                             <img src="../src/assets/images/1.png" alt="" srcset="" class="h-full"></div>
@@ -84,10 +84,10 @@
                         <a href="#" id="search-link" class="" style="color: black"><i class="mr-2 fi fi-sr-search"></i> Pesquisa</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./messages.php" id="messages-link" style="color: black"><i class="mr-2 fi fi-sr-comment-alt"></i> Mensagens</a>
+                            <a href="../mensagens" id="messages-link" style="color: black"><i class="mr-2 fi fi-sr-comment-alt"></i> Mensagens</a>
                         </li>
                         <li class="px-4 py-2 flex justify-between items-center">
-                            <a href="./Notifications.php" id="notifications-link" style="color: black">
+                            <a href="../notificacoes" id="notifications-link" style="color: black">
                                 <i class="mr-2 fi fi-sr-megaphone"></i> Notificações
                             </a>
                             <div id="notif-number-cleaner" class="*:rounded-full h-8 w-8 flex items-center justify-center text-sm ubuntu-bold">
@@ -126,7 +126,7 @@
                                 Segundos
                             </div>
                             </div>
-                            <a href="./rankingsPost.php?theme='."{$_SESSION['themes'][0]['id_theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <a href="../ranking-posts?theme='."{$_SESSION['themes'][0]['id_theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
                             <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Tema: '."{$_SESSION['themes'][0]['theme']}".'</div>
                             </a>
                         </li>
@@ -134,13 +134,13 @@
                             <a href="./social.php" id="home-link" style="color: black"><i class="mr-2 fi fi-sr-home"></i> Home</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./rankings.php" id="Accrankings-link" style="color: black"><i class="mr-2 fi fi-sr-users-alt"></i> Ranks de Contas</a>
+                            <a href="../ranking-contas" id="Accrankings-link" style="color: black"><i class="mr-2 fi fi-sr-users-alt"></i> Ranks de Contas</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./rankingsPost.php" id="Postrankings-link" style="color: black"><i class="mr-2 fi fi-sr-stats"></i> Ranks dos Posts</a>
+                            <a href="../ranking-posts" id="Postrankings-link" style="color: black"><i class="mr-2 fi fi-sr-stats"></i> Ranks dos Posts</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./CreatePost.php" id="createPost-link" style="color: black"><i class="mr-2 fi fi-sr-add"></i> Publicar</a>
+                            <a href="../criar-post" id="createPost-link" style="color: black"><i class="mr-2 fi fi-sr-add"></i> Publicar</a>
                         </li>
                         <li class="px-5 py-2">
                             <div class="flex flex-row items-center h-8">
@@ -148,10 +148,10 @@
                             </div>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./profile.php" id="profile-link" style="color: black"><i class="mr-2 fi fi-sr-user"></i> Perfil</a>
+                            <a href="../perfil" id="profile-link" style="color: black"><i class="mr-2 fi fi-sr-user"></i> Perfil</a>
                         </li>
                         <li class="px-4 py-2">
-                            <a href="./settings.php" id="settings-link" style="color: black"><i class="mr-2 fi fi-sr-settings-sliders"></i> Definições</a>
+                            <a href="../definicoes" id="settings-link" style="color: black"><i class="mr-2 fi fi-sr-settings-sliders"></i> Definições</a>
                         </li>
                         <li class="px-4 py-2">
                         <a href="#" id="logout-link" style="color: black" onclick="logout()">Logout</a>
