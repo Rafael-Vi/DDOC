@@ -19,6 +19,7 @@ function followCheck() {
         } else if (trimmedResponse === 'following') {
             followButton.text('A seguir');
         }
+        getFollowCounts(userid);
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.error('Error in followCheck:', textStatus, errorThrown); // Error handling
     });
