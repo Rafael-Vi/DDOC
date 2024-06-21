@@ -1,6 +1,6 @@
 function deleteNotifications(notificationId) {
     $.ajax({
-        url: '../src/include/functions/SQLfunctions.inc.php',
+        url: '/src/include/functions/SQLfunctions.inc.php',
         type: 'POST',
         data: {
             function: 'deleteNotifications',
@@ -19,7 +19,7 @@ function deleteNotifications(notificationId) {
 function deleteAllNotifications() {
     if (confirm('Are you sure you want to delete all notifications?')) {
         $.ajax({
-            url: '../src/include/functions/SQLfunctions.inc.php',
+            url: '/src/include/functions/SQLfunctions.inc.php',
             type: 'POST',
             data: {
                 function: 'deleteAllNotifications'
@@ -39,7 +39,7 @@ let lastData = null;
 
 function loadNotifications() {
     $.ajax({
-        url: '../src/include/functions/SQLfunctions.inc.php',
+        url: '/src/include/functions/SQLfunctions.inc.php',
         type: 'POST',
         data: { function: 'loadNotifications' },
         success: function(data) {

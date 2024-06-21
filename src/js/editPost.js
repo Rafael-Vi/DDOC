@@ -38,7 +38,7 @@ function deletePost() {
     // Directly proceed with AJAX request without checking if owner
     $.ajax({
         type: 'POST',
-        url: '../src/include/functions/SQLfunctions.inc.php',
+        url: '/src/include/functions/SQLfunctions.inc.php',
         data: {function: 'deletePost', postid: postid},
         dataType: 'json', // Automatically parse JSON response
         success: function(data, textStatus, xhr) {
@@ -67,7 +67,7 @@ function save() {
     // Directly proceed with AJAX request without checking if owner
     $.ajax({
         type: 'POST',
-        url: '../src/include/functions/SQLfunctions.inc.php',
+        url: '/src/include/functions/SQLfunctions.inc.php',
         data: {function: 'savePost', postid: postid, postContent: postContent},
         success: function(response) {
             try {

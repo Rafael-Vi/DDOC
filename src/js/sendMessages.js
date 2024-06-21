@@ -14,7 +14,7 @@ function loadMessages() {
         return; // Exit the function early
     }
 
-    fetch('../src/include/functions/SQLfunctions.inc.php', {
+    fetch('/src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -43,7 +43,7 @@ function sendMessage(recipientid) {
         return; // Don't send if the message is empty
     }
     document.getElementById('message-box').value = '';
-    fetch('../src/include/functions/SQLfunctions.inc.php', {
+    fetch('/src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -73,7 +73,7 @@ function deleteMessage(messageId) {
         return;
     }
 
-    fetch('../src/include/functions/SQLfunctions.inc.php', {
+    fetch('/src/include/functions/SQLfunctions.inc.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

@@ -8,7 +8,7 @@ $(document).ready(function() {
   function searchStuff() {
       const value = $('#search-input').val();
       if (value.length != 0) {
-          $.post('../src/include/functions/SQLfunctions.inc.php', {
+          $.post('/src/include/functions/SQLfunctions.inc.php', {
               function: 'getSearchStuff',
               value: value
           }, function(data) {
@@ -34,7 +34,7 @@ $(document).ready(function() {
     $('#logout-link').click(function(e) {
         e.preventDefault(); // Prevent the default anchor behavior
         if (confirm('Are you sure you want to log out?')) {
-            window.location.href = '../src/include/functions/logout.inc.php';
+            window.location.href = '/src/include/functions/logout.inc.php';
         }
     });
 });
@@ -43,7 +43,7 @@ $(document).ready(function() {
     $('#logout-button').click(function(e) {
         e.preventDefault(); // Prevent the default anchor behavior
         if (confirm('Are you sure you want to log out?')) {
-            window.location.href = '../src/include/functions/logout.inc.php';
+            window.location.href = '/src/include/functions/logout.inc.php';
         }
     });
 });
@@ -55,7 +55,7 @@ $(document).ready(function() {
   $('#search-input').on('input', searchStuff);
 
   function loadNotificationsNavBar() {
-      $.post('../src/include/functions/SQLfunctions.inc.php', {
+      $.post('/src/include/functions/SQLfunctions.inc.php', {
           function: 'loadNotificationsNavBar'
       }, function(data) {
           if (data !== lastDataNotif) {
