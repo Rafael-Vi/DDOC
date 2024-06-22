@@ -126,7 +126,7 @@
                                 Segundos
                             </div>
                             </div>
-                            <a href="/ranking-posts?theme='."{$_SESSION['themes'][0]['id_theme']}".'" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
+                            <a href="/ranking-posts/'."{$_SESSION['themes'][0]['id_theme']}".'/none" id="themes-link" class="text-black hover:filter hover:brightness-50 hover:opacity-75">
                             <div class="theme-name mt-5 ubuntu-bold-italic text-center bg-gray-900 m-1 p-2 rounded-md text-orange-500 items-center justify-center">Tema: '."{$_SESSION['themes'][0]['theme']}".'</div>
                             </a>
                         </li>
