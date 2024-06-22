@@ -39,7 +39,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
       z-index: 49; /* Ensure it's above other content */
     }
   </style>
-  <title>Profile</title>
+  <title>Perfil</title>
 </head>
 
 <body class="h-full flex">
