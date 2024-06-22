@@ -75,7 +75,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
           <?php
           echoProfileInfo($userInfo['username'], $userInfo['email'], $userInfo['profilePic'], $userInfo['realName'], $userInfo['biography'], $userInfo['rank']);
           unset($userInfo);
-          echo '<button onclick="openDialog()" class="btn bg-gray-700 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg">Edit Profile</button>';
+          echo '<button onclick="openDialog()" class="btn bg-gray-700 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg">Editar Perfil</button>';
           echo '</div>';
           echo '</div>'; // Close profile-info-container
           ?>
