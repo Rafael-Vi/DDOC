@@ -125,17 +125,17 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
       <form method="dialog">
         <input type="hidden" id="postId" name="postId">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-900" onclick="cancel()">✕</button>
-        <h3 class="font-bold text-lg">Edit Post</h3>
+        <h3 class="font-bold text-lg">Editar Post</h3>
         <div class="form-control">
           <label class="label">
-            <span id="caption" class="label-text">Caption</span>
+            <span id="caption" class="label-text">legenda</span>
           </label>
           <textarea id="postContent" class="textarea textarea-bordered w-full" placeholder="Type your post content here..."></textarea>
         </div>
         <div class="form-control mt-4 flex flex-row">
-          <button class="btn flex-initial" onclick="save()">Save Alterations</button>
-          <button class="btn btn-error ml-2 flex-initial" onclick="deletePost()">Delete Post</button>
-          <button class="btn btn-outline ml-2 flex-initial" onclick="cancel()">Cancel</button>
+          <button class="btn flex-initial" onclick="save()">Salvar Alterações</button>
+          <button class="btn btn-error ml-2 flex-initial" onclick="deletePost()">Delete de Posts</button>
+          <button class="btn btn-outline ml-2 flex-initial" onclick="cancel()">Cancelar</button>
         </div>
       </form>
     </div>
