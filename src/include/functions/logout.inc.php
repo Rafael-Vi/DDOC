@@ -3,5 +3,5 @@
     require_once "../config.inc.php";    
     session_unset();
     session_destroy();
-    header("Location: ../../accountLC.php");
+    header("Location: ../../login");
     exit;
