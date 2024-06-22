@@ -85,7 +85,7 @@
   <form method="dialog">
       <input type="hidden" id="postId" name="postId">
       <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 " onclick="cancel()">✕</button>
-      <h3 class="font-bold text-lg ">Report</h3>
+      <h3 class="font-bold text-lg ">Reportar</h3>
       <input type="text" class="hidden" disabled val="" id="reportId">
       <div class="form-control mt-4">
         <label class="label">
@@ -105,7 +105,7 @@
         </select>
       </div>
       <div class="form-control mt-4 flex flex-row gap-2">
-        <button type="button" class="btn flex-initial text-orange-500" onclick="saveReport()">Report</button>
+        <button type="button" class="btn flex-initial text-orange-500" onclick="saveReport()">Reportar</button>
         <button type="button" class="btn btn-outline ml-2 flex-initial btn-error text-red-500" onclick="cancelReport()">Cancelar</button>
       </div>
 </form>
