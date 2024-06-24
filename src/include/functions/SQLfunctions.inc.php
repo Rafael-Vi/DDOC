@@ -237,78 +237,107 @@
 
     //? USER RELATED ------------------------------------------------------------------------
 
-    
-    function deleteUser($id) {
-        $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
-    
-        // Start transaction
-        mysqli_begin_transaction($dbConn);
-    
-        try {
-            // Delete all notifications where receiver_id is the $id
-            $query = "DELETE FROM notifications WHERE receiver_id = ?";
-            $params = [$id];
-            if (!executeQuery($dbConn, $query, $params)) {
-                throw new Exception("Failed to delete notifications");
+        function sendVerificationEmail($toEmail, $subject, $message, $verificationLink) {
+            $mail = new PHPMailer(true); // Passing `true` enables exceptions
+            try {
+                // Server settings
+                // $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+                $mail->isSMTP();                                      // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';                     // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                $mail->Username = 'gameplaysrafinha0@gmail.com';                // SMTP username
+                $mail->Password = 'oufh ghoa pwvd zngt';                         // SMTP password
+                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 587;                                    // TCP port to connect to
+        
+                // Recipients
+                $mail->setFrom('from@example.com', 'DDOC');
+                $mail->addAddress($toEmail);                          // Add a recipient
+        
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = $subject;
+                $mail->Body    = $message . "<br><br><a href='" . $verificationLink . "'>Clique aqui para verificar seu email</a>";
+                $mail->AltBody = strip_tags($message) . "\n\nLink para verificação: " . $verificationLink;
+        
+                $mail->send();
+                return true;
+            } catch (Exception $e) {
+                // Log the error or handle it as per your needs
+                return false;
             }
-    
-            // Delete all from follow table where follower_id or followee_id = $id
-            $queries = [
-                "DELETE FROM follow WHERE follower_id = ?",
-                "DELETE FROM follow WHERE followee_id = ?"
-            ];
-    
-            foreach ($queries as $query) {
-                if (!executeQuery($dbConn, $query, $params)) {
-                    throw new Exception("Failed to delete follow records");
-                }
-            }
-    
-            // Delete all messages where the user is either the sender or receiver
-            $query = "DELETE FROM messages WHERE messenger_id = ? OR receiver_id = ?";
-            $params = [$id, $id]; // Note: Adjusted to match both conditions
-            if (!executeQuery($dbConn, $query, $params)) {
-                throw new Exception("Failed to delete messages");
-            }
-    
-            // Select all posts where id_users = $id
-            $query = "SELECT post_id FROM posts WHERE id_users = ?";
-            $params = [$id]; 
-            $result = executeQuery($dbConn, $query, $params);
-            if ($result !== false) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    // For each post, call the deletePost function
-                    deletePost($row['post_id'], $dbConn);
-                }
-            }
-    
-            // NEW STEP: Delete every report where sender = $id
-            $query = "DELETE FROM report WHERE sender = ?";
-            if (!executeQuery($dbConn, $query, [$id])) {
-                throw new Exception("Failed to delete reports");
-            }
-    
-            // After handling all related records, delete the user
-            $query = "DELETE FROM users WHERE id_users = ?";
-            if (!executeQuery($dbConn, $query, [$id])) { // Adjusted params to a direct array
-                throw new Exception("Failed to delete user");
-            }
-    
-            // Commit transaction
-            mysqli_commit($dbConn);
-        } catch (Exception $e) {
-            // Rollback transaction on error
-            mysqli_rollback($dbConn);
-            error_log($e->getMessage()); // Log error
-            $_SESSION['error'] = "Ocorreu um Erro."; // Set error message in session
-            return false;
-        } finally {
-            // Close the database connection
-            mysqli_close($dbConn);
         }
-    
-        return true;
-    }
+        function deleteUser($id) {
+            $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
+        
+            // Start transaction
+            mysqli_begin_transaction($dbConn);
+        
+            try {
+                // Delete all notifications where receiver_id is the $id
+                $query = "DELETE FROM notifications WHERE receiver_id = ?";
+                $params = [$id];
+                if (!executeQuery($dbConn, $query, $params)) {
+                    throw new Exception("Failed to delete notifications");
+                }
+        
+                // Delete all from follow table where follower_id or followee_id = $id
+                $queries = [
+                    "DELETE FROM follow WHERE follower_id = ?",
+                    "DELETE FROM follow WHERE followee_id = ?"
+                ];
+        
+                foreach ($queries as $query) {
+                    if (!executeQuery($dbConn, $query, $params)) {
+                        throw new Exception("Failed to delete follow records");
+                    }
+                }
+        
+                // Delete all messages where the user is either the sender or receiver
+                $query = "DELETE FROM messages WHERE messenger_id = ? OR receiver_id = ?";
+                $params = [$id, $id]; // Note: Adjusted to match both conditions
+                if (!executeQuery($dbConn, $query, $params)) {
+                    throw new Exception("Failed to delete messages");
+                }
+        
+                // Select all posts where id_users = $id
+                $query = "SELECT post_id FROM posts WHERE id_users = ?";
+                $params = [$id]; 
+                $result = executeQuery($dbConn, $query, $params);
+                if ($result !== false) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        // For each post, call the deletePost function
+                        deletePost($row['post_id'], $dbConn);
+                    }
+                }
+        
+                // NEW STEP: Delete every report where sender = $id
+                $query = "DELETE FROM report WHERE sender = ?";
+                if (!executeQuery($dbConn, $query, [$id])) {
+                    throw new Exception("Failed to delete reports");
+                }
+        
+                // After handling all related records, delete the user
+                $query = "DELETE FROM users WHERE id_users = ?";
+                if (!executeQuery($dbConn, $query, [$id])) { // Adjusted params to a direct array
+                    throw new Exception("Failed to delete user");
+                }
+        
+                // Commit transaction
+                mysqli_commit($dbConn);
+            } catch (Exception $e) {
+                // Rollback transaction on error
+                mysqli_rollback($dbConn);
+                error_log($e->getMessage()); // Log error
+                $_SESSION['error'] = "Ocorreu um Erro."; // Set error message in session
+                return false;
+            } finally {
+                // Close the database connection
+                mysqli_close($dbConn);
+            }
+        
+            return true;
+        }
         function newUser($dbConn, $email, $username, $password){
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         

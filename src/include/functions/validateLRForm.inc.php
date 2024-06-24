@@ -98,11 +98,11 @@ function validarRegistro($username, $email, $password) {
     // Gerar o link de verificação
     $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=". urlencode($username). "&email=". urlencode($email);
 
-    /* Enviar o email de verificação
+
     if(sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
         die("Email de verificação enviado.");
     } else {
         die ("Falha ao enviar o email de verificação.");
     }
-    */
+
 }
