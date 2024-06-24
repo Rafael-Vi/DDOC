@@ -104,7 +104,7 @@ function validarRegistro($username, $email, $password) {
     $encryptedEmail = encrypt(urlencode($email), $EncKey);
 
     // Generate the verification link with encrypted data
-    $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=" . $encryptedUsername . "&email=" . $encryptedEmail;
+    $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?username=" . $encryptedUsername . "&email=" . $encryptedEmail;
     
     // Send the verification email
     if (sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {

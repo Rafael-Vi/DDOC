@@ -200,7 +200,7 @@
             list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
             return openssl_decrypt($encrypted_data, $method, $key, 0, $iv);
         }
-        
+
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
         
@@ -269,7 +269,7 @@
                 $mail->Port = 587;                                    // TCP port to connect to
         
                 // Recipients
-                $mail->setFrom('from@example.com', 'DDOC');
+                $mail->setFrom('rafa.pinto.vieira@gmail.com', 'DDOC');
                 $mail->addAddress($toEmail);                          // Add a recipient
         
                 // Content
