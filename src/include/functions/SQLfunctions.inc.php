@@ -300,7 +300,7 @@
             // Rollback transaction on error
             mysqli_rollback($dbConn);
             error_log($e->getMessage()); // Log error
-            $_SESSION['error'] = "An error occurred. Please try again."; // Set error message in session
+            $_SESSION['error'] = "Ocorreu um Erro."; // Set error message in session
             return false;
         } finally {
             // Close the database connection
