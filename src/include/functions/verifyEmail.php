@@ -5,10 +5,12 @@ require_once '/var/www/DDOC/src/include/config.inc.php';
 
 global $EncKey; // Ensure the global encryption key is accessible
 
+// Initialize an array to hold error messages
+$errorMessages = [];
+
 // Get the encrypted email and username from the GET parameters
 $encryptedEmail = $_GET['email'] ?? '';
 $encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to be encrypted as well
-
 
 // Decrypt both the email and username
 $email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
@@ -16,10 +18,18 @@ $usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
 
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    die('Invalid or missing email.');
+    $errorMessages[] = 'Invalid or missing email.';
 }
 if (empty($usernameFromGet)) {
-    die('Invalid or missing username.');
+    $errorMessages[] = 'Invalid or missing username.';
+}
+
+// If there are any error messages, echo them and exit the script
+if (!empty($errorMessages)) {
+    foreach ($errorMessages as $errorMessage) {
+        echo $errorMessage . "\n";
+    }
+    exit; // Exit the script after displaying all error messages
 }
 
 // The rest of your code follows...
@@ -33,7 +43,8 @@ $result = executeQuery($dbConn, $query, $params);
 
 // Check if the user exists
 if ($result === false || $result->num_rows == 0) {
-    die('User not found.');
+    echo 'User not found.';
+    exit;
 }
 
 // Fetch the username
@@ -42,7 +53,8 @@ $username = $user['user_name'];
 
 // Check if the decrypted username from the GET parameters matches the username fetched from the database
 if ($username != $usernameFromGet) {
-    die('Mismatched username.');
+    echo 'Mismatched username.';
+    exit;
 }
 
 // Update the email_verify field to 1 for the matching user
@@ -52,7 +64,8 @@ $result = executeQuery($dbConn, $query, $params);
 
 // Check if the update was successful
 if ($result === false) {
-    die('Failed to update email verification status.');
+    echo 'Failed to update email verification status.';
+    exit;
 }
 
 // At this point, the user's email verification status has been updated
