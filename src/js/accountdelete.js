@@ -34,7 +34,7 @@ $(document).ready(function() {
     }
 
     // Example usage: Attach customConfirm to a button
-    $('#delete-button').on('click', function() {
+    $('#apagar-conta').on('click', function() {
         customConfirm();
     });
 

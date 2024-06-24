@@ -87,7 +87,7 @@
     <script>
   var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
 </script>  <script src="../src/js/timer.js"></script>
-<script src="/src/js/accountdelete.js"></script>
+<script src="../src/js/accountdelete.js"></script>
   <script src="../src/js/social.js"></script>
 </body>
 </html>
