@@ -54,7 +54,7 @@ while ($row = $result->fetch_assoc()) {
 }
 
 if ($table == "users") {
-    $result = executeQuery($db_conn, "SELECT * FROM $table WHERE user_id NOT IN (" . $_SESSION['admin_id'] . ", 8)");
+    $result = executeQuery($db_conn, "SELECT * FROM $table WHERE id_users NOT IN (" . $_SESSION['admin_id'] . ", 8)");
 } else {
     $result = executeQuery($db_conn, "SELECT * FROM $table");
 }
