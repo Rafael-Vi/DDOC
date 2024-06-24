@@ -199,21 +199,34 @@
             }
             return base64_encode($encrypted . '::' . $iv);
         }
-        
+
         function decrypt($data) {
             global $EncKey;
             $method = 'AES-256-CBC';
+        
+            // URL decode the data first to ensure it's correctly formatted
+            $data = urldecode($data);
             $data = base64_decode($data);
-            list($encrypted_data, $iv) = explode('::', $data, 2);
-            if (strlen($iv) !== openssl_cipher_iv_length($method)) {
-                error_log('Decryption failed: IV length is incorrect.');
-                return false; // Or throw an exception
+        
+            if (strpos($data, '::') === false) {
+                error_log('Decryption failed: Encrypted data format is incorrect. "::" not found.');
+                return false;
             }
+        
+            list($encrypted_data, $iv) = explode('::', $data, 2);
+            $ivLength = openssl_cipher_iv_length($method);
+        
+            if (strlen($iv) !== $ivLength) {
+                error_log("Decryption failed: IV length is incorrect. Expected length: {$ivLength}, Received length: " . strlen($iv));
+                return false;
+            }
+        
             $decrypted = openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
             if ($decrypted === false) {
                 error_log('Decryption failed: ' . openssl_error_string());
                 return false;
             }
+        
             return $decrypted;
         }
 
