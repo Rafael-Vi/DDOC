@@ -17,4 +17,4 @@
     }
 
     global $EncKey;
-    $EncKey = 'cMQdN8ybfYg7JntaeCnZ7iH4ynPxqOZY';
+    $EncKey = 'l7lLTxG&Eq4tVCzD';
