@@ -107,7 +107,7 @@ function validarRegistro($username, $email, $password) {
     $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?username=" . $encryptedUsername . "&email=" . $encryptedEmail;
     
     // Send the verification email
-    if (sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
+    if (sendVerificationEmail($email, "Verificacão de Email", "Por favor, verifique seu email para efetuar login.", $verificationLink)) {
         error_log("Email de verificação enviado para: " . $email);
         die("Email de verificação enviado.");
     } else {
