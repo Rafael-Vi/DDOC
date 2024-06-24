@@ -6,7 +6,8 @@
     require '/var/www/DDOC/vendor/autoload.php';
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
-    
+    global $EncKey;
+    $EncKey = 'l7lLTxG&Eq4tVCzD';
 
     //*AJAX HANDLING ---------------------------------------------------------------------
 
@@ -182,9 +183,7 @@
 
 
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
-        global $EncKey;
-
-        function encrypt($data) {
+          function encrypt($data) {
             global $EncKey;
             if (is_null($EncKey) || $EncKey === '') {
                 // Handle the error, e.g., set a default key (not recommended for production) or throw an exception

@@ -16,5 +16,3 @@
         unset($_SESSION['convo_id']);
     }
 
-    global $EncKey;
-    $EncKey = 'l7lLTxG&Eq4tVCzD';
