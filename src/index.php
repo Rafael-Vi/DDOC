@@ -51,23 +51,16 @@
   <div class="w-full sm:w-1/2 p-8 flex items-center justify-center">
     <ul class="text-white w-42">
       <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="/login">Entra...</a></li>
-      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#functions">Funcionalidades</a></li>
-      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Manual</a></li>
-      <li><a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" href="#">Contactar Criador</a></li>
+      <li>
+        <a class="btn m-2 p-2 text-2xl w-full hover:scale-110 hover:border hover:border-orange-500 hover:b-2" 
+          href="mailto:rafa.pinto.vieira@gmail.com?subject=Contacto%20Request&body=eu%20gostaria%20de%20o%20contactar%20para...">
+          Contactar Criador
+        </a>
+      </li>
     </ul>
   </div>
 </section>
 
-<section  class="w-full h-screen flex flex-col sm:flex-row items-center justify-center min-h-96" id="functions">
-  <div class="hero min-h-screen bg-base-200">
-    <div class="hero-content text-center">
-      <div class="max-w-md">
-        <h1 class="text-5xl font-bold mb-2">Agora que sabes no que te vais meter</h1>
-        <a href="/login" class="bg-orange-500 rounded-md hover:bg-gray-600 text-white hover:text-orange-500 w-full h-24 mt-8 text-3xl ubuntu-bold">Entra</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <script src="../dist/bundle.js"></script>
 </body>
