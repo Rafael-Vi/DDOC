@@ -17,8 +17,8 @@ $email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
 $usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
 
 // Use var_dump to output the decrypted values
-var_dump($email);
-var_dump($usernameFromGet);
+print($email);
+print($usernameFromGet);
 
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
