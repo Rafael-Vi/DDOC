@@ -7,8 +7,8 @@ require_once '/var/www/DDOC/src/include/config.inc.php';
 $errorMessages = [];
 
 // Get the encrypted email and username from the GET parameters
-$encryptedEmail = $_GET['email'] ?? '';
-$encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to be encrypted as well
+$encryptedEmail = $_GET['email'];
+$encryptedUsername = $_GET['username']; // Now expecting the username to be encrypted as well
 
 var_dump($_GET);
 
@@ -16,14 +16,13 @@ var_dump($_GET);
 $email = decrypt($encryptedEmail); // Decrypt the email
 $usernameFromGet = decrypt($encryptedUsername); // Decrypt the username
 
-// Use var_dump to output the decrypted values
-print($email);
-print($usernameFromGet);
+// Remove the print statements from here
+// print($email);
+// print($usernameFromGet);
 
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMessages[] = 'Invalid or missing email.';
-    
 }
 if (empty($usernameFromGet)) {
     $errorMessages[] = 'Invalid or missing username.';
@@ -36,6 +35,12 @@ if (!empty($errorMessages)) {
     }
     exit; // Exit the script after displaying all error messages
 }
+
+// Only print the decrypted values if there are no errors
+print($email);
+print($usernameFromGet);
+
+// The rest of your code follows...
 
 // The rest of your code follows...
 // Connect to the database
