@@ -12,6 +12,8 @@ $errorMessages = [];
 $encryptedEmail = $_GET['email'] ?? '';
 $encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to be encrypted as well
 
+var_dump($_GET);
+
 // Decrypt both the email and username
 $email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
 $usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
