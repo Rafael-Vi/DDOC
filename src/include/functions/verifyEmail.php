@@ -9,15 +9,20 @@ global $EncKey; // Ensure the global encryption key is accessible
 $encryptedEmail = $_GET['email'] ?? '';
 $encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to be encrypted as well
 
+
 // Decrypt both the email and username
 $email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
 $usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
 
-// Check if both decrypted email and username are provided
-if (!$email || !$usernameFromGet) {
-    die('Email or Username not provided.');
+// Validate decrypted values
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    die('Invalid or missing email.');
+}
+if (empty($usernameFromGet)) {
+    die('Invalid or missing username.');
 }
 
+// The rest of your code follows...
 // Connect to the database
 $dbConn = db_connect();
 
