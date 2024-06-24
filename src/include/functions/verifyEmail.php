@@ -1,7 +1,7 @@
 <?php
 
 // Include your SQLfunctions.inc.php file
-require_once './SQLfunctions.inc.php';
+require_once '/src/include/config.inc.php';
 
 // Get the email and token from the GET parameters
 $email = $_GET['email']?? '';
