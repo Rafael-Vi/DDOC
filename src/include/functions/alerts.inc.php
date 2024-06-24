@@ -8,9 +8,9 @@ function validRegisterAl(){
     echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
     echo '    </svg>';
     echo '    <div class="leading-tight flex flex-col space-y-2">';
-    echo '      <div class="text-sm font-medium text-green-700">Successful</div>';
-    echo '      <div class="text-sm font-small text-green-800">User Registered with success!</div>';
-    echo '      <div class="text-sm font-small text-green-800">Login to enter the app</div>';
+    echo '      <div class="text-sm font-medium text-green-700">Sucesso</div>';
+    echo '      <div class="text-sm font-small text-green-800">Utilizador registado com sucesso</div>';
+    echo '      <div class="text-sm font-small text-green-800">Faça login para entrar na app</div>';
     echo '    </div>';
     echo '  </div>';
     echo '</div>';
@@ -22,7 +22,7 @@ function mySQLerror($error){
     echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
     echo '    </svg>';
     echo '    <div class="leading-tight flex flex-col space-y-2">';
-    echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+    echo '      <div class="text-sm font-medium text-red-700">Algum erro aconteceu</div>';
     echo '      <div class="text-sm font-small text-red-800">'.print_r($error, true).'</div>';
     echo '    </div>';
     echo '  </div>';
@@ -36,7 +36,7 @@ function echoError($error){
     echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
     echo '    </svg>';
     echo '    <div class="leading-tight flex flex-col space-y-2">';
-    echo '      <div class="text-sm font-medium text-red-700">Something went wrong</div>';
+    echo '      <div class="text-sm font-medium text-red-700">Algum erro aconteceu</div>';
     echo '      <div class="text-sm font-small text-red-800">'.$error.'</div>';
     echo '    </div>';
     echo '  </div>';
@@ -50,9 +50,10 @@ function echoSuccess($success){
     echo '      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />';
     echo '    </svg>';
     echo '    <div class="leading-tight flex flex-col space-y-2">';
-    echo '      <div class="text-sm font-medium text-green-700">Successful</div>';
+    echo '      <div class="text-sm font-medium text-green-700">Sucesso</div>';
     echo '      <div class="text-sm font-small text-green-800">'.$success.'</div>';
     echo '    </div>';
     echo '  </div>';
     echo '</div>';
 }
+?>
