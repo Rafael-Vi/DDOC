@@ -927,7 +927,7 @@
             $queries = [
             "DELETE FROM posts WHERE post_id = ?",
             "DELETE FROM likes WHERE post_id = ?",
-            "DELETE FROM reports WHERE post_id = ?"
+            "DELETE FROM report WHERE post_id = ?"
             ];
         
             $success = true;
