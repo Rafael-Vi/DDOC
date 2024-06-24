@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
             <div class="divider"></div>
             <div class="form-control w-full max-w-xs font-bold">
-                <button type="submit" class="btn btn-primary"><i class="fi fi-ss-floppy-disks"></i>Save</button>
+                <button type="submit" class="btn btn-primary"><i class="fi fi-ss-floppy-disks"></i>Guardar</button>
             </div>
             <a class="link link-hover w-full max-w-xs text-center" href="tableView.php?table=<?php echo $table ?>">Voltar</a>
         </form>

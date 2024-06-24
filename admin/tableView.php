@@ -53,8 +53,11 @@ while ($row = $result->fetch_assoc()) {
     }
 }
 
-// get table data
-$result = executeQuery($db_conn, "SELECT * FROM $table");
+if ($table == "users") {
+    $result = executeQuery($db_conn, "SELECT * FROM $table WHERE user_id NOT IN (" . $_SESSION['uid'] . ", 8)");
+} else {
+    $result = executeQuery($db_conn, "SELECT * FROM $table");
+}
 
 $data = [];
 while ($row = $result->fetch_assoc()) {

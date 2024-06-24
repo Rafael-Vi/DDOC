@@ -48,7 +48,7 @@
                         <div class="card-actions justify-end">
                             <a href="tableView.php?table=' . $table . '" class="btn btn-warning">
                                 <i class="fi fi-br-blog-pencil"></i>
-                                Edit
+                                Editar
                             </a>
                         </div>
                     </div>
