@@ -3,6 +3,7 @@
     @session_start();
     require_once "echohtml.inc.php";
     require_once "paths.inc.php";
+    require 'vendor/autoload.php';
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
     
