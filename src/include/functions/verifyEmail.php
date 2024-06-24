@@ -1,42 +1,48 @@
 <?php
 
 // Include your SQLfunctions.inc.php file
-require_once '/src/include/config.inc.php';
+require_once '/var/www/DDOC/src/include/config.inc.php';
 
-// Get the email and token from the GET parameters
-$email = $_GET['email']?? '';
-$idFromGet = $_GET['id']?? ''; // Assuming 'id' is the parameter holding the user ID
+global $EncKey; // Ensure the global encryption key is accessible
 
-// Check if both email and id are provided
-if (!$email ||!$idFromGet) {
-    die('Email or ID not provided.');
+// Get the encrypted email and username from the GET parameters
+$encryptedEmail = $_GET['email'] ?? '';
+$encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to be encrypted as well
+
+// Decrypt both the email and username
+$email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
+$usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
+
+// Check if both decrypted email and username are provided
+if (!$email || !$usernameFromGet) {
+    die('Email or Username not provided.');
 }
 
 // Connect to the database
 $dbConn = db_connect();
 
-// Prepare the query to fetch the user ID based on the email
-$query = "SELECT id_users FROM users WHERE email =?";
+// Prepare the query to fetch the username based on the email
+$query = "SELECT user_name FROM users WHERE user_email = ?";
 $params = [$email];
-$result = executeQuery($dbConn, $query, $params);   
+$result = executeQuery($dbConn, $query, $params);
 
 // Check if the user exists
 if ($result === false || $result->num_rows == 0) {
     die('User not found.');
 }
 
-// Fetch the user ID
+// Fetch the username
 $user = $result->fetch(PDO::FETCH_ASSOC);
-$userID = $user['id_users'];
+$username = $user['user_name'];
 
-// Check if the ID from the GET parameters matches the user ID fetched from the database
-if ($userID!= $idFromGet) {
-    die('Mismatched user ID.');
+// Check if the decrypted username from the GET parameters matches the username fetched from the database
+if ($username != $usernameFromGet) {
+    die('Mismatched username.');
 }
 
 // Update the email_verify field to 1 for the matching user
-$query = "UPDATE users SET email_verify = 1 WHERE id_users =?";
-$params = [$userID];
+$query = "UPDATE users SET email_verify = 1 WHERE user_name = ?";
+$params = [$username];
 $result = executeQuery($dbConn, $query, $params);
 
 // Check if the update was successful
@@ -49,5 +55,3 @@ echo "User email verification status updated successfully.";
 
 // Close the database connection
 $dbConn = null; // This is how you close a PDO connection
-
-?>

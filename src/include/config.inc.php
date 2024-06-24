@@ -15,3 +15,6 @@
         unset($_SESSION['sender']);
         unset($_SESSION['convo_id']);
     }
+
+    global $EncKey;
+    $EncKey = 'cMQdN8ybfYg7JntaeCnZ7iH4ynPxqOZY';

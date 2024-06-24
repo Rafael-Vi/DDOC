@@ -7,6 +7,7 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
     
+
     //*AJAX HANDLING ---------------------------------------------------------------------
 
     if (isset($_POST['function'])) {
@@ -182,8 +183,24 @@
 
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
+        function encrypt($data, $key) {
+            // Use a strong cipher method
+            $method = 'AES-256-CBC';
+            // Generate an initialization vector
+            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+            // Encrypt the data
+            $encrypted = openssl_encrypt($data, $method, $key, 0, $iv);
+            // Return the encrypted data along with the iv, encoding both with Base64
+            return base64_encode($encrypted . '::' . $iv);
+        }
 
-
+        function decrypt($data, $key) {
+            $method = 'AES-256-CBC';
+            // Split the encrypted data to get the encrypted data and the iv
+            list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
+            return openssl_decrypt($encrypted_data, $method, $key, 0, $iv);
+        }
+        
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
         

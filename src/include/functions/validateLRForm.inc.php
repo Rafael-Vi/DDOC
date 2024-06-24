@@ -95,16 +95,23 @@ function validarRegistro($username, $email, $password) {
     // Supondo que newUser() adiciona o novo usuário ao banco de dados
     newUser($dbConn, $email, $username, $password);
 
-    // Gerar o link de verificação
-    $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=". urlencode($username). "&email=". urlencode($email);
 
+    global $EncKey; // Ensure the global encryption key is accessible
+    
+    // Encrypt the username and email
+    $encryptedUsername = encrypt(urlencode($username), $EncKey);
 
-        if(sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
-            error_log("Email de verificação enviado para: " . $email);
-            die("Email de verificação enviado.");
-        } else {
-            error_log("Falha ao enviar o email de verificação para: " . $email);
-            die("Falha ao enviar o email de verificação.");
-        }
+    $encryptedEmail = encrypt(urlencode($email), $EncKey);
 
+    // Generate the verification link with encrypted data
+    $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=" . $encryptedUsername . "&email=" . $encryptedEmail;
+    
+    // Send the verification email
+    if (sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
+        error_log("Email de verificação enviado para: " . $email);
+        die("Email de verificação enviado.");
+    } else {
+        error_log("Falha ao enviar o email de verificação para: " . $email);
+        die("Falha ao enviar o email de verificação.");
+    }
 }
