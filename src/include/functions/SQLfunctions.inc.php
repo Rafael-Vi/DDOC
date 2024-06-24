@@ -182,9 +182,14 @@
 
 
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
+        global $EncKey;
 
         function encrypt($data) {
             global $EncKey;
+            if (is_null($EncKey) || $EncKey === '') {
+                // Handle the error, e.g., set a default key (not recommended for production) or throw an exception
+                throw new Exception('Encryption key is not set.');
+            }
             $method = 'AES-256-CBC';
             $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
             $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
