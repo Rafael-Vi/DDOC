@@ -76,7 +76,11 @@
             <div class="bg-gray-800 p-4 rounded-md pl-10 ">
                 <h2 class="text-2xl font-bold text-center sm:text-start mb-4 text-white">Ações</h2>
                 <ul class="space-y-2">
-                    <li class=" btn text-lg ubuntu-medium text-red-500" id="apagar-conta">Apagar Conta</li>
+                    <?php 
+                    if($_SESSION['uid'] != 8){
+                      echo'<li class=" btn text-lg ubuntu-medium text-red-500" id="apagar-conta">Apagar Conta</li>';
+                    }
+                    ?>
                     <li class="btn text-lg ubuntu-medium text-orange-500 " id="logout-button" onclick="logout()">Logout</li>
                 </ul>
             </div>
