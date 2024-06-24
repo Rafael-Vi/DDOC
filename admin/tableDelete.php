@@ -33,7 +33,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                 $deleteSuccess = false; // Flag to track deletion success
                 switch ($table) {
                     case 'users':
-                        if ($id == $_SESSION['uid']) {
+                        if ($id == $_SESSION['admin_id']) {
                             $_SESSION['admin_error'] = "Você não pode excluir sua própria conta.";
                             header("Location: $redirectUrl");
                             exit;
