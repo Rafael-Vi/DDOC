@@ -99,10 +99,12 @@ function validarRegistro($username, $email, $password) {
     $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=". urlencode($username). "&email=". urlencode($email);
 
 
-    if(sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
-        die("Email de verificação enviado.");
-    } else {
-        die ("Falha ao enviar o email de verificação.");
-    }
+        if(sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
+            error_log("Email de verificação enviado para: " . $email);
+            die("Email de verificação enviado.");
+        } else {
+            error_log("Falha ao enviar o email de verificação para: " . $email);
+            die("Falha ao enviar o email de verificação.");
+        }
 
 }
