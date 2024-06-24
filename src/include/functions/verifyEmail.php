@@ -3,8 +3,6 @@
 // Include your SQLfunctions.inc.php file
 require_once '/var/www/DDOC/src/include/config.inc.php';
 
-global $EncKey; // Ensure the global encryption key is accessible
-
 // Initialize an array to hold error messages
 $errorMessages = [];
 
@@ -15,8 +13,8 @@ $encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to b
 var_dump($_GET);
 
 // Decrypt both the email and username
-$email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
-$usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
+$email = decrypt($encryptedEmail); // Decrypt the email
+$usernameFromGet = decrypt($encryptedUsername); // Decrypt the username
 
 // Use var_dump to output the decrypted values
 print($email);
