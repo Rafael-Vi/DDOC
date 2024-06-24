@@ -129,14 +129,25 @@ if(isset($_SESSION['error'])) {
                                         echo '<a href="tableEdit.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm"><i class="fi fi-br-blog-pencil"></i></a>';
                                     }
                                     if ($tablePermissions[$table]['deletable']) {
-                                        $randomString = bin2hex(random_bytes(4)); // Generates a random 8 characters string
-
-                                        // Echo the link with a custom confirmation that includes the random string
-                                        echo '<a href="tableDelete.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm" onclick="return customConfirm(\'' . $randomString . '\');"><i class="fi fi-br-trash"></i></a>';
+                                        // Echo the link with an onclick event that calls customConfirm()
+                                        echo '<a href="javascript:void(0);" class="btn btn-sm" onclick="customConfirm(\'' . $table . '\', \'' . $row[$idColumnName] . '\');"><i class="fi fi-br-trash"></i></a>';
                                         echo '<script>
-                                        function customConfirm(randomString) {
+                                        function generateRandomString(length) {
+                                            var result           = "";
+                                            var characters       = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                                            var charactersLength = characters.length;
+                                            for ( var i = 0; i < length; i++ ) {
+                                                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                                            }
+                                            return result;
+                                        }
+                                    
+                                        function customConfirm(table, id) {
+                                            var randomString = generateRandomString(8); // Generates a random 8 characters string
                                             var userInput = prompt("Por favor, copie este texto para confirmar a exclusão: " + randomString);
-                                            return userInput === randomString;
+                                            if(userInput === randomString) {
+                                                window.location.href = "tableDelete.php?table=" + table + "&id=" + id;
+                                            }
                                         }
                                         </script>';
                                     }
