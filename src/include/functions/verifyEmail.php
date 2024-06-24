@@ -16,9 +16,14 @@ $encryptedUsername = $_GET['username'] ?? ''; // Now expecting the username to b
 $email = decrypt($encryptedEmail, $EncKey); // Decrypt the email
 $usernameFromGet = decrypt($encryptedUsername, $EncKey); // Decrypt the username
 
+// Use var_dump to output the decrypted values
+var_dump($email);
+var_dump($usernameFromGet);
+
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMessages[] = 'Invalid or missing email.';
+    
 }
 if (empty($usernameFromGet)) {
     $errorMessages[] = 'Invalid or missing username.';
