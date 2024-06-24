@@ -184,52 +184,55 @@
 
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
-        function encrypt($data) {
-            global $EncKey;
-            if (is_null($EncKey) || $EncKey === '') {
-                error_log('Encryption key is not set.');
-                throw new Exception('Encryption key is not set.');
-            }
-            $method = 'AES-256-CBC';
-            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
-            $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
-            if ($encrypted === false) {
-                error_log('Encryption failed: ' . openssl_error_string());
-                throw new Exception('Encryption failed.');
-            }
-            return base64_encode($encrypted . '::' . $iv);
-        }
 
-        function decrypt($data) {
-            global $EncKey;
-            $method = 'AES-256-CBC';
-        
-            // URL decode the data first to ensure it's correctly formatted
-            $data = urldecode($data);
-            $data = base64_decode($data);
-        
-            if (strpos($data, '::') === false) {
-                error_log('Decryption failed: Encrypted data format is incorrect. "::" not found.');
-                return false;
-            }
-        
-            list($encrypted_data, $iv) = explode('::', $data, 2);
-            $ivLength = openssl_cipher_iv_length($method);
-        
-            if (strlen($iv) !== $ivLength) {
-                error_log("Decryption failed: IV length is incorrect. Expected length: {$ivLength}, Received length: " . strlen($iv));
-                return false;
-            }
-        
-            $decrypted = openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
-            if ($decrypted === false) {
-                error_log('Decryption failed: ' . openssl_error_string());
-                return false;
-            }
-        
-            return $decrypted;
+    function encrypt($data) {
+        global $EncKey;
+        if (empty($EncKey)) {
+            throw new Exception('Encryption key is not set.');
         }
-
+        $method = 'AES-256-CBC';
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+        $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
+        if ($encrypted === false) {
+            error_log('Encryption failed: ' . openssl_error_string());
+            throw new Exception('Encryption failed.');
+        }
+        // Base64 encode the IV before concatenating
+        return base64_encode($encrypted . '::' . base64_encode($iv));
+    }
+    
+    function decrypt($data) {
+        global $EncKey;
+        $method = 'AES-256-CBC';
+    
+        // URL decode the data first to ensure it's correctly formatted
+        $data = urldecode($data);
+        $data = base64_decode($data);
+    
+        if (strpos($data, '::') === false) {
+            error_log('Decryption failed: Encrypted data format is incorrect. "::" not found.');
+            return false;
+        }
+    
+        list($encrypted_data, $iv) = explode('::', $data, 2);
+        // Base64 decode the IV after splitting
+        $iv = base64_decode($iv);
+        $ivLength = openssl_cipher_iv_length($method);
+    
+        if (strlen($iv) !== $ivLength) {
+            error_log("Decryption failed: IV length is incorrect. Expected length: {$ivLength}, Received length: " . strlen($iv));
+            return false;
+        }
+    
+        $decrypted = openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
+        if ($decrypted === false) {
+            error_log('Decryption failed: ' . openssl_error_string());
+            return false;
+        }
+    
+        return $decrypted;
+    }
+    
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
         
