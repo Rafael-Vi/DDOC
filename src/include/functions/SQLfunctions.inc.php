@@ -182,25 +182,27 @@
 
 
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
-    function encrypt($data) {
-        global $EncKey; // Make the encryption key accessible inside the function
-        // Use a strong cipher method
-        $method = 'AES-256-CBC';
-        // Generate an initialization vector
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
-        // Encrypt the data
-        $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
-        // Return the encrypted data along with the iv, encoding both with Base64
-        return base64_encode($encrypted . '::' . $iv);
-    }
+
+        function encrypt($data) {
+            global $EncKey;
+            $method = 'AES-256-CBC';
+            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+            $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
+            return base64_encode($encrypted . '::' . $iv);
+        }
     
-    function decrypt($data) {
-        global $EncKey; // Make the encryption key accessible inside the function
-        $method = 'AES-256-CBC';
-        // Split the encrypted data to get the encrypted data and the iv
-        list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-        return openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
-    }
+        function decrypt($data) {
+            global $EncKey;
+            $method = 'AES-256-CBC';
+            $data = base64_decode($data);
+            list($encrypted_data, $iv) = explode('::', $data, 2);
+            // Ensure IV is exactly 16 bytes (128 bits) for AES-256-CBC
+            if (strlen($iv) !== openssl_cipher_iv_length($method)) {
+                // Handle error: IV length is incorrect
+                return false; // Or throw an exception
+            }
+            return openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
+        }
 
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
