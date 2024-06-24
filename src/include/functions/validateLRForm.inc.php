@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
             $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['emailL']));
             $password = htmlspecialchars($_POST['passwordL']);
 
-            validateLogin($email, $password);
+            validarLogin($email, $password);
         }
     }
 
@@ -18,36 +18,36 @@ if (isset($_POST['submit'])) {
             $username = preg_replace('/\s+/', '', htmlspecialchars($_POST['usernameR']));
             $email = strtolower(trim(htmlspecialchars($_POST['emailR'])));
             $password = htmlspecialchars($_POST['passwordR']);
-            validateRegister($username, $email, $password);
+            validarRegistro($username, $email, $password);
         }
 
     }
 }
 
 
-function validateLogin($email, $password) {
+function validarLogin($email, $password) {
     global $arrConfig;
 
-    // Check if the email is valid
+    // Verificar se o email é válido
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // If the email is not valid, try using the username instead
-        $email = preg_replace('/@/', '', $email); // Remove the @ symbol to treat it as a username
-        error_log($email); // Log the modified email for debugging purposes
+        // Se o email não for válido, tentar usar o nome de usuário em vez disso
+        $email = preg_replace('/@/', '', $email); // Remover o símbolo @ para tratá-lo como um nome de usuário
+        error_log($email); // Registrar o email modificado para fins de depuração
     }
 
     $dbConn = db_connect();
 
-    // Adjusted SQL query to also select the password for verification
+    // Consulta SQL ajustada para selecionar também a senha para verificação
     $sql = "SELECT id_users, can_post, user_name, user_profilePic, user_password FROM users WHERE user_email =? OR user_name =?";
 
-    $result = executeQuery($dbConn, $sql, [$email, $email]); // Pass both email and username to the query
+    $result = executeQuery($dbConn, $sql, [$email, $email]); // Passar tanto o email quanto o nome de usuário para a consulta
 
     $userDetails = mysqli_fetch_assoc($result);
 
     if ($userDetails) {
-        // Verify the password
+        // Verificar a senha
         if (password_verify($password, $userDetails['user_password'])) {
-            // Password is correct, proceed with login
+            // A senha está correta, prosseguir com o login
             $_SESSION['uid'] = $userDetails['id_users'];
             $_SESSION['can_post'] = $userDetails['can_post'];
             $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
@@ -55,17 +55,17 @@ function validateLogin($email, $password) {
             header("Location: social");
             exit;
         } else {
-            // Password is incorrect
-            $_SESSION['error'] = "Authentication failed!";
+            // A senha está incorreta
+            $_SESSION['error'] = "Autenticação falhou!";
         }
     } else {
-        $_SESSION['error'] = "User not found!";
+        $_SESSION['error'] = "Utilizador não encontrado!";
     }
 
     mysqli_close($dbConn);
 }
 
-function validateRegister($username, $email, $password) {
+function validarRegistro($username, $email, $password) {
     $emailSql = "SELECT user_email FROM users WHERE user_email =?";
     $usernameSql = "SELECT user_name FROM users WHERE user_name =?";
 
@@ -92,17 +92,17 @@ function validateRegister($username, $email, $password) {
         $_SESSION['error'] = $error;
     }
 
-    // Assuming newUser() adds the new user to the database
+    // Supondo que newUser() adiciona o novo usuário ao banco de dados
     newUser($dbConn, $email, $username, $password);
 
-    // Generate the verification link
+    // Gerar o link de verificação
     $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?id=". urlencode($username). "&email=". urlencode($email);
 
-    /* Send the verification email
-    if(sendVerificationEmail($email, "Email Verification", "Please verify your email.", $verificationLink)) {
-        die("Verification email sent.");
+    /* Enviar o email de verificação
+    if(sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email.", $verificationLink)) {
+        die("Email de verificação enviado.");
     } else {
-        die ("Failed to send verification email.");
+        die ("Falha ao enviar o email de verificação.");
     }
     */
 }
