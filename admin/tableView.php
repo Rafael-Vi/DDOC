@@ -144,7 +144,7 @@ if(isset($_SESSION['error'])) {
                                     
                                         function customConfirm(table, id) {
                                             var randomString = generateRandomString(8); // Generates a random 8 characters string
-                                            var userInput = prompt("Por favor, copie este texto para confirmar a exclusão: " + randomString);
+                                            var userInput = prompt("Por favor, escreva este texto para confirmar a exclusão: " + randomString);
                                             if(userInput === randomString) {
                                                 window.location.href = "tableDelete.php?table=" + table + "&id=" + id;
                                             }
