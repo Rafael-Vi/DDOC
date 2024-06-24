@@ -126,7 +126,9 @@ if(isset($_SESSION['error'])) {
                                 if ($tablePermissions[$table]['editable'] || $tablePermissions[$table]['deletable']) {
                                     echo '<td class="flex justify-end gap-2 m-auto">';
                                     if ($tablePermissions[$table]['editable']) {
-                                          // Generate a random string
+                                        echo '<a href="tableEdit.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm"><i class="fi fi-br-blog-pencil"></i></a>';
+                                    }
+                                    if ($tablePermissions[$table]['deletable']) {
                                         $randomString = bin2hex(random_bytes(4)); // Generates a random 8 characters string
 
                                         // Echo the link with a custom confirmation that includes the random string
@@ -137,9 +139,6 @@ if(isset($_SESSION['error'])) {
                                             return userInput === randomString;
                                         }
                                         </script>';
-                                    }
-                                    if ($tablePermissions[$table]['deletable']) {
-                                        echo '<a href="tableDelete.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm" onclick="return confirm(\'Tens a certeza que queres excluir este item?\');"><i class="fi fi-br-trash"></i></a>';
                                     }
                                     echo '</td>';
                                 }
