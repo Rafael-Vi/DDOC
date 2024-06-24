@@ -109,7 +109,7 @@ if(isset($_SESSION['error'])) {
                             }
                             // Check if actions column should be displayed
                             if ($tablePermissions[$table]['editable'] || $tablePermissions[$table]['deletable']) {
-                                echo '<th>Actions</th>';
+                                echo '<th>Ações</th>';
                             }
                             ?>
                         </tr>
@@ -129,7 +129,7 @@ if(isset($_SESSION['error'])) {
                                         echo '<a href="tableEdit.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm"><i class="fi fi-br-blog-pencil"></i></a>';
                                     }
                                     if ($tablePermissions[$table]['deletable']) {
-                                        echo '<a href="tableDelete.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fi fi-br-trash"></i></a>';
+                                        echo '<a href="tableDelete.php?table=' . $table . '&id=' . $row[$idColumnName] . '" class="btn btn-sm" onclick="return confirm(\'Tens a certeza que queres excluir este item?\');"><i class="fi fi-br-trash"></i></a>';
                                     }
                                     echo '</td>';
                                 }
