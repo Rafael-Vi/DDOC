@@ -53,7 +53,6 @@ function updateUrl() {
     console.log("URL Updated to:", newUrl); // Debugging
     window.location.href = newUrl;
 }
-
 if (themeSelect) {
     themeSelect.addEventListener('change', function() {
         selectedTheme = this.value;
