@@ -1271,10 +1271,8 @@
         return $convoIds;
     }
 
-
     function getMessages($convoId, $last = NULL) {
-    
-        global $arrConfig;
+        global $arrConfig, $EncKey; // Ensure $EncKey is accessible
         $sender = $_SESSION['sender'];
         $dbConn = db_connect();
         if ($dbConn === false) {
@@ -1301,11 +1299,18 @@
         if ($last !== NULL) {
             // Fetch and return the latest message directly
             $row = mysqli_fetch_assoc($result);
-            return $row ? $row['message'] : null; // Return the message or null if no message is found
+            if ($row) {
+                // Decrypt the message before returning
+                $decryptedMessage = decrypt($row['message']);
+                return $decryptedMessage ? $decryptedMessage : null; // Return the decrypted message or null if decryption fails
+            }
+            return null; // Return null if no message is found
         } else {
             // If $last is NULL, echo the messages as before but in reverse order to maintain chronological order
             $messages = [];
             while ($row = mysqli_fetch_assoc($result)) {
+                // Decrypt each message before adding to the array
+                $row['message'] = decrypt($row['message']);
                 array_unshift($messages, $row); // Prepend to maintain order when echoing
             }
             foreach ($messages as $row) {
@@ -1314,12 +1319,15 @@
         }
     }
     function sendMessage($receiver, $message){
+        global $EncKey;
         global $arrConfig;
         $dbConn = db_connect();
         if ($dbConn === false) {
             return "ERROR: Could not connect. " . mysqli_connect_error();
         }
         $currentUserId = $_SESSION['uid'];
+
+        $message = encrypt($message, $EncKey);
 
         $result = executeQuery($dbConn, "INSERT INTO messages (messenger_id, receiver_id, message) VALUES (?, ?, ?)", [$currentUserId, $receiver, $message]);
         sendNotification($receiver, $currentUserId, "MessageReceived");
