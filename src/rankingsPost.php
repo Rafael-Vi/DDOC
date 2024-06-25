@@ -26,7 +26,7 @@ $themeId = checkThemeVar();
 
 // If the return value is -1, redirect and exit
 if ($themeId == -1) {
-  header("Location: ../src/errorPages/noThemeError.php");
+  header("Location: /src/errorPages/noThemeError.php");
   exit;
 }
 
