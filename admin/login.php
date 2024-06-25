@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo '<div class="toast">';
                 echo '
                     <div class="alert alert-error">
-                        <span>You are not authorized to access this page</span>
+                        <span>Não tem autorização para entrar</span>
                     </div>
                 ';
                 echo '</div>';
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<div class="toast">';
             echo '
                 <div class="alert alert-error">
-                    <span>Invalid Credentials</span>
+                    <span>Credenciais Inválidas</span>
                 </div>
             ';
             echo '</div>';
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<div class="toast">';
         echo '
             <div class="alert alert-error">
-                <span>Invalid Credentials</span>
+                <span>Credenciais Inválidas</span>
             </div>
         ';
         echo '</div>';
@@ -55,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="overflow-auto">
                     <div class="form-control w-full max-w-xs">
                         <label for="user" class="label">Username</label>
-                        <input type="text" id="user" name="user" class="input input-bordered" placeholder="Enter your username" required>
+                        <input type="text" id="user" name="user" class="input input-bordered" placeholder="Escreve o teu username" required>
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label for="pass" class="label">Password</label>
-                        <input type="password" id="pass" name="pass" class="input input-bordered" placeholder="Enter your password" required>
+                        <input type="password" id="pass" name="pass" class="input input-bordered" placeholder="Escreve a tua password" required>
                     </div>
                 </div>
                 <div class="divider"></div>
