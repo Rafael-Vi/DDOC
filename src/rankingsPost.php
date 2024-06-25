@@ -188,7 +188,7 @@ $GLOBALS['type'] = $type;
             </div>
           </div>
 
-          <div class=" h-96 flex flex-col items-center bg-gray-800 ">
+          <div class=" flex flex-col items-center bg-gray-800 ">
             <table id="ranking-Post" class="table-fixed table-pin-rows table-pin-cols table-lg w-full text-center bg-gray-800 p-4 text-lg border-b-2 border-gray-900">
               <thead>
                 <tr>
