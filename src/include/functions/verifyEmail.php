@@ -5,6 +5,7 @@ require_once '/var/www/DDOC/src/include/config.inc.php';
 
 // Initialize an array to hold error messages
 $errorMessages = [];
+$operationStatus = 'error'; // Initialize operation status
 
 // Get the encrypted email and username from the GET parameters
 $encryptedEmail = $_GET['email'];
@@ -57,9 +58,12 @@ try {
 }
 
 // Check if the user exists
-if ($result === false || $result->num_rows == 0) {
-    echo 'User not found.';
+if ($result === false) {
+    echo 'Failed to update email verification status.';
+    $operationStatus = 'error'; // Update operation status to error
     exit;
+} else {
+    $operationStatus = 'success'; // Update operation status to success
 }
 
 // Fetch the username
