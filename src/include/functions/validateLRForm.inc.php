@@ -52,7 +52,7 @@ function validarLogin($email, $password) {
             $_SESSION['can_post'] = $userDetails['can_post'];
             $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
             $_SESSION['username'] = '@'.$userDetails['user_name'];
-            header("Location: /var/www/DDOC/social");
+            header("Location: /social");
             exit;
         } else {
             // A senha está incorreta
