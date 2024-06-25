@@ -22,9 +22,14 @@ const { theme, type } = extractFiltersFromUrl();
 selectedTheme = theme;
 selectedType = type;
 
+// Step 1: Extract Filters from URL remains the same
+
+// Step 2: Update Variables Based on URL remains the same
+
 // Step 3: Set Dropdown Values to Reflect URL Filters
 window.addEventListener('DOMContentLoaded', (event) => {
-    if (themeSelect && selectedTheme !== 'none') {
+    const currentPage = window.location.pathname.includes('ranking-posts') ? 'ranking-posts' : 'ranking-contas';
+    if (currentPage === 'ranking-posts' && themeSelect && selectedTheme !== 'none') {
         themeSelect.value = selectedTheme;
     }
     if (typeSelect && selectedType !== 'none') {
@@ -32,28 +37,26 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-// Existing code for handling changes in the dropdowns remains the same
-
+// Modified updateUrl function
 function updateUrl() {
     console.log("Attempting to update URL with:", selectedTheme, selectedType); // Debugging
-    // Determine the base URL based on the current page context
     var currentPage = window.location.pathname.includes('ranking-posts') ? 'ranking-posts' : 'ranking-contas';
     var baseUrl = window.location.origin + '/' + currentPage + '/';
     var newUrl = baseUrl;
     
-    // For 'ranking-posts', append theme and type to the URL
     if (currentPage === 'ranking-posts') {
         if (selectedTheme) newUrl += selectedTheme + '/';
         if (selectedType) newUrl += selectedType;
     } else if (currentPage === 'ranking-contas') {
-        // For 'ranking-contas', only type is relevant
         if (selectedType) newUrl += selectedType;
     }
     
     console.log("URL Updated to:", newUrl); // Debugging
     window.location.href = newUrl;
 }
-if (themeSelect) {
+
+// Conditionally add event listener to themeSelect
+if (window.location.pathname.includes('ranking-posts') && themeSelect) {
     themeSelect.addEventListener('change', function() {
         selectedTheme = this.value;
         console.log("Theme selected:", selectedTheme); // Debugging
@@ -61,6 +64,7 @@ if (themeSelect) {
     });
 }
 
+// Always add event listener to typeSelect but handle based on page
 if (typeSelect) {
     typeSelect.addEventListener('change', function() {
         selectedType = this.value;
