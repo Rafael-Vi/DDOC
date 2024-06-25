@@ -533,7 +533,7 @@
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
                     error_log("ERROR: No rank found for username: $username"); // Log missing rank
-                    header("Location: /src/errorPages/NoUserFound.php");
+                    header("Location: /erro/sem-Utilizador");
                     exit;
                 }
         
@@ -552,7 +552,7 @@
                 session_destroy(); // Destroy the session
         
                 // Redirect to the error page
-                header("Location:/src/errorPages/NoUserFound.php");
+                header("Location:/erro/sem-Utilizador");
                 exit;
             }
         
@@ -607,7 +607,7 @@
                 if($rowRank = mysqli_fetch_assoc($resultRank)) {
                     $_SESSION['rank'] = $rowRank['UserRank'];
                 } else {
-                    header("Location:/src/errorPages/NoUserFound.php");
+                    header("Location:/erro/sem-Utilizador");
                     exit;
                 }
         
@@ -626,7 +626,7 @@
                 session_destroy(); // Destroy the session
         
                 // Redirect to the error page
-                header("Location:/src/errorPages/NoUserFound.php");
+                header("Location:/erro/sem-Utilizador");
                 exit;
             }
         
@@ -1234,7 +1234,7 @@
                 'profile_pic' => $row['user_profilePic']
             );
         } else {
-            header("Location:/src/errorPages/NoCoversationFound.php");
+            header("Location:/erro/sem-Conversa");
             exit;
         }
     }
