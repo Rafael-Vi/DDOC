@@ -90,7 +90,7 @@ require 'config/config.inc.php';
 
     </style>
 </head>
-<body class="bg-base-300 h-full min-h-screen">
+<body class="bg-gray-900 h-full min-h-screen">
 <?php
 if (strpos($_SERVER['REQUEST_URI'], 'login.php') === false) {
     include 'includes/nav.inc.php';
