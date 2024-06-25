@@ -21,7 +21,7 @@ try {
 }
 
 echo $email;
-echo $usernameFromGet
+echo $usernameFromGet;
 
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
