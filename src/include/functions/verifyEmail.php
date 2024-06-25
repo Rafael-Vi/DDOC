@@ -20,7 +20,6 @@ try {
     $errorMessages[] = 'Error decrypting email or username.';
 }
 
-
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMessages[] = 'Invalid or missing email.';
@@ -64,7 +63,7 @@ if ($result === false || $result->num_rows == 0) {
 }
 
 // Fetch the username
-$user = $result->fetch(PDO::FETCH_ASSOC);
+$user = $result->fetch_assoc(); // Adjusted for MySQLi
 $username = $user['user_name'];
 
 // Check if the decrypted username from the GET parameters matches the username fetched from the database
