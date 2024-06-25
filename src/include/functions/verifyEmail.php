@@ -20,6 +20,9 @@ try {
     $errorMessages[] = 'Error decrypting email or username.';
 }
 
+echo $email;
+echo $usernameFromGet
+
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMessages[] = 'Invalid or missing email.';
