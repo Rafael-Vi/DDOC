@@ -205,7 +205,7 @@ $GLOBALS['type'] = $type;
                   <!-- Person who posted it -->
                 </tr>
               </thead>
-              <tbody class="h-full w-full text-white ">
+              <tbody class="overflow-auto h-32">
                 <?php
                 getRankingPost($GLOBALS['id_theme'], $GLOBALS['type']);
                 ?>
