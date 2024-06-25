@@ -20,8 +20,6 @@ try {
     $errorMessages[] = 'Error decrypting email or username.';
 }
 
-echo $email;
-echo $usernameFromGet;
 
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -38,10 +36,6 @@ if (!empty($errorMessages)) {
     }
     exit; // Exit the script after displaying all error messages
 }
-
-// Only print the decrypted values if there are no errors
-print($email);
-print($usernameFromGet);
 
 // Connect to the database
 try {
