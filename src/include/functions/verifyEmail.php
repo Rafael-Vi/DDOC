@@ -59,7 +59,6 @@ try {
 
 // Check if the user exists
 if ($result === false) {
-    echo 'Failed to update email verification status.';
     $operationStatus = 'error'; // Update operation status to error
     exit;
 } else {
