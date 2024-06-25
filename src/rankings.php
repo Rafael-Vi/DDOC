@@ -184,9 +184,9 @@ $GLOBALS['type'] = $type;
   <script>
     var targetDateFromPHP = <?php echo json_encode($_SESSION['themes'][0]['finish_date']); ?>;
   </script>
-  <script src="../src/js/timer.js"></script>
-  <script src="../src/js/filterTheme.js"></script>
-  <script src="../src/js/social.js"></script>
+  <script src="/src/js/timer.js"></script>
+  <script src="/src/js/filterTheme.js"></script>
+  <script src="/src/js/social.js"></script>
   <script>
     function redirectToPerson(element) {
         var profileId = element.getAttribute("data-id");
