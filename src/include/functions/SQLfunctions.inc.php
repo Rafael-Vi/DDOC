@@ -200,38 +200,41 @@
         // Base64 encode the IV before concatenating
         return base64_encode($encrypted . '::' . base64_encode($iv));
     }
-    
-    function decrypt($data) {
-        global $EncKey;
-        $method = 'AES-256-CBC';
-    
-        // URL decode the data first to ensure it's correctly formatted
-        $data = urldecode($data);
-        $data = base64_decode($data);
-    
-        if (strpos($data, '::') === false) {
-            error_log('Decryption failed: Encrypted data format is incorrect. "::" not found.');
-            return false;
+
+        function decrypt($data) {
+            global $EncKey;
+            $method = 'AES-256-CBC';
+        
+            // URL decode the data first to ensure it's correctly formatted
+            $data = urldecode($data);
+            $data = base64_decode($data);
+        
+            if (strpos($data, '::') === false) {
+                error_log('Decryption failed: Encrypted data format is incorrect. "::" not found.');
+                return false;
+            }
+        
+            list($encrypted_data, $iv) = explode('::', $data, 2);
+            // Base64 decode the IV after splitting
+            $iv = base64_decode($iv);
+            $ivLength = openssl_cipher_iv_length($method);
+        
+            if (strlen($iv) !== $ivLength) {
+                error_log("Decryption failed: IV length is incorrect. Expected length: {$ivLength}, Received length: " . strlen($iv));
+                return false;
+            }
+        
+            $decrypted = openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
+            if ($decrypted === false) {
+                error_log('Decryption failed: ' . openssl_error_string());
+                return false;
+            }
+        
+            // URL decode the decrypted data to ensure characters like @ are correctly formatted
+            $decrypted = urldecode($decrypted);
+        
+            return $decrypted;
         }
-    
-        list($encrypted_data, $iv) = explode('::', $data, 2);
-        // Base64 decode the IV after splitting
-        $iv = base64_decode($iv);
-        $ivLength = openssl_cipher_iv_length($method);
-    
-        if (strlen($iv) !== $ivLength) {
-            error_log("Decryption failed: IV length is incorrect. Expected length: {$ivLength}, Received length: " . strlen($iv));
-            return false;
-        }
-    
-        $decrypted = openssl_decrypt($encrypted_data, $method, $EncKey, 0, $iv);
-        if ($decrypted === false) {
-            error_log('Decryption failed: ' . openssl_error_string());
-            return false;
-        }
-    
-        return $decrypted;
-    }
     
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
