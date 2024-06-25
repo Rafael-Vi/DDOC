@@ -37,26 +37,31 @@ function validarLogin($email, $password) {
 
     $dbConn = db_connect();
 
-    // Consulta SQL ajustada para selecionar também a senha para verificação
-    $sql = "SELECT id_users, can_post, user_name, user_profilePic, user_password FROM users WHERE user_email =? OR user_name =?";
 
-    $result = executeQuery($dbConn, $sql, [$email, $email]); // Passar tanto o email quanto o nome de usuário para a consulta
-
+    $sql = "SELECT id_users, can_post, user_name, user_profilePic, user_password, email_verify FROM users WHERE (user_email = ? OR user_name = ?)";
+    
+    $result = executeQuery($dbConn, $sql, [$email, $email]); // Pass both the email and the username for the query
+    
     $userDetails = mysqli_fetch_assoc($result);
-
+    
     if ($userDetails) {
-        // Verificar a senha
-        if (password_verify($password, $userDetails['user_password'])) {
-            // A senha está correta, prosseguir com o login
-            $_SESSION['uid'] = $userDetails['id_users'];
-            $_SESSION['can_post'] = $userDetails['can_post'];
-            $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
-            $_SESSION['username'] = '@'.$userDetails['user_name'];
-            header("Location: /social");
-            exit;
+        // Check if email is verified
+        if ($userDetails['email_verify'] != 1) {
+            $_SESSION['error'] = "E-mail não verificado!";
         } else {
-            // A senha está incorreta
-            $_SESSION['error'] = "Autenticação falhou!";
+            // Verify the password
+            if (password_verify($password, $userDetails['user_password'])) {
+                // The password is correct, proceed with login
+                $_SESSION['uid'] = $userDetails['id_users'];
+                $_SESSION['can_post'] = $userDetails['can_post'];
+                $_SESSION['imageProfile'] = $arrConfig['url_users'].$userDetails['user_profilePic'];
+                $_SESSION['username'] = '@'.$userDetails['user_name'];
+                header("Location: /social");
+                exit;
+            } else {
+                // The password is incorrect
+                $_SESSION['error'] = "Autenticação falhou!";
+            }
         }
     } else {
         $_SESSION['error'] = "Utilizador não encontrado!";
