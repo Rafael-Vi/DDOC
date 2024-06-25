@@ -185,21 +185,21 @@
     //!QUERY OPTIMIZATION ----------------------------------------------------------------
 
 
-    function encrypt($data) {
-        global $EncKey;
-        if (empty($EncKey)) {
-            throw new Exception('Encryption key is not set.');
+        function encrypt($data) {
+            global $EncKey;
+            if (empty($EncKey)) {
+                throw new Exception('Encryption key is not set.');
+            }
+            $method = 'AES-256-CBC';
+            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+            $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
+            if ($encrypted === false) {
+                error_log('Encryption failed: ' . openssl_error_string());
+                throw new Exception('Encryption failed.');
+            }
+            // Base64 encode the IV before concatenating
+            return base64_encode($encrypted . '::' . base64_encode($iv));
         }
-        $method = 'AES-256-CBC';
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
-        $encrypted = openssl_encrypt($data, $method, $EncKey, 0, $iv);
-        if ($encrypted === false) {
-            error_log('Encryption failed: ' . openssl_error_string());
-            throw new Exception('Encryption failed.');
-        }
-        // Base64 encode the IV before concatenating
-        return base64_encode($encrypted . '::' . base64_encode($iv));
-    }
 
         function decrypt($data) {
             global $EncKey;

@@ -108,10 +108,9 @@ function validarRegistro($username, $email, $password) {
     
     // Send the verification email
     if (sendVerificationEmail($email, "Verificacão de Email", "Por favor, verifique seu email para efetuar login.", $verificationLink)) {
-        error_log("Email de verificação enviado para: " . $email);
-        die("Email de verificação enviado.");
+        $_SESSION['success'] = "Verifique seu email para concluir o registro.";
     } else {
-        error_log("Falha ao enviar o email de verificação para: " . $email);
-        die("Falha ao enviar o email de verificação.");
-    }
+        $_SESSION['error'] = "Falha ao enviar email de verificação.";
+
+}
 }
