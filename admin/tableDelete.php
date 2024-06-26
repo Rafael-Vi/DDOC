@@ -46,7 +46,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                         }
                         break;
                     case 'theme':
-                        // Additional deletion logic for theme
+                        $result = executeQuery($db_conn, "DELETE FROM $table WHERE $idColumnName = ?", [$id]);
                         $result2 = executeQuery($db_conn, "SELECT post_id FROM posts WHERE id_theme = ?", [$id]);
                         while ($row = mysqli_fetch_assoc($result2)) {
                             deletePost($row['post_id'], $db_conn); // Assume deletePost handles its own success/failure internally
