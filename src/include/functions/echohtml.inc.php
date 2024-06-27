@@ -204,8 +204,8 @@ $imageHtml = '';
         $heightClass = $positionName === 'Primeiro Lugar' ? 'h-28 w-28' : ($positionName === 'Segundo Lugar' ? 'h-20 w-24' : 'h-16 w-24');
     
         // Truncate $postName if it is longer than 15 characters
-        if (strlen($postName) > 15) {
-            $postName = substr($postName, 0, 15) . "...";
+        if (strlen($postName) > 20) {
+            $postName = substr($postName, 0, 20) . "...";
         }
         // Display the podium position
         echo "<div class=\"flex flex-col items-center mt-auto\">";
