@@ -80,7 +80,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
           unset($userInfo);
           echo '
           <div class="flex justify-center">
-            <a href="../mensagens/' . $_GET['userid'] . '" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-4">
+            <a href="/mensagens' . $_GET['userid'] . '" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-4">
             Mensagem
             </a>
             <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded m-4 w-24 h-12" id="follow-button" onclick="followCheck()">
