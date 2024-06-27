@@ -1061,29 +1061,29 @@
         $message = '';
         switch ($type) {
             case 'PostCreated':
-                $message = 'A new post has been created by ' . $senderUsername;
+                $message = 'Um post foi criado por ' . $senderUsername;
                 $result = executeQuery($dbConn, "SELECT follower_id FROM follow WHERE followee_id = ?", [$senderId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $row['follower_id']]);
                 }
                 break;
             case 'PostLiked':
-                $message = 'User ' . $senderUsername . ' liked your post';
+                $message = 'O utilizador ' . $senderUsername . ' gostou do seu post';
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'UserFollowed':
-                $message = 'User ' . $senderUsername . ' started following you';
+                $message = 'O utilizador ' . $senderUsername . ' começou a seguir você';
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'YourRank':
                 $rankData = getPodium($receiverId, "post");
                 if ($rankData !== null) {
-                    $message = $rankData['username'] . ', your current rank is ' . $rankData['rank'];
+                    $message = $rankData['username'] . ', a sua classificação atual é ' . $rankData['rank'];
                 }
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'MessageReceived':
-                $message = 'You have received a new message from ' . $senderUsername;
+                $message = 'Você recebeu uma nova mensagem de ' . $senderUsername;
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             default:
