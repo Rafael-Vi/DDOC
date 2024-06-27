@@ -51,5 +51,10 @@ $tablePermissions = [
         'deletable' => false,
         'addable' => false
     ],
+    'follow' => [
+        'editable' => false,
+        'deletable' => true,
+        'addable' => false
+    ],
     // Add more tables as needed
 ];
