@@ -188,7 +188,7 @@ $imageHtml = '';
             } elseif (isset($podium['username'])) {
                 $postName = $podium['username'];
             } else {
-                $postName = 'Unknown';
+                $postName = 'Desconhecido';
             }
     
             // Check if an image is available and set the image HTML
@@ -197,12 +197,16 @@ $imageHtml = '';
                 $imageHtml = "<img src=\"{$arrConfig['url_users']}/{$podium['image']}\" alt=\"User Image\" class=\"rounded-full mb-2\" style=\"width: 100px; height: 100px;\">";
             }
         } else {
-            $postName = 'None with this Rank';
+            $postName = 'Nenhum';
         }
     
         // Determine the height class based on the position name
         $heightClass = $positionName === 'Primeiro Lugar' ? 'h-28 w-28' : ($positionName === 'Segundo Lugar' ? 'h-20 w-24' : 'h-16 w-24');
     
+        // Truncate $postName if it is longer than 15 characters
+        if (strlen($postName) > 15) {
+            $postName = substr($postName, 0, 15) . "...";
+        }
         // Display the podium position
         echo "<div class=\"flex flex-col items-center mt-auto\">";
         echo $imageHtml; // Display the image if available
