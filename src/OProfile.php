@@ -41,7 +41,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
 </head>
 <body class="h-full flex">
   <?php if ($_SESSION['uid'] == $_GET['userid']) {
-    header("Location: profile.php");
+    header("Location: /perfil");
     exit;
   } ?>
   <?php echoLoadScreen(); ?>
