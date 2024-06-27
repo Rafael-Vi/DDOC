@@ -42,7 +42,7 @@ if (isset($_GET['table'], $_GET['id']) && !empty($_GET['table']) && !empty($_GET
                             exit;
                         }
                         else{
-                            $deleteSuccess = deleteUser($id, $db_conn); // Assume deleteUser returns boolean
+                            $deleteSuccess = deleteUser($id); // Assume deleteUser returns boolean
                         }
                         break;
                     case 'theme':

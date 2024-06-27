@@ -21,7 +21,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../src/css/social.css">
-  <link rel="shortcut icon" href="./assets/images/2.png" >
+  <link rel="shortcut icon" href="/src/assets/images/2.png" >
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link href="/dist/tailwind.css" rel="stylesheet" type="text/css" />
 
@@ -105,7 +105,7 @@
     echo'<div class="flex flex-col  items-center justify-center h-full">
     <h2 class="text-3xl font-bold bg-base-200 rounded-lg p-8 gap-3">
     Já postaste neste tema.
-    <a href="./profile.php" class="hover:bg-white bg-orange-500 hover:text-bl-800 text-white font-bold py-2 px-4 rounded mt-4">Vai para o teu perfil</a>
+    <a href="/perfil" class="hover:bg-white bg-orange-500 hover:text-bl-800 text-white font-bold py-2 px-4 rounded mt-4">Vai para o teu perfil</a>
     </h2>
     </div>';
   }

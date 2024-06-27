@@ -798,17 +798,21 @@
         function createPost($uid, $title, $type, $file, $theme) {
             global $arrConfig;
             if (session_status() === PHP_SESSION_NONE) {
-                session_start();
+            session_start();
             }
         
             $dbConn = db_connect();
             if (!$dbConn) {
-                $_SESSION['error'] = 'Database connection failed';
-                return;
+            $_SESSION['error'] = 'Falha na conexão com o banco de dados';
+            return;
             }
         
             if ($file['error'] > 0) {
-                $_SESSION['error'] = 'File upload error: ' . $file['error'];
+                if ($file['error'] == 1) { // Checking for error code 1
+                    $_SESSION['error'] = 'O tamanho do arquivo é grande demais.';
+                } else {
+                    $_SESSION['error'] = 'Erro no upload do arquivo: ' . $file['error'];
+                }
                 return;
             }
         
@@ -817,30 +821,30 @@
             $fileName .= "." . $fileExtension;
         
             if (file_exists($arrConfig['dir_posts']."/$type/".$fileName)) {
-                $_SESSION['error'] = 'A file with the same name already exists.';
-                return;
+            $_SESSION['error'] = 'Já existe um arquivo com o mesmo nome.';
+            return;
             }
         
             if (!move_uploaded_file($file['tmp_name'], $arrConfig['dir_posts']."/$type/".$fileName)) {
-                $_SESSION['error'] = 'Error moving uploaded file.';
-                return;
+            $_SESSION['error'] = 'Erro ao mover o arquivo enviado.';
+            return;
             }
         
             $sql = "INSERT INTO posts (id_users, caption, post_type, post_url, id_theme) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($dbConn, $sql);
             if (!$stmt) {
-                $_SESSION['error'] = "Error while uploading";
-                return;
+            $_SESSION['error'] = "Erro ao fazer o upload";
+            return;
             }
         
             mysqli_stmt_bind_param($stmt, 'issss', $uid, $title, $type, $fileName, $theme);
             $result = mysqli_stmt_execute($stmt);
             if (!$result) {
-                $_SESSION['error'] = "Error while uploading";
-                return;
+            $_SESSION['error'] = "Erro ao fazer o upload";
+            return;
             }
         
-            $_SESSION['success'] = "Post created successfully.";
+            $_SESSION['success'] = "Postagem criada com sucesso.";
             updateUserPostStatus($_SESSION['uid'], 1);
             sendNotification(null, $_SESSION['uid'], "PostCreated");
         }
@@ -1057,29 +1061,29 @@
         $message = '';
         switch ($type) {
             case 'PostCreated':
-                $message = 'A new post has been created by ' . $senderUsername;
+                $message = 'Um post foi criado por ' . $senderUsername;
                 $result = executeQuery($dbConn, "SELECT follower_id FROM follow WHERE followee_id = ?", [$senderId]);
                 while ($row = mysqli_fetch_assoc($result)) {
                     executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $row['follower_id']]);
                 }
                 break;
             case 'PostLiked':
-                $message = 'User ' . $senderUsername . ' liked your post';
+                $message = 'O utilizador ' . $senderUsername . ' gostou do seu post';
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'UserFollowed':
-                $message = 'User ' . $senderUsername . ' started following you';
+                $message = 'O utilizador ' . $senderUsername . ' começou a seguir você';
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'YourRank':
                 $rankData = getPodium($receiverId, "post");
                 if ($rankData !== null) {
-                    $message = $rankData['username'] . ', your current rank is ' . $rankData['rank'];
+                    $message = $rankData['username'] . ', a sua classificação atual é ' . $rankData['rank'];
                 }
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             case 'MessageReceived':
-                $message = 'You have received a new message from ' . $senderUsername;
+                $message = 'Você recebeu uma nova mensagem de ' . $senderUsername;
                 executeQuery($dbConn, "INSERT INTO notifications (message, date_sent, receiver_id) VALUES (?, NOW(), ?)", [$message, $receiverId]);
                 break;
             default:

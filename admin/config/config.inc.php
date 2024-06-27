@@ -46,5 +46,15 @@ $tablePermissions = [
         'deletable' => true,
         'addable' => false
     ],
+    'messages' => [
+        'editable' => false,
+        'deletable' => false,
+        'addable' => false
+    ],
+    'follow' => [
+        'editable' => false,
+        'deletable' => true,
+        'addable' => false
+    ],
     // Add more tables as needed
 ];

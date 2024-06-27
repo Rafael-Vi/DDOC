@@ -90,7 +90,7 @@ if (basename($_SERVER['PHP_SELF']) === 'profile.php') {
   </div>
 
   <dialog id="profile-dialog" class="modal">
-    <form class="bg-white p-8 rounded shadow-lg" action="include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data">
+    <form class="bg-white p-8 rounded shadow-lg" action="/src/include/functions/validateUpdateUser.inc.php" method="post" enctype="multipart/form-data">
       <h2 class="text-2xl font-extrabold mb-4 text-gray-800">Editar Perfil</h2>
       <div class="flex flex-col mb-4">
         <label class="text-lg mb-2 text-gray-800">Nome de Utilizador:</label>
