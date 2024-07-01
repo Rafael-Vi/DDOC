@@ -56,7 +56,7 @@ function userPasswordEmail($email, $newPassword) {
 
     $dbConn = db_connect(); // Establish database connection
 
-    $fetchUsernameQuery = "SELECT username FROM users WHERE user_email = ? LIMIT 1";
+    $fetchUsernameQuery = "SELECT user_name FROM users WHERE user_email = ? LIMIT 1";
     $result = executeQuery($dbConn, $fetchUsernameQuery, [$email]);
     if ($result && $result->num_rows > 0) {
         $userData = $result->fetch_assoc();
