@@ -45,4 +45,5 @@ function verifyEmailExistsAndStatus($email) {
         // If no user is found with the provided email
         $_SESSION['error'] = "Email não encontrado.";
     }
+    header("Location: /verification.php");
 }
