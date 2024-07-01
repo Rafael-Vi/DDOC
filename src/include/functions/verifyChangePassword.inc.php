@@ -12,23 +12,25 @@ $decryptedEmail = decrypt($encryptedEmail);
 verifyChangePassword($decryptedUsername, $decryptedEmail, $encryptedNewPassword );
 
 function verifyChangePassword($username, $email, $newPassword) {
-    global $arrConfig; // Acesse a configuração global e a chave de criptografia, se necessário
+    global $arrConfig; // Access global configuration and encryption key if needed
 
-    $dbConn = db_connect(); // Estabeleça a conexão com o banco de dados
+    $dbConn = db_connect(); // Establish database connection
 
-    // Descriptografe o nome de usuário e o email
-    $decryptedUsername = decrypt($username); // Supondo que você tenha uma função de descriptografia
+    // Decrypt the username and email
+    $decryptedUsername = decrypt($username);
     $decryptedEmail = decrypt($email);
+    // Decrypt the new password to get the hashed password back
+    $decryptedNewPassword = decrypt($newPassword);
 
-    // Verifique se o nome de usuário e o email pertencem à mesma conta
+    // Verify if the username and email belong to the same account
     $verifyAccountQuery = "SELECT * FROM users WHERE user_name = ? AND user_email = ? LIMIT 1";
     $result = executeQuery($dbConn, $verifyAccountQuery, [$decryptedUsername, $decryptedEmail]);
     if ($result && $result->num_rows > 0) {
-        // Conta verificada, prossiga com a atualização da senha
-        updatePassword($dbConn, $decryptedUsername, $newPassword);
+        // Account verified, proceed with updating the password
+        updatePassword($dbConn, $decryptedUsername, $decryptedNewPassword); // Use the decrypted (hashed) new password
         $_SESSION['success'] = "Sua senha foi atualizada com sucesso.";
     } else {
-        // Falha na verificação da conta
+        // Account verification failed
         $_SESSION['error'] = "Falha na verificação da conta. As informações fornecidas não correspondem aos nossos registros.";
     }
     header("Location: /login");
