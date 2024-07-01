@@ -400,7 +400,7 @@
         
             if ($insertResult) {
 
-            $_SESSION['success'] = 'Registration successful';
+            $_SESSION['success'] = 'Registo bem sucedido';
 
             } else {
                 $_SESSION['error'] = "Error: " . mysqli_error($dbConn) . 
@@ -697,7 +697,7 @@
         
             // Check if the user is the owner of the post
             if (!checkIfOwnerPost($postID, $_SESSION['uid'])) {
-                $_SESSION['error'] = "You are not authorized to edit this post.";
+                $_SESSION['error'] = "Não tem autorização para apagar o post.";
                 return false; // Stop execution if the user is not the owner
             }
         
@@ -729,10 +729,10 @@
             mysqli_close($dbConn);
         
             if ($wasUpdated) {
-                $_SESSION['success'] = "Post updated successfully.";
+                $_SESSION['success'] = "Post atualizado com successo.";
                 return true;
             } else {
-                $_SESSION['error'] = "No changes were made to the post.";
+                $_SESSION['error'] = "Nenhuma alteração foi feita.";
                 return false;
             }
         }
@@ -803,7 +803,7 @@
         
             $dbConn = db_connect();
             if (!$dbConn) {
-            $_SESSION['error'] = 'Falha na conexão com o banco de dados';
+            $_SESSION['error'] = 'Falha na conexão com a base de dados';
             return;
             }
         
@@ -981,7 +981,7 @@
         
             // Check if the user is the owner of the post
             if (!checkIfOwnerPost($postID, $_SESSION['uid'])) {
-            $_SESSION['error'] = "You are not authorized to delete this post.";
+            $_SESSION['error'] = "Não tem autorização para excluir este post.";
             return; // Stop execution if the user is not the owner
             }
         
@@ -1035,10 +1035,10 @@
         
             // Commit transaction
             mysqli_commit($dbConn);
-            $_SESSION['success'] = "Post deleted successfully.";
+            $_SESSION['success'] = "Post excluído com sucesso.";
             } else {
             mysqli_rollback($dbConn); // Rollback changes on error
-            $_SESSION['error'] = "Failed to delete post or likes associated with the post.";
+            $_SESSION['error'] = "Falha ao excluir o post.";
             }
         
             mysqli_close($dbConn); // Ensure the database connection is closed
@@ -1109,7 +1109,7 @@
     
         // Execute the query
         if (executeQuery($dbConn, $query, $params)) {
-            echo "Notification with ID $notifID deleted successfully.";
+            echo "Notificação excluída com sucesso.";
         } else {
             echo "Failed to delete notification with ID $notifID.";
         }
@@ -1139,7 +1139,7 @@
     
         // Execute the query
         if (executeQuery($dbConn, $query, $params)) {
-            error_log("Deleted successfully") ;
+            error_log("Excluído com sucesso") ;
         } else {
             error_log("Not deleted successfully") ;
         }
@@ -2022,15 +2022,15 @@
     
         // Check if any of the parameters are empty or null
         if (empty($reportId) || $reportId === "" || $reportId === null) {
-            $_SESSION['error'] = 'Report ID cannot be empty';
+            $_SESSION['error'] = 'Id do report não pode ser vazio';
             return false;
         }
         if (empty($reportReason) || $reportReason === "" || $reportReason === null) {
-            $_SESSION['error'] = 'Report reason cannot be empty';
+            $_SESSION['error'] = 'Razão do report não pode ser vazia';
             return false;
         }
         if (empty($reportType) || $reportType === "" || $reportType === null) {
-            $_SESSION['error'] = 'Report type cannot be empty';
+            $_SESSION['error'] = 'Tipo de report não pode ser vazio';
             return false;
         }
     
@@ -2044,11 +2044,11 @@
         $result = executeQuery($dbConn, $insertSql, [$reportReason, $reportType, $senderId, $postId]);
     
         if ($result) {
-            $_SESSION['success'] = 'Report saved successfully';
+            $_SESSION['success'] = 'Report enviado com sucesso';
             return true;
         } else {
             $error = mysqli_error($dbConn);
-            $_SESSION['error'] = 'Failed to save report: ' . $error;
+            $_SESSION['error'] = 'Falha no report: ' . $error;
             // Assuming mySQLerror is a function to handle SQL errors
             mySQLerror($error);
             return false;

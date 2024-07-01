@@ -35,7 +35,7 @@ function verifyEmailExistsAndStatus($email) {
             $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?username=" . $encryptedUsername . "&email=" . $encryptedEmail;
             
             // Send the verification email
-            if (sendVerificationEmail($email, "Verificação de Email", "Por favor, verifique seu email para efetuar login.", $verificationLink)) {
+            if (sendVerificationEmail($email, "Verificaçao de Email", "Por favor, verifique seu email para efetuar login.", $verificationLink)) {
                 $_SESSION['success'] = "Verifique seu email para concluir o registro.";
             } else {
                 $_SESSION['error'] = "Falha ao enviar email de verificação.";
