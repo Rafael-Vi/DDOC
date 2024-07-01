@@ -1,4 +1,5 @@
 <?php
+include "../config.inc.php";
 
 $encryptedUsername = $_GET['username'] ?? '';
 $encryptedEmail = $_GET['email'] ?? '';
