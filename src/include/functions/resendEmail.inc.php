@@ -2,16 +2,15 @@
 
 if (isset($_POST['email']) && !empty($_POST['email'])) {
     $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['emailL']));
-
     verifyEmailExistsAndStatus($email);
 }
 function verifyEmailExistsAndStatus($email) {
-    global $EncKey, $arrConfig; // Ensure the global encryption key and configuration are accessible
+    global $arrConfig; // Ensure the global encryption key and configuration are accessible
 
     $dbConn = db_connect(); // Establish database connection
 
     // Prepare the SQL query to select the user based on the provided email
-    $query = "SELECT username, verified FROM users WHERE email = ? LIMIT 1";
+    $query = "SELECT user_name, email_verify FROM users WHERE user_email = ? LIMIT 1";
     
     // Execute the query with the provided email
     $result = executeQuery($dbConn, $query, [$email]);
@@ -20,16 +19,16 @@ function verifyEmailExistsAndStatus($email) {
         // Fetch the user data
         $userData = $result->fetch_assoc();
         
-        if ($userData['verified']) {
+        if ($userData['email_verify']) {
             // If the user is already verified
             $_SESSION['error'] = "Este email já foi verificado.";
         } else {
             // If the user is not verified, proceed with the verification process
-            $username = $userData['username'];
+            $username = $userData['user_name'];
             
             // Encrypt the username and email
-            $encryptedUsername = encrypt(urlencode($username), $EncKey);
-            $encryptedEmail = encrypt(urlencode($email), $EncKey);
+            $encryptedUsername = encrypt(urlencode($username));
+            $encryptedEmail = encrypt(urlencode($email));
 
             // Generate the verification link with encrypted data
             $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?username=" . $encryptedUsername . "&email=" . $encryptedEmail;
