@@ -62,8 +62,8 @@ function userPasswordEmail($email, $newPassword) {
         $userData = $result->fetch_assoc();
         $username = $userData['user_name'];
 
-        $encryptedUsername = encrypt($username);
-        $encryptedEmail = encrypt($email);
+        $encryptedUsername = encrypt(urlencode($username));
+        $encryptedEmail = encrypt(urlencode($email));
 
         $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $encryptedNewPassword = encrypt($hashedNewPassword);
