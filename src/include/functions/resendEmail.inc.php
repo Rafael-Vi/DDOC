@@ -52,15 +52,15 @@ function verifyEmailExistsAndStatus($email) {
 }
 
 function userPasswordEmail($email, $newPassword) {
-    global $arrConfig; // Access global configuration and encryption key if needed
+    global $arrConfig;
 
-    $dbConn = db_connect(); // Establish database connection
+    $dbConn = db_connect();
 
     $fetchUsernameQuery = "SELECT user_name FROM users WHERE user_email = ? LIMIT 1";
     $result = executeQuery($dbConn, $fetchUsernameQuery, [$email]);
     if ($result && $result->num_rows > 0) {
         $userData = $result->fetch_assoc();
-        $username = $userData['username'];
+        $username = $userData['user_name'];
 
         $encryptedUsername = encrypt($username);
         $encryptedEmail = encrypt($email);
@@ -82,5 +82,5 @@ function userPasswordEmail($email, $newPassword) {
         $_SESSION['error'] = "Email not found.";
     }
     header("Location: /login");
-    exit(); // Ensure no further code is executed after redirect
+    exit();
 }
