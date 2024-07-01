@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST['email']) && !empty($_POST['email'])) {
-    $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['emailL']));
+    $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['email']));
     verifyEmailExistsAndStatus($email);
 }
 function verifyEmailExistsAndStatus($email) {
