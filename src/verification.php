@@ -27,7 +27,7 @@ include "include/config.inc.php";
       z-index: 49; /* Ensure it's above other content */
     }
   </style>
-    <title>Login & Registo</title>
+    <title>Verificações</title>
 </head>
 <body class="bg-gray-900">
 
@@ -51,7 +51,7 @@ if(isset($_SESSION['error'])) {
     <form id="emailResend" method="post" class="space-y-3" action="/src/include/functions/resendEmail.inc.php">
         <div class="space-y-2">
             <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
-            <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Reenviar</button>
+            <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Enviar email</button>
         </div>
     </form>
 </div>
