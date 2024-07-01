@@ -7,7 +7,6 @@
     require_once "functions/SQLfunctions.inc.php";
     require_once "functions/validateLRForm.inc.php";
     require_once "functions/resendEmail.inc.php";
-    require_once "functions/changePassword.inc.php";
     getThemes(false);
     if(isset($_SESSION['uid'])){
         getCanPostStatus($_SESSION['uid']);
