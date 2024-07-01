@@ -1,5 +1,5 @@
 <?php
-require_once "/src/include/config.inc.php";
+require_once "../config.inc.php";
 
 if (isset($_POST['email']) && !empty($_POST['email'])) {
     $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['email']));
