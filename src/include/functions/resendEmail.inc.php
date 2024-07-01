@@ -40,6 +40,7 @@ function verifyEmailExistsAndStatus($email) {
         $_SESSION['error'] = "Email não encontrado.";
     }
     header("Location: /login");
+    exit(); // Ensure no further code is executed after redirect
 }
 
 function userPasswordEmail($email, $newPassword) {
@@ -47,31 +48,21 @@ function userPasswordEmail($email, $newPassword) {
 
     $dbConn = db_connect(); // Establish database connection
 
-    // Fetch the username for the email provided
     $fetchUsernameQuery = "SELECT username FROM users WHERE user_email = ? LIMIT 1";
     $result = executeQuery($dbConn, $fetchUsernameQuery, [$email]);
     if ($result && $result->num_rows > 0) {
         $userData = $result->fetch_assoc();
-        $username = $userData['username']; // Assuming the column name is 'username'
+        $username = $userData['username'];
 
-        // Encrypt the username and email for the verification link
-        $encryptedUsername = encrypt($username); // This assumes you have an encrypt function
+        $encryptedUsername = encrypt($username);
         $encryptedEmail = encrypt($email);
 
-        // Hash the new password using PHP's password_hash function
         $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-        // Encrypt the hashed new password for the verification link
         $encryptedNewPassword = encrypt($hashedNewPassword);
 
-        // Create a verification link
         $verificationLink = "http://gentl.store/src/include/functions/verifyChangePassword.inc.php?username=" . urlencode($encryptedUsername) . "&email=" . urlencode($encryptedEmail) . "&newPassword=" . urlencode($encryptedNewPassword);
 
-        // Send email with the verification link
-        $subject = "Password Change Request";
-        $message = "Hello " . $username . ",\n\nYou have requested to change your password. Please click the link below to verify your request and update your password.\n\nVerification Link: " . $verificationLink . "\n\nIf you did not request this change, please ignore this email.";
-
-        if (sendVerificationEmail($email, $subject, $message, $verificationLink)) { // Adjusted to include verificationLink in the call
+        if (sendVerificationEmail($email, "Mudar Password", "Se não tiver pedido a mudança da pssword da sua conta não clicque neste link.", $verificationLink)) {
             $_SESSION['success'] = "A verification link has been sent to your email.";
         } else {
             $_SESSION['error'] = "Failed to send email with the verification link.";
@@ -80,4 +71,5 @@ function userPasswordEmail($email, $newPassword) {
         $_SESSION['error'] = "Email not found.";
     }
     header("Location: /login");
+    exit(); // Ensure no further code is executed after redirect
 }
