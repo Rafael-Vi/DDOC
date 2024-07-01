@@ -75,7 +75,6 @@ if(isset($_SESSION['error'])) {
                 <form id="passwordChange" method="post" class="space-y-3" action="/src/include/functions/resendEmail.inc.php">
                     <div class="space-y-2">
                         <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
-                        <input type="password" id="currentPassword" name="currentPassword" placeholder="Senha Atual" class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                         <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                         <button type="submit" name="submit" value="passwordChangeSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Alterar Senha</button>
                     </div>
