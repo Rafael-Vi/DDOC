@@ -215,6 +215,7 @@
             }
         
             list($encrypted_data, $iv) = explode('::', $data, 2);
+            // Base64 decode the IV after splitting
             $iv = base64_decode($iv);
             $ivLength = openssl_cipher_iv_length($method);
         
@@ -229,10 +230,11 @@
                 return false;
             }
         
-            return $decrypted; // Do not URL decode here to avoid altering the decrypted data
-        }
+            // URL decode the decrypted data to ensure characters like @ are correctly formatted
+            $decrypted = urldecode($decrypted);
         
-        // Adjust the verifyChangePassword and updatePassword functions to ensure proper handling of decrypted values
+            return $decrypted;
+        }
     
         function executeQuery($dbConn, $query, $params = null) {
             $stmt = mysqli_prepare($dbConn, $query);
