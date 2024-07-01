@@ -63,6 +63,7 @@ if(isset($_SESSION['error'])) {
                 <h2 class="text-2xl font-bold justify-center flex select-none text-white">Reenviar Email de Confirmação</h2>
                 <form id="emailResend" method="post" class="space-y-3" action="/src/include/functions/resendEmail.inc.php">
                     <div class="space-y-2">
+                        <input type="hidden" name="action" value="email-resend"> <!-- Hidden input field for action -->
                         <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                         <button type="submit" name="submit" value="loginSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Enviar email</button>
                     </div>
@@ -74,6 +75,7 @@ if(isset($_SESSION['error'])) {
                 <h2 class="text-2xl font-bold justify-center flex select-none text-white">Alterar Senha</h2>
                 <form id="passwordChange" method="post" class="space-y-3" action="/src/include/functions/resendEmail.inc.php">
                     <div class="space-y-2">
+                        <input type="hidden" name="action" value="password-alter"> <!-- Hidden input field for action -->
                         <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md mb-2 mt-6 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                         <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required class="w-full px-4 py-2 text-black bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent select-none">
                         <button type="submit" name="submit" value="passwordChangeSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Alterar Senha</button>
