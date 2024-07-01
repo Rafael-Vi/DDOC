@@ -7,7 +7,7 @@ if (isset($_POST['email']) && !empty($_POST['email'])) {
         verifyEmailExistsAndStatus($email);
     } elseif (isset($_POST['action']) && $_POST['action'] == 'password-alter' && isset($_POST['newPassword'])) {
         $newPassword = $_POST['newPassword'];
-        changeUserPassword($email, $newPassword);
+        userPasswordEmail($email, $newPassword);
     }
 }
 
@@ -42,7 +42,7 @@ function verifyEmailExistsAndStatus($email) {
     header("Location: /login");
 }
 
-function changeUserPassword($email, $newPassword) {
+function userPasswordEmail($email, $newPassword) {
     global $arrConfig; // Access global configuration and encryption key if needed
 
     $dbConn = db_connect(); // Establish database connection
