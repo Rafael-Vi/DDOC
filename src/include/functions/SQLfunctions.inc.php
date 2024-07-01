@@ -321,30 +321,6 @@
             }
         }
 
-        function changeUserPassword($email, $newPassword) {
-            global $arrConfig; // Access global configuration if needed
-        
-            $dbConn = db_connect(); // Establish database connection
-        
-            $query = "SELECT id_users FROM users WHERE user_email = ? LIMIT 1";
-            $result = executeQuery($dbConn, $query, [$email]);
-            
-            if ($result && $result->num_rows > 0) {
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                $updateQuery = "UPDATE users SET user_password = ? WHERE user_email = ?";
-                $updateResult = executeQuery($dbConn, $updateQuery, [$hashedPassword, $email]);
-                
-                if ($updateResult) {
-                    $_SESSION['success'] = "Senha alterada com sucesso.";
-                } else {
-                    $_SESSION['error'] = "Falha ao alterar a senha.";
-                }
-            } else {
-                $_SESSION['error'] = "Email não encontrado.";
-            }
-            header("Location: /login");
-        }
-
         function deleteUser($id) {
             $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
         
