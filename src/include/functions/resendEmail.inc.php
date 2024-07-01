@@ -1,13 +1,14 @@
 <?php
 require_once "../config.inc.php";
 
+// Further processing based on $_POST['action']
 if (isset($_POST['email']) && !empty($_POST['email'])) {
-    echo "Email veriasda.";
+    echo "Email verified.";
     $email = preg_replace('/\s+/', '', htmlspecialchars($_POST['email']));
-    if (isset($_POST['action']) && $_POST['action'] == 'email-resend') {
+    if ($_POST['action'] == 'email-resend') {
         verifyEmailExistsAndStatus($email);
         echo "Email verification sent.";
-    } elseif (isset($_POST['action']) && $_POST['action'] == 'password-alter' && isset($_POST['newPassword'])) {
+    } elseif ($_POST['action'] == 'password-alter' && isset($_POST['newPassword'])) {
         $newPassword = $_POST['newPassword'];
         userPasswordEmail($email, $newPassword);
         echo "Password change verification email sent.";
