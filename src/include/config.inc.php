@@ -1,5 +1,6 @@
 <?php
     @session_start();
+    error_reporting(E_ALL ^ E_NOTICE);
 
     require_once "functions/paths.inc.php";
     require_once "functions/alerts.inc.php";
