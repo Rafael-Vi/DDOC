@@ -36,7 +36,7 @@ function verifyChangePassword($username, $email, $newPassword) {
 
 function updatePassword($dbConn, $username, $newPassword) {
     // Hash a nova senha
-    $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    $hashedNewPassword = $newPassword;
 
     // Atualize a senha do usuário no banco de dados
     $updatePasswordQuery = "UPDATE users SET user_password = ? WHERE user_name = ?";
