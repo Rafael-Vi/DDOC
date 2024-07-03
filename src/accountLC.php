@@ -71,7 +71,7 @@ if(isset($_SESSION['error'])) {
                 </div>
             </form>
             <a class="flipbutton justify-center flex mt-4 select-none text-warning" id="registerButton" href="#">Login na minha conta →</a>
-            <a class="justify-center flex mt-4 select-none text-warning" id="registerButton" href="/verificacoes/email-resend">Renviar email de confirmação</a>
+            <a class="justify-center flex mt-4 select-none text-warning" id="emailResend_Button" href="/verificacoes/email-resend">Renviar email de confirmação</a>
         </div>
     </div>
 </div>
