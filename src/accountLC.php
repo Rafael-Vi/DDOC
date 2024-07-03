@@ -70,7 +70,7 @@ if(isset($_SESSION['error'])) {
                     <button type="submit" name="submit" value="registerSubmit" class="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-orange-700 select-none">Registar</button>
                 </div>
             </form>
-            <a class="flipbutton justify-center flex mt-4 select-none text-warning" id="registerButton" href="#">Login na minha conta →</a>
+            <a class="flipbutton justify-center flex mt-4 select-none text-warning" id="backToLoginButton" href="#">Login na minha conta →</a>
             <a class="justify-center flex mt-4 select-none text-warning" id="emailResend_Button" href="/verificacoes/email-resend">Renviar email de confirmação</a>
         </div>
     </div>

@@ -2,10 +2,10 @@
 var loginButton = document.getElementById("loginButton");
 loginButton.onclick = function() {
   document.querySelector("#flipper").classList.add("flip");
-}
+};
 
-// Remove the flip class from the flipper element when the register button is clicked
-var registerButton = document.getElementById("registerButton");
-registerButton.onclick = function() {
+// Assuming the ID of the "Login na minha conta →" link has been changed to backToLoginButton
+var backToLoginButton = document.getElementById("backToLoginButton");
+backToLoginButton.onclick = function() {
   document.querySelector("#flipper").classList.remove("flip");
-}
+};
