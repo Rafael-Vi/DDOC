@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $update_query .= " WHERE id_$table = ?";
         executeQuery($db_conn, $update_query, [$_GET['id']]);
     }
-    header("Location: tableView.php?table=$table");
+    header("Location: /admin/tableView.php?table=$table");
 }
 ?>
 <div class="w-screen h-[90vh] p-2 flex items-center justify-center">
