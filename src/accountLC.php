@@ -57,7 +57,7 @@ if(isset($_SESSION['error'])) {
                 </div>
             </form>
             <a class="flipbutton justify-center flex mt-4 select-none text-warning" id="loginButton" href="#">Criar a minha conta →</a>
-            <a class="justify-center flex mt-4 select-none text-warning" id="registerButton" href="/verificacoes/password-alter">Renviar email de confirmação</a>
+            <a class="justify-center flex mt-4 select-none text-warning" id="registerButton" href="/verificacoes/password-alter">Alterar Password</a>
         </div>
         
         <div class="back">
