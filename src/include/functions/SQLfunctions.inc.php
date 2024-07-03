@@ -289,37 +289,36 @@
 
 
     //? USER RELATED ------------------------------------------------------------------------
-
-        function sendVerificationEmail($toEmail, $subject, $message, $verificationLink) {
-            $mail = new PHPMailer(true); // Passing `true` enables exceptions
-            try {
-                // Server settings
-                // $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-                $mail->isSMTP();                                      // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com';                     // Specify main and backup SMTP servers
-                $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                $mail->Username = 'gameplaysrafinha0@gmail.com';                // SMTP username
-                $mail->Password = 'oufh ghoa pwvd zngt';                         // SMTP password
-                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-                $mail->Port = 587;                                    // TCP port to connect to
-        
-                // Recipients
-                $mail->setFrom('rafa.pinto.vieira@gmail.com', 'DDOC');
-                $mail->addAddress($toEmail);                          // Add a recipient
-        
-                // Content
-                $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = $subject;
-                $mail->Body    = $message . "<br><br><a href='" . $verificationLink . "'>Clique aqui para confirmar a ação</a>";
-                $mail->AltBody = strip_tags($message) . "\n\nLink: " . $verificationLink;
-        
-                $mail->send();
-                return true;
-            } catch (Exception $e) {
-                // Log the error or handle it as per your needs
-                return false;
-            }
+    function sendVerificationEmail($toEmail, $subject, $message, $verificationLink) {
+        $mail = new PHPMailer(true); // Passing `true` enables exceptions
+        try {
+            // Server settings
+            // $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'gameplaysrafinha0@gmail.com';      // SMTP username
+            $mail->Password = 'oufh ghoa pwvd zngt';              // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;                                    // TCP port to connect to
+    
+            // Recipients
+            $mail->setFrom('rafa.pinto.vieira@gmail.com', 'DDOC');
+            $mail->addAddress($toEmail);                          // Add a recipient
+    
+            // Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body = $message . "<br><br><a href='" . $verificationLink . "'>Clique aqui para confirmar a ação</a><br><br><img src='https://gentl.store/src/assets/images/1.png' alt='Image'>";
+            $mail->AltBody = strip_tags($message) . "\n\nLink: " . $verificationLink;
+    
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            // Log the error or handle it as per your needs
+            return false;
         }
+    }
 
         function deleteUser($id) {
             $dbConn = db_connect(); // Assuming db_connect() is a function that returns a database connection
