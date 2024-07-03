@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         executeQuery($db_conn, $update_query, [$_GET['id']]);
     }
     header("Location: /admin/tableView.php?table=$table");
+    exit();
 }
 ?>
 <div class="w-screen h-[90vh] p-2 flex items-center justify-center">

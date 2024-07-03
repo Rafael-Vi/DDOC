@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
     header("Location: /admin/tableView.php?table=$table");
+    exit();
 }
 ?>
 <div class="w-screen h-[90vh] p-2 flex items-center justify-center">
