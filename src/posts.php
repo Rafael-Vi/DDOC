@@ -11,7 +11,7 @@
 
     $post = showPost($_GET['id'], "no");
     if ($post === false) {
-        header("Location: ./errorPages/noPostFound.php");
+        header("Location: /erro/sem-Post");
         exit();
     }
     require "include/functions/Development.inc.php";

@@ -22,7 +22,7 @@ function checkThemeIsFinished() {
         return true; // Return true if there is a theme set
     }
     else {
-        header("Location: errorPages/noThemeError.php");
+        header("Location: /erro/sem-Tema");
         return false; // Return false if there is no theme set
     }
 }

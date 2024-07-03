@@ -18,15 +18,15 @@ try {
 } catch (Exception $e) {
     // Log decryption errors
     error_log("Decryption error: " . $e->getMessage());
-    $errorMessages[] = 'Error decrypting email or username.';
+    $errorMessages[] = 'Erro ao descriptografar o email ou nome de usuário.';
 }
 
 // Validate decrypted values
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errorMessages[] = 'Invalid or missing email.';
+    $errorMessages[] = 'Email inválido ou ausente.';
 }
 if (empty($usernameFromGet)) {
-    $errorMessages[] = 'Invalid or missing username.';
+    $errorMessages[] = 'Nome de usuário inválido ou ausente.';
 }
 
 // If there are any error messages, echo them and exit the script
@@ -42,7 +42,7 @@ try {
     $dbConn = db_connect();
 } catch (Exception $e) {
     error_log("Database connection error: " . $e->getMessage());
-    echo "Failed to connect to the database.";
+    echo "Falha ao conectar ao banco de dados.";
     exit;
 }
 
