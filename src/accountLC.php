@@ -78,7 +78,7 @@ if(isset($_SESSION['error'])) {
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../dist/bundle.js"></script>
+<script src="/src/js/accountLC.js"></script>
 <script src="../src/js/social.js"></script>
 </body>
 </html>
