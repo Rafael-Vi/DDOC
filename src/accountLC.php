@@ -46,7 +46,7 @@ if(isset($_SESSION['error'])) {
 }
 ?>
 <div class="flip-container">
-    <div class="flipper" id="flipper">
+    <div id="flipper" class="flipper">
         <div class="front">
             <h2 class="text-2xl font-bold justify-center flex select-none text-black">Login</h2>
             <form id="loginForm" method="post" class="space-y-3">
