@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION['admin_success'] = "Registro adicionado com sucesso";
         }
     }
-    header("Location: tableView.php?table=$table");
+    header("Location: /admin/tableView.php?table=$table");
 }
 ?>
 <div class="w-screen h-[90vh] p-2 flex items-center justify-center">
