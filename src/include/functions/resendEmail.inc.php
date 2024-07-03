@@ -35,7 +35,7 @@ function verifyEmailExistsAndStatus($email) {
             $encryptedEmail = encrypt(urlencode($email));
             $verificationLink = "http://gentl.store/src/include/functions/verifyEmail.php?username=" . $encryptedUsername . "&email=" . $encryptedEmail;
             
-            if (sendVerificationEmail($email, "Verificaçao de Email", "Por favor, verifique seu email para efetuar login.", $verificationLink)) {
+            if (sendVerificationEmail($email, "Verificacao de Email", "Por favor, verifique seu email para efetuar login.", $verificationLink)) {
                 echo "Verification email sent.";
                 $_SESSION['success'] = "Verifique seu email para concluir o registro.";
             } else {
@@ -70,7 +70,7 @@ function userPasswordEmail($email, $newPassword) {
 
         $verificationLink = "http://gentl.store/src/include/functions/verifyChangePassword.inc.php?username=" . urlencode($encryptedUsername) . "&email=" . urlencode($encryptedEmail) . "&newPassword=" . urlencode($encryptedNewPassword);
 
-        if (sendVerificationEmail($email, "Mudar Password", "Se não tiver pedido a mudança da pssword da sua conta não clicque neste link.", $verificationLink)) {
+        if (sendVerificationEmail($email, "Mudar Password", "Se não tiver pedido a mudança da password da sua conta não clicque neste link.", $verificationLink)) {
             echo "Password change verification email sent.";
             $_SESSION['success'] = "A verification link has been sent to your email.";
         } else {
