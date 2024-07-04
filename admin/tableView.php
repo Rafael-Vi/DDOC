@@ -129,7 +129,7 @@ if(isset($_SESSION['error'])) {
                                         } elseif ($row['post_type'] == 'video') {
                                             echo '<td><video controls style="max-height: 100px;"><source src="' . $fileSrc . '" type="video/mp4">Your browser does not support the video tag.</video></td>';
                                         } elseif ($row['post_type'] == 'audio') {
-                                            echo '<td><audio controls><source src="' . $arrConfig['url_assets']. 'images/audio.jpg" type="audio/mpeg">Your browser does not support the audio element.</audio></td>';
+                                            echo '<td><audio controls><source src="' . $arrConfig['url_posts']. 'audio/'.$row['post_url'].'" type="audio/mpeg">Your browser does not support the audio element.</audio></td>';
                                         } else {
                                             // Fallback for unknown types
                                             echo '<td>Unsupported file type</td>';
