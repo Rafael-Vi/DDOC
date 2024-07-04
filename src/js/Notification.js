@@ -17,7 +17,7 @@ function deleteNotifications(notificationId) {
 }
 
 function deleteAllNotifications() {
-    if (confirm('Are you sure you want to delete all notifications?')) {
+    if (confirm('Tem a certeza que quer apagar todas as notificações?')) {
         $.ajax({
             url: '/src/include/functions/SQLfunctions.inc.php',
             type: 'POST',
