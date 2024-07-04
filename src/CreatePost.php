@@ -79,7 +79,7 @@
 <form action="../src/include/functions/validadeCreatePost.inc.php" class="flex flex-col items-center h-full m-20 overflow-auto" method="Post" enctype="multipart/form-data" style="padding-left: 20%; padding-right: 20%;">
 
 <div class="flex justify-center w-full sm:w-3/4">
-  <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-1/2 mx-auto object-contain max-w-[40vh]" id="profile-picture">
+  <img src="<?php echo $arrConfig['url_assets'] . 'images/something.png'?>" alt="Thumbnail" class="rounded-sm mb-8 w-auto h-48 mx-auto object-contain max-w-[40vh]" id="profile-picture">
 </div>
 <label for="post-title" class="text-white font-bold text-2xl pt-4 text-left w-full">Legenda:</label>
 <textarea id="post-title" name="post-title" required class="rounded-lg px-4 py-2 bg-base-200  w-full" maxlength="255"></textarea><br>
