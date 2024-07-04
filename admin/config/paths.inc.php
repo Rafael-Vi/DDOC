@@ -19,8 +19,8 @@
     // caminhos Docs e/ou fotografias
     $arrConfig['dir_css'] = $arrConfig['dir_site'].'/src/css/';
     $arrConfig['url_css'] = $arrConfig['url_site'].'/src/css/';
-    $arrConfig['dir_posts'] = $arrConfig['dir_site'].'/upload/posts/';
-    $arrConfig['url_posts'] = $arrConfig['url_site'].'/upload/posts/';
+    $arrConfig['dir_posts'] = $arrConfig['dir_site'].'/src/upload/posts/';
+    $arrConfig['url_posts'] = $arrConfig['url_site'].'/src/upload/posts/';
     $arrConfig['dir_assets'] = $arrConfig['dir_site'].'/src/assets/';
     $arrConfig['url_assets'] = $arrConfig['url_site'].'/src/assets/';
     $arrConfig['dir_users'] = $arrConfig['dir_site'].'/upload/users/';
