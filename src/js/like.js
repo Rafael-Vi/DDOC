@@ -7,12 +7,11 @@ function likeCheck(postid) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) {
-            console.log('Response from server:', this.responseText);
             var likeButton = document.getElementById('like-button-'+postid);
             if (this.responseText.trim() === 'like') {
                 likeButton.textContent = 'Gosto';
             } else if (this.responseText.trim() === 'liked') {
-                likeButton.textContent = 'Gostado';
+                likeButton.textContent = 'Gostou';
             }
             getLikeCounts(postid);
         }
@@ -27,12 +26,11 @@ function likeCheckOnLoad(postid) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (this.status == 200) {
-            console.log('Response from server:', this.responseText);
             var likeButton = document.getElementById('like-button-'+postid);
             if (this.responseText.trim() === 'like') {
                 likeButton.textContent = 'Gosto';
             } else if (this.responseText.trim() === 'liked') {
-                likeButton.textContent = 'Gostado';
+                likeButton.textContent = 'Gostou';
             }
         }
     };
