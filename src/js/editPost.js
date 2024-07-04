@@ -31,7 +31,7 @@ function deletePost() {
     var postIdElement = document.getElementById('postId');
     var postid = atob(postIdElement.value);
     console.log('postid:', postid);
-    var userConfirmed = window.confirm('Are you sure you want to delete this post?');
+    var userConfirmed = window.confirm('Tem a certeza que quer apagar este post?');
     if (!userConfirmed) {
         return;
     }
