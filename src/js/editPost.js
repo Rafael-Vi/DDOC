@@ -60,7 +60,7 @@ function save() {
     var postIdElement = document.getElementById('postId');
     var postid = atob(postIdElement.value);
     var postContent = $('#postContent').val();
-    var confirmation = confirm('Are you sure you want to save this post?');
+    var confirmation = confirm('Tem a certeza que quer salvar?');
     if (!confirmation) {
         return;
     }
