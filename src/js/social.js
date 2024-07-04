@@ -33,7 +33,7 @@ $(document).ready(function() {
   $(document).ready(function() {
     $('#logout-link').click(function(e) {
         e.preventDefault(); // Prevent the default anchor behavior
-        if (confirm('Are you sure you want to log out?')) {
+        if (confirm('Tem a certeza que quer dar logout?')) {
             window.location.href = '/src/include/functions/logout.inc.php';
         }
     });
@@ -42,7 +42,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#logout-button').click(function(e) {
         e.preventDefault(); // Prevent the default anchor behavior
-        if (confirm('Are you sure you want to log out?')) {
+        if (confirm('Tem a certeza que quer dar logout?')) {
             window.location.href = '/src/include/functions/logout.inc.php';
         }
     });
