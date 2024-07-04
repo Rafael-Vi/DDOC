@@ -38,12 +38,13 @@
         echo '</div>';
 
     }
+
+    
     function echoUserPosts($post) {
         global $arrConfig;
-    
-        echo '<div class="post-container border-2 border-white" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black;">';
         echo '<a class="post-image" href="../post/' . urlencode($post['post_id']) .'">';
-    
+        // Add display: flex, justify-content: center, and align-items: center to center content
+        echo '<div class="post-container border-2 border-white" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; z-10; overflow: hidden; background: black; display: flex; justify-content: center; align-items: center;">';
         if ($post['post_type'] == 'video') {
             echo '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">';
             echo '<video width="100%" height="100%" style="object-fit: fill; margin: auto;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
@@ -52,15 +53,15 @@
             echo '</video>';
             echo '</div>';
         } else if ($post['post_type'] == 'audio') {
-            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">'; // Display audio.jpeg for audio type
+            echo '<img src="'. $arrConfig['url_assets'].'images/audio.jpg" alt="Audio Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">'; // Adjusted styles for centering
         } else {
-            echo '<img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="'.$post['caption'].'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">';
+            echo '<img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="'.$post['caption'].'" style="max-width: 100%; max-height: 100%; object-fit: contain;" class="shadow-md shadow-black hover:filter hover:brightness-20 hover:opacity-75">'; // Adjusted styles for centering
         }
     
-        echo '</a>';
         echo '<button disabled class="new-button absolute top-0 right-0 m-2 bg-slate-800 text-white font-bold py-2 px-4 mr-8 rounded" style="visibility: hidden; margin-right: 80px;">'.htmlspecialchars($post['caption']).'</button>'; // New disabled button with unique class
         echo '<button src="https://cdn-icons-png.flaticon.com/512/5400/5400852.png" onclick="showMyModal(\'' . htmlspecialchars(addslashes($post['post_id']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($post['caption']), ENT_QUOTES) . '\')" class="edit-post absolute top-0 right-0 m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" data-id="' . htmlspecialchars(urlencode($post['post_id']), ENT_QUOTES) . '" style="visibility: hidden;">Edit</button>';
         echo '</div>';  
+        echo '</a>';
     }
 
     function echoNoPosts(){
