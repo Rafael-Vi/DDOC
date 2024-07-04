@@ -98,7 +98,7 @@
   </div>
 </div>
 <input type="text" id="post-theme" name="post-theme" disabled class="rounded-lg bg-base-200 p-2 w-full" value="Tema: <?php echo $_SESSION['themes'][0]['theme']; ?>">
-<button type="submit" name="CreatePost" class="btn btn-warning font-bold py-2 px-4 rounded mt-8 w-full hover:text-orange-500">Publicar Post</button>
+<button type="submit" name="CreatePost" class="btn btn-warning font-bold py-2 px-4 rounded mt-8 mb-8 w-full hover:text-orange-500">Publicar Post</button>
 </form>
   <?php
   } else {
