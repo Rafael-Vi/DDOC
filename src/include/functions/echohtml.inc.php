@@ -263,123 +263,94 @@ $imageHtml = '';
         ';
     }
 
-
-
     function echoShowPost($post, $creator){
         global $arrConfig;
+        // Check if creator has an avatar, if not use a default from $arrConfig
+        $avatarURL = !empty($creator['avatar_url']) ? $arrConfig['url_users'].$creator['avatar_url'] : $arrConfig['url_assets'].'images/Unknown_person.jpg';
+    
         echo'<div id="post-'.$post['post_id'].'" class="h-full w-full p-10 flex flex-col relative bottom-0 overflow-auto">';
         switch($post['post_type']) {
             case 'image':
                 echo'
-                    <!-- Second row: User info and action button -->
                     <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                     <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'"><div class="flex items-center">
-                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                    <img src="'.$avatarURL.'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
-                    <!-- Action Button on the right -->
                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
-                    </div>';
+                    </div>
+                    <div class="flex flex-col justify-center items-center bg-base-200 h-full">
+                    <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
+                    </div>
+                    <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
+                        <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                if ($post['enabled'] == 0) {
+                    echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
+                } else {
+                    echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                }
                 echo'
-                <!-- First row: Post image -->
-                <div class="flex flex-col justify-center items-center bg-base-200 h-full">
-                <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
-                </div>
-                ';
-                echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
-                <!-- Second row: Caption, like button, like count, and ranking need to get the ranking -->
-                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
-                    <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
-
-                    if ($post['enabled'] == 0) {
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
-                    } else {
-                        // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
-                    }
-                    echo'
                     <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
                     <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
                 </div>';
-                
                 break;
             case 'audio':
                 echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-start py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                 <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'">
                     <div class="flex items-center">
-                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
+                    <img src="'.$avatarURL.'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
                     <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                 </div>
                 </a>
+            </div>
+            <div class="flex flex-col justify-center items-center bg-base-200 h-full">
+                <img src="'. $arrConfig['url_assets']. 'images/audio.jpg" alt="Audio Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
+                <audio controls class="rounded-sm w-full h-auto mt-4 object-contain">
+                    <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+            <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
+                <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
+                if ($post['enabled'] == 0) {
+                    echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
+                } else {
+                    echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                }
+                echo'
+                 <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
             </div>';
-                echo'
-                <!-- Post audio with image on top -->
-                <div class="flex flex-col justify-center items-center bg-base-200 h-full">
-                    <img src="'. $arrConfig['url_assets']. 'images/audio.jpg" alt="Audio Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
-                    <audio controls class="rounded-sm w-full h-auto mt-4 object-contain">
-                        <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio>
-                </div>
-                ';
-            // Caption, like button, like count, and ranking
-                echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
-                <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500 my-auto">
-                    <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
-
-                    if ($post['enabled'] == 0) {
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
-                    } else {
-                        // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
-                    }
-                    echo'
-                     <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
-                </div>';
                 break;
             case 'video':
                 echo'
-                    <!-- Second row: User info and action button -->
                     <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
                     <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'"><div class="flex items-center">
-                    <img src="'.$arrConfig['url_users'].''.$creator['avatar_url'].'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                    <img src="'.$avatarURL.'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
-                    <!-- Action Button on the right -->
                      <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
-                    </div>';
-                echo'
-    
-                <!-- First row: Post video -->
+                    </div>
                 <div class="flex grow-0">
                     <video controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
                         <source src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" type="video/mp4" class="rounded-sm w-full h-auto mt-2 mb-10 block mx-auto object-contain max-w-[60vh]">
                         O seu browse não suporta a tag de vídeo.
                     </video>
                 </div>
-                ';
-                echo'
-                <!-- Second row: Caption, like button, like count, and ranking -->
                 <div class="flex items-center justify-between py-4 bg-base-200 rounded-b-lg border-t-4 border-t-orange-500">
                     <textarea class="text-2xl font-bold ml-4" readonly>'.$post['caption'].'</textarea>';
-
-                    if ($post['enabled'] == 0) {
-                        echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
-                    } else {
-                        // Output a disabled button
-                        echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
-                    }
-                    echo'
-                     <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
-                    <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
-                </div>';
+                if ($post['enabled'] == 0) {
+                    echo '<button id="like-button-' . $post['post_id'] . '" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onclick="likeCheck(' . $post['post_id'] . ')">Like</button>';
+                } else {
+                    echo '<button id="like-button' . $post['post_id'] . '" class="btn btn-ghost w-1/4 text-white font-bold py-2 px-4 rounded" disabled>Desativado</button>';
+                }
+                echo'
+                 <span class="text-2xl font-bold" id="like-count-'.$post['post_id'].'">Gostos: <span class="loading loading-ring loading-lg text-warning"></span></span>
+                <span class="text-2xl font-bold mr-4">Ranking: #'.$post['rank'].'</span>
+            </div>';
                 break;
         }
         echo'</div>';
