@@ -69,7 +69,7 @@ setInterval(loadMessages, 500);
 
 function deleteMessage(messageId) {
     console.log('Delete message:', messageId)
-    if (!window.confirm('Are you sure you want to delete this message? This action cannot be undone.')) {
+    if (!window.confirm('Tem certeza que quer apagar esta mensagem?')) {
         return;
     }
 
