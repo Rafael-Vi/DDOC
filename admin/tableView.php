@@ -122,14 +122,14 @@ if(isset($_SESSION['error'])) {
                                 foreach ($columns as $column) {
                                     if ($column == 'post_url') {
                                         // Assuming 'post_url' column contains the file name
-                                        $fileSrc = $arrConfig['url_posts'] . '/' . $row['type'] . '/' . $row[$column]; // Adjust the path as needed
+                                        $fileSrc = $arrConfig['url_posts'] . '/' . $row['post_type'] . '/' . $row[$column]; // Adjust the path as needed
                                         // Determine the file type based on the 'type' column or file extension
                                         if ($row['post_type'] == 'image') {
                                             echo '<td><img src="' . $fileSrc . '" alt="Post Image" style="max-height: 100px;"></td>'; // Set max-height as per requirement
                                         } elseif ($row['post_type'] == 'video') {
                                             echo '<td><video controls style="max-height: 100px;"><source src="' . $fileSrc . '" type="video/mp4">Your browser does not support the video tag.</video></td>';
                                         } elseif ($row['post_type'] == 'audio') {
-                                            echo '<td><audio controls><source src="' . $fileSrc . '" type="audio/mpeg">Your browser does not support the audio element.</audio></td>';
+                                            echo '<td><audio controls><source src="' . $arrConfig['url_assets']. 'images/audio.jpg" type="audio/mpeg">Your browser does not support the audio element.</audio></td>';
                                         } else {
                                             // Fallback for unknown types
                                             echo '<td>Unsupported file type</td>';
