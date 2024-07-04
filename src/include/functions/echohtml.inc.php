@@ -278,7 +278,7 @@ $imageHtml = '';
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
-                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Reportar</button>
                     </div>
                     <div class="flex flex-col justify-center items-center bg-base-200 h-full">
                     <img src="'. $arrConfig['url_posts']. $post['post_type'].'/'.$post['post_url'].'" alt="Post Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
@@ -332,7 +332,7 @@ $imageHtml = '';
                         <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
                     </div>
                     </a>
-                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Report</button>
+                     <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Reportar</button>
                     </div>
                 <div class="flex grow-0">
                     <video controls class="rounded-sm w-full h-auto mt-4 mr-10 lg:ml-3/5 sm:mr-8 lg:mr-3/5 object-contain">
