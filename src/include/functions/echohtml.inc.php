@@ -297,14 +297,14 @@ $imageHtml = '';
                 break;
             case 'audio':
                 echo'
-                <div class="flex items-center justify-start py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
-                <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'">
-                    <div class="flex items-center">
-                    <img src="'.$avatarURL.'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800"></a>
-                    <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
-                </div>
-                </a>
-            </div>
+ <div class="flex items-center justify-between py-4 pl-8 bg-base-200 rounded-t-lg border-b-4 border-b-orange-500 my-auto">
+                    <a class="hover:scale-105" href="../perfil-de-outro/'.$creator['id'].'"><div class="flex items-center">
+                    <img src="'.$avatarURL.'" alt="Avatar" class="rounded-full h-10 w-10 bg-red-800">
+                        <span class="text-xl font-bold ml-4">@'.$creator['name'].'</span>
+                    </div>
+                    </a>
+                    <button onclick="openReport(\'' . $post['post_id'] . '\',\''  . $post['caption'] . '\')" class="bg-gray-800 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-4">Reportar</button>
+                    </div>
             <div class="flex flex-col justify-center items-center bg-base-200 h-full">
                 <img src="'. $arrConfig['url_assets']. 'images/audio.jpg" alt="Audio Image" class="rounded-lg w-full h-auto block mx-auto object-contain max-h-[60vh]">
                 <audio controls class="rounded-sm w-full h-auto mt-4 object-contain">
