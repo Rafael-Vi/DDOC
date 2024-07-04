@@ -120,7 +120,13 @@ if(isset($_SESSION['error'])) {
                             foreach ($data as $row) {
                                 echo '<tr class="hover">';
                                 foreach ($columns as $column) {
-                                    echo '<td>' . $row[$column] . '</td>';
+                                    if ($column == 'post_url') {
+                                        // Assuming 'post_url' column contains the image name
+                                        $imageSrc = $arrConfig['url_posts'] . '/image/' . $row[$column]; // Adjust the path as needed
+                                        echo '<td><img src="' . $imageSrc . '" alt="Post Image" style="max-height: 100px;"></td>'; // Set max-height as per requirement
+                                    } else {
+                                        echo '<td>' . $row[$column] . '</td>';
+                                    }
                                 }
                                 // Check permissions for edit and delete actions
                                 if ($tablePermissions[$table]['editable'] || $tablePermissions[$table]['deletable']) {
