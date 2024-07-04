@@ -121,7 +121,7 @@ if (!isset($_GET['convo_id']) || $_GET['convo_id'] == "") {
                     </div>
                 ';
             } else {
-                header("Location: messages.php");
+                header("Location: /mensagens");
                 exit; // Ensure no further output is sent
             }
         } else {
